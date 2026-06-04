@@ -1,0 +1,76 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 3,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549104783,
+            "stop": 1780549111832
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_num_versions_is_integer_and_meets_minimum",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 77,
+                "start": 1780549111406,
+                "stop": 1780549111483,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "result_payload = {'early_version_ids_sorted': [1, 2, 3, 4, 5], 'latest_id3_title': 'v3-updated', 'latest_version_ids_sorted': [2, 3, 4, 5, 6, 7, ...], 'num_versions': 4}\n\n    def test_num_versions_is_integer_and_meets_minimum(result_payload):\n        value = result_payload.get(\"num_versions\")\n        assert isinstance(value, int) and not isinstance(value, bool), (\n            f\"'num_versions' must be an integer, got {type(value).__name__}: {value!r}.\"\n        )\n>       assert value >= MIN_NUM_VERSIONS, (\n            f\"'num_versions' should be >= {MIN_NUM_VERSIONS} after the required mutations, got {value}.\"\n        )\nE       AssertionError: 'num_versions' should be >= 5 after the required mutations, got 4.\nE       assert 4 >= 5\n\ntests/test_final_state.py:35: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_early_version_ids",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549111483,
+                "stop": 1780549111484,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_latest_version_ids",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780549111485,
+                "stop": 1780549111485,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_latest_id3_title",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549111486,
+                "stop": 1780549111487,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_latest_state_matches_via_sdk",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 345,
+                "start": 1780549111487,
+                "stop": 1780549111832,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_table_latest_state_matches_via_sdk():\n        uri = os.environ.get(\"LANCEDB_URI\", \"/workspace/db\")\n        db = lancedb.connect(uri)\n        table_names = list(db.table_names())\n        assert \"docs\" in table_names, (\n            f\"Expected a 'docs' table in LanceDB at {uri}, found tables: {table_names}.\"\n        )\n        table = db.open_table(\"docs\")\n        table.checkout_latest()\n        rows = table.to_pandas()\n        ids_sorted = sorted(int(x) for x in rows[\"id\"].tolist())\n        assert ids_sorted == EXPECTED_LATEST_IDS, (\n            f\"Latest snapshot of 'docs' should contain ids {EXPECTED_LATEST_IDS}, got {ids_sorted}.\"\n        )\n        id3_rows = rows[rows[\"id\"] == 3]\n        assert len(id3_rows) == 1, (\n            f\"Expected exactly one row with id=3 in the latest snapshot, found {len(id3_rows)}.\"\n        )\n        assert id3_rows.iloc[0][\"title\"] == EXPECTED_LATEST_ID3_TITLE, (\n            f\"Expected id=3 title to be {EXPECTED_LATEST_ID3_TITLE!r}, got \"\n            f\"{id3_rows.iloc[0]['title']!r}.\"\n        )\n        versions = table.list_versions()\n>       assert len(versions) >= MIN_NUM_VERSIONS, (\n            f\"Expected at least {MIN_NUM_VERSIONS} versions on 'docs', got {len(versions)}.\"\n        )\nE       AssertionError: Expected at least 5 versions on 'docs', got 4.\nE       assert 4 >= 5\nE        +  where 4 = len([{'metadata': {'total_data_file_rows': '5', 'total_data_files': '1', 'total_deletion_file_rows': '0', 'total_deletion_...': '2', 'total_deletion_files': '1', ...}, 'timestamp': datetime.datetime(2026, 6, 4, 4, 58, 8, 890495), 'version': 4}])\n\ntests/test_final_state.py:95: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

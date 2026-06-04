@@ -1,0 +1,7 @@
+{
+  "library_name": "LanceDB",
+  "task_name": "count_rows_with_filter_py",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "N/A (user-provided task specification)",
+  "output_dir": "scratchpad/pending-tasks/"
+}

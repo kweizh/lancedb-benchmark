@@ -1,0 +1,44 @@
+# LanceDB Basic SQL `where` Filtering
+
+## Background
+You maintain a small event log and want to use LanceDB's SQL `where` clause to quickly slice the log by severity and event type without running vector search. LanceDB is built on Apache DataFusion, so its query builder accepts standard SQL predicates against table columns.
+
+## Requirements
+Write a Python program at `/workspace/solution/run.py` that:
+
+1. Connects to a LanceDB database at the URI from the `LANCEDB_URI` environment variable (default `/workspace/db`).
+2. (Re)creates a table named `events` with this Arrow schema:
+   - `id`: `int64`
+   - `event_type`: `string`
+   - `severity`: `int32`
+   - `created_at`: `timestamp[us]`
+   - `vector`: `fixed_size_list<float32>[8]`
+3. Seeds the table with exactly 30 rows of deterministic data (see Implementation Hints for the exact seed values).
+4. Runs three pure metadata queries using LanceDB's SQL `where` clause and writes the combined result to `/workspace/output/filter_results.json` as a single JSON object with three keys: `high_severity`, `errors_only`, and `combined`.
+5. Each value must be a JSON array of objects with the keys `id`, `event_type`, and `severity`, sorted by `id` ascending. The three queries are:
+   - `high_severity`: rows where `severity >= 7`.
+   - `errors_only`: rows where `event_type = 'error'`.
+   - `combined`: rows where `event_type = 'warn' AND severity >= 3`.
+
+## Implementation Hints
+- Connect via `lancedb.connect(uri)` and use `db.create_table("events", schema=..., mode="overwrite")` so reruns are idempotent.
+- LanceDB's query builder supports `table.search().where("<sql>").limit(<n>).to_list()` for pure metadata filtering (no vector required). Calling `search()` with no argument returns a plain query that respects the `where` clause.
+- SQL filter expressions support `>=`, `=`, `AND`, `OR`, and quoted string literals (e.g. `event_type = 'error'`).
+- Use Python's standard `json` module to dump the results. Sort each list by `id` ascending before writing.
+- Build the fixture deterministically:
+  - Vectors: `numpy.random.default_rng(5).standard_normal((30, 8)).astype("float32")`.
+  - Other columns come from this fixed Python data (row `i` uses index `i`):
+    - `id`: `i` for `i` in `0..29`.
+    - `event_type` cycles through `["info", "warn", "error", "warn", "info", "error"]` (use index `i % 6`).
+    - `severity` cycles through `[1, 3, 5, 7, 9, 2, 4, 6, 8, 10]` (use index `i % 10`).
+    - `created_at` is `datetime(2024, 1, 1, 0, 0, 0) + timedelta(hours=i)` (use Python `datetime` so it lands in the Arrow `timestamp[us]` column).
+- Ensure `/workspace/output` exists before writing.
+
+## Acceptance Criteria
+- Project path: /workspace/solution
+- Ensure the script is executed and the artifacts exist.
+- Output file: /workspace/output/filter_results.json
+- The file must be valid JSON with exactly the top-level keys `high_severity`, `errors_only`, and `combined`.
+- Each value must be a JSON array of objects, each with exactly the keys `id`, `event_type`, and `severity`, sorted by `id` ascending.
+- The LanceDB database at `LANCEDB_URI` must contain an `events` table with 30 rows that match the deterministic fixture described in Implementation Hints.
+

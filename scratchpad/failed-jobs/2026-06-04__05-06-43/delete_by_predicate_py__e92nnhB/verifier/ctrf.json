@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549923380,
+            "stop": 1780549927347
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_json_has_required_keys",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549927297,
+                "stop": 1780549927298,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_total_rows_matches_expected",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780549927299,
+                "stop": 1780549927299,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_remaining_ids_match_expected",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549927300,
+                "stop": 1780549927301,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_count_rows_matches_expected",
+                "status": "passed",
+                "duration": 7,
+                "start": 1780549927302,
+                "stop": 1780549927309,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_remaining_ids_match_expected",
+                "status": "passed",
+                "duration": 14,
+                "start": 1780549927310,
+                "stop": 1780549927324,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_warn_rows_remain",
+                "status": "passed",
+                "duration": 8,
+                "start": 1780549927324,
+                "stop": 1780549927332,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_info_seq_gt_60_rows_remain",
+                "status": "passed",
+                "duration": 8,
+                "start": 1780549927332,
+                "stop": 1780549927340,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_explicit_id_deletes_applied",
+                "status": "passed",
+                "duration": 7,
+                "start": 1780549927340,
+                "stop": 1780549927347,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

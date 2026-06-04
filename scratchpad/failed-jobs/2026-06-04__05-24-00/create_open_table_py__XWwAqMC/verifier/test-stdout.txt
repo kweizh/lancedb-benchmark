@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_summary_has_required_keys
+PASSED tests/test_final_state.py::test_tables_in_db_sorted_and_contains_products
+PASSED tests/test_final_state.py::test_row_count_is_six
+PASSED tests/test_final_state.py::test_schema_field_names_sorted_and_superset
+PASSED tests/test_final_state.py::test_products_table_via_sdk
+============================== 5 passed in 3.20s ===============================

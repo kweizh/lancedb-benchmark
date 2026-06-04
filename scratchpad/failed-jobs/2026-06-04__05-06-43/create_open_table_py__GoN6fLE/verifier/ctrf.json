@@ -1,0 +1,70 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549686102,
+            "stop": 1780549689285
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_summary_has_required_keys",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780549686147,
+                "stop": 1780549686149,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tables_in_db_sorted_and_contains_products",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549686150,
+                "stop": 1780549686151,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_row_count_is_six",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549686152,
+                "stop": 1780549686153,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_schema_field_names_sorted_and_superset",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549686154,
+                "stop": 1780549686155,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_table_via_sdk",
+                "status": "passed",
+                "duration": 3130,
+                "start": 1780549686155,
+                "stop": 1780549689285,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

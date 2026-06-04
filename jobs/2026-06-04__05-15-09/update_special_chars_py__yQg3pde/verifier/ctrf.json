@@ -1,0 +1,115 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550599996,
+            "stop": 1780550603294
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_file_row_count_and_ids",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550600032,
+                "stop": 1780550600033,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_row_schema",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780550600034,
+                "stop": 1780550600034,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_id2_body_has_apostrophe",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550600035,
+                "stop": 1780550600036,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_id4_body_has_apostrophe",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550600036,
+                "stop": 1780550600037,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_id6_author_has_apostrophe",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780550600038,
+                "stop": 1780550600038,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_unmodified_rows_unchanged",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780550600039,
+                "stop": 1780550600039,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_matches_output_file",
+                "status": "passed",
+                "duration": 3249,
+                "start": 1780550600040,
+                "stop": 1780550603289,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_id2_body",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550603290,
+                "stop": 1780550603291,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_id4_body",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550603291,
+                "stop": 1780550603292,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_id6_author",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550603292,
+                "stop": 1780550603293,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

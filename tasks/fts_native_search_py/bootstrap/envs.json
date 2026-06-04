@@ -1,0 +1,4 @@
+{
+    "task": ["LANCEDB_URI", "FTS_QUERY_1", "FTS_QUERY_2"],
+    "verifier": ["LANCEDB_URI"]
+}

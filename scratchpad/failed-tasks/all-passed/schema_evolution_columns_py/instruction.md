@@ -1,0 +1,36 @@
+# LanceDB Schema Evolution: Add and Drop Columns
+
+## Background
+You are extending an inventory management table backed by LanceDB. The table was originally created with a small set of fields (including a vector column), but the application no longer needs the vector and now requires two derived columns: a price-in-cents integer and a low-stock boolean flag. Use LanceDB's schema evolution APIs (`Table.add_columns` and `Table.drop_columns`) to evolve the table in place — without rewriting the data or dropping the table — and emit a summary JSON document describing the resulting state.
+
+## Requirements
+- Connect to LanceDB OSS using the URI in the `LANCEDB_URI` environment variable (defaults to `/workspace/db` when unset).
+- Open the existing table named `inventory`. Do not recreate it.
+- Evolve the schema in place using LanceDB's schema-evolution APIs:
+  - Add a new `BIGINT` column `price_cents` whose value is `qty * 100` for every existing row.
+  - Add a new boolean column `is_low_stock` that is `true` when `qty < 5` and `false` otherwise.
+  - Drop the `vector` column entirely.
+- Write a summary JSON file to `/workspace/output/schema_after.json` describing the post-evolution state.
+- Do NOT drop or recreate the table. Do NOT delete rows. Do NOT modify `id`, `sku`, or `qty`.
+
+## Implementation Hints
+- The lancedb Python SDK provides `table.add_columns({"new_col": "<sql expression>"})` to add columns whose values are computed from a SQL expression evaluated against the existing rows.
+- Use SQL `CAST(... AS BIGINT)` for integer arithmetic and boolean comparison operators (`<`) for the low-stock flag.
+- Use `table.drop_columns(["<col>"])` to remove a column.
+- After evolution, inspect `table.schema` to enumerate the remaining columns, and use `table.to_pandas()` (or `table.to_arrow()`) to compute aggregates for the JSON summary.
+- The script should write the output JSON with sorted keys and stable ordering so it can be compared deterministically.
+
+## Acceptance Criteria
+- Project path: /workspace/solution
+- Command: python3 /workspace/solution/main.py
+- The script must read the database URI from the `LANCEDB_URI` environment variable (default `/workspace/db`) and operate on the existing `inventory` table.
+- After the script exits successfully, the `inventory` table in the LanceDB database must:
+  - No longer contain a `vector` column.
+  - Contain a `price_cents` column of integer (64-bit) type.
+  - Contain an `is_low_stock` column of boolean type.
+  - Still contain the original `id`, `sku`, and `qty` columns with their original values and row count.
+- A JSON file must exist at `/workspace/output/schema_after.json` with exactly the following top-level keys:
+  - `field_names_sorted`: a JSON array of strings — the sorted list of column names of the evolved table.
+  - `low_stock_ids_sorted`: a JSON array of integers — the sorted list of `id` values where `is_low_stock` is `true`.
+  - `total_price_cents`: a JSON integer — the sum of `price_cents` across all rows.
+

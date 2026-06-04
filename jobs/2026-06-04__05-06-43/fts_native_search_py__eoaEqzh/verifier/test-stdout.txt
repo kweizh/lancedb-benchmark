@@ -1,0 +1,54 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py .....FF                                        [100%]
+
+=================================== FAILURES ===================================
+___________________ test_results_top_ids_match_ground_truth ____________________
+
+    def test_results_top_ids_match_ground_truth():
+        with open(RESULTS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        for key, expected in EXPECTED_QUERIES.items():
+            top = data[key][0]
+>           assert top["id"] == expected["top_id"], (
+                f"{RESULTS_PATH}: top result id for '{key}' (query='{expected['text']}') "
+                f"must be {expected['top_id']}; got id={top['id']!r}, title={top.get('title')!r}."
+            )
+E           AssertionError: /workspace/output/fts_results.json: top result id for 'query_2' (query='REDACTED') must be 2; got id=4, title='Article 4'.
+E           assert 4 == 2
+
+tests/test_final_state.py:159: AssertionError
+_______________ test_independent_fts_query_matches_ground_truth ________________
+
+table = LanceTable(name='articles', version=2, _conn=LanceDBConnection(uri='REDACTED'))
+
+    def test_independent_fts_query_matches_ground_truth(table):
+        """Independently re-run the two FTS queries via the SDK and verify ground-truth top hits."""
+        for key, expected in EXPECTED_QUERIES.items():
+            hits = table.search(expected["text"], query_type="fts").limit(3).to_list()
+            assert hits, (
+                f"Independent FTS query for '{expected['text']}' returned no results."
+            )
+>           assert int(hits[0]["id"]) == expected["top_id"], (
+                f"Independent FTS query for '{expected['text']}' returned top id={hits[0]['id']!r} "
+                f"(title={hits[0].get('title')!r}); expected id={expected['top_id']}."
+            )
+E           AssertionError: Independent FTS query for 'REDACTED' returned top id=4 (title='Article 4'); expected id=2.
+E           assert 4 == 2
+E            +  where 4 = int(4)
+
+tests/test_final_state.py:172: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_table_schema
+PASSED tests/test_final_state.py::test_row_count
+PASSED tests/test_final_state.py::test_fts_index_on_body
+PASSED tests/test_final_state.py::test_results_file_exists
+PASSED tests/test_final_state.py::test_results_json_structure
+FAILED tests/test_final_state.py::test_results_top_ids_match_ground_truth - A...
+FAILED tests/test_final_state.py::test_independent_fts_query_matches_ground_truth
+========================= 2 failed, 5 passed in 3.08s ==========================

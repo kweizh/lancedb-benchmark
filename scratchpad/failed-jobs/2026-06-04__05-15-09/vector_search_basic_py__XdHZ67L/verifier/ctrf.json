@@ -1,0 +1,82 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550211275,
+            "stop": 1780550216447
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_results_is_list_of_five",
+                "status": "passed",
+                "duration": 2334,
+                "start": 1780550211547,
+                "stop": 1780550213881,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_each_row_has_correct_keys_and_types",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780550213882,
+                "stop": 1780550213884,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ids_match_expected_topk",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780550213884,
+                "stop": 1780550213887,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_text_matches_id_pattern",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550213888,
+                "stop": 1780550213889,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_distances_are_sorted_and_close",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 40,
+                "start": 1780550213890,
+                "stop": 1780550213930,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "run_solution = [{'_distance': 6.001994609832764, 'id': 10, 'text': 'document_10'}, {'_distance': 8.244890213012695, 'id': 1, 'text': ...e': 9.749801635742188, 'id': 4, 'text': 'document_4'}, {'_distance': 11.07033920288086, 'id': 2, 'text': 'document_2'}]\n\n    def test_distances_are_sorted_and_close(run_solution):\n        data = run_solution\n        expected = _expected_top5()\n        distances = [row[\"_distance\"] for row in data]\n        assert distances == sorted(distances), (\n            f\"_distance values must be non-decreasing, got {distances}.\"\n        )\n        for row, (_eid, edist) in zip(data, expected):\n>           assert abs(row[\"_distance\"] - edist) < 1e-3, (\n                f\"_distance for id={row['id']} expected ~{edist}, got {row['_distance']}.\"\n            )\nE           AssertionError: _distance for id=10 expected ~2.449896812438965, got 6.001994609832764.\nE           assert 3.552097797393799 < 0.001\nE            +  where 3.552097797393799 = abs((6.001994609832764 - 2.449896812438965))\n\ntests/test_final_state.py:103: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_table_schema_and_rowcount",
+                "status": "passed",
+                "duration": 2516,
+                "start": 1780550213931,
+                "stop": 1780550216447,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

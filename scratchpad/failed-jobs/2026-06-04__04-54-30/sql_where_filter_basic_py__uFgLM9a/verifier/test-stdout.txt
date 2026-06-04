@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_file_top_level_keys
+PASSED tests/test_final_state.py::test_filter_results_match_ground_truth[high_severity]
+PASSED tests/test_final_state.py::test_filter_results_match_ground_truth[errors_only]
+PASSED tests/test_final_state.py::test_filter_results_match_ground_truth[combined]
+PASSED tests/test_final_state.py::test_events_table_matches_fixture
+============================== 5 passed in 4.60s ===============================

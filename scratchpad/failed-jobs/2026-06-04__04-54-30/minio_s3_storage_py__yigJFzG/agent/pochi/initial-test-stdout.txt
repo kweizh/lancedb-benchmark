@@ -1,0 +1,105 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+bootstrap/test_initial_state.py::test_workspace_directory_exists PASSED
+bootstrap/test_initial_state.py::test_output_directory_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_pyarrow_importable PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_minio_credentials_env_vars_set PASSED
+bootstrap/test_initial_state.py::test_minio_server_reachable_and_healthy PASSED
+bootstrap/test_initial_state.py::test_lance_bucket_precreated 
+-------------------------------- live log call ---------------------------------
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from before-call.apigateway to before-call.api-gateway
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+DEBUG    botocore.hooks:hooks.py:482 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+DEBUG    botocore.loaders:loaders.py:181 Loading JSON file: /usr/local/lib/python3.12/dist-packages/botocore/data/endpoints.json
+DEBUG    botocore.loaders:loaders.py:181 Loading JSON file: /usr/local/lib/python3.12/dist-packages/botocore/data/sdk-default-configuration.json
+DEBUG    botocore.hooks:hooks.py:238 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f161bc74c20>
+DEBUG    botocore.loaders:loaders.py:181 Loading JSON file: /usr/local/lib/python3.12/dist-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+DEBUG    botocore.loaders:loaders.py:181 Loading JSON file: /usr/local/lib/python3.12/dist-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+DEBUG    botocore.loaders:loaders.py:181 Loading JSON file: /usr/local/lib/python3.12/dist-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+DEBUG    botocore.loaders:loaders.py:181 Loading JSON file: /usr/local/lib/python3.12/dist-packages/botocore/data/partitions.json
+DEBUG    botocore.hooks:hooks.py:238 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f161bdb9bc0>
+DEBUG    botocore.hooks:hooks.py:238 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f161bf70d60>
+DEBUG    botocore.hooks:hooks.py:238 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f161bdb9940>
+DEBUG    botocore.endpoint:endpoint.py:414 Setting s3 timeout as (60, 60)
+DEBUG    botocore.loaders:loaders.py:181 Loading JSON file: /usr/local/lib/python3.12/dist-packages/botocore/data/_retry.json
+DEBUG    botocore.client:client.py:289 Registering retry handlers for service: s3
+DEBUG    botocore.utils:utils.py:1718 Registering S3 region redirector handler
+DEBUG    botocore.utils:utils.py:1666 Registering S3Express Identity Resolver
+DEBUG    botocore.hooks:hooks.py:238 Event before-parameter-build.s3.ListBuckets: calling handler <function validate_bucket_name at 0x7f161bc768e0>
+DEBUG    botocore.hooks:hooks.py:238 Event before-parameter-build.s3.ListBuckets: calling handler <function remove_bucket_from_url_paths_from_model at 0x7f161bc94ae0>
+DEBUG    botocore.hooks:hooks.py:238 Event before-parameter-build.s3.ListBuckets: calling handler <bound method S3RegionRedirectorv2.annotate_request_context of <botocore.utils.S3RegionRedirectorv2 object at 0x7f161b1232f0>>
+DEBUG    botocore.hooks:hooks.py:238 Event before-parameter-build.s3.ListBuckets: calling handler <bound method ClientCreator._inject_s3_input_parameters of <botocore.client.ClientCreator object at 0x7f161b5a9670>>
+DEBUG    botocore.hooks:hooks.py:238 Event before-parameter-build.s3.ListBuckets: calling handler <function generate_idempotent_uuid at 0x7f161bc76700>
+DEBUG    botocore.hooks:hooks.py:238 Event before-endpoint-resolution.s3: calling handler <function customize_endpoint_resolver_builtins at 0x7f161bc94cc0>
+DEBUG    botocore.hooks:hooks.py:238 Event before-endpoint-resolution.s3: calling handler <bound method S3RegionRedirectorv2.redirect_from_cache of <botocore.utils.S3RegionRedirectorv2 object at 0x7f161b1232f0>>
+DEBUG    botocore.regions:regions.py:503 Calling endpoint provider with parameters: {'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'http://127.0.0.1:9000', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+DEBUG    botocore.regions:regions.py:518 Endpoint provider result: http://127.0.0.1:9000
+DEBUG    botocore.regions:regions.py:680 Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "s3v4"
+DEBUG    botocore.regions:regions.py:755 Selected auth type "v4" as "s3v4" with signing context params: {'region': 'us-east-1', 'signing_name': 's3', 'disableDoubleEncoding': True}
+DEBUG    botocore.hooks:hooks.py:238 Event before-call.s3.ListBuckets: calling handler <function add_expect_header at 0x7f161bc76ca0>
+DEBUG    botocore.hooks:hooks.py:238 Event before-call.s3.ListBuckets: calling handler <bound method S3ExpressIdentityResolver.apply_signing_cache_key of <botocore.utils.S3ExpressIdentityResolver object at 0x7f161b1239b0>>
+DEBUG    botocore.hooks:hooks.py:238 Event before-call.s3.ListBuckets: calling handler <function add_recursion_detection_header at 0x7f161bc75b20>
+DEBUG    botocore.hooks:hooks.py:238 Event before-call.s3.ListBuckets: calling handler <function add_query_compatibility_header at 0x7f161bc951c0>
+DEBUG    botocore.hooks:hooks.py:238 Event before-call.s3.ListBuckets: calling handler <function inject_api_version_header_if_needed at 0x7f161bc94220>
+DEBUG    botocore.endpoint:endpoint.py:114 Making request for OperationModel(name=ListBuckets) with params: {'url_path': '/', 'query_string': {}, 'method': 'GET', 'headers': {'User-Agent': 'Boto3/1.35.49 md/Botocore#1.35.99 ua/2.0 os/linux#6.12.86+deb13-cloud-amd64 md/arch#x86_64 lang/python#3.12.3 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.35.99'}, 'body': b'', 'url': 'http://127.0.0.1:9000/', 'context': {'client_region': 'us-east-1', 'client_config': <botocore.config.Config object at 0x7f16203e73b0>, 'has_streaming_input': False, 'auth_type': 's3v4', 'unsigned_payload': None, 's3_redirect': {'redirected': False, 'bucket': None, 'params': {}}, 'input_params': {}, 'signing': {'region': 'us-east-1', 'signing_name': 's3', 'disableDoubleEncoding': True}, 'endpoint_properties': {'authSchemes': [{'disableDoubleEncoding': True, 'name': 'sigv4', 'signingName': 's3', 'signingRegion': 'us-east-1'}]}}}
+DEBUG    botocore.hooks:hooks.py:238 Event request-created.s3.ListBuckets: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x7f16439a9d60>>
+DEBUG    botocore.hooks:hooks.py:238 Event choose-signer.s3.ListBuckets: calling handler <function set_operation_specific_signer at 0x7f161bc76520>
+DEBUG    botocore.hooks:hooks.py:238 Event before-sign.s3.ListBuckets: calling handler <function remove_arn_from_signing_path at 0x7f161bc94c20>
+DEBUG    botocore.hooks:hooks.py:238 Event before-sign.s3.ListBuckets: calling handler <bound method S3ExpressIdentityResolver.resolve_s3express_identity of <botocore.utils.S3ExpressIdentityResolver object at 0x7f161b1239b0>>
+DEBUG    botocore.auth:auth.py:430 Calculating signature using v4 auth.
+DEBUG    botocore.auth:auth.py:431 CanonicalRequest:
+GET
+/
+
+host:127.0.0.1:9000
+x-amz-content-sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+x-amz-date:20260604T050426Z
+
+host;x-amz-content-sha256;x-amz-date
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+DEBUG    botocore.auth:auth.py:433 StringToSign:
+AWS4-HMAC-SHA256
+20260604T050426Z
+20260604/us-east-1/s3/aws4_request
+179fa97556e8e340dd845f85153c18d84e5546ea65831e6599070839fddcf7be
+DEBUG    botocore.auth:auth.py:435 Signature:
+d88bb6daa3f5ab0b1ca5b36464af8aa913a0ee4728c28fafde868b603c7cd6c3
+DEBUG    botocore.hooks:hooks.py:238 Event request-created.s3.ListBuckets: calling handler <function add_retry_headers at 0x7f161bc94a40>
+DEBUG    botocore.endpoint:endpoint.py:263 Sending http request: <AWSPreparedRequest stream_output=False, method=GET, url=http://127.0.0.1:9000/, headers={'User-Agent': b'Boto3/1.35.49 md/Botocore#1.35.99 ua/2.0 os/linux#6.12.86+deb13-cloud-amd64 md/arch#x86_64 lang/python#3.12.3 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.35.99', 'X-Amz-Date': b'20260604T050426Z', 'X-Amz-Content-SHA256': b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'Authorization': b'AWS4-HMAC-SHA256 Credential=REDACTED/20260604/us-east-1/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=d88bb6daa3f5ab0b1ca5b36464af8aa913a0ee4728c28fafde868b603c7cd6c3', 'amz-sdk-invocation-id': b'b05d3acb-c90c-4503-a943-57c91e8009da', 'amz-sdk-request': b'attempt=1'}>
+DEBUG    urllib3.connectionpool:connectionpool.py:241 Starting new HTTP connection (1): 127.0.0.1:9000
+DEBUG    urllib3.connectionpool:connectionpool.py:544 http://127.0.0.1:9000 "GET / HTTP/1.1" 200 370
+DEBUG    botocore.hooks:hooks.py:238 Event before-parse.s3.ListBuckets: calling handler <function _handle_200_error at 0x7f161bc94fe0>
+DEBUG    botocore.hooks:hooks.py:238 Event before-parse.s3.ListBuckets: calling handler <function handle_expires_header at 0x7f161bc94e00>
+DEBUG    botocore.parsers:parsers.py:241 Response headers: {'Accept-Ranges': 'bytes', 'Content-Length': '370', 'Content-Type': 'application/xml', 'Server': 'MinIO', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains', 'Vary': 'Origin, Accept-Encoding', 'X-Amz-Id-2': 'dd9025bab4ad464b049177c95eb6ebf374d3b3fd1af9251148b658df7ac2e3e8', 'X-Amz-Request-Id': '18B5C84E6FE7A812', 'X-Content-Type-Options': 'nosniff', 'X-Ratelimit-Limit': '2432', 'X-Ratelimit-Remaining': '2432', 'X-Xss-Protection': '1; mode=block', 'Date': 'Thu, 04 Jun 2026 05:04:26 GMT'}
+DEBUG    botocore.parsers:parsers.py:242 Response body:
+b'<?xml version="1.0" encoding="UTF-8"?>\n<ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><ID>02d6176db174dc93cb1b899f7c6078f08654445fe8cf1b6ce98d8855f66bdbf4</ID><DisplayName>minio</DisplayName></Owner><Buckets><Bucket><Name>lance-bucket</Name><CreationDate>2026-06-04T05:03:58.246Z</CreationDate></Bucket></Buckets></ListAllMyBucketsResult>'
+DEBUG    botocore.hooks:hooks.py:238 Event needs-retry.s3.ListBuckets: calling handler <function _update_status_code at 0x7f161bc95120>
+DEBUG    botocore.hooks:hooks.py:238 Event needs-retry.s3.ListBuckets: calling handler <botocore.retryhandler.RetryHandler object at 0x7f161b123950>
+DEBUG    botocore.retryhandler:retryhandler.py:211 No retry needed.
+DEBUG    botocore.hooks:hooks.py:238 Event needs-retry.s3.ListBuckets: calling handler <bound method S3RegionRedirectorv2.redirect_from_error of <botocore.utils.S3RegionRedirectorv2 object at 0x7f161b1232f0>>
+PASSED
+
+=============================== warnings summary ===============================
+test_initial_state.py::test_lance_bucket_precreated
+  /usr/local/lib/python3.12/dist-packages/botocore/auth.py:424: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    datetime_now = datetime.datetime.utcnow()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================= 8 passed, 1 warning in 3.96s =========================

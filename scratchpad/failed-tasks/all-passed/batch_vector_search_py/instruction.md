@@ -1,0 +1,46 @@
+# Batch Vector Search with LanceDB
+
+## Background
+LanceDB lets you score many query vectors against the same table in a single search call. This is useful when an upstream system produces several candidate queries (for example, paraphrases of one user request) and you want the top matches for each without paying per-query round-trip overhead.
+
+You must build a small Python program that connects to a LanceDB database, creates and seeds a table with deterministic vectors, runs a batch vector search for 5 query vectors at once, and writes the per-query top-3 neighbor ids to a JSON file.
+
+## Requirements
+- Connect to LanceDB using the URI read from the `LANCEDB_URI` environment variable (default `/workspace/db` when unset).
+- Create a table named `items` with this Arrow schema:
+  - `id`: `int64`
+  - `name`: `string`
+  - `vector`: `fixed_size_list<float32>[12]` (12 float32 components)
+- Seed the `items` table with 64 rows using `numpy.random.default_rng(33)`:
+  - For row `i` (0-indexed, 0..63), draw the 12-d float32 vector by sampling 12 values via `rng.random(12, dtype=numpy.float32)` from a **single** RNG instance, in order. The 64 vectors are therefore the first 64 consecutive 12-float draws from `default_rng(33)`.
+  - Set `id = i` and `name = f"item-{i}"`.
+- After seeding the table, build 5 query vectors. Continue drawing from the **same** RNG instance (so the queries are draws 65..69 in sequence). Stack them into a single 2-D numpy array of shape `(5, 12)` with dtype `float32`.
+- Run a single batched vector search call against the `items` table using the 2-D numpy array as the query and `.limit(3)`. Convert the result to a pandas DataFrame and use the `query_index` column to group results per query. (If your installed lancedb version does not return a `query_index` column for batched 2-D inputs, fall back to looping over the 5 query vectors and running `table.search(q).limit(3).to_list()` for each — the JSON output must remain identical.)
+- For each of the 5 queries (in order 0..4), extract the top-3 `id` values, in the order returned by LanceDB, and write the final answer to `/workspace/output/batch_search.json` with this exact shape:
+  ```json
+  {
+    "results": [
+      [<top1_id_q0>, <top2_id_q0>, <top3_id_q0>],
+      [<top1_id_q1>, <top2_id_q1>, <top3_id_q1>],
+      [<top1_id_q2>, <top2_id_q2>, <top3_id_q2>],
+      [<top1_id_q3>, <top2_id_q3>, <top3_id_q3>],
+      [<top1_id_q4>, <top2_id_q4>, <top3_id_q4>]
+    ]
+  }
+  ```
+  Each inner list MUST contain exactly 3 integer ids. The JSON file MUST be created by your script.
+
+## Implementation Hints
+- Use `lancedb.connect(uri)` and `db.create_table(name, schema=...)` followed by `tbl.add(rows)` (or pass `data=` to `create_table`). PyArrow is a convenient way to declare the `fixed_size_list<float32>[12]` schema.
+- Use one shared `numpy.random.default_rng(33)` instance for both the 64 stored vectors and the 5 queries so the sequence is fully deterministic.
+- LanceDB's `table.search(...)` accepts a 2-D numpy array to batch multiple queries; the resulting pandas DataFrame includes a `query_index` column that identifies the originating query.
+- The L2 distance is the default — leave the metric at the default.
+- Make sure `/workspace/output/` exists before writing the JSON file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed end-to-end against a real LanceDB database (no mocking) and that the artifact below exists.
+- Output file: `/workspace/output/batch_search.json`
+- The JSON file MUST be a single object with one top-level key `results` whose value is a list of exactly 5 lists. Each inner list MUST contain exactly 3 integer ids in the order returned by the batched search.
+- The LanceDB table `items` MUST exist at `LANCEDB_URI` (default `/workspace/db`) and MUST contain 64 rows seeded as specified.
+

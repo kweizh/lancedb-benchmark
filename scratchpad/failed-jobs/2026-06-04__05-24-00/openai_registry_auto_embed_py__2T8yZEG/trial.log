@@ -1,0 +1,86 @@
+Skipping image OS validation for hb__openai_registry_auto_embed_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-2t8yzeg > /logs/artifacts/run-id && echo openai_registry_auto_embed_py__2T8yZEG > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Auto-Embedding with the LanceDB OpenAI Embedding Registry
+
+## Background
+LanceDB ships an embedding-function registry that wires a hosted embedding model (e.g. OpenAI `text-embedding-3-small`) directly into a Pydantic `LanceModel` schema. Once configured, inserts are automatically vectorized server-side by the registry and string queries are embedded automatically too. You will build a small Python script that demonstrates this end-to-end against a real OpenAI endpoint.
+
+## Requirements
+- Use a fresh on-disk LanceDB at the location given by the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Use the OpenAI embedding provider exposed through `lancedb.embeddings.get_registry().get("openai")` with model `text-embedding-3-small`.
+- Define a `LanceModel` table schema named `docs` with three columns: `text` (string, `SourceField`), `label` (string), and `vector` (`Vector(func.ndims())`, `VectorField`).
+- Insert exactly 8 rows where ONLY `text` and `label` are provided (no precomputed vectors): the registry must compute the embeddings via the real OpenAI API.
+- After ingestion, run the vector search with a STRING query: `table.search("REDACTED with sql filtering").limit(3).to_list()` and persist the top-3 results.
+
+## Implementation Hints
+- Read `OPENAI_API_KEY` (and optionally `OPENAI_BASE_URL`) from the environment; the `openai` provider in the registry will pick it up.
+- The `Vector(func.ndims())` field type means you do not specify a hard-coded dimensionality; let the registry report it.
+- The 8 seed rows must include at least one row whose text is `"LanceDB supports SQL filtering on vector queries."` so that the chosen query has a clear top-1 match.
+- Write the top-3 results to `/workspace/output/registry_results.json` with this shape: `{"top3_texts": [str, str, str], "top3_labels": [str, str, str]}`. The order MUST be the order returned by `to_list()`.
+
+## Acceptance Criteria
+- Project path: /workspace
+- Ensure the script is executed and the artifacts exist.
+- Log file: /workspace/output/run.log (free-form; must exist and be non-empty after the script runs)
+- LanceDB database directory: `${LANCEDB_URI}` (default `/workspace/db`) must contain a table named `docs`.
+- The `docs` table must have exactly 8 rows.
+- The `vector` column in `docs` must be a fixed-size list of 1536 floats (the native dimension of `text-embedding-3-small`).
+- Output file: `/workspace/output/registry_results.json` must exist and be valid JSON with the following shape:
+  ```json
+  {
+    "top3_texts": [string, string, string],
+    "top3_labels": [string, string, string]
+  }
+  ```
+- `top3_texts` and `top3_labels` MUST each have length 3.
+- The first element of `top3_texts` MUST contain the substring `SQL filtering` (case-sensitive), reflecting the SQL-filtering-themed seed row that is the strongest semantic match for the query.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

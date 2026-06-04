@@ -1,0 +1,73 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 4,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549271546,
+            "stop": 1780549275470
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_artifact_is_valid_json_with_expected_keys",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549275368,
+                "stop": 1780549275369,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_index_present_flag_is_true",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549275370,
+                "stop": 1780549275371,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ivf_pq_index_exists_on_vector_column",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 83,
+                "start": 1780549275371,
+                "stop": 1780549275454,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_ivf_pq_index_exists_on_vector_column():\n        table = _open_table()\n        indices = table.list_indices()\n        # list_indices() returns a list of IndexConfig-like objects with .name,\n        # .index_type, and .columns attributes in lancedb 0.25.3.\n        matching = []\n        for idx in indices:\n            index_type = getattr(idx, \"index_type\", None) or (\n                idx.get(\"index_type\") if isinstance(idx, dict) else None\n            )\n            columns = getattr(idx, \"columns\", None) or (\n                idx.get(\"columns\") if isinstance(idx, dict) else None\n            )\n            if index_type is None or columns is None:\n                continue\n            if str(index_type).upper().endswith(\"IVF_PQ\") or \"IVF_PQ\" in str(index_type).upper():\n                if \"vector\" in list(columns):\n                    matching.append(idx)\n>       assert matching, (\n            f\"Expected at least one IVF_PQ index on column 'vector'; \"\n            f\"list_indices() returned: {indices}\"\n        )\nE       AssertionError: Expected at least one IVF_PQ index on column 'vector'; list_indices() returned: [Index(IvfPq, columns=[\"vector\"], name=\"vector_idx\")]\nE       assert []\n\ntests/test_final_state.py:63: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_num_indexed_rows_matches_stats_and_meets_threshold",
+                "status": "passed",
+                "duration": 8,
+                "start": 1780549275454,
+                "stop": 1780549275462,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_topk_ids_shape_and_range",
+                "status": "passed",
+                "duration": 6,
+                "start": 1780549275463,
+                "stop": 1780549275469,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

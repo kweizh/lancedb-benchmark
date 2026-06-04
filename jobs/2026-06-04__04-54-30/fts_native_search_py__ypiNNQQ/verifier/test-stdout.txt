@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_table_schema
+PASSED tests/test_final_state.py::test_row_count
+PASSED tests/test_final_state.py::test_fts_index_on_body
+PASSED tests/test_final_state.py::test_results_file_exists
+PASSED tests/test_final_state.py::test_results_json_structure
+PASSED tests/test_final_state.py::test_results_top_ids_match_ground_truth
+PASSED tests/test_final_state.py::test_independent_fts_query_matches_ground_truth
+============================== 7 passed in 3.21s ===============================

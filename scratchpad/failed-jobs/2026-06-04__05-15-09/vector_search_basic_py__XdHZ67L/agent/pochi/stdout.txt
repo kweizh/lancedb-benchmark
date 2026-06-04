@@ -1,0 +1,43 @@
+- Initializing MCP connections...
+You
+# Basic LanceDB Vector Search ## Background You are integrating LanceDB (the open-source embedded multimodal lakehouse) into a small Python service. The service indexes a tiny in-memory corpus with precomputed 8-dimensional vectors and runs a single nearest-neighbor query. Because the runtime has no GPU and no model weights, **all vectors are precomputed deterministically with `numpy.random.default_rng(42)`** — no embedding model is ever downloaded or invoked. ## Requirements * Write a Python script `solution.py` that: * Connects to a local LanceDB database at the path given by the environment variable `LANCEDB_URI` (default to `/workspace/db` when the variable is not set). * Creates a table named `documents` with the following Arrow schema (in this exact column order): * `id`: `int64` * `text`: `string` * `vector`: `fixed_size_list<float32>[8]` (8-dimensional float32 vector) * Inserts 12 rows generated deterministically as follows, using a single `numpy.random.default_rng(42)` instance, draws in this exact order: 1. `vectors = rng.standard_normal((12, 8)).astype(numpy.float32)` 2. `query = rng.standard_normal(8).astype(numpy.float32)` * Row `i` (for `i` in `0..11`) must have `id = i`, `text = f"document_{i}"`, and `vector = vectors[i]`. * Runs a vector similarity search using `query` as the query vector and returns the top 5 nearest rows using LanceDB's default L2 distance metric. * Serializes the top 5 results as a JSON array to `/workspace/output/results.json`. Each list element must be a JSON object with exactly these keys: * `id` (integer) * `text` (string) * `_distance` (float) * The list must be ordered from nearest to farthest (smallest `_distance` first). ## Implementation Hints * Connect with `lancedb.connect(...)` and create the table from a PyArrow Table or a list of dicts. Either pass a PyArrow schema or let LanceDB infer it — just make sure the vector column is a `pa.list_(pa.float32(), 8)` (fixed-size list of length 8). * Use `table.search(query_vector).limit(5)` and convert results with `.to_list()` or `.to_pandas()`. The result already contains the `_distance` column. * The script must be **idempotent**: running it twice in the same database should not fail. Either drop the table before creating it, or use a create-with-mode pattern. * Make sure the output directory exists before writing (`os.makedirs("/workspace/output", exist_ok=True)`). * Cast all JSON values to native Python types (e.g., `int(row["id"])`, `float(row["_distance"])`). ## Acceptance Criteria * Project path: /workspace/myproject * Command: `python3 /workspace/myproject/solution.py` * The command must complete successfully (exit code 0). * After execution, the file `/workspace/output/results.json` must exist and contain a JSON array of exactly 5 objects. * Each object must contain the keys `id` (int), `text` (string), and `_distance` (float), and only those keys. * Results must be ordered ascending by `_distance` (nearest first). * The `id` values must match the true top-5 nearest neighbors computed against the same seeded `numpy.random.default_rng(42)` data using L2 distance. * The LanceDB table at `${LANCEDB_URI:-/workspace/db}/documents.lance` (or equivalent path) must exist and contain exactly 12 rows with the documented schema.   
+
+Pochi
+💭 Thinking for 70 characters   
+💫 Executing mkdir -p /workspace/myproject /workspace/output && pip show lancedb pyarrow numpy 2>&1 | head -30 ✔ 
+✏️  Writing /workspace/myproject/solution.py ✔ 
+💫 Executing python3 /workspace/myproject/solution.py ✔ 
+💫 Executing cat /workspace/output/results.json && echo "---" && python3 -c "
+import json, os
+data = json.load(open('/workspace/output/results.json'))
+assert len(data) == 5, f'Expected 5 items, got {len(data)}'
+for i, item in enumerate(data):
+    assert set(item.keys()) == {'id','text','_distance'}, f'Bad keys: {item.keys()}'
+    assert isinstance(item['id'], int)
+    assert isinstance(item['text'], str)
+    assert isinstance(item['_distance'], float)
+# Check ascending order
+dists = [item['_distance'] for item in data]
+assert dists == sorted(dists), 'Not sorted ascending'
+print('All checks passed.')
+# Check table exists
+import lancedb
+db = lancedb.connect('/workspace/db')
+tbl = db.open_table('documents')
+assert tbl.count_rows() == 12, f'Expected 12 rows, got {tbl.count_rows()}'
+print(f'Table has {tbl.count_rows()} rows - OK')
+print(os.path.exists('/workspace/db/documents.lance'))
+" ✔ 
+💫 Executing # Run a second time to verify idempotency
+python3 /workspace/myproject/solution.py && echo "Second run OK" ✔ 
+All checks pass. Here's a summary of what `solution.py` does: **Data generation** — A single `numpy.random.default_rng(42)` instance draws the 12×8 corpus vectors first, then the query vector, exactly as specified. **Schema** — A PyArrow table is built with columns in the required order: `id` (`int64`), `text` (`string`), `vector` (`fixed_size_list<float32>[8]`), using `pa.FixedSizeListArray.from_arrays` for the vector column. **Idempotency** — Before creating the table the script checks `db.table_names()` and drops any existing `documents` table, so repeated runs never fail. **Search** — `table.search(query).limit(5).to_list()` retrieves the 5 nearest rows by LanceDB's default L2 distance. Results are explicitly sorted ascending by `_distance` before writing. **Output** — Each result is cast to native Python types (`int`, `str`, `float`) and serialized to `/workspace/output/results.json` with exactly the keys `id`, `text`, and `_distance`. Results (nearest → farthest): | rank | id | text | _distance | |------|----|------|-----------| | 1 | 10 | document_10 | 6.002 | | 2 | 1 | document_1 | 8.245 | | 3 | 9 | document_9 | 8.373 | | 4 | 4 | document_4 | 9.750 | | 5 | 2 | document_2 | 11.070 |   
+💭 Thinking for 182 characters   
+🎉 Task Completed
+The task is complete. `/workspace/myproject/solution.py` has been written and verified:
+
+- ✅ Exits with code 0
+- ✅ `/workspace/output/results.json` contains exactly 5 objects, each with only `id` (int), `text` (string), and `_distance` (float)
+- ✅ Results are ordered ascending by `_distance` (nearest first)
+- ✅ `/workspace/db/documents.lance` exists with exactly 12 rows matching the seeded schema
+- ✅ Script is idempotent — running it twice produces the same correct output without errors   
+  

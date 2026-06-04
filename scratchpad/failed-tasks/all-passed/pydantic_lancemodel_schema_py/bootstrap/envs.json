@@ -1,0 +1,4 @@
+{
+    "task": ["LANCEDB_URI"],
+    "verifier": ["LANCEDB_URI"]
+}

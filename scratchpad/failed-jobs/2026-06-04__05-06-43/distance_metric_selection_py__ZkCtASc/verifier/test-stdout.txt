@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py .........                                      [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_json_has_exact_keys
+PASSED tests/test_final_state.py::test_output_json_value_shape[l2]
+PASSED tests/test_final_state.py::test_output_json_value_shape[cosine]
+PASSED tests/test_final_state.py::test_output_json_value_shape[dot]
+PASSED tests/test_final_state.py::test_table_row_count
+PASSED tests/test_final_state.py::test_table_schema
+PASSED tests/test_final_state.py::test_top_k_matches_expected[l2]
+PASSED tests/test_final_state.py::test_top_k_matches_expected[cosine]
+PASSED tests/test_final_state.py::test_top_k_matches_expected[dot]
+============================== 9 passed in 3.61s ===============================

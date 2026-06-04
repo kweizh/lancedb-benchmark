@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py ..F..                                          [100%]
+
+=================================== FAILURES ===================================
+__________________ test_ivf_pq_index_exists_on_vector_column ___________________
+
+    def test_ivf_pq_index_exists_on_vector_column():
+        table = _open_table()
+        indices = table.list_indices()
+        # list_indices() returns a list of IndexConfig-like objects with .name,
+        # .index_type, and .columns attributes in lancedb 0.25.3.
+        matching = []
+        for idx in indices:
+            index_type = getattr(idx, "index_type", None) or (
+                idx.get("index_type") if isinstance(idx, dict) else None
+            )
+            columns = getattr(idx, "columns", None) or (
+                idx.get("columns") if isinstance(idx, dict) else None
+            )
+            if index_type is None or columns is None:
+                continue
+            if str(index_type).upper().endswith("IVF_PQ") or "IVF_PQ" in str(index_type).upper():
+                if "vector" in list(columns):
+                    matching.append(idx)
+>       assert matching, (
+            f"Expected at least one IVF_PQ index on column 'vector'; "
+            f"list_indices() returned: {indices}"
+        )
+E       AssertionError: Expected at least one IVF_PQ index on column 'vector'; list_indices() returned: [Index(IvfPq, columns=["vector"], name="vector_idx")]
+E       assert []
+
+tests/test_final_state.py:63: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_artifact_is_valid_json_with_expected_keys
+PASSED tests/test_final_state.py::test_index_present_flag_is_true
+PASSED tests/test_final_state.py::test_num_indexed_rows_matches_stats_and_meets_threshold
+PASSED tests/test_final_state.py::test_topk_ids_shape_and_range
+FAILED tests/test_final_state.py::test_ivf_pq_index_exists_on_vector_column
+========================= 1 failed, 4 passed in 3.92s ==========================

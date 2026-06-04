@@ -1,0 +1,70 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549947180,
+            "stop": 1780549950561
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_keys_present_and_int",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549947207,
+                "stop": 1780549947208,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_post_optimize_row_count",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780549947209,
+                "stop": 1780549947209,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pre_versions_greater_than_post",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549947210,
+                "stop": 1780549947211,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_post_versions_at_least_one",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549947211,
+                "stop": 1780549947212,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_store_matches_payload",
+                "status": "passed",
+                "duration": 3348,
+                "start": 1780549947212,
+                "stop": 1780549950560,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

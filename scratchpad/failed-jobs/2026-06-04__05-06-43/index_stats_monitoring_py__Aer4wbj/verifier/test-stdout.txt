@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py ........                                       [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_artifact_exists_and_is_json
+PASSED tests/test_final_state.py::test_artifact_has_exact_keys
+PASSED tests/test_final_state.py::test_index_type_is_ivf_pq
+PASSED tests/test_final_state.py::test_initial_indexed_at_least_256
+PASSED tests/test_final_state.py::test_initial_unindexed_is_zero
+PASSED tests/test_final_state.py::test_unindexed_after_add_at_least_50
+PASSED tests/test_final_state.py::test_table_has_450_rows_in_lancedb
+PASSED tests/test_final_state.py::test_live_index_stats_show_unindexed_delta
+============================== 8 passed in 3.36s ===============================

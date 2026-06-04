@@ -1,0 +1,7 @@
+{
+  "library_name": "LanceDB",
+  "task_name": "schema_evolution_columns_py",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "(provided inline via user prompt)",
+  "output_dir": "scratchpad/pending-tasks/"
+}

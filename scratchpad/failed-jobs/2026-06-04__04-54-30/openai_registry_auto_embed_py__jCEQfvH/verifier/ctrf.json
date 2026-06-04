@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549302108,
+            "stop": 1780549306276
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_run_log_exists_and_non_empty",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549306256,
+                "stop": 1780549306257,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_results_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549306258,
+                "stop": 1780549306259,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_results_file_is_valid_json_with_expected_shape",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549306259,
+                "stop": 1780549306260,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top1_text_contains_sql_filtering_substring",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780549306261,
+                "stop": 1780549306261,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_table_exists_and_has_expected_row_count",
+                "status": "passed",
+                "duration": 9,
+                "start": 1780549306262,
+                "stop": 1780549306271,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_vector_column_has_expected_dimension",
+                "status": "passed",
+                "duration": 5,
+                "start": 1780549306271,
+                "stop": 1780549306276,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

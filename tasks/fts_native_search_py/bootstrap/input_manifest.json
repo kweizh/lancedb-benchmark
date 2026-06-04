@@ -1,0 +1,7 @@
+{
+  "library_name": "lancedb",
+  "task_name": "fts_native_search_py",
+  "complexity_level": "simple set of 2-5 commands",
+  "research_plan_path": "https://docs.lancedb.com/search/full-text-search",
+  "output_dir": "scratchpad/pending-tasks/"
+}

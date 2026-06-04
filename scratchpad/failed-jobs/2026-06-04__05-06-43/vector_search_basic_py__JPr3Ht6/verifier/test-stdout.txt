@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py ....F.                                         [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_distances_are_sorted_and_close ______________________
+
+run_solution = [{'_distance': 6.001994609832764, 'id': 10, 'text': 'document_10'}, {'_distance': 8.244890213012695, 'id': 1, 'text': ...e': 9.749801635742188, 'id': 4, 'text': 'document_4'}, {'_distance': 11.07033920288086, 'id': 2, 'text': 'document_2'}]
+
+    def test_distances_are_sorted_and_close(run_solution):
+        data = run_solution
+        expected = _expected_top5()
+        distances = [row["_distance"] for row in data]
+        assert distances == sorted(distances), (
+            f"_distance values must be non-decreasing, got {distances}."
+        )
+        for row, (_eid, edist) in zip(data, expected):
+>           assert abs(row["_distance"] - edist) < 1e-3, (
+                f"_distance for id={row['id']} expected ~{edist}, got {row['_distance']}."
+            )
+E           AssertionError: _distance for id=10 expected ~2.449896812438965, got 6.001994609832764.
+E           assert 3.552097797393799 < 0.001
+E            +  where 3.552097797393799 = abs((6.001994609832764 - 2.449896812438965))
+
+tests/test_final_state.py:103: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_results_is_list_of_five
+PASSED tests/test_final_state.py::test_each_row_has_correct_keys_and_types
+PASSED tests/test_final_state.py::test_ids_match_expected_topk
+PASSED tests/test_final_state.py::test_text_matches_id_pattern
+PASSED tests/test_final_state.py::test_lancedb_table_schema_and_rowcount
+FAILED tests/test_final_state.py::test_distances_are_sorted_and_close - Asser...
+========================= 1 failed, 5 passed in 5.60s ==========================

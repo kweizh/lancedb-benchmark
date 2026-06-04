@@ -1,0 +1,66 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py F...F                                          [100%]
+
+=================================== FAILURES ===================================
+________________ test_num_versions_is_integer_and_meets_minimum ________________
+
+result_payload = {'early_version_ids_sorted': [1, 2, 3, 4, 5], 'latest_id3_title': 'v3-updated', 'latest_version_ids_sorted': [2, 3, 4, 5, 6, 7, ...], 'num_versions': 4}
+
+    def test_num_versions_is_integer_and_meets_minimum(result_payload):
+        value = result_payload.get("num_versions")
+        assert isinstance(value, int) and not isinstance(value, bool), (
+            f"'num_versions' must be an integer, got {type(value).__name__}: {value!r}."
+        )
+>       assert value >= MIN_NUM_VERSIONS, (
+            f"'num_versions' should be >= {MIN_NUM_VERSIONS} after the required mutations, got {value}."
+        )
+E       AssertionError: 'num_versions' should be >= 5 after the required mutations, got 4.
+E       assert 4 >= 5
+
+tests/test_final_state.py:35: AssertionError
+___________________ test_table_latest_state_matches_via_sdk ____________________
+
+    def test_table_latest_state_matches_via_sdk():
+        uri = os.environ.get("LANCEDB_URI", "/workspace/db")
+        db = lancedb.connect(uri)
+        table_names = list(db.table_names())
+        assert "docs" in table_names, (
+            f"Expected a 'docs' table in LanceDB at {uri}, found tables: {table_names}."
+        )
+        table = db.open_table("docs")
+        table.checkout_latest()
+        rows = table.to_pandas()
+        ids_sorted = sorted(int(x) for x in rows["id"].tolist())
+        assert ids_sorted == EXPECTED_LATEST_IDS, (
+            f"Latest snapshot of 'docs' should contain ids {EXPECTED_LATEST_IDS}, got {ids_sorted}."
+        )
+        id3_rows = rows[rows["id"] == 3]
+        assert len(id3_rows) == 1, (
+            f"Expected exactly one row with id=3 in the latest snapshot, found {len(id3_rows)}."
+        )
+        assert id3_rows.iloc[0]["title"] == EXPECTED_LATEST_ID3_TITLE, (
+            f"Expected id=3 title to be {EXPECTED_LATEST_ID3_TITLE!r}, got "
+            f"{id3_rows.iloc[0]['title']!r}."
+        )
+        versions = table.list_versions()
+>       assert len(versions) >= MIN_NUM_VERSIONS, (
+            f"Expected at least {MIN_NUM_VERSIONS} versions on 'docs', got {len(versions)}."
+        )
+E       AssertionError: Expected at least 5 versions on 'docs', got 4.
+E       assert 4 >= 5
+E        +  where 4 = len([{'metadata': {'total_data_file_rows': '5', 'total_data_files': '1', 'total_deletion_file_rows': '0', 'total_deletion_...: '2', 'total_deletion_files': '1', ...}, 'timestamp': datetime.datetime(2026, 6, 4, 5, 26, 12, 757657), 'version': 4}])
+
+tests/test_final_state.py:95: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_early_version_ids
+PASSED tests/test_final_state.py::test_latest_version_ids
+PASSED tests/test_final_state.py::test_latest_id3_title
+FAILED tests/test_final_state.py::test_num_versions_is_integer_and_meets_minimum
+FAILED tests/test_final_state.py::test_table_latest_state_matches_via_sdk - A...
+========================= 2 failed, 3 passed in 4.73s ==========================

@@ -1,0 +1,7 @@
+{
+  "library_name": "LanceDB",
+  "task_name": "sql_where_filter_basic_py",
+  "complexity_level": "simple set of 2-5 commands",
+  "research_plan_path": "https://docs.lancedb.com/search/sql-filtering",
+  "output_dir": "scratchpad/pending-tasks/"
+}

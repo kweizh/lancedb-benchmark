@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549796636,
+            "stop": 1780549800723
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_is_json_list_of_5",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780549800697,
+                "stop": 1780549800699,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_entries_have_id_text_pair",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549800699,
+                "stop": 1780549800700,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top_hit_contains_rrf_reranker_phrase",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549800701,
+                "stop": 1780549800702,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_has_at_least_30_rows",
+                "status": "passed",
+                "duration": 10,
+                "start": 1780549800702,
+                "stop": 1780549800712,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_schema_has_string_text_column",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780549800712,
+                "stop": 1780549800715,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fts_index_exists_on_text",
+                "status": "passed",
+                "duration": 7,
+                "start": 1780549800716,
+                "stop": 1780549800723,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

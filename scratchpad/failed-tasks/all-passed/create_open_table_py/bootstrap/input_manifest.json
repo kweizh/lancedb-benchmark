@@ -1,0 +1,7 @@
+{
+  "library_name": "LanceDB",
+  "task_name": "create_open_table_py",
+  "complexity_level": "simple set of 2-5 commands",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks/"
+}

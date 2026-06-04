@@ -1,0 +1,7 @@
+{
+  "library_name": "LanceDB",
+  "task_name": "delete_by_predicate_py",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "https://docs.lancedb.com/tables/update.md",
+  "output_dir": "scratchpad/pending-tasks/"
+}

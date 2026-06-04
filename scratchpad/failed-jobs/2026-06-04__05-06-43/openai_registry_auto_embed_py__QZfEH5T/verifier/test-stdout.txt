@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py ......                                         [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_run_log_exists_and_non_empty
+PASSED tests/test_final_state.py::test_results_file_exists
+PASSED tests/test_final_state.py::test_results_file_is_valid_json_with_expected_shape
+PASSED tests/test_final_state.py::test_top1_text_contains_sql_filtering_substring
+PASSED tests/test_final_state.py::test_lancedb_table_exists_and_has_expected_row_count
+PASSED tests/test_final_state.py::test_lancedb_vector_column_has_expected_dimension
+============================== 6 passed in 3.43s ===============================

@@ -1,0 +1,4 @@
+{
+    "task": ["MINIO_ACCESS_KEY", "MINIO_SECRET_KEY"],
+    "verifier": ["MINIO_ACCESS_KEY", "MINIO_SECRET_KEY"]
+}

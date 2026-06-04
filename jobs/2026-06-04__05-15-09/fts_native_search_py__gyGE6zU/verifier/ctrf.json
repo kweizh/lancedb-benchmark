@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550403306,
+            "stop": 1780550409560
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_table_schema",
+                "status": "passed",
+                "duration": 6104,
+                "start": 1780550403380,
+                "stop": 1780550409484,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_row_count",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780550409486,
+                "stop": 1780550409489,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fts_index_on_body",
+                "status": "passed",
+                "duration": 13,
+                "start": 1780550409490,
+                "stop": 1780550409503,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_results_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550409504,
+                "stop": 1780550409505,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_results_json_structure",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780550409506,
+                "stop": 1780550409508,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_results_top_ids_match_ground_truth",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780550409509,
+                "stop": 1780550409512,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_independent_fts_query_matches_ground_truth",
+                "status": "passed",
+                "duration": 45,
+                "start": 1780550409513,
+                "stop": 1780550409558,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

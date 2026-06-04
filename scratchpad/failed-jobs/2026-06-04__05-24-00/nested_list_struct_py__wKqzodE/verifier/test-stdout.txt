@@ -1,0 +1,80 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py ...FF.                                         [100%]
+
+=================================== FAILURES ===================================
+______________________ test_topk_titles_match_recomputed _______________________
+
+table = LanceTable(name='papers', version=1, _conn=LanceDBConnection(uri='/workspace/db'))
+result_json = {'recent_ids_sorted': [3, 4, 5, 6, 7, 8, ...], 'topk_titles': ['Paper 0: Advances in Alice Theory', 'Paper 6: Advances in Grace Theory', 'Paper 2: Advances in Carol Theory']}
+
+    def test_topk_titles_match_recomputed(table, result_json):
+        """Recompute the expected top-3 titles by running the same vector search."""
+        results = table.search(QUERY_VECTOR).limit(3).to_list()
+        expected_titles = [r["title"] for r in results]
+        actual_titles = result_json["topk_titles"]
+        assert isinstance(actual_titles, list), (
+            f"Expected topk_titles to be a list, got {type(actual_titles)}."
+        )
+        assert len(actual_titles) == 3, (
+            f"Expected topk_titles to have 3 elements, got {len(actual_titles)}."
+        )
+>       assert actual_titles == expected_titles, (
+            f"Expected topk_titles {expected_titles}, got {actual_titles}."
+        )
+E       AssertionError: Expected topk_titles ['Paper 5: Advances in Frank Theory', 'Paper 9: Advances in Judy Theory', 'Paper 3: Advances in Dave Theory'], got ['Paper 0: Advances in Alice Theory', 'Paper 6: Advances in Grace Theory', 'Paper 2: Advances in Carol Theory'].
+E       assert ['Paper 0: Ad...Carol Theory'] == ['Paper 5: Ad... Dave Theory']
+E         At index 0 diff: 'Paper 0: Advances in Alice Theory' != 'Paper 5: Advances in Frank Theory'
+E         Use -v to get more diff
+
+tests/test_final_state.py:143: AssertionError
+_____________________ test_recent_ids_match_struct_filter ______________________
+
+table = LanceTable(name='papers', version=1, _conn=LanceDBConnection(uri='/workspace/db'))
+result_json = {'recent_ids_sorted': [3, 4, 5, 6, 7, 8, ...], 'topk_titles': ['Paper 0: Advances in Alice Theory', 'Paper 6: Advances in Grace Theory', 'Paper 2: Advances in Carol Theory']}
+
+    def test_recent_ids_match_struct_filter(table, result_json):
+        """Use a nested struct-subfield filter to derive expected ids."""
+        rows = (
+            table.search()
+            .where("metrics.year >= 2022")
+            .limit(50)
+            .to_list()
+        )
+        expected_ids = sorted(r["id"] for r in rows)
+        actual_ids = result_json["recent_ids_sorted"]
+        assert isinstance(actual_ids, list), (
+            f"Expected recent_ids_sorted to be a list, got {type(actual_ids)}."
+        )
+        assert actual_ids == sorted(actual_ids), (
+            f"Expected recent_ids_sorted to be sorted ascending, got {actual_ids}."
+        )
+        assert actual_ids == expected_ids, (
+            f"Expected recent_ids_sorted {expected_ids}, got {actual_ids}."
+        )
+        # Cross-check against the hard-coded ground truth.
+        ground_truth_ids = sorted(
+            r["id"] for r in EXPECTED_ROWS if r["year"] >= 2022
+        )
+>       assert expected_ids == ground_truth_ids, (
+            f"Expected struct filter to yield ids {ground_truth_ids}, got {expected_ids}."
+        )
+E       AssertionError: Expected struct filter to yield ids [4, 5, 6, 7, 8, 9, 10], got [3, 4, 5, 6, 7, 8, 9].
+E       assert [3, 4, 5, 6, 7, 8, ...] == [4, 5, 6, 7, 8, 9, ...]
+E         At index 0 diff: 3 != 4
+E         Use -v to get more diff
+
+tests/test_final_state.py:171: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_json_keys
+PASSED tests/test_final_state.py::test_schema_matches_spec
+PASSED tests/test_final_state.py::test_row_count
+PASSED tests/test_final_state.py::test_recent_id_values_correspond_to_recent_years
+FAILED tests/test_final_state.py::test_topk_titles_match_recomputed - Asserti...
+FAILED tests/test_final_state.py::test_recent_ids_match_struct_filter - Asser...
+========================= 2 failed, 4 passed in 4.36s ==========================

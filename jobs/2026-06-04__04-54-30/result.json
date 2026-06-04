@@ -1,0 +1,60 @@
+{
+    "id": "af4dd327-1258-47db-a55f-5365bdd7208c",
+    "started_at": "2026-06-04T04:54:32.747195",
+    "updated_at": "2026-06-04T05:06:41.196937",
+    "finished_at": "2026-06-04T05:06:41.196937",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.5-flash__pending-tasks": {
+                "n_trials": 20,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.8
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "nested_list_struct_py__gm4VT3a",
+                            "versioning_time_travel_py__W2AnJuE",
+                            "vector_search_basic_py__pk3giFh",
+                            "ivf_pq_index_creation_py__HPMiNpz"
+                        ],
+                        "1.0": [
+                            "create_open_table_py__bdtc9Jy",
+                            "count_rows_with_filter_py__8UzDax9",
+                            "rrf_reranker_hybrid_py__fPYiCcC",
+                            "distance_metric_selection_py__QpqLQ7M",
+                            "openai_registry_auto_embed_py__jCEQfvH",
+                            "fts_native_search_py__ypiNNQQ",
+                            "delete_by_predicate_py__f9zWmza",
+                            "batch_vector_search_py__DBiTWy4",
+                            "sql_where_filter_basic_py__uFgLM9a",
+                            "optimize_cleanup_versions_py__jR5iiMk",
+                            "pydantic_lancemodel_schema_py__LFzBqnU",
+                            "schema_evolution_columns_py__7SFrjPB",
+                            "merge_insert_upsert_py__HosVEcp",
+                            "minio_s3_storage_py__yigJFzG",
+                            "update_special_chars_py__aLab8Fx",
+                            "index_stats_monitoring_py__bpDo3NH"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 485137,
+        "cost_usd": null
+    }
+}

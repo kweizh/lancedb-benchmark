@@ -1,0 +1,229 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 18,
+            "passed": 18,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550589033,
+            "stop": 1780550592723
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_row_count",
+                "status": "passed",
+                "duration": 3367,
+                "start": 1780550589315,
+                "stop": 1780550592682,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_is_list_of_seven",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780550592682,
+                "stop": 1780550592684,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_sort_order",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592684,
+                "stop": 1780550592685,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_schema",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592685,
+                "stop": 1780550592686,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_updated_rows_in_lancedb",
+                "status": "passed",
+                "duration": 19,
+                "start": 1780550592686,
+                "stop": 1780550592705,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(2, 5, 7)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_updated_rows_in_lancedb",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592705,
+                "stop": 1780550592706,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(2, 5, 7)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_updated_rows_in_lancedb",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592707,
+                "stop": 1780550592708,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(2, 5, 7)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_updated_rows_in_output",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592708,
+                "stop": 1780550592709,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(2, 5, 7)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_updated_rows_in_output",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592710,
+                "stop": 1780550592711,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(2, 5, 7)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_updated_rows_in_output",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592711,
+                "stop": 1780550592712,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(2, 5, 7)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_inserted_rows_in_lancedb",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592712,
+                "stop": 1780550592713,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(11, 12)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_inserted_rows_in_lancedb",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592713,
+                "stop": 1780550592714,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(11, 12)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_inserted_rows_in_output",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592714,
+                "stop": 1780550592715,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(11, 12)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_inserted_rows_in_output",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780550592716,
+                "stop": 1780550592716,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(11, 12)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_unchanged_rows_in_lancedb",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592717,
+                "stop": 1780550592718,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(1, 10)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_unchanged_rows_in_lancedb",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592719,
+                "stop": 1780550592720,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(1, 10)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_unchanged_rows_in_output",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550592720,
+                "stop": 1780550592721,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(1, 10)"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_unchanged_rows_in_output",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780550592721,
+                "stop": 1780550592723,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::id_value::(1, 10)"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,29 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 18 items
+
+tests/test_final_state.py ..................                             [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_row_count
+PASSED tests/test_final_state.py::test_output_is_list_of_seven
+PASSED tests/test_final_state.py::test_output_sort_order
+PASSED tests/test_final_state.py::test_output_schema
+PASSED tests/test_final_state.py::test_updated_rows_in_lancedb[2]
+PASSED tests/test_final_state.py::test_updated_rows_in_lancedb[5]
+PASSED tests/test_final_state.py::test_updated_rows_in_lancedb[7]
+PASSED tests/test_final_state.py::test_updated_rows_in_output[2]
+PASSED tests/test_final_state.py::test_updated_rows_in_output[5]
+PASSED tests/test_final_state.py::test_updated_rows_in_output[7]
+PASSED tests/test_final_state.py::test_inserted_rows_in_lancedb[11]
+PASSED tests/test_final_state.py::test_inserted_rows_in_lancedb[12]
+PASSED tests/test_final_state.py::test_inserted_rows_in_output[11]
+PASSED tests/test_final_state.py::test_inserted_rows_in_output[12]
+PASSED tests/test_final_state.py::test_unchanged_rows_in_lancedb[1]
+PASSED tests/test_final_state.py::test_unchanged_rows_in_lancedb[10]
+PASSED tests/test_final_state.py::test_unchanged_rows_in_output[1]
+PASSED tests/test_final_state.py::test_unchanged_rows_in_output[10]
+============================== 18 passed in 3.36s ==============================

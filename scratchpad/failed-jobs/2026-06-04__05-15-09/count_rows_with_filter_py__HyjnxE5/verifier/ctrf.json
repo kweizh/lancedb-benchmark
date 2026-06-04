@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780550205073,
+            "stop": 1780550208329
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_counts_json_keys",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780550205107,
+                "stop": 1780550205108,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_counts_json_values_are_ints",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780550205109,
+                "stop": 1780550205109,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_counts_json_matches_expected_values",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780550205110,
+                "stop": 1780550205110,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_orders_table_schema",
+                "status": "passed",
+                "duration": 3190,
+                "start": 1780550205111,
+                "stop": 1780550208301,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_orders_table_total_rows",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780550208301,
+                "stop": 1780550208304,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_orders_table_us_filter",
+                "status": "passed",
+                "duration": 10,
+                "start": 1780550208304,
+                "stop": 1780550208314,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_orders_table_unpaid_high_value_filter",
+                "status": "passed",
+                "duration": 6,
+                "start": 1780550208315,
+                "stop": 1780550208321,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_orders_table_apac_or_eu_filter",
+                "status": "passed",
+                "duration": 6,
+                "start": 1780550208322,
+                "stop": 1780550208328,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

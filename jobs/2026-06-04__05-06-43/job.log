@@ -1,0 +1,1858 @@
+Skipping image OS validation for hb__nested_list_struct_py: docker inspect returned 1
+Skipping image OS validation for hb__versioning_time_travel_py: docker inspect returned 1
+Skipping image OS validation for hb__create_open_table_py: docker inspect returned 1
+Skipping image OS validation for hb__vector_search_basic_py: docker inspect returned 1
+Skipping image OS validation for hb__count_rows_with_filter_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-mhqzjhi > /logs/artifacts/run-id && echo nested_list_struct_py__MhqzJHi > /logs/artifacts/trial_id
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: echo zr-gon6fle > /logs/artifacts/run-id && echo create_open_table_py__GoN6fLE > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-qnhyhup > /logs/artifacts/run-id && echo versioning_time_travel_py__QNHYhup > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-jpr3ht6 > /logs/artifacts/run-id && echo vector_search_basic_py__JPr3Ht6 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Running command: echo zr-r8r5bqx > /logs/artifacts/run-id && echo count_rows_with_filter_py__r8r5BQx > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Nested `list<struct>` and `struct` Schema
+
+## Background
+LanceDB is an open-source REDACTED built on top of the Lance columnar format. Beyond plain scalar columns, it supports rich Arrow types such as nested `struct` columns and `list<struct>` columns, and lets you filter on struct subfields using SQL dot-notation. This task exercises that capability end-to-end: build a non-trivial Arrow schema, seed deterministic data, run a vector search, and run a SQL filter that reaches into a nested struct.
+
+## Requirements
+- Connect to a local LanceDB database whose URI comes from the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Create a table named `papers` with the following **exact** Arrow schema (use `pyarrow` types):
+  - `id`: `int64`
+  - `title`: `string`
+  - `authors`: `list<struct<name: string, affiliation: string>>`
+  - `metrics`: `struct<citations: int32, year: int32>`
+  - `vector`: `fixed_size_list<float32>[8]`
+- Seed the table with exactly 10 deterministic rows. Vary the leading author name (e.g., `alice`, `bob`, `carol`, ...), the citation count, and the year so that some `metrics.year` values are `>= 2022` and others are not.
+- After seeding:
+  1. Run a vector search against the `vector` column with a fixed query vector and `limit=3`.
+  2. Run a metadata query that filters rows where `metrics.year >= 2022` (using dot-notation on the struct subfield) and returns up to 50 rows.
+- Write the combined results to `/workspace/output/nested_results.json` as a JSON object with two keys:
+  - `topk_titles`: list[str] — titles of the top-3 nearest neighbours, in rank order.
+  - `recent_ids_sorted`: list[int] — ids of all rows with `metrics.year >= 2022`, sorted ascending.
+
+## Implementation Hints
+- Use `pyarrow` to build the schema. `pa.list_(pa.struct([...]))` and `pa.struct([...])` are the relevant constructors; the vector column should be `pa.list_(pa.float32(), 8)` (fixed-size list).
+- Build the data as a `pyarrow.Table` (or a list of dicts that matches the schema) and pass it to `db.create_table("papers", data=..., schema=..., mode="overwrite")`.
+- For determinism, seed `numpy.random.default_rng` with a fixed seed and use that to generate the 8-d float32 vectors.
+- For the nested filter, LanceDB's SQL parser supports dot-notation on struct subfields, so a `where="metrics.year >= 2022"` clause on the search builder is sufficient. If the search builder requires a vector for `to_list()`, supply a placeholder zero vector and a generous `limit` — the filter is what matters for the second query.
+- Create `/workspace/output/` if it does not already exist before writing the result file.
+
+## Acceptance Criteria
+- Project path: /workspace/solution
+- Command: `python3 /workspace/solution/solution.py`
+- After the command exits successfully:
+  - A LanceDB table named `papers` exists at `${LANCEDB_URI:-/workspace/db}` with the exact Arrow schema described above (column names, types, struct field names, and the fixed-size-list width of 8 must all match).
+  - The table contains exactly 10 rows.
+  - The file `/workspace/output/nested_results.json` exists and parses as a JSON object with keys `topk_titles` (list of 3 strings) and `recent_ids_sorted` (sorted ascending list of integers, each present in the table and corresponding to a row whose `metrics.year >= 2022`).
+  - `topk_titles` matches the top-3 results returned by a vector search on the `vector` column with the agreed fixed query vector and `limit=3`.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Table Lifecycle: Create, Overwrite, Open, and Summarize
+
+## Background
+LanceDB is an embedded multimodal REDACTED built on the Lance columnar format. In this task you will exercise the core table lifecycle primitives of the Python SDK: connecting to a local database, creating a table from an explicit Apache Arrow schema with seeded deterministic data, demonstrating the `mode="overwrite"` behavior of `create_table`, reopening the table, and capturing a JSON summary of the resulting database state.
+
+## Requirements
+- Connect to a local LanceDB database located at the path given by the `LANCEDB_URI` environment variable. If the variable is unset, default to `/workspace/db`.
+- Create a table named `products` using an **explicit PyArrow schema** with the following columns and exact Arrow types:
+  - `id`: `int32`
+  - `name`: `string`
+  - `price`: `float64`
+  - `tags`: `list<string>`
+  - `vector`: `fixed_size_list<float32>[4]`
+- Seed the table with at least 6 rows of deterministic data. Generate the 4-dimensional `vector` values from `numpy.random.default_rng(7)`.
+- Demonstrate `mode="overwrite"` semantics by recreating the same `products` table once with a different (but schema-compatible) set of rows, then restore the original 6-row dataset (again via `mode="overwrite"`) so the final state has exactly the original 6 rows.
+- Reopen the table with `db.open_table("products")` and use the resulting `Table` object to read the final row count.
+- Write a JSON summary to `/workspace/output/table_state.json` with these top-level keys:
+  - `tables_in_db`: a JSON array of table names returned by `db.table_names()`, sorted lexicographically.
+  - `row_count`: the integer result of `table.count_rows()`.
+  - `schema_field_names`: a sorted JSON array of the table's Arrow schema field names.
+
+## Implementation Hints
+- The Python LanceDB SDK is available as `lancedb`. Use `lancedb.connect(uri)` to obtain a database handle.
+- Build the schema with `pyarrow.schema([...])`. `pa.list_(pa.string())` and `pa.list_(pa.float32(), 4)` are useful here.
+- Pass the explicit schema to `db.create_table(..., schema=...)` to avoid type-inference surprises.
+- See https://docs.lancedb.com/quickstart and https://docs.lancedb.com/tables/create for canonical create/open patterns.
+- Do NOT run any local embedding model or download model weights. Vectors must come from `numpy.random.default_rng(7)`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 /home/user/myproject/solution.py
+- Ensure the script is executed and the artifacts exist.
+- After running the command:
+  - The LanceDB database at the path given by `LANCEDB_URI` (default `/workspace/db`) contains a table named `products`.
+  - `products` has exactly 6 rows.
+  - The schema of `products` contains at least the fields: `id`, `name`, `price`, `tags`, `vector`.
+  - The file `/workspace/output/table_state.json` exists and is valid JSON.
+  - The JSON object contains keys `tables_in_db`, `row_count`, and `schema_field_names`.
+  - `tables_in_db` is a sorted JSON array that includes `"products"`.
+  - `row_count` is exactly `6`.
+  - `schema_field_names` is a sorted JSON array that includes all of: `id`, `name`, `price`, `tags`, `vector`.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Count Rows With SQL Filters in LanceDB (Python)
+
+## Background
+LanceDB tables expose a `count_rows(filter=...)` method that returns the number of rows matching an optional SQL predicate (filter pushdown via DataFusion). Use this API to compute several counts on a small `orders` table without materializing the rows.
+
+## Requirements
+- Connect to a local LanceDB database at the path given by environment variable `LANCEDB_URI` (default: `/workspace/db`).
+- Create (overwrite if it already exists) a table named `orders` with the following Arrow schema:
+  - `id`: `int64`
+  - `region`: `string` (one of `"us"`, `"eu"`, `"apac"`)
+  - `amount`: `float64`
+  - `paid`: `bool`
+  - `vector`: `fixed_size_list<float32>[4]`
+- Seed the table with exactly 60 deterministic rows generated by the rules below (no randomness for the scalar columns; vectors are fixed-seed numpy values):
+  - For row index `i` in `0..59` (inclusive):
+    - `id = i`
+    - `region = ["us", "eu", "apac"][i % 3]`
+    - `amount = 10.0 + 5.0 * i`
+    - `paid = (i % 2 == 0)`  (even `i` → `true`, odd `i` → `false`)
+    - `vector` = a 4-dim `float32` vector drawn from `numpy.random.default_rng(seed=42)` (advance the RNG once per row, in row order).
+- Using `table.count_rows(filter=<predicate>)`, compute the following four counts:
+  - `total_rows`: rows in the table with no filter (i.e., call `count_rows()` without arguments).
+  - `us_orders`: rows where `region = 'us'`.
+  - `unpaid_high_value`: rows where `paid = false AND amount > 100.0`.
+  - `apac_or_eu`: rows where `region IN ('eu', 'apac')`.
+- Write the four counts to `/workspace/output/counts.json` as a single JSON object with exactly those four keys mapping to integer values.
+
+## Implementation Hints
+- Use the LanceDB Python SDK (`lancedb.connect`) and PyArrow to build the table schema; `pyarrow.list_(pyarrow.float32(), 4)` produces a fixed-size list field.
+- Prefer creating the table with `mode="overwrite"` so the script is idempotent.
+- `table.count_rows(filter=<sql>)` returns an `int`. The SQL filter language follows DataFusion conventions (e.g., `=`, `AND`, `IN`, single-quoted string literals, lowercase `false`).
+- Make sure the parent directory of the output JSON exists before writing.
+
+## Acceptance Criteria
+- Project path: `/workspace/project`
+- Ensure the script is executed and the artifacts exist.
+- LanceDB database path: `/workspace/db` (or whatever `LANCEDB_URI` resolves to at runtime).
+- Table `orders` exists in the LanceDB database with the schema described above and exactly 60 rows.
+- Output file: `/workspace/output/counts.json` is a JSON object with exactly the four integer keys: `total_rows`, `us_orders`, `unpaid_high_value`, `apac_or_eu`.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Basic LanceDB Vector Search
+
+## Background
+You are integrating LanceDB (the open-source embedded multimodal lakehouse) into a small Python service. The service indexes a tiny in-memory corpus with precomputed 8-dimensional vectors and runs a single nearest-neighbor query. Because the runtime has no GPU and no model weights, **all vectors are precomputed deterministically with `numpy.random.default_rng(42)`** — no embedding model is ever downloaded or invoked.
+
+## Requirements
+- Write a Python script `solution.py` that:
+  - Connects to a local LanceDB database at the path given by the environment variable `LANCEDB_URI` (default to `/workspace/db` when the variable is not set).
+  - Creates a table named `documents` with the following Arrow schema (in this exact column order):
+    - `id`: `int64`
+    - `text`: `string`
+    - `vector`: `fixed_size_list<float32>[8]` (8-dimensional float32 vector)
+  - Inserts 12 rows generated deterministically as follows, using a single `numpy.random.default_rng(42)` instance, draws in this exact order:
+    1. `vectors = rng.standard_normal((12, 8)).astype(numpy.float32)`
+    2. `query = rng.standard_normal(8).astype(numpy.float32)`
+  - Row `i` (for `i` in `0..11`) must have `id = i`, `text = f"document_{i}"`, and `vector = vectors[i]`.
+  - Runs a vector similarity search using `query` as the query vector and returns the top 5 nearest rows using LanceDB's default L2 distance metric.
+  - Serializes the top 5 results as a JSON array to `/workspace/output/results.json`. Each list element must be a JSON object with exactly these keys:
+    - `id` (integer)
+    - `text` (string)
+    - `_distance` (float)
+  - The list must be ordered from nearest to farthest (smallest `_distance` first).
+
+## Implementation Hints
+- Connect with `lancedb.connect(...)` and create the table from a PyArrow Table or a list of dicts. Either pass a PyArrow schema or let LanceDB infer it — just make sure the vector column is a `pa.list_(pa.float32(), 8)` (fixed-size list of length 8).
+- Use `table.search(query_vector).limit(5)` and convert results with `.to_list()` or `.to_pandas()`. The result already contains the `_distance` column.
+- The script must be **idempotent**: running it twice in the same database should not fail. Either drop the table before creating it, or use a create-with-mode pattern.
+- Make sure the output directory exists before writing (`os.makedirs("/workspace/output", exist_ok=True)`).
+- Cast all JSON values to native Python types (e.g., `int(row["id"])`, `float(row["_distance"])`).
+
+## Acceptance Criteria
+- Project path: /workspace/myproject
+- Command: `python3 /workspace/myproject/solution.py`
+- The command must complete successfully (exit code 0).
+- After execution, the file `/workspace/output/results.json` must exist and contain a JSON array of exactly 5 objects.
+- Each object must contain the keys `id` (int), `text` (string), and `_distance` (float), and only those keys.
+- Results must be ordered ascending by `_distance` (nearest first).
+- The `id` values must match the true top-5 nearest neighbors computed against the same seeded `numpy.random.default_rng(42)` data using L2 distance.
+- The LanceDB table at `${LANCEDB_URI:-/workspace/db}/documents.lance` (or equivalent path) must exist and contain exactly 12 rows with the documented schema.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Versioning and Time Travel
+
+## Background
+LanceDB tracks every mutation as a new immutable version of the table. You can list every version that has ever existed with `list_versions()`, jump to any prior version with `checkout(version)`, and return to the most recent state with `checkout_latest()`. In this task you will exercise these APIs end-to-end on a small `docs` table, walking it through a known sequence of mutations and then time-travelling between two of the versions you produced.
+
+## Requirements
+- Connect to LanceDB at the URI given by the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Create a table named `docs` with the schema below and seed it with rows `id = 1..5`:
+  - `id`: `int64`
+  - `title`: `string`
+  - `vector`: `fixed_size_list<float32>[4]`
+- After the initial seed, perform this exact mutation sequence on the table, in order:
+  1. Add 3 more rows with `id` 6, 7, 8.
+  2. `update` the row where `id = 3`, setting `title` to `"v3-updated"`.
+  3. `delete` the row where `id = 1`.
+- Call `table.list_versions()` and capture the total number of versions.
+- Time-travel back to the early version that exists immediately after the initial seed (before any of the three mutation steps above), read all rows in that snapshot, then call `checkout_latest()` and read all rows in the latest version.
+- Write the final result as JSON to `/workspace/output/version_state.json`.
+
+## Implementation Hints
+- LanceDB's versioning APIs are documented at https://docs.lancedb.com/tables/versioning. The relevant methods on a `Table` are `list_versions()`, `checkout(version)`, and `checkout_latest()`.
+- Every write operation (create, add, update, delete) produces a new monotonically increasing integer version. Inspect what `list_versions()` returns to identify the version that corresponds to "right after the initial seed".
+- After `checkout(early_version)` the table object reads from the historical snapshot; remember to call `checkout_latest()` before reading the latest state.
+- Use deterministic 4-dimensional vectors (any fixed numpy values are fine). No model inference is required.
+- The output directory `/workspace/output/` already exists in the environment; just create the JSON file inside it.
+
+## Acceptance Criteria
+- Project path: /workspace
+- Ensure the real LanceDB mutations are executed against the table at `LANCEDB_URI` and the output artifact exists.
+- Output file: /workspace/output/version_state.json
+- The output file MUST be valid JSON containing exactly these top-level keys:
+  - `num_versions`: integer, the value of `len(table.list_versions())` after all mutations are applied.
+  - `early_version_ids_sorted`: JSON array of integers, the sorted list of `id` values visible in the early snapshot (immediately after the initial seed).
+  - `latest_version_ids_sorted`: JSON array of integers, the sorted list of `id` values visible in the latest version.
+  - `latest_id3_title`: string, the `title` of the row with `id = 3` in the latest version.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__rrf_reranker_hybrid_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__distance_metric_selection_py: docker inspect returned 1
+Skipping image OS validation for hb__openai_registry_auto_embed_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Skipping image OS validation for hb__fts_native_search_py: docker inspect returned 1
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-7vatwz5 > /logs/artifacts/run-id && echo rrf_reranker_hybrid_py__7Vatwz5 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-zkctasc > /logs/artifacts/run-id && echo distance_metric_selection_py__ZkCtASc > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-qzfeh5t > /logs/artifacts/run-id && echo openai_registry_auto_embed_py__QZfEH5T > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Hybrid Vector + FTS Search with RRF Reranker (LanceDB)
+
+## Background
+You are building a small retrieval pipeline on top of LanceDB. The workload combines dense vector similarity with native full-text search (BM25), and fuses the two candidate lists with a Reciprocal Rank Fusion (`RRFReranker`) reranker so that strong keyword hits and strong semantic hits both have a chance to surface.
+
+LanceDB is already installed in the environment (`lancedb==0.25.3`, `pyarrow==17.0.0`, `numpy==1.26.4`). Do **not** install any other vector store or any local embedding model — vectors must be derived from a seeded NumPy RNG so the task is fully deterministic and never depends on a downloaded model or a GPU.
+
+## Requirements
+- Connect to LanceDB at the URI given by environment variable `LANCEDB_URI` (default: `/workspace/db`).
+- Create (or recreate) a table called `kb` with this Arrow schema, in this column order:
+  - `id`: `int64`
+  - `text`: `string`
+  - `vector`: `fixed_size_list<float32>[8]`
+- Seed the table with exactly the following 30 rows (ids `0`–`29`). The `text` column must match the strings below character-for-character:
+  ```
+   0: introduction to REDACTEDs
+   1: columnar storage in arrow
+   2: lancedb columnar storage backend
+   3: approximate nearest neighbor algorithms
+   4: fts and bm25 keyword search
+   5: vector search benchmark suite
+   6: embedding models for retrieval
+   7: hybrid rrf reranker tutorial for lancedb
+   8: ivf pq quantization basics
+   9: hnsw graph index overview
+  10: cosine similarity vs dot product
+  11: euclidean distance considerations
+  12: tantivy full text search engine
+  13: native lance fts native indexing
+  14: metadata filtering with sql
+  15: pyarrow integration patterns
+  16: open source ai retrieval stack
+  17: rag pipelines with langchain
+  18: llamaindex vector store overview
+  19: multimodal embeddings for images
+  20: blob storage in lance datasets
+  21: merge insert upsert workflows
+  22: table versioning and time travel
+  23: schema evolution with arrow
+  24: delete by predicate semantics
+  25: update with sql where clauses
+  26: automatic index compaction strategies
+  27: s3 minio cloud deployment
+  28: embedding registry openai integration
+  29: deterministic seeding for tests
+  ```
+- The `vector` column must be filled from the deterministic NumPy generator `numpy.random.default_rng(7).standard_normal((30, 8)).astype("float32")`, in row order (row `i` gets row `i` of that array).
+- Build a **native** Lance full-text index on the `text` column with Tantivy disabled, and make sure it can be rebuilt cleanly if it already exists. Concretely the index must be created with `table.create_fts_index("text", use_tantivy=False, replace=True)`.
+- Run a hybrid search that combines vector similarity and full-text search and fuses them with `RRFReranker`:
+  - The text query is the literal string `rrf reranker`.
+  - The query vector MUST be row 7's vector from the seeded dataset, i.e. row index `7` (0-indexed) of `numpy.random.default_rng(7).standard_normal((30, 8)).astype("float32")`. This guarantees the query is deterministic and that the same row dominates both the vector and the FTS sub-query.
+  - Use the builder form `table.search(query_type="hybrid").vector(query_vec).text("rrf reranker").rerank(RRFReranker()).limit(5).to_list()`.
+- Materialize the top 5 results as a JSON array of `[id, text]` pairs (in rank order) and write the file to `/workspace/output/hybrid_rrf.json`. The output directory `/workspace/output` must be created if it does not already exist.
+
+## Implementation Hints
+- Use `lancedb.connect(...)` to open or create the database at `LANCEDB_URI`, and `db.create_table(name, data=..., schema=..., mode="overwrite")` (or equivalent) so the script is idempotent.
+- Build the Arrow schema explicitly with `pyarrow.schema([...])` using `pa.list_(pa.float32(), 8)` for the vector column to guarantee a `fixed_size_list<float32>[8]` layout.
+- After adding the rows, call `create_fts_index("text", use_tantivy=False, replace=True)` so the BM25 half of the hybrid query has something to score against.
+- `RRFReranker` lives in `lancedb.rerankers`. The hybrid builder requires both `.vector(...)` and `.text(...)` to be supplied explicitly when no embedding function is attached to the table.
+- Convert the search result (a list of dicts) into a list of `[id, text]` pairs before writing it as JSON. Make sure ids are plain Python `int` values, not NumPy scalars, so the JSON file is valid.
+
+## Acceptance Criteria
+- Project path: `/home/user/rrf_hybrid`
+- Ensure the script is actually executed end-to-end against a real LanceDB store; the verifier inspects both the database and the output file.
+- LanceDB database location: the URI in the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Output artifact: `/workspace/output/hybrid_rrf.json`.
+  - Format: a JSON array of exactly 5 elements, each element a two-item array `[id, text]` where `id` is an integer and `text` is a string.
+  - Order: the array is ranked best-first as returned by the hybrid + RRF query.
+  - The first element's `text` must contain the substring `rrf reranker`.
+- LanceDB state after the script runs:
+  - A table named `kb` exists with at least 30 rows and a column named `text` of string type.
+  - `table.list_indices()` reports at least one index whose columns include `text` (the native FTS index built by the script).
+
+
+EOF
+Skipping image OS validation for hb__ivf_pq_index_creation_py: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Compare Distance Metrics in LanceDB Vector Search
+
+## Background
+LanceDB supports multiple distance metrics for vector similarity search (`L2`, `cosine`, `dot`, `hamming`). When no vector index has been built, you can choose the distance metric on a per-query basis via the `distance_type()` method on the query builder. The ranking of the top-K results depends on the metric you pick, even when the query vector and the underlying data are identical.
+
+In this task you will build a small Python program that connects to a local LanceDB database, creates a deterministic table of 16-dimensional vectors, runs the same query under three different distance metrics, and writes the resulting top-5 IDs to a JSON file for downstream comparison.
+
+## Requirements
+- Connect to LanceDB using the URI from the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Create a table named `vectors` with the following Arrow schema:
+  - `id`: `int64`
+  - `label`: `string`
+  - `vector`: `fixed_size_list<float32>[16]`
+- Seed the table with exactly 32 deterministic rows generated from `numpy.random.default_rng(123)`:
+  - `id` values are `0..31` in order.
+  - `label` values are `f"item-{i}"` for `i` in `0..31`.
+  - `vector` values are produced by calling `rng.standard_normal(size=(32, 16)).astype("float32")` on a single RNG instance, BEFORE generating the query vector.
+- After seeding, generate the query vector from the SAME RNG instance via `rng.standard_normal(size=(16,)).astype("float32")`.
+- Run three vector searches against the `vectors` table using the same query vector, varying only the distance metric:
+  - `L2`
+  - `cosine`
+  - `dot`
+  - Each search must return the top 5 results (`.limit(5)`).
+- Write the ordered top-5 `id` values from each search to `/workspace/output/distances.json` as a single JSON object with the shape:
+
+  ```json
+  {
+    "l2":     [<id>, <id>, <id>, <id>, <id>],
+    "cosine": [<id>, <id>, <id>, <id>, <id>],
+    "dot":    [<id>, <id>, <id>, <id>, <id>]
+  }
+  ```
+
+  IDs must be plain JSON integers and must appear in the order returned by LanceDB (closest match first).
+
+## Implementation Hints
+- Use the official `lancedb` Python SDK (`lancedb.connect(...)`, `db.create_table(...)`).
+- Define the Arrow schema with `pyarrow` and use `pa.list_(pa.float32(), 16)` for the fixed-size vector column.
+- Select the distance metric on a query with `table.search(query_vector).distance_type("l2" | "cosine" | "dot").limit(5)`. The metric string is case-insensitive in LanceDB.
+- Generate all data deterministically with a single `numpy.random.default_rng(123)` instance; do not reseed between calls.
+- Make sure `/workspace/output` exists before writing the JSON file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Output file: /workspace/output/distances.json
+- The table `vectors` exists in the LanceDB database at `LANCEDB_URI` (default `/workspace/db`) with schema columns `id: int64`, `label: string`, `vector: fixed_size_list<float32>[16]` and exactly 32 rows.
+- The output JSON file is a single object with exactly three string keys (`l2`, `cosine`, `dot`); each value is a JSON array of exactly 5 integers representing the top-5 IDs returned by the corresponding distance metric, in ranking order.
+
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Auto-Embedding with the LanceDB OpenAI Embedding Registry
+
+## Background
+LanceDB ships an embedding-function registry that wires a hosted embedding model (e.g. OpenAI `text-embedding-3-small`) directly into a Pydantic `LanceModel` schema. Once configured, inserts are automatically vectorized server-side by the registry and string queries are embedded automatically too. You will build a small Python script that demonstrates this end-to-end against a real OpenAI endpoint.
+
+## Requirements
+- Use a fresh on-disk LanceDB at the location given by the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Use the OpenAI embedding provider exposed through `lancedb.embeddings.get_registry().get("openai")` with model `text-embedding-3-small`.
+- Define a `LanceModel` table schema named `docs` with three columns: `text` (string, `SourceField`), `label` (string), and `vector` (`Vector(func.ndims())`, `VectorField`).
+- Insert exactly 8 rows where ONLY `text` and `label` are provided (no precomputed vectors): the registry must compute the embeddings via the real OpenAI API.
+- After ingestion, run the vector search with a STRING query: `table.search("REDACTED with sql filtering").limit(3).to_list()` and persist the top-3 results.
+
+## Implementation Hints
+- Read `OPENAI_API_KEY` (and optionally `OPENAI_BASE_URL`) from the environment; the `openai` provider in the registry will pick it up.
+- The `Vector(func.ndims())` field type means you do not specify a hard-coded dimensionality; let the registry report it.
+- The 8 seed rows must include at least one row whose text is `"LanceDB supports SQL filtering on vector queries."` so that the chosen query has a clear top-1 match.
+- Write the top-3 results to `/workspace/output/registry_results.json` with this shape: `{"top3_texts": [str, str, str], "top3_labels": [str, str, str]}`. The order MUST be the order returned by `to_list()`.
+
+## Acceptance Criteria
+- Project path: /workspace
+- Ensure the script is executed and the artifacts exist.
+- Log file: /workspace/output/run.log (free-form; must exist and be non-empty after the script runs)
+- LanceDB database directory: `${LANCEDB_URI}` (default `/workspace/db`) must contain a table named `docs`.
+- The `docs` table must have exactly 8 rows.
+- The `vector` column in `docs` must be a fixed-size list of 1536 floats (the native dimension of `text-embedding-3-small`).
+- Output file: `/workspace/output/registry_results.json` must exist and be valid JSON with the following shape:
+  ```json
+  {
+    "top3_texts": [string, string, string],
+    "top3_labels": [string, string, string]
+  }
+  ```
+- `top3_texts` and `top3_labels` MUST each have length 3.
+- The first element of `top3_texts` MUST contain the substring `SQL filtering` (case-sensitive), reflecting the SQL-filtering-themed seed row that is the strongest semantic match for the query.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-eoaeqzh > /logs/artifacts/run-id && echo fts_native_search_py__eoaEqzh > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Native (Non-Tantivy) Full-Text Search with LanceDB
+
+## Background
+You are building a small keyword search prototype on top of LanceDB. The corpus is a collection of short articles about vector search, columnar formats, and information retrieval. You must use LanceDB's native (Lance-based) full-text search implementation — not the legacy Tantivy backend — to index the `body` column and run two BM25 queries.
+
+## Requirements
+- Connect to LanceDB at the path provided by the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Create (or recreate) a table named `articles` with this exact column layout:
+  - `id` — `int64`
+  - `title` — `string`
+  - `body` — `string`
+  - `vector` — `fixed_size_list<float32>[4]` (the values must come from `numpy.random.default_rng(1)`; the vector column is present for schema completeness but is not used by FTS).
+- Seed the table with at least 20 rows of varied article content. Each row's `body` should be distinct enough that the two FTS queries below resolve to a single unambiguous top result.
+- Build a native FTS index on the `body` column using the Lance-native backend (i.e. `use_tantivy=False`). The index must be (re)created idempotently each run.
+- Run two full-text queries (`query_type="fts"`) using the values from the environment variables `FTS_QUERY_1` (default `"REDACTED"`) and `FTS_QUERY_2` (default `"REDACTED"`). For each query, capture the top 3 results.
+- Write the combined results to `/workspace/output/fts_results.json`.
+
+## Implementation Hints
+- Use the synchronous Python client: `import lancedb` and `lancedb.connect(uri)`.
+- Build the table schema with `pyarrow` (e.g. `pa.schema([...])`) so the vector column is `pa.list_(pa.float32(), 4)`.
+- Use `table.create_fts_index("body", use_tantivy=False, replace=True)` to build the native FTS index.
+- Query with `table.search(query, query_type="fts").limit(3).to_list()`; each result dict will include the matched row plus a `_score` field.
+- Make sure `/workspace/output/` exists before writing the JSON file.
+
+## Acceptance Criteria
+- Project path: /workspace
+- Ensure the script is executed end-to-end and the artifacts exist.
+- LanceDB table: `articles` at `${LANCEDB_URI}` (default `/workspace/db`).
+- The `articles` table schema must contain columns `id` (int64), `title` (string), `body` (string), and `vector` (fixed-size list of 4 float32 values), with at least 20 rows.
+- A native (non-Tantivy) FTS index must exist on the `body` column. It must be discoverable via `table.list_indices()`.
+- Output file: `/workspace/output/fts_results.json`. The file must be valid JSON whose top-level object contains exactly the keys `"query_1"` and `"query_2"`. Each value must be a list of up to 3 result objects, ordered by descending relevance, each with at least the keys `id` (int), `title` (string), and `_score` (number).
+- For each query, the result with the highest `_score` (the first entry) must correspond to the seeded row whose `body` is the canonical answer for that query (see `truth`).
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-qxnehry > /logs/artifacts/run-id && echo ivf_pq_index_creation_py__QxNehry > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Build an IVF_PQ Vector Index in LanceDB
+
+## Background
+You are operating on a local LanceDB database whose URI is provided via the `LANCEDB_URI` environment variable (default `/workspace/db`). Your job is to build a real `IVF_PQ` approximate-nearest-neighbor index on a 32-dimensional vector column, wait until the index is fully trained, and then run a single vector search through that index. The results must be persisted as JSON so a downstream verifier can confirm the index was constructed correctly.
+
+## Requirements
+- Connect to the LanceDB database at `LANCEDB_URI` (default `/workspace/db`).
+- Create (or open) a table named `embeddings` with this schema:
+  - `id`: `int64`
+  - `tag`: `string`
+  - `vector`: `fixed_size_list<float32>[32]`
+- Seed the table with at least 512 deterministic rows. Use `numpy.random.default_rng(2024)` to generate the vectors so the data is reproducible across runs (IVF_PQ training requires at least 256 rows; 512 is a comfortable margin).
+- Build an `IVF_PQ` index on the `vector` column using `metric="cosine"`, `num_partitions=4`, and `num_sub_vectors=8`. The build must replace any prior index on the column and must run until completion.
+- Wait for the index to finish training using `table.wait_for_index([...])` with a `datetime.timedelta` timeout (NOT an integer number of seconds).
+- Read the index stats (e.g., `table.index_stats("vector_idx")`) to obtain the number of indexed rows.
+- Run a vector search for the 10 nearest neighbors of a fixed 32-dimensional query vector and capture the returned `id` values, in order.
+- Write the results to `/workspace/output/ivf_pq.json` with this exact shape:
+  ```json
+  {
+    "index_present": true,
+    "num_indexed_rows": <int>,
+    "topk_ids": [<10 integers>]
+  }
+  ```
+
+## Implementation Hints
+- Use `lancedb.connect(...)` and `db.create_table(...)` (with `mode="overwrite"`) to set up the schema. A `pyarrow.schema` with `pa.field("vector", pa.list_(pa.float32(), 32))` works cleanly.
+- Deterministic seeding: `rng = numpy.random.default_rng(2024)`. Generate at least 512 vectors of dimension 32 and use sequential ids starting at 1.
+- `table.create_index(...)` accepts `metric`, `num_partitions`, `num_sub_vectors`, `index_type="IVF_PQ"`, and `replace=True`.
+- `table.wait_for_index(["vector_idx"], timeout=datetime.timedelta(seconds=120))` is the correct signature in lancedb 0.25.3 — passing a bare integer for `timeout` raises a type error.
+- The default index name LanceDB assigns is `<column>_idx`, so the index on `vector` is `vector_idx`.
+- `table.list_indices()` and `table.index_stats(name)` are the two introspection APIs you'll need.
+- Construct the query vector deterministically too (for example with `numpy.random.default_rng(99)`); make sure it is a 32-d `float32` array before passing it to `.search(...)`.
+- Ensure the output directory `/workspace/output` exists before writing the JSON file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the real index build is executed against the LanceDB database at `LANCEDB_URI` and the JSON artifact exists.
+- Log/output file: /workspace/output/ivf_pq.json
+- The JSON file MUST be valid JSON with exactly these three top-level keys:
+  - `index_present`: boolean — `true` if and only if `table.list_indices()` reports an `IVF_PQ` index on the `vector` column.
+  - `num_indexed_rows`: integer — the indexed-row count reported by `table.index_stats("vector_idx")` (must be at least 256).
+  - `topk_ids`: list of exactly 10 integers — the `id` values returned by a single vector search for the 10 nearest neighbors of the chosen query vector, in result order. Every id must fall in the inclusive range `[1, 512]` (or `[1, num_rows]` if more than 512 rows were seeded).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__delete_by_predicate_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__batch_vector_search_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-e92nnhb > /logs/artifacts/run-id && echo delete_by_predicate_py__e92nnhB > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-bspgiwe > /logs/artifacts/run-id && echo batch_vector_search_py__BSpgiwE > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Delete LanceDB Rows by SQL Predicate
+
+## Background
+You are operating on a LanceDB OSS database. A `logs` table needs to be cleaned up by removing rows that match several SQL predicates. You will use the Python SDK's `Table.delete(<predicate>)` API to perform the soft deletes, then export a summary of the surviving rows so the cleanup can be audited.
+
+## Requirements
+- Connect to LanceDB using the URI from the `LANCEDB_URI` environment variable (default: `/workspace/db`).
+- Create a table named `logs` with the following Arrow schema (in this exact column order):
+  - `id`: `int64`
+  - `level`: `string` (one of `"info"`, `"warn"`, `"error"`)
+  - `seq`: `int32`
+  - `vector`: fixed-size list of `float32` with list size `4`
+- Seed the table with exactly 50 deterministic rows where for each `id` in `1..=50`:
+  - `level` cycles through `info`, `warn`, `error` (so `id=1`→`info`, `id=2`→`warn`, `id=3`→`error`, `id=4`→`info`, ...).
+  - `seq = id * 2`.
+  - `vector` may be any fixed deterministic 4-float vector (e.g., derived from `id` with a fixed seed). The verifier does not inspect vector values.
+- After seeding, run these three deletes IN ORDER using `Table.delete(<sql_predicate>)`:
+  1. Delete every row whose `level` equals `'warn'`.
+  2. Delete every row whose `level` equals `'info'` AND whose `seq` is strictly greater than `60`.
+  3. Delete every row whose `id` is in the set `{5, 9, 13}`.
+- After all deletes complete, write a JSON file to `/workspace/output/delete_state.json` whose top-level object has exactly these keys:
+  - `total_rows`: integer count of rows remaining in the `logs` table (from `Table.count_rows()` after deletes).
+  - `remaining_ids_sorted`: a JSON array of integers — every surviving `id` value, sorted in ascending order.
+
+## Implementation Hints
+- Use `lancedb.connect(...)` against the `LANCEDB_URI` path and `db.create_table("logs", schema=...)` to materialize an empty table with a PyArrow schema, then append rows with `tbl.add(...)`. You can also create the table directly from a PyArrow Table that already contains the seed rows.
+- The four columns must be created in the order listed above (`id`, `level`, `seq`, `vector`).
+- `Table.delete(predicate)` takes a SQL `WHERE`-style string; quote string literals with single quotes (e.g., `level = 'warn'`).
+- After deletes, derive `remaining_ids_sorted` from a query such as `tbl.to_pandas()` / `tbl.to_arrow()` / `tbl.search().select(["id"]).limit(<n>).to_list()`; make sure the output list is sorted in ascending numeric order.
+- Ensure the parent directory `/workspace/output/` exists before writing the JSON file.
+
+## Acceptance Criteria
+- Project path: /home/user/lance_delete
+- Ensure the real LanceDB writes and deletes are executed against the database at `LANCEDB_URI` (default `/workspace/db`) and the artifact is produced.
+- Output file: /workspace/output/delete_state.json
+- The table `logs` exists at `LANCEDB_URI` after the script runs.
+- The output JSON file has exactly the top-level keys `total_rows` (integer) and `remaining_ids_sorted` (array of integers in ascending order). No other top-level keys are required.
+- `total_rows` MUST equal the actual `Table.count_rows()` value reported by LanceDB after the deletes.
+- `remaining_ids_sorted` MUST equal the sorted list of surviving `id` values from the `logs` table.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Batch Vector Search with LanceDB
+
+## Background
+LanceDB lets you score many query vectors against the same table in a single search call. This is useful when an upstream system produces several candidate queries (for example, paraphrases of one user request) and you want the top matches for each without paying per-query round-trip overhead.
+
+You must build a small Python program that connects to a LanceDB database, creates and seeds a table with deterministic vectors, runs a batch vector search for 5 query vectors at once, and writes the per-query top-3 neighbor ids to a JSON file.
+
+## Requirements
+- Connect to LanceDB using the URI read from the `LANCEDB_URI` environment variable (default `/workspace/db` when unset).
+- Create a table named `items` with this Arrow schema:
+  - `id`: `int64`
+  - `name`: `string`
+  - `vector`: `fixed_size_list<float32>[12]` (12 float32 components)
+- Seed the `items` table with 64 rows using `numpy.random.default_rng(33)`:
+  - For row `i` (0-indexed, 0..63), draw the 12-d float32 vector by sampling 12 values via `rng.random(12, dtype=numpy.float32)` from a **single** RNG instance, in order. The 64 vectors are therefore the first 64 consecutive 12-float draws from `default_rng(33)`.
+  - Set `id = i` and `name = f"item-{i}"`.
+- After seeding the table, build 5 query vectors. Continue drawing from the **same** RNG instance (so the queries are draws 65..69 in sequence). Stack them into a single 2-D numpy array of shape `(5, 12)` with dtype `float32`.
+- Run a single batched vector search call against the `items` table using the 2-D numpy array as the query and `.limit(3)`. Convert the result to a pandas DataFrame and use the `query_index` column to group results per query. (If your installed lancedb version does not return a `query_index` column for batched 2-D inputs, fall back to looping over the 5 query vectors and running `table.search(q).limit(3).to_list()` for each — the JSON output must remain identical.)
+- For each of the 5 queries (in order 0..4), extract the top-3 `id` values, in the order returned by LanceDB, and write the final answer to `/workspace/output/batch_search.json` with this exact shape:
+  ```json
+  {
+    "results": [
+      [<top1_id_q0>, <top2_id_q0>, <top3_id_q0>],
+      [<top1_id_q1>, <top2_id_q1>, <top3_id_q1>],
+      [<top1_id_q2>, <top2_id_q2>, <top3_id_q2>],
+      [<top1_id_q3>, <top2_id_q3>, <top3_id_q3>],
+      [<top1_id_q4>, <top2_id_q4>, <top3_id_q4>]
+    ]
+  }
+  ```
+  Each inner list MUST contain exactly 3 integer ids. The JSON file MUST be created by your script.
+
+## Implementation Hints
+- Use `lancedb.connect(uri)` and `db.create_table(name, schema=...)` followed by `tbl.add(rows)` (or pass `data=` to `create_table`). PyArrow is a convenient way to declare the `fixed_size_list<float32>[12]` schema.
+- Use one shared `numpy.random.default_rng(33)` instance for both the 64 stored vectors and the 5 queries so the sequence is fully deterministic.
+- LanceDB's `table.search(...)` accepts a 2-D numpy array to batch multiple queries; the resulting pandas DataFrame includes a `query_index` column that identifies the originating query.
+- The L2 distance is the default — leave the metric at the default.
+- Make sure `/workspace/output/` exists before writing the JSON file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed end-to-end against a real LanceDB database (no mocking) and that the artifact below exists.
+- Output file: `/workspace/output/batch_search.json`
+- The JSON file MUST be a single object with one top-level key `results` whose value is a list of exactly 5 lists. Each inner list MUST contain exactly 3 integer ids in the order returned by the batched search.
+- The LanceDB table `items` MUST exist at `LANCEDB_URI` (default `/workspace/db`) and MUST contain 64 rows seeded as specified.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Skipping image OS validation for hb__sql_where_filter_basic_py: docker inspect returned 1
+Skipping image OS validation for hb__optimize_cleanup_versions_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: echo zr-rdfwaef > /logs/artifacts/run-id && echo sql_where_filter_basic_py__rDFWaef > /logs/artifacts/trial_id
+Running command: echo zr-uzqnpjv > /logs/artifacts/run-id && echo optimize_cleanup_versions_py__UZQnPJV > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Compaction and Old-Version Cleanup
+
+## Background
+Long-lived LanceDB tables accumulate two kinds of overhead: many small fragments from incremental writes, and a growing trail of historical versions retained for time travel. The `Table.optimize` method bundles both compaction and pruning of old versions into a single call, and the `cleanup_older_than` parameter (a `datetime.timedelta`) controls how aggressively past versions are reclaimed.
+
+In this task you will write a Python script that exercises this maintenance path end-to-end against a real local LanceDB store.
+
+## Requirements
+- Connect to a LanceDB store at the URI given by the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Create a table named `metrics` with the following Arrow schema:
+  - `id: int64`
+  - `value: float32`
+  - `vector: fixed_size_list<float32>[8]`
+- Seed the table with 100 rows in the initial `create_table` call.
+- After creation, perform 8 small `table.add(...)` calls of 10 rows each. Each call must be its own write operation so that many fragments and many versions are produced.
+- Capture `len(table.list_versions())` BEFORE running any optimize / cleanup.
+- Call `table.optimize(cleanup_older_than=timedelta(seconds=0))` to compact fragments and prune every version older than the current one.
+- Capture `len(table.list_versions())` AFTER the optimize call.
+- Capture `table.count_rows()` AFTER the optimize call.
+- Write the result JSON to `/workspace/output/optimize_state.json` with exactly these keys:
+  - `pre_optimize_versions` (int)
+  - `post_optimize_versions` (int)
+  - `post_optimize_row_count` (int)
+
+## Implementation Hints
+- Use `lancedb.connect(uri)` from the synchronous Python API.
+- Construct the Arrow schema explicitly with `pyarrow` so the fixed-size-list dimensionality is preserved.
+- Generate deterministic vectors with `numpy` (no external models, no GPU).
+- Remember that `cleanup_older_than` accepts a `datetime.timedelta`, not an integer count of seconds.
+- The current version of the table is always retained, so post-optimize version count will be at least 1.
+- Make sure the `/workspace/output/` directory exists before writing the result file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- LanceDB store path: read from the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Table name: `metrics`.
+- Output file: `/workspace/output/optimize_state.json` containing a single JSON object with keys `pre_optimize_versions`, `post_optimize_versions`, `post_optimize_row_count` (all integers).
+- After the script runs:
+  - `post_optimize_row_count` MUST equal `180` (100 seed rows + 8 batches of 10).
+  - `pre_optimize_versions` MUST be strictly greater than `post_optimize_versions` (cleanup pruned older versions).
+  - `post_optimize_versions` MUST be at least `1` (current version is always retained).
+- No network access is required; do not call any embedding model or remote service.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Basic SQL `where` Filtering
+
+## Background
+You maintain a small event log and want to use LanceDB's SQL `where` clause to quickly slice the log by severity and event type without running vector search. LanceDB is built on Apache DataFusion, so its query builder accepts standard SQL predicates against table columns.
+
+## Requirements
+Write a Python program at `/workspace/solution/run.py` that:
+
+1. Connects to a LanceDB database at the URI from the `LANCEDB_URI` environment variable (default `/workspace/db`).
+2. (Re)creates a table named `events` with this Arrow schema:
+   - `id`: `int64`
+   - `event_type`: `string`
+   - `severity`: `int32`
+   - `created_at`: `timestamp[us]`
+   - `vector`: `fixed_size_list<float32>[8]`
+3. Seeds the table with exactly 30 rows of deterministic data (see Implementation Hints for the exact seed values).
+4. Runs three pure metadata queries using LanceDB's SQL `where` clause and writes the combined result to `/workspace/output/filter_results.json` as a single JSON object with three keys: `high_severity`, `errors_only`, and `combined`.
+5. Each value must be a JSON array of objects with the keys `id`, `event_type`, and `severity`, sorted by `id` ascending. The three queries are:
+   - `high_severity`: rows where `severity >= 7`.
+   - `errors_only`: rows where `event_type = 'error'`.
+   - `combined`: rows where `event_type = 'warn' AND severity >= 3`.
+
+## Implementation Hints
+- Connect via `lancedb.connect(uri)` and use `db.create_table("events", schema=..., mode="overwrite")` so reruns are idempotent.
+- LanceDB's query builder supports `table.search().where("<sql>").limit(<n>).to_list()` for pure metadata filtering (no vector required). Calling `search()` with no argument returns a plain query that respects the `where` clause.
+- SQL filter expressions support `>=`, `=`, `AND`, `OR`, and quoted string literals (e.g. `event_type = 'error'`).
+- Use Python's standard `json` module to dump the results. Sort each list by `id` ascending before writing.
+- Build the fixture deterministically:
+  - Vectors: `numpy.random.default_rng(5).standard_normal((30, 8)).astype("float32")`.
+  - Other columns come from this fixed Python data (row `i` uses index `i`):
+    - `id`: `i` for `i` in `0..29`.
+    - `event_type` cycles through `["info", "warn", "error", "warn", "info", "error"]` (use index `i % 6`).
+    - `severity` cycles through `[1, 3, 5, 7, 9, 2, 4, 6, 8, 10]` (use index `i % 10`).
+    - `created_at` is `datetime(2024, 1, 1, 0, 0, 0) + timedelta(hours=i)` (use Python `datetime` so it lands in the Arrow `timestamp[us]` column).
+- Ensure `/workspace/output` exists before writing.
+
+## Acceptance Criteria
+- Project path: /workspace/solution
+- Ensure the script is executed and the artifacts exist.
+- Output file: /workspace/output/filter_results.json
+- The file must be valid JSON with exactly the top-level keys `high_severity`, `errors_only`, and `combined`.
+- Each value must be a JSON array of objects, each with exactly the keys `id`, `event_type`, and `severity`, sorted by `id` ascending.
+- The LanceDB database at `LANCEDB_URI` must contain an `events` table with 30 rows that match the deterministic fixture described in Implementation Hints.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__pydantic_lancemodel_schema_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-mdsewcj > /logs/artifacts/run-id && echo pydantic_lancemodel_schema_py__mdSeWcJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Pydantic LanceModel Schema (Python)
+
+## Background
+LanceDB lets you define a table's schema by subclassing `lancedb.pydantic.LanceModel` instead of writing a raw Apache Arrow schema. Pydantic models are easier to read and maintain, and LanceDB will infer the on-disk Arrow types directly from the field annotations.
+
+In this task you will use a `LanceModel` to create a `movies` table, ingest a deterministic set of rows whose embedding vectors come from a seeded `numpy` RNG, run a vector search against a query vector drawn from the same RNG, and write the top-5 nearest-neighbor results to a JSON file.
+
+Do **NOT** run a model locally or use the LanceDB embedding registry — vectors are precomputed from a seeded RNG and passed in explicitly.
+
+## Requirements
+- Open a LanceDB database at the URI given by the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Define a Pydantic `LanceModel` subclass named `Movie` with exactly the following fields, in this declaration order:
+  - `id: int`
+  - `title: str`
+  - `year: int`
+  - `genres: list[str]`
+  - `summary: str`
+  - `vector: Vector(32)`
+- Create a table called `movies` from the `Movie` schema. If the table already exists it must be overwritten so the script is rerunnable.
+- Ingest **exactly 24 rows** (`id` 0..23) using a single `numpy.random.default_rng(99)` instance shared across the whole script:
+  - For each row `i` in `range(24)`, in order, draw the row's embedding by calling `rng.standard_normal(32).astype('float32')` once, then convert the resulting numpy array to a plain Python `list` before constructing `Movie(...)`.
+  - After the 24 row vectors have been drawn, draw the query vector by calling `rng.standard_normal(32).astype('float32')` **once more on the same RNG instance**.
+  - Scalar fields are derived deterministically from `id` only (no RNG):
+    - `title` = `f"Movie {id:02d}"`
+    - `year` = `2000 + (id % 25)`
+    - `genres` = a list whose first element is `GENRE_LIST[id % 5]` and, when `id % 3 == 0`, also contains a second element `GENRE_LIST[(id + 2) % 5]`. `GENRE_LIST = ["drama", "comedy", "action", "sci-fi", "romance"]`.
+    - `summary` = `f"Summary for movie {id}."`
+- Run a vector search using the query vector for the 5 nearest neighbors and write the results to `/workspace/output/movies_top5.json` as a JSON array of objects with **exactly** the keys `id`, `title`, `year`, and `_distance`, in result order (ascending `_distance`).
+- Write a log file at `/workspace/output/run.log` that contains a single line of the form `Top-5 IDs: <json-array>` where `<json-array>` is a JSON array of the 5 ids in result order.
+
+## Implementation Hints
+- Import `LanceModel` and `Vector` from `lancedb.pydantic`.
+- The on-disk column order follows the order in which the fields are declared on the `Movie` model.
+- Critical: draw the 24 row vectors **before** the query vector and use a single `numpy.random.default_rng(99)` for all draws — the verifier recomputes the expected top-5 by replaying exactly that draw sequence.
+- Use `db.create_table("movies", schema=Movie, mode="overwrite")` and `table.add([...Movie(...)...])`, or pass the rows directly to `create_table(data=[...], schema=Movie)`. Either is acceptable as long as the final schema and row count match.
+- For the query use `table.search(query_vector).limit(5).to_list()` and project to the four required keys; LanceDB adds `_distance` automatically (default metric is L2).
+
+## Acceptance Criteria
+- Project path: /workspace
+- Ensure the script is executed and the artifacts exist.
+- Log file: /workspace/output/run.log
+- Output file: /workspace/output/movies_top5.json
+- The LanceDB database at `LANCEDB_URI` must contain a table named `movies` whose schema, inspected via `table.schema`, has exactly the fields `id`, `title`, `year`, `genres`, `summary`, `vector` in that order with Arrow types `int64`, `string` (utf8), `int64`, `list<item: string>`, `string` (utf8), and `fixed_size_list<item: float32, 32>` respectively.
+- `table.count_rows()` must return a value `>= 24`.
+- `/workspace/output/movies_top5.json` must parse as a JSON array of exactly 5 objects. Each object must have exactly the keys `id` (int), `title` (str), `year` (int), `_distance` (float). The list must be ordered by ascending `_distance`.
+- The 5 `id` values in `movies_top5.json` must equal the top-5 nearest-neighbor ids recomputed by the verifier from the same seeded RNG draws (24 row vectors first, then 1 query vector, all from `numpy.random.default_rng(99)`).
+- `/workspace/output/run.log` must contain a line `Top-5 IDs: <json-array>` whose JSON array equals the candidate-produced `id` list from `movies_top5.json`.
+
+
+EOF
+Skipping image OS validation for hb__schema_evolution_columns_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__merge_insert_upsert_py: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-ys6dekn > /logs/artifacts/run-id && echo schema_evolution_columns_py__YS6dekN > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Schema Evolution: Add and Drop Columns
+
+## Background
+You are extending an inventory management table backed by LanceDB. The table was originally created with a small set of fields (including a vector column), but the application no longer needs the vector and now requires two derived columns: a price-in-cents integer and a low-stock boolean flag. Use LanceDB's schema evolution APIs (`Table.add_columns` and `Table.drop_columns`) to evolve the table in place — without rewriting the data or dropping the table — and emit a summary JSON document describing the resulting state.
+
+## Requirements
+- Connect to LanceDB OSS using the URI in the `LANCEDB_URI` environment variable (defaults to `/workspace/db` when unset).
+- Open the existing table named `inventory`. Do not recreate it.
+- Evolve the schema in place using LanceDB's schema-evolution APIs:
+  - Add a new `BIGINT` column `price_cents` whose value is `qty * 100` for every existing row.
+  - Add a new boolean column `is_low_stock` that is `true` when `qty < 5` and `false` otherwise.
+  - Drop the `vector` column entirely.
+- Write a summary JSON file to `/workspace/output/schema_after.json` describing the post-evolution state.
+- Do NOT drop or recreate the table. Do NOT delete rows. Do NOT modify `id`, `sku`, or `qty`.
+
+## Implementation Hints
+- The lancedb Python SDK provides `table.add_columns({"new_col": "<sql expression>"})` to add columns whose values are computed from a SQL expression evaluated against the existing rows.
+- Use SQL `CAST(... AS BIGINT)` for integer arithmetic and boolean comparison operators (`<`) for the low-stock flag.
+- Use `table.drop_columns(["<col>"])` to remove a column.
+- After evolution, inspect `table.schema` to enumerate the remaining columns, and use `table.to_pandas()` (or `table.to_arrow()`) to compute aggregates for the JSON summary.
+- The script should write the output JSON with sorted keys and stable ordering so it can be compared deterministically.
+
+## Acceptance Criteria
+- Project path: /workspace/solution
+- Command: python3 /workspace/solution/main.py
+- The script must read the database URI from the `LANCEDB_URI` environment variable (default `/workspace/db`) and operate on the existing `inventory` table.
+- After the script exits successfully, the `inventory` table in the LanceDB database must:
+  - No longer contain a `vector` column.
+  - Contain a `price_cents` column of integer (64-bit) type.
+  - Contain an `is_low_stock` column of boolean type.
+  - Still contain the original `id`, `sku`, and `qty` columns with their original values and row count.
+- A JSON file must exist at `/workspace/output/schema_after.json` with exactly the following top-level keys:
+  - `field_names_sorted`: a JSON array of strings — the sorted list of column names of the evolved table.
+  - `low_stock_ids_sorted`: a JSON array of integers — the sorted list of `id` values where `is_low_stock` is `true`.
+  - `total_price_cents`: a JSON integer — the sum of `price_cents` across all rows.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-apg5sn8 > /logs/artifacts/run-id && echo merge_insert_upsert_py__aPG5sN8 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Merge Insert Upsert Workflow
+
+## Background
+You are working with LanceDB, an embedded REDACTED that supports the `merge_insert` API for upserting rows (update existing keys and insert new ones in a single atomic operation). Your job is to write a Python script that implements a deterministic upsert workflow against a local LanceDB database and exports the final state of selected rows.
+
+## Requirements
+- Connect to a local LanceDB database. Read the connection URI from the `LANCEDB_URI` environment variable, with default `/workspace/db`.
+- Create a table named `users` with the following Arrow schema (use `pyarrow` types):
+  - `id`: `int64`
+  - `email`: `string`
+  - `score`: `float32`
+  - `vector`: fixed-size list of `float32` with length `8`
+  The table must be created fresh on every run (overwrite mode or drop-then-create) so the workflow is idempotent.
+- Seed the table with exactly 10 rows whose `id` values are `1..10` (inclusive). Use these exact seed values so the workflow is reproducible:
+  - `email = f"user_{id}@example.com"` for `id` in `1..10`.
+  - `score`: cast the first 10 floats of `numpy.random.default_rng(0).random(10)` to `float32`. The value at index `i` is the score for row `id == i + 1`.
+  - `vector`: a length-8 `float32` array, generated as `numpy.random.default_rng(100 + id).random(8).astype("float32")` for each row.
+- Perform TWO upsert batches against the SAME table using `table.merge_insert("id").when_matched_update_all().when_not_matched_insert_all().execute(rows)`:
+  1. UPDATE batch — incoming rows for `id` in `{2, 5, 7}` with brand-new values:
+     - `email = f"updated_{id}@example.com"`
+     - `score = float32(0.5 + 0.1 * id)` (so id 2 → 0.7, id 5 → 1.0, id 7 → 1.2)
+     - `vector = numpy.random.default_rng(200 + id).random(8).astype("float32")`
+  2. INSERT batch — incoming rows for `id` in `{11, 12}` (these are NEW keys, not present in the table):
+     - `email = f"new_{id}@example.com"`
+     - `score = float32(0.5 + 0.1 * id)` (so id 11 → 1.6, id 12 → 1.7)
+     - `vector = numpy.random.default_rng(200 + id).random(8).astype("float32")`
+- After both upserts, call `table.count_rows()` and write the final state to `/workspace/output/upsert_state.json`.
+
+## Implementation Hints
+- Use `lancedb.connect(uri)` to open the database, then `db.create_table("users", data=..., mode="overwrite")` (or `db.drop_table("users", ignore_missing=True)` followed by `db.create_table(...)`).
+- Build each incoming batch as a `pyarrow.Table` whose schema matches the table schema exactly, including the fixed-size list vector column. A convenient way to build the vector column is `pa.FixedSizeListArray.from_arrays(pa.array(flat_floats, type=pa.float32()), 8)`.
+- Apply the same `merge_insert("id")` pipeline twice — one call per batch.
+- Make sure `/workspace/output/` exists before writing JSON (e.g. `os.makedirs("/workspace/output", exist_ok=True)`).
+- The output JSON file must be a JSON array of objects sorted by `id` ascending, filtered to ids `{1, 2, 5, 7, 10, 11, 12}`. Each object has the keys `id` (int), `email` (string), and `score` (number, rounded to a JSON-serializable float). Do NOT include the vector column in the output.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 /home/user/myproject/upsert.py`
+- Database URI: `/workspace/db` (read from env `LANCEDB_URI`).
+- Table name: `users`.
+- Final table row count (via `table.count_rows()`): exactly `12`.
+- Output file: `/workspace/output/upsert_state.json` exists and contains a JSON array of exactly 7 objects sorted by `id` ascending.
+- Each output element must have keys `id` (int), `email` (string), and `score` (number).
+- The 3 updated rows (ids 2, 5, 7) reflect the upsert batch values (`updated_<id>@example.com` and `score = 0.5 + 0.1 * id`).
+- The 2 inserted rows (ids 11, 12) reflect the insert batch values (`new_<id>@example.com` and `score = 0.5 + 0.1 * id`).
+- The unmodified rows (ids 1, 10) retain their original seed values (`user_<id>@example.com` and the deterministic RNG-derived score).
+
+
+EOF
+Skipping image OS validation for hb__minio_s3_storage_py: docker inspect returned 1
+Skipping image OS validation for hb__update_special_chars_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-cqkkvye > /logs/artifacts/run-id && echo update_special_chars_py__CqkkVYE > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB: Update Rows with Special Characters
+
+## Background
+LanceDB tables expose two flavors of in-place updates: `table.update(where=..., values={...})` accepts plain Python values, while `table.update(where=..., values_sql={...})` accepts SQL expressions. When the new string value contains an apostrophe (e.g., `I'm good`, `It's a test`, `O'Brien`), naive use of `values_sql` produces an `Unterminated string literal` SQL error (LanceDB issue #1429). The Python `values=` form sidesteps this footgun entirely because the value is bound, not interpolated, into SQL.
+
+Your job is to write a Python script that creates a small `notes` table, seeds it with 8 rows, performs three updates that each set a column to a string containing a single quote, and writes the post-update state out to disk for verification.
+
+## Requirements
+- Connect to LanceDB at the path provided by the `LANCEDB_URI` env var (default `/workspace/db`).
+- Create a table named `notes` with columns:
+  - `id: int64`
+  - `author: string`
+  - `body: string`
+  - `vector: fixed_size_list<float32>[4]`
+- Seed the table with exactly 8 rows whose `id` values are 1..8, populated with simple ASCII `author` and `body` strings and deterministic 4-d float32 vectors.
+- Perform the following updates IN ORDER using `table.update(where=..., values={...})` (the Python dict form, NOT `values_sql`):
+  1. Set the `body` of the row where `id = 2` to the string `I'm good`.
+  2. Set the `body` of the row where `id = 4` to the string `It's a test`.
+  3. Set the `author` of the row where `id = 6` to the string `O'Brien`.
+- After all updates, read the rows with `id` in 1..8, sort them by `id` ascending, and write them to `/workspace/output/notes_after.json` as a JSON array of objects with keys `id`, `author`, `body` (no vector).
+
+## Implementation Hints
+- Use `lancedb.connect(os.environ.get("LANCEDB_URI", "/workspace/db"))`.
+- Define the schema with `pyarrow` (`pa.schema([...])`) and `pa.list_(pa.float32(), 4)` for the vector column, then call `db.create_table("notes", data=..., schema=..., mode="overwrite")`.
+- Generate deterministic vectors with `numpy.random.default_rng(seed=...)`.
+- For each update, pass a Python dict to `values=`, e.g. `tbl.update(where="id = 2", values={"body": "I'm good"})`. Do **not** use `values_sql` — it requires SQL string escaping and is the cause of the apostrophe bug.
+- For the final read, you can use `tbl.search().where("id >= 1 AND id <= 8").limit(100).to_list()` or `tbl.to_pandas()` and then sort by `id` before serializing.
+- Make sure the output directory exists before writing (`os.makedirs("/workspace/output", exist_ok=True)`).
+
+## Acceptance Criteria
+- Project path: /workspace
+- Ensure the script is executed and the output artifact exists.
+- Log/output file: /workspace/output/notes_after.json
+- The output file MUST be a JSON array of exactly 8 objects, each with keys `id` (int), `author` (string), and `body` (string), sorted by `id` ascending.
+- The row with `id = 2` MUST have `body` equal exactly to the 8-character string `I'm good`.
+- The row with `id = 4` MUST have `body` equal exactly to the 11-character string `It's a test`.
+- The row with `id = 6` MUST have `author` equal exactly to the 7-character string `O'Brien`.
+- The other rows (`id` in {1, 3, 5, 7, 8}) MUST retain their original seeded `author` and `body` values.
+- The LanceDB table `notes` at `LANCEDB_URI` MUST also reflect these same three updates (the JSON output and the table must agree).
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-bymztvq > /logs/artifacts/run-id && echo minio_s3_storage_py__bYMZTvq > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB on S3-compatible Object Storage (MinIO)
+
+## Background
+
+LanceDB supports any S3-compatible object store as a first-class storage backend. In this task you will run LanceDB against a local **MinIO** server (already running inside the container on port `9000`) instead of the local filesystem. This is the same pattern users follow to point LanceDB at AWS S3, Cloudflare R2, Tigris, or any other S3-compatible API.
+
+MinIO is started automatically by the container entrypoint, with a pre-created bucket named `lance-bucket`. The MinIO credentials are exposed to your script through environment variables (`MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`).
+
+Your script must connect LanceDB to MinIO over the S3 protocol, create a table, seed it with deterministic data, run a vector search, and write the results to a JSON file.
+
+## Requirements
+
+- Connect LanceDB to MinIO using the `s3://lance-bucket/` URI and the appropriate `storage_options` (custom endpoint, region, access key, secret key, and HTTP-not-HTTPS allowance).
+- Create a table named `vectors_s3` with the following Arrow schema:
+  - `id`: `int64`
+  - `payload`: `string`
+  - `vector`: `fixed_size_list<float32>[8]`
+- Seed the table with **16 deterministic rows**. Each row has:
+  - `id = i` for `i in 0..15`
+  - `payload = f"row-{i:02d}"`
+  - `vector` = `numpy.random.default_rng(11).standard_normal((16, 8)).astype("float32")[i]`
+- Build a query vector using the same generator state: take the next `standard_normal(8)` sample from a *fresh* `default_rng(11)` after consuming the 16 seed rows (i.e., call `rng = numpy.random.default_rng(11); rng.standard_normal((16, 8))` and then `query = rng.standard_normal(8).astype("float32")`).
+- Run a top-3 vector search (default L2 metric) and write the results to `/workspace/output/s3_results.json`.
+
+## Implementation Hints
+
+- Use `lancedb.connect("s3://lance-bucket/", storage_options={...})` and pass `endpoint`, `region`, `aws_access_key_id`, `aws_secret_access_key`, and `allow_http`.
+- The MinIO endpoint is `http://127.0.0.1:9000`. The region can be anything S3 expects, e.g. `us-east-1`.
+- Read `MINIO_ACCESS_KEY` and `MINIO_SECRET_KEY` from `os.environ`.
+- Use `pyarrow` to construct the schema (`pa.list_(pa.float32(), 8)` for the fixed-size vector field) or pass a list-of-dicts and let LanceDB infer the schema; either way the resulting field must be `fixed_size_list<float32>[8]`.
+- Search with `table.search(query).limit(3).to_list()`.
+- Write the JSON file as a list of `{"id": int, "payload": str, "_distance": float}` objects in the order returned by `to_list()` (i.e., nearest first).
+- Make sure `/workspace/output/` exists before writing.
+
+## Acceptance Criteria
+
+- Project path: `/workspace`
+- Ensure the script is executed and the artifact exists.
+- Output file: `/workspace/output/s3_results.json`
+- The output file is a JSON array of exactly 3 objects, each containing the keys `id` (integer), `payload` (string), and `_distance` (number).
+- The table `vectors_s3` exists in the LanceDB database hosted on MinIO at `s3://lance-bucket/`, with exactly 16 rows and the schema described above.
+- The top-3 ids in the output match the deterministic ground truth that can be recomputed from `numpy.random.default_rng(11)`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__index_stats_monitoring_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-aer4wbj > /logs/artifacts/run-id && echo index_stats_monitoring_py__Aer4wbj > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Monitor LanceDB Index Health with `index_stats`
+
+## Background
+LanceDB exposes per-index health information via `Table.index_stats(index_name)`. Operators commonly use it to detect when new rows have been written into a table but have not yet been merged into an existing vector index. Those rows still take part in queries (via a brute-force scan over the unindexed delta), but they degrade latency until the index is re-optimized. A reliable monitoring workflow first builds an index over a seed dataset, snapshots `num_indexed_rows` / `num_unindexed_rows`, ingests new rows, and re-reads the stats to confirm the delta grew.
+
+## Requirements
+- Write a single Python program at `/home/user/project/run.py` that, when executed inside the task container, performs the full monitoring workflow described below against a real LanceDB instance.
+- The program MUST:
+  1. Connect to the LanceDB URI provided in the `LANCEDB_URI` environment variable (default `/workspace/db` when unset).
+  2. Create a fresh table named `points` with an `id: int64` column and a `vector: fixed_size_list<float32>[16]` column.
+  3. Seed the table with exactly 400 deterministic rows generated from `numpy.random.default_rng(50)` (no model inference, no GPU).
+  4. Build an IVF_PQ index over the `vector` column with `metric="cosine"`, `num_partitions=4`, `num_sub_vectors=4`, `replace=True`, and wait for the index to become ready (using `wait_for_index(["vector_idx"], timeout=datetime.timedelta(seconds=120))`).
+  5. Capture an initial snapshot of `table.index_stats("vector_idx")` (`num_indexed_rows`, `num_unindexed_rows`, `index_type`).
+  6. Append 50 additional deterministic rows to the table (these new rows must remain unindexed - DO NOT call `optimize()` or rebuild the index afterwards).
+  7. Capture a second snapshot of `table.index_stats("vector_idx")` and write the monitoring report to `/workspace/output/index_stats.json`.
+- The output JSON file MUST contain exactly these top-level keys:
+  - `index_type` (string): the LanceDB-reported index type for `vector_idx`.
+  - `initial_indexed` (int): `num_indexed_rows` from the snapshot taken immediately after the index is built.
+  - `initial_unindexed` (int): `num_unindexed_rows` from that same initial snapshot.
+  - `unindexed_after_add` (int): `num_unindexed_rows` from the second snapshot, taken after the 50-row append.
+
+## Implementation Hints
+- Use `lancedb.connect(...)` and `db.create_table(name, schema=...)` (or `data=...`) to create the `points` table. Drop any pre-existing table with the same name to keep the run idempotent.
+- The fixed-size 16-d vector column is most easily expressed with `pyarrow.list_(pyarrow.float32(), 16)`.
+- Use `Table.create_index(metric=..., vector_column_name="vector", index_type="IVF_PQ", num_partitions=4, num_sub_vectors=4, replace=True)` to build the index. The default index name for a vector column called `vector` is `vector_idx`.
+- `Table.wait_for_index` requires a `datetime.timedelta` for its `timeout` argument; passing an `int` will raise a type error.
+- `Table.index_stats(...)` returns an object whose attributes include `num_indexed_rows`, `num_unindexed_rows`, and `index_type`. Coerce numeric fields to `int` before serializing.
+- Make sure the output directory exists before writing (`os.makedirs("/workspace/output", exist_ok=True)`).
+
+## Acceptance Criteria
+- Project path: `/home/user/project`
+- Ensure the script is executed and the artifacts exist.
+- Command: `python3 /home/user/project/run.py`
+- The script must complete successfully (exit code 0) with no `optimize()` call between the initial and second `index_stats` reads.
+- Artifact: `/workspace/output/index_stats.json` must exist and contain a JSON object with exactly the keys `index_type`, `initial_indexed`, `initial_unindexed`, `unindexed_after_add`.
+- The `index_type` value must contain the substring `IVF_PQ` (case-insensitive).
+- `initial_indexed` must be at least 256 (the seed dataset has 400 rows, all of which must be covered by the freshly built index).
+- `initial_unindexed` must equal 0 immediately after the index is built and the wait completes.
+- `unindexed_after_add` must be at least 50 (the 50 newly appended rows are not yet merged into the index).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

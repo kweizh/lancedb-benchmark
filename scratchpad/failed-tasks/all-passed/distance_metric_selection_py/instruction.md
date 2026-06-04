@@ -1,0 +1,49 @@
+# Compare Distance Metrics in LanceDB Vector Search
+
+## Background
+LanceDB supports multiple distance metrics for vector similarity search (`L2`, `cosine`, `dot`, `hamming`). When no vector index has been built, you can choose the distance metric on a per-query basis via the `distance_type()` method on the query builder. The ranking of the top-K results depends on the metric you pick, even when the query vector and the underlying data are identical.
+
+In this task you will build a small Python program that connects to a local LanceDB database, creates a deterministic table of 16-dimensional vectors, runs the same query under three different distance metrics, and writes the resulting top-5 IDs to a JSON file for downstream comparison.
+
+## Requirements
+- Connect to LanceDB using the URI from the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Create a table named `vectors` with the following Arrow schema:
+  - `id`: `int64`
+  - `label`: `string`
+  - `vector`: `fixed_size_list<float32>[16]`
+- Seed the table with exactly 32 deterministic rows generated from `numpy.random.default_rng(123)`:
+  - `id` values are `0..31` in order.
+  - `label` values are `f"item-{i}"` for `i` in `0..31`.
+  - `vector` values are produced by calling `rng.standard_normal(size=(32, 16)).astype("float32")` on a single RNG instance, BEFORE generating the query vector.
+- After seeding, generate the query vector from the SAME RNG instance via `rng.standard_normal(size=(16,)).astype("float32")`.
+- Run three vector searches against the `vectors` table using the same query vector, varying only the distance metric:
+  - `L2`
+  - `cosine`
+  - `dot`
+  - Each search must return the top 5 results (`.limit(5)`).
+- Write the ordered top-5 `id` values from each search to `/workspace/output/distances.json` as a single JSON object with the shape:
+
+  ```json
+  {
+    "l2":     [<id>, <id>, <id>, <id>, <id>],
+    "cosine": [<id>, <id>, <id>, <id>, <id>],
+    "dot":    [<id>, <id>, <id>, <id>, <id>]
+  }
+  ```
+
+  IDs must be plain JSON integers and must appear in the order returned by LanceDB (closest match first).
+
+## Implementation Hints
+- Use the official `lancedb` Python SDK (`lancedb.connect(...)`, `db.create_table(...)`).
+- Define the Arrow schema with `pyarrow` and use `pa.list_(pa.float32(), 16)` for the fixed-size vector column.
+- Select the distance metric on a query with `table.search(query_vector).distance_type("l2" | "cosine" | "dot").limit(5)`. The metric string is case-insensitive in LanceDB.
+- Generate all data deterministically with a single `numpy.random.default_rng(123)` instance; do not reseed between calls.
+- Make sure `/workspace/output` exists before writing the JSON file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Output file: /workspace/output/distances.json
+- The table `vectors` exists in the LanceDB database at `LANCEDB_URI` (default `/workspace/db`) with schema columns `id: int64`, `label: string`, `vector: fixed_size_list<float32>[16]` and exactly 32 rows.
+- The output JSON file is a single object with exactly three string keys (`l2`, `cosine`, `dot`); each value is a JSON array of exactly 5 integers representing the top-5 IDs returned by the corresponding distance metric, in ranking order.
+

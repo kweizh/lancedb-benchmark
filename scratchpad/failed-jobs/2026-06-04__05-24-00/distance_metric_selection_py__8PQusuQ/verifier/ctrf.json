@@ -1,0 +1,124 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780551084665,
+            "stop": 1780551088469
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_json_has_exact_keys",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551088447,
+                "stop": 1780551088448,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_json_value_shape",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551088448,
+                "stop": 1780551088449,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::metric::['l2', 'cosine', 'dot']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_output_json_value_shape",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551088450,
+                "stop": 1780551088451,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::metric::['l2', 'cosine', 'dot']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_output_json_value_shape",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551088451,
+                "stop": 1780551088452,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::metric::['l2', 'cosine', 'dot']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_table_row_count",
+                "status": "passed",
+                "duration": 8,
+                "start": 1780551088452,
+                "stop": 1780551088460,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_schema",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780551088461,
+                "stop": 1780551088463,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top_k_matches_expected",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780551088463,
+                "stop": 1780551088465,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::metric::['l2', 'cosine', 'dot']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_top_k_matches_expected",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551088466,
+                "stop": 1780551088467,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::metric::['l2', 'cosine', 'dot']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_top_k_matches_expected",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780551088467,
+                "stop": 1780551088469,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::metric::['l2', 'cosine', 'dot']"
+                ]
+            }
+        ]
+    }
+}

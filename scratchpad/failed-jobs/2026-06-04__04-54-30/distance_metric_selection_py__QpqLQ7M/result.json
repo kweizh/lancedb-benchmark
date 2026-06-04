@@ -1,0 +1,117 @@
+{
+    "id": "37a9da87-27c6-4223-a562-8eab7ed427db",
+    "task_name": "distance_metric_selection_py",
+    "trial_name": "distance_metric_selection_py__QpqLQ7M",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-04__04-54-30/distance_metric_selection_py__QpqLQ7M",
+    "task_id": {
+        "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/distance_metric_selection_py"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "2117bb532385a3e5b5c99812a4551835dce1de624356d74769556c1ff1ecb7c5",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/distance_metric_selection_py",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "distance_metric_selection_py__QpqLQ7M",
+        "trials_dir": "jobs/2026-06-04__04-54-30",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "google/gemini-3.5-flash",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "af4dd327-1258-47db-a55f-5365bdd7208c"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.12",
+        "model_info": {
+            "name": "gemini-3.5-flash",
+            "provider": "google"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 19724,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-04T04:57:53.195011Z",
+    "finished_at": "2026-06-04T05:00:07.021886Z",
+    "environment_setup": {
+        "started_at": "2026-06-04T04:57:53.201758Z",
+        "finished_at": "2026-06-04T04:57:58.668551Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-04T04:57:58.668671Z",
+        "finished_at": "2026-06-04T04:58:24.249938Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-04T04:58:24.250232Z",
+        "finished_at": "2026-06-04T04:59:47.925313Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-04T04:59:49.350579Z",
+        "finished_at": "2026-06-04T04:59:54.385426Z"
+    },
+    "step_results": null
+}

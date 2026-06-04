@@ -1,0 +1,95 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py EEE..FE                                        [100%]
+
+==================================== ERRORS ====================================
+_____________________ ERROR at setup of test_table_schema ______________________
+
+    @pytest.fixture(scope="module")
+    def table():
+        import lancedb
+    
+        db = lancedb.connect(LANCEDB_URI)
+        names = db.table_names()
+>       assert "articles" in names, (
+            f"Expected an 'articles' table at {LANCEDB_URI}; found tables={names!r}."
+        )
+E       AssertionError: Expected an 'articles' table at REDACTED; found tables=[].
+E       assert 'articles' in []
+
+tests/test_final_state.py:22: AssertionError
+_______________________ ERROR at setup of test_row_count _______________________
+
+    @pytest.fixture(scope="module")
+    def table():
+        import lancedb
+    
+        db = lancedb.connect(LANCEDB_URI)
+        names = db.table_names()
+>       assert "articles" in names, (
+            f"Expected an 'articles' table at {LANCEDB_URI}; found tables={names!r}."
+        )
+E       AssertionError: Expected an 'articles' table at REDACTED; found tables=[].
+E       assert 'articles' in []
+
+tests/test_final_state.py:22: AssertionError
+___________________ ERROR at setup of test_fts_index_on_body ___________________
+
+    @pytest.fixture(scope="module")
+    def table():
+        import lancedb
+    
+        db = lancedb.connect(LANCEDB_URI)
+        names = db.table_names()
+>       assert "articles" in names, (
+            f"Expected an 'articles' table at {LANCEDB_URI}; found tables={names!r}."
+        )
+E       AssertionError: Expected an 'articles' table at REDACTED; found tables=[].
+E       assert 'articles' in []
+
+tests/test_final_state.py:22: AssertionError
+______ ERROR at setup of test_independent_fts_query_matches_ground_truth _______
+
+    @pytest.fixture(scope="module")
+    def table():
+        import lancedb
+    
+        db = lancedb.connect(LANCEDB_URI)
+        names = db.table_names()
+>       assert "articles" in names, (
+            f"Expected an 'articles' table at {LANCEDB_URI}; found tables={names!r}."
+        )
+E       AssertionError: Expected an 'articles' table at REDACTED; found tables=[].
+E       assert 'articles' in []
+
+tests/test_final_state.py:22: AssertionError
+=================================== FAILURES ===================================
+___________________ test_results_top_ids_match_ground_truth ____________________
+
+    def test_results_top_ids_match_ground_truth():
+        with open(RESULTS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        for key, expected in EXPECTED_QUERIES.items():
+            top = data[key][0]
+>           assert top["id"] == expected["top_id"], (
+                f"{RESULTS_PATH}: top result id for '{key}' (query='{expected['text']}') "
+                f"must be {expected['top_id']}; got id={top['id']!r}, title={top.get('title')!r}."
+            )
+E           AssertionError: /workspace/output/fts_results.json: top result id for 'query_2' (query='REDACTED') must be 2; got id=12, title='Parquet vs Lance Format'.
+E           assert 12 == 2
+
+tests/test_final_state.py:159: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_results_file_exists
+PASSED tests/test_final_state.py::test_results_json_structure
+ERROR tests/test_final_state.py::test_table_schema - AssertionError: Expected...
+ERROR tests/test_final_state.py::test_row_count - AssertionError: Expected an...
+ERROR tests/test_final_state.py::test_fts_index_on_body - AssertionError: Exp...
+ERROR tests/test_final_state.py::test_independent_fts_query_matches_ground_truth
+FAILED tests/test_final_state.py::test_results_top_ids_match_ground_truth - A...
+==================== 1 failed, 2 passed, 4 errors in 3.11s =====================

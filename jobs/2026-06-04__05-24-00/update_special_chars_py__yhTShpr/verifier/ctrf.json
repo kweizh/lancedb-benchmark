@@ -1,0 +1,118 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780551492858,
+            "stop": 1780551496500
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_file_row_count_and_ids",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551492893,
+                "stop": 1780551492894,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_row_schema",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551492894,
+                "stop": 1780551492895,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_id2_body_has_apostrophe",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551492895,
+                "stop": 1780551492896,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_id4_body_has_apostrophe",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551492896,
+                "stop": 1780551492897,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_id6_author_has_apostrophe",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551492897,
+                "stop": 1780551492898,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_unmodified_rows_unchanged",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 20,
+                "start": 1780551492898,
+                "stop": 1780551492918,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "output_rows = [{'author': 'Alice', 'body': 'Hello world', 'id': 1}, {'author': 'Bob', 'body': \"I'm good\", 'id': 2}, {'author': 'Caro..., 'id': 4}, {'author': 'Eve', 'body': 'All good', 'id': 5}, {'author': \"O'Brien\", 'body': 'Almost done', 'id': 6}, ...]\n\n    def test_output_unmodified_rows_unchanged(output_rows):\n        # The candidate may pick any deterministic seeded strings for the untouched rows,\n        # but they MUST not contain apostrophes (we only inject apostrophes via the three updates).\n        for row in output_rows:\n            if row[\"id\"] in {2, 4, 6}:\n                continue\n            assert \"'\" not in row[\"author\"], (\n                f\"Row id={row['id']} author={row['author']!r} unexpectedly contains an apostrophe; \"\n                \"only the three target rows should have apostrophes.\"\n            )\n>           assert \"'\" not in row[\"body\"], (\n                f\"Row id={row['id']} body={row['body']!r} unexpectedly contains an apostrophe; \"\n                \"only the three target rows should have apostrophes.\"\n            )\nE           AssertionError: Row id=8 body=\"That's all\" unexpectedly contains an apostrophe; only the three target rows should have apostrophes.\nE           assert \"'\" not in \"That's all\"\nE             \"'\" is contained here:\nE               That's all\nE             ?     +\n\ntests/test_final_state.py:123: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_table_matches_output_file",
+                "status": "passed",
+                "duration": 3578,
+                "start": 1780551492918,
+                "stop": 1780551496496,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_id2_body",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551496496,
+                "stop": 1780551496497,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_id4_body",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551496497,
+                "stop": 1780551496498,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_id6_author",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780551496499,
+                "stop": 1780551496500,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

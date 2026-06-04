@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780549433399,
+            "stop": 1780549438000
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_file_top_level_keys",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780549437964,
+                "stop": 1780549437966,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_results_match_ground_truth",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549437966,
+                "stop": 1780549437967,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::key::['high_severity', 'errors_only', 'combined']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_filter_results_match_ground_truth",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549437968,
+                "stop": 1780549437969,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::key::['high_severity', 'errors_only', 'combined']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_filter_results_match_ground_truth",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780549437969,
+                "stop": 1780549437970,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::key::['high_severity', 'errors_only', 'combined']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_events_table_matches_fixture",
+                "status": "passed",
+                "duration": 28,
+                "start": 1780549437971,
+                "stop": 1780549437999,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

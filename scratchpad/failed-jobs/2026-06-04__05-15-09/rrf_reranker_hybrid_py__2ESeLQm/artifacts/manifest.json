@@ -1,0 +1,14 @@
+[
+  {
+    "source": "/logs/artifacts",
+    "destination": "artifacts",
+    "type": "directory",
+    "status": "ok"
+  },
+  {
+    "source": "/home/user",
+    "destination": "artifacts/user",
+    "type": "directory",
+    "status": "ok"
+  }
+]
