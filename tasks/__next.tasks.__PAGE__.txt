@@ -1,5 +1,82 @@
 1:"$Sreact.fragment"
-2:I[75049,["/lancedb-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/lancedb-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"PUVrVh1U4ES91jIoWAx7m","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","div",null,{"className":"container mx-auto px-4 sm:px-8 lg:px-12 py-8 max-w-screen-2xl h-[100dvh] flex flex-col overflow-hidden","children":[["$","div",null,{"className":"mb-6 space-y-4 shrink-0","children":[["$","div",null,{"className":"flex items-center gap-4","children":["$","a",null,{"href":"/","className":"text-sm text-muted-foreground hover:text-foreground transition-colors","children":"← Back to Leaderboard"}]}],["$","div",null,{"children":["$","h1",null,{"className":"text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50","children":"Task"}]}]]}],["$","div",null,{"className":"relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/90 to-background/90 px-5 pb-10 pt-6 text-center shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_28px_72px_-32px_hsl(var(--foreground)/0.45)] backdrop-blur-sm sm:px-8 sm:pb-14 sm:pt-8","children":[["$","div",null,{"className":"pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 blur-3xl sm:-right-14 sm:-top-14 sm:h-40 sm:w-40"}],["$","div",null,{"className":"pointer-events-none absolute -left-20 bottom-0 h-32 w-32 rounded-full bg-foreground/10 blur-3xl sm:h-36 sm:w-36"}],["$","div",null,{"className":"relative mx-auto mb-8 inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-foreground sm:text-sm sm:tracking-[0.16em]","children":"⏳ PIPELINE PENDING REVIEW"}],["$","p",null,{"className":"relative mx-auto max-w-2xl px-4 text-center text-lg font-semibold tracking-wide text-foreground sm:px-5 sm:text-xl","children":[0," sample cases generated — pending review"]}],["$","p",null,{"className":"relative mx-auto mt-2 max-w-2xl px-4 text-left text-sm leading-relaxed text-muted-foreground sm:px-5","children":"Your sample cases are ready. Before moving forward, we do a quick review together to make sure everything looks right and aligns with real-world usage."}],["$","div",null,{"className":"relative mx-auto mt-8 max-w-2xl rounded-xl bg-primary/10 px-4 py-4 text-left sm:px-5","children":[["$","p",null,{"className":"text-base font-semibold text-foreground sm:text-lg text-center","children":"Next step: join Slack for review"}],["$","p",null,{"className":"mt-1 text-sm leading-relaxed text-muted-foreground","children":"We've sent you a Slack invitation to your registered email with Zealt. Please join and we'll walk through the next step together."}],["$","p",null,{"className":"mt-3 text-xs text-muted-foreground","children":["If you don't see it, just reach out at"," ",["$","a",null,{"href":"mailto:zealtdev@tabbyml.com","className":"font-normal text-foreground underline decoration-primary/60 underline-offset-4 hover:text-primary transition-colors","children":"zealtdev@tabbyml.com"}],"."]}]]}]]}]]}]]}],[["$","script","script-0",{"src":"/lancedb-benchmark/_next/static/chunks/8a7096e90edd869c.js","async":true}],["$","script","script-1",{"src":"/lancedb-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]],["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
+2:"$Sreact.suspense"
+3:I[42654,["/lancedb-benchmark/_next/static/chunks/babff0e7418ab052.js","/lancedb-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/lancedb-benchmark/_next/static/chunks/8a7096e90edd869c.js","/lancedb-benchmark/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
+9:I[75049,["/lancedb-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/lancedb-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:Tbec,# Native (Non-Tantivy) Full-Text Search with LanceDB
+
+## Background
+You are building a small keyword search prototype on top of LanceDB. The corpus is a collection of short articles about vector search, columnar formats, and information retrieval. You must use LanceDB's native (Lance-based) full-text search implementation — not the legacy Tantivy backend — to index the `body` column and run two BM25 queries.
+
+## Requirements
+- Connect to LanceDB at the path provided by the `LANCEDB_URI` environment variable (default `/workspace/db`).
+- Create (or recreate) a table named `articles` with this exact column layout:
+  - `id` — `int64`
+  - `title` — `string`
+  - `body` — `string`
+  - `vector` — `fixed_size_list<float32>[4]` (the values must come from `numpy.random.default_rng(1)`; the vector column is present for schema completeness but is not used by FTS).
+- Seed the table with at least 20 rows of varied article content. Each row's `body` should be distinct enough that the two FTS queries below resolve to a single unambiguous top result.
+- Build a native FTS index on the `body` column using the Lance-native backend (i.e. `use_tantivy=False`). The index must be (re)created idempotently each run.
+- Run two full-text queries (`query_type="fts"`) using the values from the environment variables `FTS_QUERY_1` (default `"vector database"`) and `FTS_QUERY_2` (default `"lance format"`). For each query, capture the top 3 results.
+- Write the combined results to `/workspace/output/fts_results.json`.
+
+## Implementation Hints
+- Use the synchronous Python client: `import lancedb` and `lancedb.connect(uri)`.
+- Build the table schema with `pyarrow` (e.g. `pa.schema([...])`) so the vector column is `pa.list_(pa.float32(), 4)`.
+- Use `table.create_fts_index("body", use_tantivy=False, replace=True)` to build the native FTS index.
+- Query with `table.search(query, query_type="fts").limit(3).to_list()`; each result dict will include the matched row plus a `_score` field.
+- Make sure `/workspace/output/` exists before writing the JSON file.
+
+## Acceptance Criteria
+- Project path: /workspace
+- Ensure the script is executed end-to-end and the artifacts exist.
+- LanceDB table: `articles` at `${LANCEDB_URI}` (default `/workspace/db`).
+- The `articles` table schema must contain columns `id` (int64), `title` (string), `body` (string), and `vector` (fixed-size list of 4 float32 values), with at least 20 rows.
+- A native (non-Tantivy) FTS index must exist on the `body` column. It must be discoverable via `table.list_indices()`.
+- Output file: `/workspace/output/fts_results.json`. The file must be valid JSON whose top-level object contains exactly the keys `"query_1"` and `"query_2"`. Each value must be a list of up to 3 result objects, ordered by descending relevance, each with at least the keys `id` (int), `title` (string), and `_score` (number).
+- For each query, the result with the highest `_score` (the first entry) must correspond to the seeded row whose `body` is the canonical answer for that query (see `truth`).
+
+5:Tda3,# LanceDB: Update Rows with Special Characters
+
+## Background
+LanceDB tables expose two flavors of in-place updates: `table.update(where=..., values={...})` accepts plain Python values, while `table.update(where=..., values_sql={...})` accepts SQL expressions. When the new string value contains an apostrophe (e.g., `I'm good`, `It's a test`, `O'Brien`), naive use of `values_sql` produces an `Unterminated string literal` SQL error (LanceDB issue #1429). The Python `values=` form sidesteps this footgun entirely because the value is bound, not interpolated, into SQL.
+
+Your job is to write a Python script that creates a small `notes` table, seeds it with 8 rows, performs three updates that each set a column to a string containing a single quote, and writes the post-update state out to disk for verification.
+
+## Requirements
+- Connect to LanceDB at the path provided by the `LANCEDB_URI` env var (default `/workspace/db`).
+- Create a table named `notes` with columns:
+  - `id: int64`
+  - `author: string`
+  - `body: string`
+  - `vector: fixed_size_list<float32>[4]`
+- Seed the table with exactly 8 rows whose `id` values are 1..8, populated with simple ASCII `author` and `body` strings and deterministic 4-d float32 vectors.
+- Perform the following updates IN ORDER using `table.update(where=..., values={...})` (the Python dict form, NOT `values_sql`):
+  1. Set the `body` of the row where `id = 2` to the string `I'm good`.
+  2. Set the `body` of the row where `id = 4` to the string `It's a test`.
+  3. Set the `author` of the row where `id = 6` to the string `O'Brien`.
+- After all updates, read the rows with `id` in 1..8, sort them by `id` ascending, and write them to `/workspace/output/notes_after.json` as a JSON array of objects with keys `id`, `author`, `body` (no vector).
+
+## Implementation Hints
+- Use `lancedb.connect(os.environ.get("LANCEDB_URI", "/workspace/db"))`.
+- Define the schema with `pyarrow` (`pa.schema([...])`) and `pa.list_(pa.float32(), 4)` for the vector column, then call `db.create_table("notes", data=..., schema=..., mode="overwrite")`.
+- Generate deterministic vectors with `numpy.random.default_rng(seed=...)`.
+- For each update, pass a Python dict to `values=`, e.g. `tbl.update(where="id = 2", values={"body": "I'm good"})`. Do **not** use `values_sql` — it requires SQL string escaping and is the cause of the apostrophe bug.
+- For the final read, you can use `tbl.search().where("id >= 1 AND id <= 8").limit(100).to_list()` or `tbl.to_pandas()` and then sort by `id` before serializing.
+- Make sure the output directory exists before writing (`os.makedirs("/workspace/output", exist_ok=True)`).
+
+## Acceptance Criteria
+- Project path: /workspace
+- Ensure the script is executed and the output artifact exists.
+- Log/output file: /workspace/output/notes_after.json
+- The output file MUST be a JSON array of exactly 8 objects, each with keys `id` (int), `author` (string), and `body` (string), sorted by `id` ascending.
+- The row with `id = 2` MUST have `body` equal exactly to the 8-character string `I'm good`.
+- The row with `id = 4` MUST have `body` equal exactly to the 11-character string `It's a test`.
+- The row with `id = 6` MUST have `author` equal exactly to the 7-character string `O'Brien`.
+- The other rows (`id` in {1, 3, 5, 7, 8}) MUST retain their original seeded `author` and `body` values.
+- The LanceDB table `notes` at `LANCEDB_URI` MUST also reflect these same three updates (the JSON output and the table must agree).
+
+0:{"buildId":"oIuwfKHZQW_wkwynGkf11","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"fts_native_search_py","instruction":"$4","trials":[{"job_name":"2026-06-04__04-54-30","trial_name":"fts_native_search_py__ypiNNQQ","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":163.334,"latency_breakdown":{"env_setup":2.998,"agent_setup":14.143,"agent_exec":128.664,"verifier":4.351},"taskName":"fts_native_search_py","jobId":"ypiNNQQ","exec_duration":128.664},{"job_name":"2026-06-04__05-15-09","trial_name":"fts_native_search_py__gyGE6zU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":184.047,"latency_breakdown":{"env_setup":3.174,"agent_setup":13.94,"agent_exec":142.637,"verifier":8.464},"taskName":"fts_native_search_py","jobId":"gyGE6zU","exec_duration":142.637},{"job_name":"2026-06-04__05-24-00","trial_name":"fts_native_search_py__2mn3RJj","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":636.212,"latency_breakdown":{"env_setup":3.441,"agent_setup":14.722,"agent_exec":600.197,"verifier":4.183},"taskName":"fts_native_search_py","jobId":"2mn3RJj","exec_duration":600.197},{"job_name":"2026-06-04__05-06-43","trial_name":"fts_native_search_py__eoaEqzh","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":144.306,"latency_breakdown":{"env_setup":5.524,"agent_setup":26.549,"agent_exec":93.757,"verifier":4.251},"taskName":"fts_native_search_py","jobId":"eoaEqzh","exec_duration":93.757}]},{"taskName":"update_special_chars_py","instruction":"$5","trials":[{"job_name":"2026-06-04__04-54-30","trial_name":"update_special_chars_py__aLab8Fx","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":107.836,"latency_breakdown":{"env_setup":3.003,"agent_setup":13.968,"agent_exec":72.336,"verifier":5.255},"taskName":"update_special_chars_py","jobId":"aLab8Fx","exec_duration":72.336},{"job_name":"2026-06-04__05-15-09","trial_name":"update_special_chars_py__yQg3pde","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":95.226,"latency_breakdown":{"env_setup":2.976,"agent_setup":13.843,"agent_exec":60.79,"verifier":4.473},"taskName":"update_special_chars_py","jobId":"yQg3pde","exec_duration":60.79},{"job_name":"2026-06-04__05-24-00","trial_name":"update_special_chars_py__yhTShpr","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":145.228,"latency_breakdown":{"env_setup":2.609,"agent_setup":13.12,"agent_exec":111.494,"verifier":4.861},"taskName":"update_special_chars_py","jobId":"yhTShpr","exec_duration":111.494},{"job_name":"2026-06-04__05-06-43","trial_name":"update_special_chars_py__CqkkVYE","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":72.915,"latency_breakdown":{"env_setup":2.692,"agent_setup":12.815,"agent_exec":38.847,"verifier":5.046},"taskName":"update_special_chars_py","jobId":"CqkkVYE","exec_duration":38.847}]}]}]}]]}],["$L6","$L7"],"$L8"]}],"loading":null,"isPartial":false}
+6:["$","script","script-0",{"src":"/lancedb-benchmark/_next/static/chunks/8a7096e90edd869c.js","async":true}]
+7:["$","script","script-1",{"src":"/lancedb-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]
+8:["$","$L9",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@a"}]}]
+a:null
