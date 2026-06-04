@@ -1,8 +1,58 @@
 1:"$Sreact.fragment"
 2:"$Sreact.suspense"
 3:I[42654,["/lancedb-benchmark/_next/static/chunks/babff0e7418ab052.js","/lancedb-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/lancedb-benchmark/_next/static/chunks/8a7096e90edd869c.js","/lancedb-benchmark/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
-9:I[75049,["/lancedb-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/lancedb-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-4:Tbec,# Native (Non-Tantivy) Full-Text Search with LanceDB
+d:I[75049,["/lancedb-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/lancedb-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:T107d,# CSV Bulk Loader CLI for LanceDB
+
+## Background
+A data team needs a small, reusable command-line tool that ingests CSV files into a [LanceDB](https://docs.lancedb.com/) table, embedding a designated text column via the OpenAI `text-embedding-3-small` endpoint, and then exposes a semantic search subcommand for retrieving top-k matches.
+
+The environment already contains a deterministic, pre-generated dataset at `/app/data/articles.csv` with around 5000 rows and the columns `id,title,body,category,published`. Your job is to build the CLI that loads that data into LanceDB and searches it.
+
+## Requirements
+- Implement a single Python script at `/home/user/loader_project/loader.py` exposing two subcommands:
+  - `ingest`: reads a CSV file, splits it into batches of size N, embeds the chosen text column using the OpenAI `text-embedding-3-small` model, and writes all rows (with their embeddings) to a LanceDB table.
+  - `search`: embeds a query string with the same OpenAI model, runs a vector search against an existing LanceDB table, and prints the top-k results as a single JSON object to standard output.
+- All embeddings MUST be produced by real OpenAI API calls; no local models, no mock vectors.
+- Run-id isolation: ingest/search MUST work against whatever table name the verifier passes via `--table`. The verifier will pass a name suffixed with the current `ZEALT_RUN_ID` so that concurrent test runs do not collide.
+- The LanceDB database must live at `/home/user/loader_project/lance_db`. All tables are created inside that directory.
+- Ingestion MUST preserve every CSV row exactly once (no de-duplication, no row drops). Row count in the LanceDB table after ingest MUST equal the row count of the CSV (excluding the header).
+
+## Implementation Hints
+- Read the OpenAI key from the `OPENAI_API_KEY` environment variable.
+- Use `lancedb.connect(...)` for the database connection and `db.create_table(...)` (with overwrite-on-rerun semantics) to create the embedded table.
+- Batch your OpenAI embedding calls; sending one row per HTTP call against 5000 rows will be both slow and rate-limited.
+- Decide how you want to store the CSV columns alongside the embedding vector (Arrow / Pydantic / list-of-dicts are all fine). The verifier only requires that the schema preserves `id`, `title`, `body`, `category`, `published`, and that the embedding column can be searched with `table.search(query_vector)`.
+- For `search`, run a vector search via `table.search(query_vector).limit(k)` and serialize the resulting rows (without the raw embedding vector) into JSON.
+
+## Acceptance Criteria
+- Project path: /home/user/loader_project
+- Command (ingest): `python3 loader.py ingest --csv <csv_path> --table <table_name> --text-col <column_name> --batch-size <int>`
+- Command (search): `python3 loader.py search --table <table_name> --query <query_string> --k <int>`
+- Both commands MUST exit with status 0 on success.
+- LanceDB database directory: `/home/user/loader_project/lance_db`
+- After `ingest`, the named LanceDB table MUST contain exactly the same number of rows as the source CSV (excluding the header).
+- After `ingest`, the table MUST be openable via `lancedb.connect('/home/user/loader_project/lance_db').open_table(<table_name>)` and contain at minimum the columns `id`, `title`, `body`, `category`, `published`, plus one vector column suitable for `text-embedding-3-small` (1536 dimensions).
+- `search` MUST print a single JSON object to stdout with the following shape and NOTHING else (logs may go to stderr):
+  ```json
+  {
+    "query": "<the query string passed via --query>",
+    "k": <int>,
+    "results": [
+      {
+        "id": <int>,
+        "title": "<string>",
+        "category": "<string>",
+        "published": "<string>",
+        "score": <float>
+      }
+    ]
+  }
+  ```
+  The `results` array MUST have length `min(k, table_row_count)` and be ordered from best to worst match. The `score` field may be either a distance or a similarity (any monotonic ordering) but must be a finite number.
+- The verifier will pass the table name `articles_${ZEALT_RUN_ID}` to both subcommands. Read `ZEALT_RUN_ID` is NOT required from your code (the verifier provides the suffix as part of `--table`).
+
+5:Tbec,# Native (Non-Tantivy) Full-Text Search with LanceDB
 
 ## Background
 You are building a small keyword search prototype on top of LanceDB. The corpus is a collection of short articles about vector search, columnar formats, and information retrieval. You must use LanceDB's native (Lance-based) full-text search implementation — not the legacy Tantivy backend — to index the `body` column and run two BM25 queries.
@@ -35,7 +85,125 @@ You are building a small keyword search prototype on top of LanceDB. The corpus 
 - Output file: `/workspace/output/fts_results.json`. The file must be valid JSON whose top-level object contains exactly the keys `"query_1"` and `"query_2"`. Each value must be a list of up to 3 result objects, ordered by descending relevance, each with at least the keys `id` (int), `title` (string), and `_score` (number).
 - For each query, the result with the highest `_score` (the first entry) must correspond to the seeded row whose `body` is the canonical answer for that query (see `truth`).
 
-5:Tda3,# LanceDB: Update Rows with Special Characters
+6:Te41,# PDF Ingestion & Semantic Search with LanceDB
+
+## Background
+You are given a small corpus of three PDF documents bundled in this environment at `/app/corpus/`. Build a tiny semantic-search pipeline using **LanceDB** as the vector store and **OpenAI** embeddings. The pipeline must read the PDFs from the corpus directory, chunk and embed their text, store everything in a LanceDB table, and expose a Python `search(query, k)` function that returns the most semantically similar chunks.
+
+The pipeline must work end-to-end against real services — no mocks of OpenAI or LanceDB, no local model inference.
+
+## Requirements
+- Read all PDF files from `/app/corpus/` (there are exactly three files).
+- Extract text from each page of each PDF.
+- Split the extracted text into chunks suitable for embedding (choose your own chunk size / overlap strategy).
+- Compute embeddings for every chunk using the real OpenAI embedding API. The credentials are available in `OPENAI_API_KEY` (and `OPENAI_BASE_URL` if set).
+- Persist the chunks and their embeddings in a LanceDB table under `/home/user/myproject/lancedb/`. Each row must contain at least the fields `doc_id`, `page`, `chunk_id`, `text`, and `embedding`.
+  - `doc_id` is the PDF file name without the `.pdf` extension (e.g. for `/app/corpus/alpha.pdf` use `doc_id = "alpha"`).
+  - `page` is a 1-based integer page number identifying which page the chunk came from.
+- Implement a function `search(query: str, k: int) -> list[dict]` in `/home/user/myproject/solution.py` that:
+  - Embeds the `query` with the same OpenAI embedding model used during ingestion.
+  - Returns the top-`k` most relevant chunks as a list of dicts, ordered by descending relevance.
+  - Each result dict must contain the keys `doc_id` (str), `page` (int), and `snippet` (str — a short excerpt of the chunk text).
+
+## Implementation Hints
+- Use `pypdf` to extract page text. The `reportlab`-generated PDFs in `/app/corpus/` contain ordinary ASCII text.
+- Use the official `openai` Python client to embed text. Pick an embedding model that is real and currently supported by the OpenAI Embeddings API.
+- Use LanceDB's standard Python API (`lancedb.connect`, `create_table` / `open_table`, `table.search`) for storage and retrieval.
+- Persist the table under `/home/user/myproject/lancedb/` so the verifier can re-open the same connection.
+- To avoid collisions between concurrent runs, append the value of the `ZEALT_RUN_ID` environment variable to your table name (e.g. `pdf_chunks_${ZEALT_RUN_ID}`). The verifier reads the same env var and opens the same table.
+- Make ingestion idempotent: when the script is re-run with the same `ZEALT_RUN_ID`, it should not error out and should leave the table queryable.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- The candidate must provide `/home/user/myproject/solution.py` exposing a top-level callable `search(query: str, k: int) -> list[dict]`.
+- Ingestion entrypoint: running `python3 /home/user/myproject/ingest.py` (or an equivalent script chosen by the candidate) must produce a LanceDB table at `/home/user/myproject/lancedb/` whose name is `pdf_chunks_${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable).
+- After ingestion, `search(query, k)` must return a Python list of length `k` (assuming the table has at least `k` rows), each item a dict with the keys `doc_id` (str), `page` (int), and `snippet` (str).
+- Result ordering: results must be ordered from most to least semantically relevant to the query.
+- No mocks: both ingestion and `search()` must call the real OpenAI Embeddings API and the real LanceDB.
+
+7:Tab5,# Personalized User-History Recommender with LanceDB
+
+## Background
+A simple e-commerce recommender needs to personalize search results based on what each user has previously interacted with. The catalogue is stored in LanceDB and you must implement a Python script that blends a user's recent taste with the current query and runs a vector search against the catalogue, excluding items the user has already seen.
+
+## Requirements
+Implement a CLI script that:
+- Loads up to the 10 most recent interactions for a user from the `user_history` LanceDB table.
+- Joins the interacted item IDs back to the `items` table to retrieve their embeddings.
+- Computes a "user taste vector" as the mean of those item embeddings.
+- Blends the taste vector with the current query vector using a configurable blending coefficient `alpha`.
+- Runs vector search on the `items` table against the blended vector.
+- Excludes items the user has already interacted with from the returned candidates.
+- Writes the top-k item IDs (in rank order) as a JSON array to an output file.
+
+## Implementation Hints
+- The LanceDB database lives at `/home/user/project/data`. Use `lancedb.connect(...)` and `open_table(...)` to access `items` and `user_history`.
+- The `user_history` table has columns `user_id`, `item_id`, `rating`, `ts` (microsecond timestamp). Use the timestamp column to take the 10 most recent rows per user.
+- The `items` table has columns `id`, `title`, `category`, and a 64-d `vector` column.
+- The blending coefficient is read from the `BLEND_ALPHA` environment variable; default is `0.3`. The blended vector is `(1 - alpha) * query + alpha * taste`. When the user has no history, fall back to the pure query vector.
+- Build the candidate query using LanceDB's vector search API and exclude already-seen items via a SQL `where` clause (for example a `NOT IN (...)` predicate over the user's seen item IDs).
+- Read the query vector from a `.npy` file path passed on the command line and write results as a JSON list of integers.
+
+## Acceptance Criteria
+- Project path: /home/user/project
+- Script path: /home/user/project/recommend.py
+- Command: `python3 recommend.py --user-id <user_id> --query-vec <path_to_npy> --k <k> --output <path_to_json>`
+- The script must read the blending coefficient from the `BLEND_ALPHA` environment variable (default `0.3`) and use it as documented above.
+- The output file must contain a single JSON array of integer item IDs, length `k`, in rank order (best match first).
+- None of the returned IDs may belong to the user's interaction history.
+- The script must connect to the LanceDB database at `/home/user/project/data` and use the `items` and `user_history` tables that already exist there (do not recreate them).
+
+8:T1189,# LanceDB Query Logging Audit Table
+
+## Background
+You are building an observability layer on top of a LanceDB knowledge base. A LanceDB database at `/home/user/myproject/data.lancedb` already contains a table named `articles` with 200 rows (columns: `id: int64`, `title: string`, `embedding: fixed_size_list<float, 64>`). Every retrieval performed against `articles` must be audited so operators can later compute latency percentiles, replay queries, and trace which user issued which search.
+
+Implement a `LoggedSearcher` class that wraps `table.search(...)` and persists one audit row to a `query_logs` LanceDB table for every search it performs.
+
+## Requirements
+- Implement a Python module that exposes a class named `LoggedSearcher`.
+- `LoggedSearcher` MUST be constructible with the LanceDB database URI, the name of the articles table (containing the precomputed 64-d vectors), and the name of the query-logs table.
+- Expose an instance method `search(query_vector, top_k, query_id, user_id, query_text="")` that:
+  - Runs a vector similarity search against the articles table for the given query vector, returning the top `top_k` hits.
+  - Returns the same Python list of hits that a direct `table.search(query_vector).limit(top_k).to_list()` call would return (each hit must include at minimum the `id` and `title` columns).
+  - Writes exactly one audit row to the configured `query_logs` table for every call, capturing wall-clock latency, the ordered list of returned ids, the count of returned hits, the supplied identifiers, and a timestamp taken at logging time.
+- The candidate chooses the exact schema of `query_logs`, but it MUST contain at least these logical fields (you may name them as you like, but the verifier-facing names below are REQUIRED so the audit can be queried programmatically):
+  - `query_id` (string)
+  - `user_id` (string)
+  - `query_text` (string)
+  - `ts` (timestamp64; recommended `pyarrow.timestamp("us")` or `timestamp("ns")`)
+  - `latency_ms` (floating-point, strictly positive)
+  - `hit_count` (integer; equal to the length of the returned hits)
+  - `top_ids` (Arrow list of int64; the `id` column values from the returned hits, in rank order)
+- The `query_logs` table MUST be created lazily on first `search()` if it does not yet exist.
+- The class MUST NOT mock LanceDB. Use the real `lancedb` Python package.
+
+## Implementation Hints
+- `lancedb.connect(db_uri)` opens (or creates) a database directory.
+- `table.search(vector).limit(k).to_list()` returns the top-k rows including any selected columns.
+- For lazy table creation, check `db.table_names()` and either `create_table` from a PyArrow schema or write the first row with an explicit schema.
+- `time.perf_counter()` gives a high-resolution monotonic clock; convert the delta to milliseconds.
+- `datetime.datetime.now(datetime.timezone.utc)` produces a timezone-aware timestamp that pyarrow's `timestamp` accepts.
+- The returned `top_ids` list must contain plain Python `int` values matching the `id` column of the hits in rank order so that downstream consumers can store them as `list<int64>`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Solution file: /home/user/myproject/solution.py exporting `LoggedSearcher`.
+- Command (import-only; verification imports your class): `python3 -c "from solution import LoggedSearcher"` must succeed without raising.
+- Class contract:
+  - `LoggedSearcher(db_uri: str, articles_table: str, logs_table: str)` constructor.
+  - `searcher.search(query_vector, top_k, query_id, user_id, query_text="")` returns a Python `list` whose entries each contain at least the keys `id` and `title`.
+- Audit-table contract: after N successive `.search(...)` calls against a fresh `query_logs` table:
+  - The configured `query_logs` LanceDB table exists.
+  - It contains exactly N rows.
+  - `ts` values are monotonically non-decreasing in insertion order.
+  - For each logged row, `latency_ms` is strictly greater than 0.
+  - For each logged row, `top_ids` equals the ordered list of `id` values of the hits returned by the corresponding `search()` call.
+  - `hit_count` equals the length of `top_ids` for that row.
+  - `query_id`, `user_id`, and `query_text` round-trip the values passed to `.search()`.
+- Search-result fidelity: for a given query vector, the ids returned by `LoggedSearcher.search(vec, k, ...)` MUST equal, in the same order, the ids returned by `articles_table.search(vec).limit(k).to_list()` against the underlying table.
+
+9:Tda3,# LanceDB: Update Rows with Special Characters
 
 ## Background
 LanceDB tables expose two flavors of in-place updates: `table.update(where=..., values={...})` accepts plain Python values, while `table.update(where=..., values_sql={...})` accepts SQL expressions. When the new string value contains an apostrophe (e.g., `I'm good`, `It's a test`, `O'Brien`), naive use of `values_sql` produces an `Unterminated string literal` SQL error (LanceDB issue #1429). The Python `values=` form sidesteps this footgun entirely because the value is bound, not interpolated, into SQL.
@@ -75,8 +243,8 @@ Your job is to write a Python script that creates a small `notes` table, seeds i
 - The other rows (`id` in {1, 3, 5, 7, 8}) MUST retain their original seeded `author` and `body` values.
 - The LanceDB table `notes` at `LANCEDB_URI` MUST also reflect these same three updates (the JSON output and the table must agree).
 
-0:{"buildId":"-gEhuDvWtmBekwstCmqZD","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"fts_native_search_py","instruction":"$4","trials":[{"job_name":"2026-06-04__04-54-30","trial_name":"fts_native_search_py__ypiNNQQ","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":163.334,"latency_breakdown":{"env_setup":2.998,"agent_setup":14.143,"agent_exec":128.664,"verifier":4.351},"taskName":"fts_native_search_py","jobId":"ypiNNQQ","exec_duration":128.664},{"job_name":"2026-06-04__05-15-09","trial_name":"fts_native_search_py__gyGE6zU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":184.047,"latency_breakdown":{"env_setup":3.174,"agent_setup":13.94,"agent_exec":142.637,"verifier":8.464},"taskName":"fts_native_search_py","jobId":"gyGE6zU","exec_duration":142.637},{"job_name":"2026-06-04__05-24-00","trial_name":"fts_native_search_py__2mn3RJj","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":636.212,"latency_breakdown":{"env_setup":3.441,"agent_setup":14.722,"agent_exec":600.197,"verifier":4.183},"taskName":"fts_native_search_py","jobId":"2mn3RJj","exec_duration":600.197},{"job_name":"2026-06-04__05-06-43","trial_name":"fts_native_search_py__eoaEqzh","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":144.306,"latency_breakdown":{"env_setup":5.524,"agent_setup":26.549,"agent_exec":93.757,"verifier":4.251},"taskName":"fts_native_search_py","jobId":"eoaEqzh","exec_duration":93.757}]},{"taskName":"update_special_chars_py","instruction":"$5","trials":[{"job_name":"2026-06-04__04-54-30","trial_name":"update_special_chars_py__aLab8Fx","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":107.836,"latency_breakdown":{"env_setup":3.003,"agent_setup":13.968,"agent_exec":72.336,"verifier":5.255},"taskName":"update_special_chars_py","jobId":"aLab8Fx","exec_duration":72.336},{"job_name":"2026-06-04__05-15-09","trial_name":"update_special_chars_py__yQg3pde","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":95.226,"latency_breakdown":{"env_setup":2.976,"agent_setup":13.843,"agent_exec":60.79,"verifier":4.473},"taskName":"update_special_chars_py","jobId":"yQg3pde","exec_duration":60.79},{"job_name":"2026-06-04__05-24-00","trial_name":"update_special_chars_py__yhTShpr","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":145.228,"latency_breakdown":{"env_setup":2.609,"agent_setup":13.12,"agent_exec":111.494,"verifier":4.861},"taskName":"update_special_chars_py","jobId":"yhTShpr","exec_duration":111.494},{"job_name":"2026-06-04__05-06-43","trial_name":"update_special_chars_py__CqkkVYE","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":72.915,"latency_breakdown":{"env_setup":2.692,"agent_setup":12.815,"agent_exec":38.847,"verifier":5.046},"taskName":"update_special_chars_py","jobId":"CqkkVYE","exec_duration":38.847}]}]}]}]]}],["$L6","$L7"],"$L8"]}],"loading":null,"isPartial":false}
-6:["$","script","script-0",{"src":"/lancedb-benchmark/_next/static/chunks/8a7096e90edd869c.js","async":true}]
-7:["$","script","script-1",{"src":"/lancedb-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]
-8:["$","$L9",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@a"}]}]
-a:null
+0:{"buildId":"gwyGaOZTFw-vBe-4MnYKu","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"csv_bulk_loader_cli_py","instruction":"$4","trials":[{"job_name":"2026-06-04__15-56-53","trial_name":"csv_bulk_loader_cli_py__ryRWhwL","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":151.82,"latency_breakdown":{"env_setup":2.801,"agent_setup":13.705,"agent_exec":117.456,"verifier":4.504},"taskName":"csv_bulk_loader_cli_py","jobId":"ryRWhwL","exec_duration":117.456},{"job_name":"2026-06-04__16-36-47","trial_name":"csv_bulk_loader_cli_py__UbLEFBh","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":238.428,"latency_breakdown":{"env_setup":3.214,"agent_setup":14.336,"agent_exec":169.382,"verifier":38.461},"taskName":"csv_bulk_loader_cli_py","jobId":"UbLEFBh","exec_duration":169.382},{"job_name":"2026-06-04__14-41-41","trial_name":"csv_bulk_loader_cli_py__fMsoGcv","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":412.221,"latency_breakdown":{"env_setup":80.642,"agent_setup":13.316,"agent_exec":268.604,"verifier":36.424},"taskName":"csv_bulk_loader_cli_py","jobId":"fMsoGcv","exec_duration":268.604},{"job_name":"2026-06-04__16-15-02","trial_name":"csv_bulk_loader_cli_py__zBAnCv2","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":331.876,"latency_breakdown":{"env_setup":2.761,"agent_setup":13.051,"agent_exec":252.045,"verifier":49.469},"taskName":"csv_bulk_loader_cli_py","jobId":"zBAnCv2","exec_duration":252.045}]},{"taskName":"fts_native_search_py","instruction":"$5","trials":[{"job_name":"2026-06-04__04-54-30","trial_name":"fts_native_search_py__ypiNNQQ","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":163.334,"latency_breakdown":{"env_setup":2.998,"agent_setup":14.143,"agent_exec":128.664,"verifier":4.351},"taskName":"fts_native_search_py","jobId":"ypiNNQQ","exec_duration":128.664},{"job_name":"2026-06-04__05-15-09","trial_name":"fts_native_search_py__gyGE6zU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":184.047,"latency_breakdown":{"env_setup":3.174,"agent_setup":13.94,"agent_exec":142.637,"verifier":8.464},"taskName":"fts_native_search_py","jobId":"gyGE6zU","exec_duration":142.637},{"job_name":"2026-06-04__05-24-00","trial_name":"fts_native_search_py__2mn3RJj","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":636.212,"latency_breakdown":{"env_setup":3.441,"agent_setup":14.722,"agent_exec":600.197,"verifier":4.183},"taskName":"fts_native_search_py","jobId":"2mn3RJj","exec_duration":600.197},{"job_name":"2026-06-04__05-06-43","trial_name":"fts_native_search_py__eoaEqzh","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":144.306,"latency_breakdown":{"env_setup":5.524,"agent_setup":26.549,"agent_exec":93.757,"verifier":4.251},"taskName":"fts_native_search_py","jobId":"eoaEqzh","exec_duration":93.757}]},{"taskName":"pdf_ingestion_semantic_search_py","instruction":"$6","trials":[{"job_name":"2026-06-04__15-56-53","trial_name":"pdf_ingestion_semantic_search_py__usYsiPA","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":196.49,"latency_breakdown":{"env_setup":2.601,"agent_setup":15.279,"agent_exec":157.736,"verifier":6.914},"taskName":"pdf_ingestion_semantic_search_py","jobId":"usYsiPA","exec_duration":157.736},{"job_name":"2026-06-04__16-36-47","trial_name":"pdf_ingestion_semantic_search_py__PH27J5u","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":169.9,"latency_breakdown":{"env_setup":2.758,"agent_setup":13.658,"agent_exec":132.981,"verifier":6.552},"taskName":"pdf_ingestion_semantic_search_py","jobId":"PH27J5u","exec_duration":132.981},{"job_name":"2026-06-04__14-41-41","trial_name":"pdf_ingestion_semantic_search_py__i4Sr8Y9","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":354.026,"latency_breakdown":{"env_setup":72.862,"agent_setup":14.146,"agent_exec":244.781,"verifier":8.421},"taskName":"pdf_ingestion_semantic_search_py","jobId":"i4Sr8Y9","exec_duration":244.781},{"job_name":"2026-06-04__16-15-02","trial_name":"pdf_ingestion_semantic_search_py__qFHA4JD","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":248.849,"latency_breakdown":{"env_setup":2.604,"agent_setup":13.098,"agent_exec":212.384,"verifier":7.524},"taskName":"pdf_ingestion_semantic_search_py","jobId":"qFHA4JD","exec_duration":212.384}]},{"taskName":"personalized_user_history_recommender_py","instruction":"$7","trials":[{"job_name":"2026-06-04__15-56-53","trial_name":"personalized_user_history_recomm__dhMqYaR","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":143.922,"latency_breakdown":{"env_setup":3.885,"agent_setup":15.768,"agent_exec":104.267,"verifier":6.356},"taskName":"personalized_user_history_recomm","jobId":"dhMqYaR","exec_duration":104.267},{"job_name":"2026-06-04__16-36-47","trial_name":"personalized_user_history_recomm__6dcFHcF","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":106.536,"latency_breakdown":{"env_setup":3.881,"agent_setup":16.868,"agent_exec":64.339,"verifier":7.118},"taskName":"personalized_user_history_recomm","jobId":"6dcFHcF","exec_duration":64.339},{"job_name":"2026-06-04__14-41-41","trial_name":"personalized_user_history_recomm__HwWx2Ye","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":239.797,"latency_breakdown":{"env_setup":11.157,"agent_setup":18.376,"agent_exec":189.063,"verifier":6.981},"taskName":"personalized_user_history_recomm","jobId":"HwWx2Ye","exec_duration":189.063},{"job_name":"2026-06-04__16-15-02","trial_name":"personalized_user_history_recomm__YGt4v5Z","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":228.395,"latency_breakdown":{"env_setup":3.923,"agent_setup":15.869,"agent_exec":187.229,"verifier":7.022},"taskName":"personalized_user_history_recomm","jobId":"YGt4v5Z","exec_duration":187.229}]},{"taskName":"query_logging_audit_table_py","instruction":"$8","trials":[{"job_name":"2026-06-04__15-56-53","trial_name":"query_logging_audit_table_py__9CTdH99","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":130.669,"latency_breakdown":{"env_setup":2.727,"agent_setup":13.27,"agent_exec":95.043,"verifier":5.739},"taskName":"query_logging_audit_table_py","jobId":"9CTdH99","exec_duration":95.043},{"job_name":"2026-06-04__16-36-47","trial_name":"query_logging_audit_table_py__gDr4hWN","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":115.224,"latency_breakdown":{"env_setup":2.783,"agent_setup":14.053,"agent_exec":77.951,"verifier":6.075},"taskName":"query_logging_audit_table_py","jobId":"gDr4hWN","exec_duration":77.951},{"job_name":"2026-06-04__14-41-41","trial_name":"query_logging_audit_table_py__bEC7xSr","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":187.257,"latency_breakdown":{"env_setup":5.472,"agent_setup":13.585,"agent_exec":147.764,"verifier":5.53},"taskName":"query_logging_audit_table_py","jobId":"bEC7xSr","exec_duration":147.764},{"job_name":"2026-06-04__16-15-02","trial_name":"query_logging_audit_table_py__6C7Cmfi","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":166.151,"latency_breakdown":{"env_setup":3.105,"agent_setup":13.337,"agent_exec":130.692,"verifier":5.427},"taskName":"query_logging_audit_table_py","jobId":"6C7Cmfi","exec_duration":130.692}]},{"taskName":"update_special_chars_py","instruction":"$9","trials":[{"job_name":"2026-06-04__04-54-30","trial_name":"update_special_chars_py__aLab8Fx","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":107.836,"latency_breakdown":{"env_setup":3.003,"agent_setup":13.968,"agent_exec":72.336,"verifier":5.255},"taskName":"update_special_chars_py","jobId":"aLab8Fx","exec_duration":72.336},{"job_name":"2026-06-04__05-15-09","trial_name":"update_special_chars_py__yQg3pde","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":95.226,"latency_breakdown":{"env_setup":2.976,"agent_setup":13.843,"agent_exec":60.79,"verifier":4.473},"taskName":"update_special_chars_py","jobId":"yQg3pde","exec_duration":60.79},{"job_name":"2026-06-04__05-24-00","trial_name":"update_special_chars_py__yhTShpr","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":145.228,"latency_breakdown":{"env_setup":2.609,"agent_setup":13.12,"agent_exec":111.494,"verifier":4.861},"taskName":"update_special_chars_py","jobId":"yhTShpr","exec_duration":111.494},{"job_name":"2026-06-04__05-06-43","trial_name":"update_special_chars_py__CqkkVYE","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":72.915,"latency_breakdown":{"env_setup":2.692,"agent_setup":12.815,"agent_exec":38.847,"verifier":5.046},"taskName":"update_special_chars_py","jobId":"CqkkVYE","exec_duration":38.847}]}]}]}]]}],["$La","$Lb"],"$Lc"]}],"loading":null,"isPartial":false}
+a:["$","script","script-0",{"src":"/lancedb-benchmark/_next/static/chunks/8a7096e90edd869c.js","async":true}]
+b:["$","script","script-1",{"src":"/lancedb-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]
+c:["$","$Ld",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@e"}]}]
+e:null
