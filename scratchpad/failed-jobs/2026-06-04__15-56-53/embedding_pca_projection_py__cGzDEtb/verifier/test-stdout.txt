@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py ........                                       [100%]
+
+==================================== PASSES ====================================
+______________________ test_search_returns_correct_shape _______________________
+----------------------------- Captured stderr call -----------------------------
+[2026-06-04T16:06:08Z WARN  lance::dataset::scanner] Deprecation warning, this behavior will change in the future. This search specified output columns but did not include `_distance`.  Currently the `_distance` column will be included.  In the future it will not.  Call `disable_scoring_autoprojection` to to adopt the future behavior and avoid this warning
+_________________ test_search_overlaps_with_128d_ground_truth __________________
+----------------------------- Captured stderr call -----------------------------
+[2026-06-04T16:06:08Z WARN  lance::dataset::scanner] Deprecation warning, this behavior will change in the future. This search specified output columns but did not include `_distance`.  Currently the `_distance` column will be included.  In the future it will not.  Call `disable_scoring_autoprojection` to to adopt the future behavior and avoid this warning
+______________ test_verifier_direct_pca_search_matches_candidate _______________
+----------------------------- Captured stderr call -----------------------------
+[2026-06-04T16:06:08Z WARN  lance::dataset::scanner] Deprecation warning, this behavior will change in the future. This search specified output columns but did not include `_distance`.  Currently the `_distance` column will be included.  In the future it will not.  Call `disable_scoring_autoprojection` to to adopt the future behavior and avoid this warning
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_new_table_has_600_rows
+PASSED tests/test_final_state.py::test_new_table_schema
+PASSED tests/test_final_state.py::test_new_table_original_id_covers_source_ids
+PASSED tests/test_final_state.py::test_pca_model_artifact_loadable
+PASSED tests/test_final_state.py::test_reprojection_matches_stored
+PASSED tests/test_final_state.py::test_search_returns_correct_shape
+PASSED tests/test_final_state.py::test_search_overlaps_with_128d_ground_truth
+PASSED tests/test_final_state.py::test_verifier_direct_pca_search_matches_candidate
+============================== 8 passed in 3.78s ===============================

@@ -1,0 +1,287 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py ..EEEEEEE                                      [100%]
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_final_row_count_is_200 _________________
+
+env_config = ('/home/user/lance_db', 'items')
+clean_database = '/home/user/lance_db'
+
+    @pytest.fixture(scope="module")
+    def concurrent_run(env_config, clean_database):
+        """Run the candidate's SafeWriter concurrently and yield the plan + expected max ts."""
+        uri, name = env_config
+        SafeWriter = _load_safe_writer()
+        plan, expected_max_ts = _build_plan()
+    
+        # Group plan by thread id
+        per_thread = {t: [] for t in range(4)}
+        for t, batch_id, ts, rows in plan:
+            per_thread[t].append((batch_id, ts, rows))
+    
+        def worker(thread_id):
+            # Each thread builds its own SafeWriter so connection state is independent.
+            writer = SafeWriter(db_uri=uri, table_name=name, key="id")
+            for batch_id, _ts, rows in per_thread[thread_id]:
+                writer.upsert(batch_id, rows)
+            return thread_id
+    
+        errors = []
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            futs = {ex.submit(worker, t): t for t in range(4)}
+            for fut in as_completed(futs):
+                try:
+                    fut.result()
+                except Exception as e:  # pragma: no cover
+                    errors.append((futs[fut], repr(e)))
+    
+>       assert not errors, f"SafeWriter threads raised unhandled errors: {errors!r}"
+E       AssertionError: SafeWriter threads raised unhandled errors: [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+E       assert not [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+
+tests/test_final_state.py:92: AssertionError
+______________ ERROR at setup of test_final_ids_cover_full_space _______________
+
+env_config = ('/home/user/lance_db', 'items')
+clean_database = '/home/user/lance_db'
+
+    @pytest.fixture(scope="module")
+    def concurrent_run(env_config, clean_database):
+        """Run the candidate's SafeWriter concurrently and yield the plan + expected max ts."""
+        uri, name = env_config
+        SafeWriter = _load_safe_writer()
+        plan, expected_max_ts = _build_plan()
+    
+        # Group plan by thread id
+        per_thread = {t: [] for t in range(4)}
+        for t, batch_id, ts, rows in plan:
+            per_thread[t].append((batch_id, ts, rows))
+    
+        def worker(thread_id):
+            # Each thread builds its own SafeWriter so connection state is independent.
+            writer = SafeWriter(db_uri=uri, table_name=name, key="id")
+            for batch_id, _ts, rows in per_thread[thread_id]:
+                writer.upsert(batch_id, rows)
+            return thread_id
+    
+        errors = []
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            futs = {ex.submit(worker, t): t for t in range(4)}
+            for fut in as_completed(futs):
+                try:
+                    fut.result()
+                except Exception as e:  # pragma: no cover
+                    errors.append((futs[fut], repr(e)))
+    
+>       assert not errors, f"SafeWriter threads raised unhandled errors: {errors!r}"
+E       AssertionError: SafeWriter threads raised unhandled errors: [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+E       assert not [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+
+tests/test_final_state.py:92: AssertionError
+__________ ERROR at setup of test_final_values_equal_expected_max_ts ___________
+
+env_config = ('/home/user/lance_db', 'items')
+clean_database = '/home/user/lance_db'
+
+    @pytest.fixture(scope="module")
+    def concurrent_run(env_config, clean_database):
+        """Run the candidate's SafeWriter concurrently and yield the plan + expected max ts."""
+        uri, name = env_config
+        SafeWriter = _load_safe_writer()
+        plan, expected_max_ts = _build_plan()
+    
+        # Group plan by thread id
+        per_thread = {t: [] for t in range(4)}
+        for t, batch_id, ts, rows in plan:
+            per_thread[t].append((batch_id, ts, rows))
+    
+        def worker(thread_id):
+            # Each thread builds its own SafeWriter so connection state is independent.
+            writer = SafeWriter(db_uri=uri, table_name=name, key="id")
+            for batch_id, _ts, rows in per_thread[thread_id]:
+                writer.upsert(batch_id, rows)
+            return thread_id
+    
+        errors = []
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            futs = {ex.submit(worker, t): t for t in range(4)}
+            for fut in as_completed(futs):
+                try:
+                    fut.result()
+                except Exception as e:  # pragma: no cover
+                    errors.append((futs[fut], repr(e)))
+    
+>       assert not errors, f"SafeWriter threads raised unhandled errors: {errors!r}"
+E       AssertionError: SafeWriter threads raised unhandled errors: [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+E       assert not [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+
+tests/test_final_state.py:92: AssertionError
+______________ ERROR at setup of test_write_attempts_table_exists ______________
+
+env_config = ('/home/user/lance_db', 'items')
+clean_database = '/home/user/lance_db'
+
+    @pytest.fixture(scope="module")
+    def concurrent_run(env_config, clean_database):
+        """Run the candidate's SafeWriter concurrently and yield the plan + expected max ts."""
+        uri, name = env_config
+        SafeWriter = _load_safe_writer()
+        plan, expected_max_ts = _build_plan()
+    
+        # Group plan by thread id
+        per_thread = {t: [] for t in range(4)}
+        for t, batch_id, ts, rows in plan:
+            per_thread[t].append((batch_id, ts, rows))
+    
+        def worker(thread_id):
+            # Each thread builds its own SafeWriter so connection state is independent.
+            writer = SafeWriter(db_uri=uri, table_name=name, key="id")
+            for batch_id, _ts, rows in per_thread[thread_id]:
+                writer.upsert(batch_id, rows)
+            return thread_id
+    
+        errors = []
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            futs = {ex.submit(worker, t): t for t in range(4)}
+            for fut in as_completed(futs):
+                try:
+                    fut.result()
+                except Exception as e:  # pragma: no cover
+                    errors.append((futs[fut], repr(e)))
+    
+>       assert not errors, f"SafeWriter threads raised unhandled errors: {errors!r}"
+E       AssertionError: SafeWriter threads raised unhandled errors: [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+E       assert not [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+
+tests/test_final_state.py:92: AssertionError
+______ ERROR at setup of test_write_attempts_schema_and_per_batch_success ______
+
+env_config = ('/home/user/lance_db', 'items')
+clean_database = '/home/user/lance_db'
+
+    @pytest.fixture(scope="module")
+    def concurrent_run(env_config, clean_database):
+        """Run the candidate's SafeWriter concurrently and yield the plan + expected max ts."""
+        uri, name = env_config
+        SafeWriter = _load_safe_writer()
+        plan, expected_max_ts = _build_plan()
+    
+        # Group plan by thread id
+        per_thread = {t: [] for t in range(4)}
+        for t, batch_id, ts, rows in plan:
+            per_thread[t].append((batch_id, ts, rows))
+    
+        def worker(thread_id):
+            # Each thread builds its own SafeWriter so connection state is independent.
+            writer = SafeWriter(db_uri=uri, table_name=name, key="id")
+            for batch_id, _ts, rows in per_thread[thread_id]:
+                writer.upsert(batch_id, rows)
+            return thread_id
+    
+        errors = []
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            futs = {ex.submit(worker, t): t for t in range(4)}
+            for fut in as_completed(futs):
+                try:
+                    fut.result()
+                except Exception as e:  # pragma: no cover
+                    errors.append((futs[fut], repr(e)))
+    
+>       assert not errors, f"SafeWriter threads raised unhandled errors: {errors!r}"
+E       AssertionError: SafeWriter threads raised unhandled errors: [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+E       assert not [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+
+tests/test_final_state.py:92: AssertionError
+______________ ERROR at setup of test_at_least_one_retry_occurred ______________
+
+env_config = ('/home/user/lance_db', 'items')
+clean_database = '/home/user/lance_db'
+
+    @pytest.fixture(scope="module")
+    def concurrent_run(env_config, clean_database):
+        """Run the candidate's SafeWriter concurrently and yield the plan + expected max ts."""
+        uri, name = env_config
+        SafeWriter = _load_safe_writer()
+        plan, expected_max_ts = _build_plan()
+    
+        # Group plan by thread id
+        per_thread = {t: [] for t in range(4)}
+        for t, batch_id, ts, rows in plan:
+            per_thread[t].append((batch_id, ts, rows))
+    
+        def worker(thread_id):
+            # Each thread builds its own SafeWriter so connection state is independent.
+            writer = SafeWriter(db_uri=uri, table_name=name, key="id")
+            for batch_id, _ts, rows in per_thread[thread_id]:
+                writer.upsert(batch_id, rows)
+            return thread_id
+    
+        errors = []
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            futs = {ex.submit(worker, t): t for t in range(4)}
+            for fut in as_completed(futs):
+                try:
+                    fut.result()
+                except Exception as e:  # pragma: no cover
+                    errors.append((futs[fut], repr(e)))
+    
+>       assert not errors, f"SafeWriter threads raised unhandled errors: {errors!r}"
+E       AssertionError: SafeWriter threads raised unhandled errors: [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+E       assert not [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+
+tests/test_final_state.py:92: AssertionError
+______________ ERROR at setup of test_attempt_num_starts_at_zero _______________
+
+env_config = ('/home/user/lance_db', 'items')
+clean_database = '/home/user/lance_db'
+
+    @pytest.fixture(scope="module")
+    def concurrent_run(env_config, clean_database):
+        """Run the candidate's SafeWriter concurrently and yield the plan + expected max ts."""
+        uri, name = env_config
+        SafeWriter = _load_safe_writer()
+        plan, expected_max_ts = _build_plan()
+    
+        # Group plan by thread id
+        per_thread = {t: [] for t in range(4)}
+        for t, batch_id, ts, rows in plan:
+            per_thread[t].append((batch_id, ts, rows))
+    
+        def worker(thread_id):
+            # Each thread builds its own SafeWriter so connection state is independent.
+            writer = SafeWriter(db_uri=uri, table_name=name, key="id")
+            for batch_id, _ts, rows in per_thread[thread_id]:
+                writer.upsert(batch_id, rows)
+            return thread_id
+    
+        errors = []
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            futs = {ex.submit(worker, t): t for t in range(4)}
+            for fut in as_completed(futs):
+                try:
+                    fut.result()
+                except Exception as e:  # pragma: no cover
+                    errors.append((futs[fut], repr(e)))
+    
+>       assert not errors, f"SafeWriter threads raised unhandled errors: {errors!r}"
+E       AssertionError: SafeWriter threads raised unhandled errors: [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+E       assert not [(1, "BlockingIOError(11, 'Resource temporarily unavailable')"), (2, "BlockingIOError(11, 'Resource temporarily unavailable')")]
+
+tests/test_final_state.py:92: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_solution_file_exists
+PASSED tests/test_final_state.py::test_safewriter_constructor_signature
+ERROR tests/test_final_state.py::test_final_row_count_is_200 - AssertionError...
+ERROR tests/test_final_state.py::test_final_ids_cover_full_space - AssertionE...
+ERROR tests/test_final_state.py::test_final_values_equal_expected_max_ts - As...
+ERROR tests/test_final_state.py::test_write_attempts_table_exists - Assertion...
+ERROR tests/test_final_state.py::test_write_attempts_schema_and_per_batch_success
+ERROR tests/test_final_state.py::test_at_least_one_retry_occurred - Assertion...
+ERROR tests/test_final_state.py::test_attempt_num_starts_at_zero - AssertionE...
+========================= 2 passed, 7 errors in 6.63s ==========================

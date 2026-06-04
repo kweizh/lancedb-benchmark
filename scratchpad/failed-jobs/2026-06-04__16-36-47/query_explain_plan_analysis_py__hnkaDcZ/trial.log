@@ -1,0 +1,90 @@
+Skipping image OS validation for hb__query_explain_plan_analysis_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-hnkadcz > /logs/artifacts/run-id && echo query_explain_plan_analysis_py__hnkaDcZ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Query Plan Introspection with LanceDB
+
+## Background
+LanceDB exposes `explain_plan()` and `analyze_plan()` on its query builders so engineers can audit how vector, scalar-filtered, and hybrid (vector + FTS) searches are physically executed. Your job is to build a small Python utility that inspects three representative queries against an existing LanceDB table and emits a structured report of the operator chain plus the runtime metrics LanceDB reports for each.
+
+A pre-seeded LanceDB database is provided. It already contains a single table with at least 256 deterministic rows, a 16-dimensional vector column, a text column with a native LanceDB FTS index, and a `category` scalar column. A fixed numpy query vector (seed=2026) is also written to disk.
+
+## Requirements
+Write `solution.py` so that running `python3 solution.py` produces a JSON report at `report.json` describing the physical plans for three queries.
+
+1. **Plain vector search**: top-10 nearest neighbours of the provided query vector — no filter, no FTS.
+2. **Prefiltered vector search**: same query vector, top-10, restricted by a SQL `where` clause on the `category` column (use the value provided via the `CATEGORY_FILTER` environment variable). The filter must be pushed in as a prefilter so the resulting physical plan contains a Filter / Projection / Take operator chain.
+3. **Hybrid (vector + FTS) search**: top-10 results using both the query vector and the keyword in the `FTS_QUERY` environment variable, executed as `query_type="hybrid"`.
+
+For each of the three queries the report must contain:
+- The full string returned by `explain_plan()` (verbose plan).
+- The full string returned by `analyze_plan()`.
+- A list of operator class names parsed from the explain plan tree (e.g. `ProjectionExec`, `Take`, `FilterExec`, `KNNVectorDistance`, `MatchQuery`, etc.) — preserve the order they appear in.
+- An integer `top_output_rows` extracted from the root `analyze_plan` operator's `output_rows=N` metric.
+
+## Implementation Hints
+- Open the existing database at the path supplied by the `LANCEDB_URI` environment variable and open the table named in `TABLE_NAME`.
+- Load the query vector from `query_vector.npy`.
+- Use the LanceDB sync Python SDK; `explain_plan()` / `analyze_plan()` are methods on the query builder returned by `table.search(...)`.
+- For the hybrid query, build the query with `table.search(query_type="hybrid").vector(qvec).text(fts_query).limit(10)`.
+- Parse operator names with a regex on the leading token before `:` on each non-empty line of the explain plan output.
+- Extract `output_rows=N` from the first metrics block in the analyze plan.
+- Write the report with `json.dump(..., indent=2)`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure `solution.py` is actually executed and produces the artifact below.
+- Log / artifact file: /home/user/myproject/report.json
+- The JSON report MUST be an object with the top-level keys `plain`, `prefilter`, and `hybrid`.
+- Each section MUST contain the keys `explain_plan` (string), `analyze_plan` (string), `operators` (list of strings), and `top_output_rows` (integer).
+- The `prefilter.operators` list MUST contain at least one entry whose name starts with `Filter`, at least one entry containing `Projection`, and at least one entry containing `Take` (matching `Take` or `RemoteTake`).
+- The `plain.top_output_rows` and `prefilter.top_output_rows` values MUST equal `10` (the requested limit).
+- The `hybrid.explain_plan` text MUST mention both a vector sub-plan and an FTS sub-plan (substrings `Vector` and `FTS`, case-insensitive).
+- The `hybrid.operators` list MUST be non-empty.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

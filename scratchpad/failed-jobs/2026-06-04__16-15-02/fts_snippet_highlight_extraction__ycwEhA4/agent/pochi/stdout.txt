@@ -1,0 +1,219 @@
+- Initializing MCP connections...
+You
+# LanceDB FTS Snippet Highlight Extraction ## Background LanceDB's native (Lance-based) full-text search index can be configured with `with_position=True` so that positional information is stored alongside the BM25 posting list. This positional information is essential for downstream features such as snippet generation, where a short context window is extracted from a long document body and the matched term is highlighted. In this task you will build a search helper on top of a pre-seeded LanceDB table of articles. The table has already been created at container build time, populated with 50 articles whose bodies are 200+ words each, and a native FTS index with positional information has been built on the `body` column. Your job is to implement the snippet-extraction layer that returns short context windows around the first occurrence of the query term, with the term wrapped in `<mark>...</mark>` tags. ## Requirements * Implement a Python module `solution.py` at `/home/user/myproject/solution.py` that exposes a single callable: `search_with_snippets(query: str, k: int, snippet_chars: int = 120)`. * The function must execute a full-text search against the existing LanceDB table (whose name is provided via the `LANCE_TABLE` environment variable, in the database at `/home/user/myproject/data`) and return a Python `list[dict]` of at most `k` results. * Each result dict must contain exactly the following keys: * `id` (int): the row id from the table. * `score` (float): the BM25 score returned by LanceDB's FTS (the `_score` column). * `snippet` (str): a substring window taken from the article `body`. The window length must be at most `snippet_chars` characters of original body text, centered (as best as possible) on the first case-insensitive occurrence of the query term. Within the snippet, the matched query term must be wrapped in `<mark>` and `</mark>` tags. The case of the wrapped text must match the case used in the original body. * `snippet_offset` (int): the character offset in the original `body` at which the snippet window begins (i.e., the index into `body[snippet_offset:snippet_offset+window_len]` that yields the un-highlighted snippet text). * Results must be ordered by descending `score` (highest first), matching LanceDB's default FTS ordering. * If a hit's body does not actually contain the query term (e.g., due to stemming), fall back to wrapping the first whole-word match you can find for any token of the query, and if even that fails, return the leading `snippet_chars` characters with no `<mark>` markup. The `snippet_offset` must still be the true offset of the returned window inside the original body. ## Implementation Hints * Open the existing table with `lancedb.connect("/home/user/myproject/data").open_table(os.environ["LANCE_TABLE"])`. Do NOT recreate or drop the table — the fixture rows and FTS index are already in place. * Use `table.search(query, query_type="fts").limit(k).to_list()` (or the equivalent builder API) to obtain BM25-ranked candidates with a `_score` field. * Locate the first occurrence of the query term in `body` using either LanceDB's positional FTS facilities or a plain Python string search (e.g., `body.lower().find(query.lower())`). Either approach is acceptable. * When building the window, clamp the start/end indices so they remain inside `[0, len(body)]`, and ensure the un-highlighted character count does not exceed `snippet_chars`. The `<mark>` tags themselves do not count toward the `snippet_chars` budget but the final snippet string will obviously be slightly longer. * Pure-Python string slicing is sufficient; no extra third-party dependencies are required. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 -c "import solution, json; print(json.dumps(solution.search_with_snippets('example query', 3, 120)))"` (the verifier will import `solution` directly rather than rely on this command). * `solution.search_with_snippets(query, k, snippet_chars)` must return a `list[dict]` with the schema described in Requirements. * For every dict in the result list: * `id` is an integer matching a row in the `LANCE_TABLE` table. * `score` is a float (the BM25 `_score`). * `snippet` is a string whose length excluding the `<mark>...</mark>` markup is ≤ `snippet_chars` (i.e., `len(snippet) - len('<mark></mark>') ≤ snippet_chars` whenever `<mark>` markup is present). * When the query term occurs in `body`, the `<mark>` and `</mark>` tags surround the exact matched substring of `body` (case-preserved), and `snippet_offset` ≤ position-of-match ≤ `snippet_offset + snippet_chars`. * The substring `body[snippet_offset : snippet_offset + window_len]` (where `window_len` is the snippet length without markup) equals the snippet with the `<mark>` and `</mark>` tags removed. * The function is order-stable: results are sorted by descending `_score`.   
+
+Pochi
+💭 Thinking for 372 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 42 characters   
+📂 Listing files in /home/user/myproject recursively ✔ 
+💭 Thinking for 197 characters   
+💫 Executing echo $LANCE_TABLE ✔ 
+💭 Thinking for 143 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import lancedb
+db = lancedb.connect('/home/user/myproject/data')
+print('Tables:', db.table_names())
+table = db.open_table('articles')
+print('Schema:', table.schema)
+" ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import lancedb
+db = lancedb.connect('/home/user/myproject/data')
+table = db.open_table('articles')
+df = table.to_pandas()
+print('Num rows:', len(df))
+print('Columns:', list(df.columns))
+print()
+print('First row:')
+print(df.iloc[0])
+print()
+print('Body length of first row:', len(df.iloc[0]['body']))
+" ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import lancedb
+db = lancedb.connect('/home/user/myproject/data')
+table = db.open_table('articles')
+results = table.search('captain', query_type='fts').limit(3).to_list()
+for r in results:
+    print(r)
+" ✔ 
+💭 Thinking for 12601 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import lancedb
+db = lancedb.connect('/home/user/myproject/data')
+table = db.open_table('articles')
+results = table.search('captain', query_type='fts').limit(3).to_list()
+for r in results:
+    print('id:', r['id'], type(r['id']))
+    print('score:', r['_score'], type(r['_score']))
+    print('body preview:', r['body'][:100])
+    print()
+" ✔ 
+💭 Thinking for 171 characters   
+Now I have all the information I need. Let me implementthe solution.   
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/solution.py ✔ 
+💭 Thinking for 34 characters   
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import solution, json
+result = solution.search_with_snippets('captain', 3, 120)
+print(json.dumps(result, indent=2))
+" ✔ 
+💭 Thinking for 436 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import solution, json
+
+# Test basic functionality
+result = solution.search_with_snippets('captain', 3, 120)
+for r in result:
+    snippet_no_markup = r['snippet'].replace('<mark>', '').replace('</mark>', '')
+    print(f'id={r[\"id\"]}, score={r[\"score\"]:.6f}, offset={r[\"snippet_offset\"]}')
+    print(f'  snippet (no markup) length: {len(snippet_no_markup)}')
+    print(f'  snippet: {r[\"snippet\"][:80]}...')
+    print()
+
+# Verify snippet_offset correctness
+import lancedb, os
+db = lancedb.connect('/home/user/myproject/data')
+table = db.open_table(os.environ['LANCE_TABLE'])
+rows = table.search('captain', query_type='fts').limit(3).to_list()
+
+for r, row in zip(result, rows):
+    body = row['body']
+    snippet_no_markup = r['snippet'].replace('<mark>', '').replace('</mark>', '')
+    window_len = len(snippet_no_markup)
+    actual_slice = body[r['snippet_offset']:r['snippet_offset']+window_len]
+    match = actual_slice == snippet_no_markup
+    print(f'id={r[\"id\"]}: offset matches body slice: {match}')
+    if not match:
+        print(f'  Expected: {repr(actual_slice[:50])}')
+        print(f'  Got:      {repr(snippet_no_markup[:50])}')
+" ✔ 
+💭 Thinking for 135 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import solution, json
+
+# Test with multi-word query
+result = solution.search_with_snippets('harvest captain', 2, 120)
+for r in result:
+    snippet_no_markup = r['snippet'].replace('<mark>', '').replace('</mark>', '')
+    print(f'id={r[\"id\"]}, offset={r[\"snippet_offset\"]}, snippet_len={len(snippet_no_markup)}')
+    print(f'  {r[\"snippet\"][:100]}')
+    print()
+
+# Test with a stemming case - use a word that might be stemmed
+result2 = solution.search_with_snippets('documented', 2, 80)
+for r in result2:
+    snippet_no_markup = r['snippet'].replace('<mark>', '').replace('</mark>', '')
+    print(f'id={r[\"id\"]}, offset={r[\"snippet_offset\"]}, snippet_len={len(snippet_no_markup)}')
+    print(f'  {r[\"snippet\"][:100]}')
+    print()
+" ✔ 
+💭 Thinking for 413 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import solution, json
+
+# Test with a query that might trigger stemming fallback
+# Use a word form that might differ from what's in the text
+result = solution.search_with_snippets('expeditions', 2, 100)
+for r in result:
+    snippet_no_markup = r['snippet'].replace('<mark>', '').replace('</mark>', '')
+    has_mark = '<mark>' in r['snippet']
+    print(f'id={r[\"id\"]}, offset={r[\"snippet_offset\"]}, has_mark={has_mark}, snippet_len={len(snippet_no_markup)}')
+    print(f'  {r[\"snippet\"][:120]}')
+    print()
+" ✔ 
+💭 Thinking for 1244 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import solution, json
+
+# Test with exact word that exists in text
+result = solution.search_with_snippets('expedition', 2, 100)
+for r in result:
+    snippet_no_markup = r['snippet'].replace('<mark>', '').replace('</mark>', '')
+    has_mark = '<mark>' in r['snippet']
+    print(f'id={r[\"id\"]}, offset={r[\"snippet_offset\"]}, has_mark={has_mark}, snippet_len={len(snippet_no_markup)}')
+    print(f'  {r[\"snippet\"][:120]}')
+    print()
+" ✔ 
+💭 Thinking for 116 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import solution
+
+# Verify ordering by descending score
+result = solution.search_with_snippets('captain', 10, 120)
+scores = [r['score'] for r in result]
+print('Scores:', scores)
+print('Is descending:', all(a >= b for a, b in zip(scores, scores[1:])))
+
+# Verify all required keys are present
+for r in result:
+    assert set(r.keys()) == {'id', 'score', 'snippet', 'snippet_offset'}, f'Unexpected keys: {r.keys()}'
+    assert isinstance(r['id'], int), f'id is not int: {type(r[\"id\"])}'
+    assert isinstance(r['score'], float), f'score is not float: {type(r[\"score\"])}'
+    assert isinstance(r['snippet'], str), f'snippet is not str: {type(r[\"snippet\"])}'
+    assert isinstance(r['snippet_offset'], int), f'snippet_offset is not int: {type(r[\"snippet_offset\"])}'
+
+print('All assertions passed!')
+" ✔ 
+All tests pass. Let me verify one final edge case — that the snippet offset and content align correctly with the original body:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import solution, lancedb, os
+
+# Comprehensive verification: body[offset:offset+len] == snippet without tags
+db = lancedb.connect('/home/user/myproject/data')
+table = db.open_table(os.environ['LANCE_TABLE'])
+
+result = solution.search_with_snippets('captain', 10, 120)
+rows = table.search('captain', query_type='fts').limit(10).to_list()
+
+all_ok = True
+for r, row in zip(result, rows):
+    body = row['body']
+    snippet_no_markup = r['snippet'].replace('<mark>', '').replace('</mark>', '')
+    window_len = len(snippet_no_markup)
+    actual_slice = body[r['snippet_offset']:r['snippet_offset']+window_len]
+    if actual_slice != snippet_no_markup:
+        print(f'MISMATCH id={r[\"id\"]}')
+        print(f'  Expected: {repr(actual_slice[:60])}')
+        print(f'  Got:      {repr(snippet_no_markup[:60])}')
+        all_ok = False
+    
+    # Verify snippet length constraint
+    markup_len = len('<mark></mark>')
+    if '<mark>' in r['snippet']:
+        assert len(r['snippet']) - markup_len <= 120, f'Snippet too long: {len(r[\"snippet\"]) - markup_len}'
+    else:
+        assert len(r['snippet']) <= 120, f'Snippet too long: {len(r[\"snippet\"])}'
+    
+    # Verify match is within snippet window
+    if '<mark>' in r['snippet']:
+        match_pos_in_body = body.lower().find('captain')
+        assert r['snippet_offset'] <= match_pos_in_body <= r['snippet_offset'] + 120, \
+            f'Match at {match_pos_in_body} not in window [{r[\"snippet_offset\"]}, {r[\"snippet_offset\"]+120}]'
+
+if all_ok:
+    print('All verifications passed!')
+" ✔ 
+All verification checks pass. Let me mark the task as complete.   
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+Implemented `/home/user/myproject/solution.py` with the `search_with_snippets(query, k, snippet_chars=120)` function that:
+
+1. **Connects to the existing LanceDB table** using `lancedb.connect` and `os.environ["LANCE_TABLE"]`, executing an FTS search with `table.search(query, query_type="fts").limit(k).to_list()`.
+
+2. **Extracts snippets** with a three-tier matching strategy:
+   - **Primary**: Case-insensitive substring match of the full query in the body
+   - **Fallback 1**: Whole-word regex match of any individual query token (handles multi-word queries where the exact phrase isn't contiguous)
+   - **Fallback 2**: Leading `snippet_chars` characters with no `<mark>` markup (handles stemming mismatches)
+
+3. **Centers the snippet window** around the matched term: `ideal_start = match_pos - (snippet_chars - match_len) // 2`, clamped to `[0, len(body) - snippet_chars]`. Bodies shorter than `snippet_chars` use the entire body.
+
+4. **Wraps the matched term** in `<mark>...</mark>` tags with case preserved from the original body. The `<mark>` tags don't count toward the `snippet_chars` budget.
+
+5. **Returns** `list[dict]` with keys `id` (int), `score` (float from `_score`), `snippet` (str), and `snippet_offset` (int), ordered by descending BM25 score.
+
+All acceptance criteria verified: snippet offsets align with original body text, snippet lengths (excluding markup) stay within `snippet_chars`, matches are positioned within the snippet window, and results are sorted by descending score.   
+  

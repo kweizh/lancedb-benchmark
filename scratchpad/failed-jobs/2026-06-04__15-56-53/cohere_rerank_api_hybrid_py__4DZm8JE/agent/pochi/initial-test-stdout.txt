@@ -1,0 +1,204 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 11 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_cohere_importable PASSED
+bootstrap/test_initial_state.py::test_openai_importable PASSED
+bootstrap/test_initial_state.py::test_cohere_reranker_importable PASSED
+bootstrap/test_initial_state.py::test_project_directory_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_directory_exists FAILED
+bootstrap/test_initial_state.py::test_docs_table_seeded_with_200_rows FAILED
+bootstrap/test_initial_state.py::test_docs_table_has_three_languages FAILED
+bootstrap/test_initial_state.py::test_rigged_doc_present FAILED
+bootstrap/test_initial_state.py::test_openai_api_key_present PASSED
+bootstrap/test_initial_state.py::test_cohere_api_key_present PASSED
+
+=================================== FAILURES ===================================
+________________________ test_lancedb_directory_exists _________________________
+
+    def test_lancedb_directory_exists():
+>       assert os.path.isdir(LANCEDB_DIR), f"LanceDB directory {LANCEDB_DIR} does not exist."
+E       AssertionError: LanceDB directory /home/user/cohere_rerank/lancedb does not exist.
+E       assert False
+E        +  where False = <function isdir at 0x7f43727cc2c0>('/home/user/cohere_rerank/lancedb')
+E        +    where <function isdir at 0x7f43727cc2c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:43: AssertionError
+_____________________ test_docs_table_seeded_with_200_rows _____________________
+
+    def test_docs_table_seeded_with_200_rows():
+        import lancedb
+    
+        db = lancedb.connect(LANCEDB_DIR)
+>       assert "docs" in db.table_names(), "LanceDB table 'docs' is missing from the seeded database."
+E       AssertionError: LanceDB table 'docs' is missing from the seeded database.
+E       assert 'docs' in []
+E        +  where [] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/cohere_rerank/lancedb')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/cohere_rerank/lancedb')> = LanceDBConnection(uri='/home/user/cohere_rerank/lancedb').table_names
+
+bootstrap/test_initial_state.py:50: AssertionError
+_____________________ test_docs_table_has_three_languages ______________________
+
+    def test_docs_table_has_three_languages():
+        import lancedb
+    
+        db = lancedb.connect(LANCEDB_DIR)
+>       tbl = db.open_table("docs")
+
+bootstrap/test_initial_state.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/home/user/cohere_rerank/lancedb, read_consistency_interval=None)
+name = 'docs'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'docs' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+___________________________ test_rigged_doc_present ____________________________
+
+    def test_rigged_doc_present():
+        import lancedb
+    
+        db = lancedb.connect(LANCEDB_DIR)
+>       tbl = db.open_table("docs")
+
+bootstrap/test_initial_state.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/home/user/cohere_rerank/lancedb, read_consistency_interval=None)
+name = 'docs'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'docs' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_lancedb_directory_exists - Asser...
+FAILED bootstrap/test_initial_state.py::test_docs_table_seeded_with_200_rows
+FAILED bootstrap/test_initial_state.py::test_docs_table_has_three_languages
+FAILED bootstrap/test_initial_state.py::test_rigged_doc_present - ValueError:...
+========================= 4 failed, 7 passed in 6.94s ==========================

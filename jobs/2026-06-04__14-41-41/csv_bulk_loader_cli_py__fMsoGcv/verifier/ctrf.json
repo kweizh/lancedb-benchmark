@@ -1,0 +1,106 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780585166180,
+            "stop": 1780585201289
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_loader_script_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780585166219,
+                "stop": 1780585166220,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ingest_runs_successfully",
+                "status": "passed",
+                "duration": 20863,
+                "start": 1780585166221,
+                "stop": 1780585187084,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lance_db_directory_created_after_ingest",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780585187084,
+                "stop": 1780585187085,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_row_count_matches_csv",
+                "status": "passed",
+                "duration": 3610,
+                "start": 1780585187086,
+                "stop": 1780585190696,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_schema_has_required_columns",
+                "status": "passed",
+                "duration": 5,
+                "start": 1780585190696,
+                "stop": 1780585190701,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_has_1536d_vector_column",
+                "status": "passed",
+                "duration": 5,
+                "start": 1780585190701,
+                "stop": 1780585190706,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_query_a_returns_expected_top1",
+                "status": "passed",
+                "duration": 3587,
+                "start": 1780585190707,
+                "stop": 1780585194294,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_query_b_returns_expected_top1",
+                "status": "passed",
+                "duration": 3444,
+                "start": 1780585194294,
+                "stop": 1780585197738,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_short_query_returns_expected_top1",
+                "status": "passed",
+                "duration": 3549,
+                "start": 1780585197739,
+                "stop": 1780585201288,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

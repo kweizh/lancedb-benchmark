@@ -1,0 +1,113 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 2,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780588975450,
+            "stop": 1780588981377
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780588980370,
+                "stop": 1780588980371,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_safewriter_constructor_signature",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780588980372,
+                "stop": 1780588980373,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_final_row_count_is_200",
+                "status": "failed",
+                "duration": 947,
+                "start": 1780588980374,
+                "stop": 1780588981321,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "env_config = ('/home/user/lance_db', 'items')\nclean_database = '/home/user/lance_db'\n\n    @pytest.fixture(scope=\"module\")\n    def concurrent_run(env_config, clean_database):\n        \"\"\"Run the candidate's SafeWriter concurrently and yield the plan + expected max ts.\"\"\"\n        uri, name = env_config\n        SafeWriter = _load_safe_writer()\n        plan, expected_max_ts = _build_plan()\n    \n        # Group plan by thread id\n        per_thread = {t: [] for t in range(4)}\n        for t, batch_id, ts, rows in plan:\n            per_thread[t].append((batch_id, ts, rows))\n    \n        def worker(thread_id):\n            # Each thread builds its own SafeWriter so connection state is independent.\n            writer = SafeWriter(db_uri=uri, table_name=name, key=\"id\")\n            for batch_id, _ts, rows in per_thread[thread_id]:\n                writer.upsert(batch_id, rows)\n            return thread_id\n    \n        errors = []\n        with ThreadPoolExecutor(max_workers=4) as ex:\n            futs = {ex.submit(worker, t): t for t in range(4)}\n            for fut in as_completed(futs):\n                try:\n                    fut.result()\n                except Exception as e:  # pragma: no cover\n                    errors.append((futs[fut], repr(e)))\n    \n>       assert not errors, f\"SafeWriter threads raised unhandled errors: {errors!r}\"\nE       AssertionError: SafeWriter threads raised unhandled errors: [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\nE       assert not [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_final_ids_cover_full_space",
+                "status": "failed",
+                "duration": 8,
+                "start": 1780588981321,
+                "stop": 1780588981329,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "env_config = ('/home/user/lance_db', 'items')\nclean_database = '/home/user/lance_db'\n\n    @pytest.fixture(scope=\"module\")\n    def concurrent_run(env_config, clean_database):\n        \"\"\"Run the candidate's SafeWriter concurrently and yield the plan + expected max ts.\"\"\"\n        uri, name = env_config\n        SafeWriter = _load_safe_writer()\n        plan, expected_max_ts = _build_plan()\n    \n        # Group plan by thread id\n        per_thread = {t: [] for t in range(4)}\n        for t, batch_id, ts, rows in plan:\n            per_thread[t].append((batch_id, ts, rows))\n    \n        def worker(thread_id):\n            # Each thread builds its own SafeWriter so connection state is independent.\n            writer = SafeWriter(db_uri=uri, table_name=name, key=\"id\")\n            for batch_id, _ts, rows in per_thread[thread_id]:\n                writer.upsert(batch_id, rows)\n            return thread_id\n    \n        errors = []\n        with ThreadPoolExecutor(max_workers=4) as ex:\n            futs = {ex.submit(worker, t): t for t in range(4)}\n            for fut in as_completed(futs):\n                try:\n                    fut.result()\n                except Exception as e:  # pragma: no cover\n                    errors.append((futs[fut], repr(e)))\n    \n>       assert not errors, f\"SafeWriter threads raised unhandled errors: {errors!r}\"\nE       AssertionError: SafeWriter threads raised unhandled errors: [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\nE       assert not [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_final_values_equal_expected_max_ts",
+                "status": "failed",
+                "duration": 9,
+                "start": 1780588981330,
+                "stop": 1780588981339,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "env_config = ('/home/user/lance_db', 'items')\nclean_database = '/home/user/lance_db'\n\n    @pytest.fixture(scope=\"module\")\n    def concurrent_run(env_config, clean_database):\n        \"\"\"Run the candidate's SafeWriter concurrently and yield the plan + expected max ts.\"\"\"\n        uri, name = env_config\n        SafeWriter = _load_safe_writer()\n        plan, expected_max_ts = _build_plan()\n    \n        # Group plan by thread id\n        per_thread = {t: [] for t in range(4)}\n        for t, batch_id, ts, rows in plan:\n            per_thread[t].append((batch_id, ts, rows))\n    \n        def worker(thread_id):\n            # Each thread builds its own SafeWriter so connection state is independent.\n            writer = SafeWriter(db_uri=uri, table_name=name, key=\"id\")\n            for batch_id, _ts, rows in per_thread[thread_id]:\n                writer.upsert(batch_id, rows)\n            return thread_id\n    \n        errors = []\n        with ThreadPoolExecutor(max_workers=4) as ex:\n            futs = {ex.submit(worker, t): t for t in range(4)}\n            for fut in as_completed(futs):\n                try:\n                    fut.result()\n                except Exception as e:  # pragma: no cover\n                    errors.append((futs[fut], repr(e)))\n    \n>       assert not errors, f\"SafeWriter threads raised unhandled errors: {errors!r}\"\nE       AssertionError: SafeWriter threads raised unhandled errors: [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\nE       assert not [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_write_attempts_table_exists",
+                "status": "failed",
+                "duration": 10,
+                "start": 1780588981340,
+                "stop": 1780588981350,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "env_config = ('/home/user/lance_db', 'items')\nclean_database = '/home/user/lance_db'\n\n    @pytest.fixture(scope=\"module\")\n    def concurrent_run(env_config, clean_database):\n        \"\"\"Run the candidate's SafeWriter concurrently and yield the plan + expected max ts.\"\"\"\n        uri, name = env_config\n        SafeWriter = _load_safe_writer()\n        plan, expected_max_ts = _build_plan()\n    \n        # Group plan by thread id\n        per_thread = {t: [] for t in range(4)}\n        for t, batch_id, ts, rows in plan:\n            per_thread[t].append((batch_id, ts, rows))\n    \n        def worker(thread_id):\n            # Each thread builds its own SafeWriter so connection state is independent.\n            writer = SafeWriter(db_uri=uri, table_name=name, key=\"id\")\n            for batch_id, _ts, rows in per_thread[thread_id]:\n                writer.upsert(batch_id, rows)\n            return thread_id\n    \n        errors = []\n        with ThreadPoolExecutor(max_workers=4) as ex:\n            futs = {ex.submit(worker, t): t for t in range(4)}\n            for fut in as_completed(futs):\n                try:\n                    fut.result()\n                except Exception as e:  # pragma: no cover\n                    errors.append((futs[fut], repr(e)))\n    \n>       assert not errors, f\"SafeWriter threads raised unhandled errors: {errors!r}\"\nE       AssertionError: SafeWriter threads raised unhandled errors: [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\nE       assert not [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_write_attempts_schema_and_per_batch_success",
+                "status": "failed",
+                "duration": 8,
+                "start": 1780588981351,
+                "stop": 1780588981359,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "env_config = ('/home/user/lance_db', 'items')\nclean_database = '/home/user/lance_db'\n\n    @pytest.fixture(scope=\"module\")\n    def concurrent_run(env_config, clean_database):\n        \"\"\"Run the candidate's SafeWriter concurrently and yield the plan + expected max ts.\"\"\"\n        uri, name = env_config\n        SafeWriter = _load_safe_writer()\n        plan, expected_max_ts = _build_plan()\n    \n        # Group plan by thread id\n        per_thread = {t: [] for t in range(4)}\n        for t, batch_id, ts, rows in plan:\n            per_thread[t].append((batch_id, ts, rows))\n    \n        def worker(thread_id):\n            # Each thread builds its own SafeWriter so connection state is independent.\n            writer = SafeWriter(db_uri=uri, table_name=name, key=\"id\")\n            for batch_id, _ts, rows in per_thread[thread_id]:\n                writer.upsert(batch_id, rows)\n            return thread_id\n    \n        errors = []\n        with ThreadPoolExecutor(max_workers=4) as ex:\n            futs = {ex.submit(worker, t): t for t in range(4)}\n            for fut in as_completed(futs):\n                try:\n                    fut.result()\n                except Exception as e:  # pragma: no cover\n                    errors.append((futs[fut], repr(e)))\n    \n>       assert not errors, f\"SafeWriter threads raised unhandled errors: {errors!r}\"\nE       AssertionError: SafeWriter threads raised unhandled errors: [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\nE       assert not [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_at_least_one_retry_occurred",
+                "status": "failed",
+                "duration": 9,
+                "start": 1780588981359,
+                "stop": 1780588981368,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "env_config = ('/home/user/lance_db', 'items')\nclean_database = '/home/user/lance_db'\n\n    @pytest.fixture(scope=\"module\")\n    def concurrent_run(env_config, clean_database):\n        \"\"\"Run the candidate's SafeWriter concurrently and yield the plan + expected max ts.\"\"\"\n        uri, name = env_config\n        SafeWriter = _load_safe_writer()\n        plan, expected_max_ts = _build_plan()\n    \n        # Group plan by thread id\n        per_thread = {t: [] for t in range(4)}\n        for t, batch_id, ts, rows in plan:\n            per_thread[t].append((batch_id, ts, rows))\n    \n        def worker(thread_id):\n            # Each thread builds its own SafeWriter so connection state is independent.\n            writer = SafeWriter(db_uri=uri, table_name=name, key=\"id\")\n            for batch_id, _ts, rows in per_thread[thread_id]:\n                writer.upsert(batch_id, rows)\n            return thread_id\n    \n        errors = []\n        with ThreadPoolExecutor(max_workers=4) as ex:\n            futs = {ex.submit(worker, t): t for t in range(4)}\n            for fut in as_completed(futs):\n                try:\n                    fut.result()\n                except Exception as e:  # pragma: no cover\n                    errors.append((futs[fut], repr(e)))\n    \n>       assert not errors, f\"SafeWriter threads raised unhandled errors: {errors!r}\"\nE       AssertionError: SafeWriter threads raised unhandled errors: [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\nE       assert not [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\n\ntests/test_final_state.py:92: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_attempt_num_starts_at_zero",
+                "status": "failed",
+                "duration": 9,
+                "start": 1780588981368,
+                "stop": 1780588981377,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "env_config = ('/home/user/lance_db', 'items')\nclean_database = '/home/user/lance_db'\n\n    @pytest.fixture(scope=\"module\")\n    def concurrent_run(env_config, clean_database):\n        \"\"\"Run the candidate's SafeWriter concurrently and yield the plan + expected max ts.\"\"\"\n        uri, name = env_config\n        SafeWriter = _load_safe_writer()\n        plan, expected_max_ts = _build_plan()\n    \n        # Group plan by thread id\n        per_thread = {t: [] for t in range(4)}\n        for t, batch_id, ts, rows in plan:\n            per_thread[t].append((batch_id, ts, rows))\n    \n        def worker(thread_id):\n            # Each thread builds its own SafeWriter so connection state is independent.\n            writer = SafeWriter(db_uri=uri, table_name=name, key=\"id\")\n            for batch_id, _ts, rows in per_thread[thread_id]:\n                writer.upsert(batch_id, rows)\n            return thread_id\n    \n        errors = []\n        with ThreadPoolExecutor(max_workers=4) as ex:\n            futs = {ex.submit(worker, t): t for t in range(4)}\n            for fut in as_completed(futs):\n                try:\n                    fut.result()\n                except Exception as e:  # pragma: no cover\n                    errors.append((futs[fut], repr(e)))\n    \n>       assert not errors, f\"SafeWriter threads raised unhandled errors: {errors!r}\"\nE       AssertionError: SafeWriter threads raised unhandled errors: [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\nE       assert not [(3, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (0, 'ValueError(\"Table \\'write_attempts\\' already exists\")'), (2, 'ValueError(\"Table \\'write_attempts\\' already exists\")')]\n\ntests/test_final_state.py:92: AssertionError"
+            }
+        ]
+    }
+}

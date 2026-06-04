@@ -1,0 +1,53 @@
+{
+  "plain": {
+    "explain_plan": "ProjectionExec: expr=[id@3 as id, vector@0 as vector, text@4 as text, category@5 as category, _distance@2 as _distance]\n  Take: columns=\"vector, _rowid, _distance, (id), (text), (category)\"\n    CoalesceBatchesExec: target_batch_size=1024\n      GlobalLimitExec: skip=0, fetch=10\n        FilterExec: _distance@2 IS NOT NULL\n          SortExec: TopK(fetch=10), expr=[_distance@2 ASC NULLS LAST, _rowid@1 ASC NULLS LAST], preserve_partitioning=[false]\n            KNNVectorDistance: metric=l2\n              LanceRead: uri=home/user/lancedb_data/docs.lance/data, projection=[vector], num_fragments=1, range_before=None, range_after=None, row_id=true, row_addr=false, full_filter=--, refine_filter=--\n",
+    "analyze_plan": "AnalyzeExec verbose=true, metrics=[], cumulative_cpu=2.320774ms\n  TracedExec, metrics=[], cumulative_cpu=2.320774ms\n    ProjectionExec: expr=[id@3 as id, vector@0 as vector, text@4 as text, category@5 as category, _distance@2 as _distance], metrics=[output_rows=10, elapsed_compute=6.438\u00b5s], cumulative_cpu=2.320774ms\n      Take: columns=\"vector, _rowid, _distance, (id), (text), (category)\", metrics=[output_rows=10, elapsed_compute=294.008\u00b5s, batches_processed=1, bytes_read=0, iops=0, requests=0], cumulative_cpu=2.314336ms\n        CoalesceBatchesExec: target_batch_size=1024, metrics=[output_rows=10, elapsed_compute=6.965\u00b5s], cumulative_cpu=2.020328ms\n          GlobalLimitExec: skip=0, fetch=10, metrics=[output_rows=10, elapsed_compute=2.497\u00b5s], cumulative_cpu=2.013363ms\n            FilterExec: _distance@2 IS NOT NULL, metrics=[output_rows=10, elapsed_compute=41.242\u00b5s], cumulative_cpu=2.010866ms\n              SortExec: TopK(fetch=10), expr=[_distance@2 ASC NULLS LAST, _rowid@1 ASC NULLS LAST], preserve_partitioning=[false], filter=[_distance@2 < 18.516092 OR _distance@2 = 18.516092 AND _rowid@1 < 39], metrics=[output_rows=10, elapsed_compute=292.301\u00b5s, row_replacements=40], cumulative_cpu=1.969624ms\n                KNNVectorDistance: metric=l2, metrics=[output_rows=320, elapsed_compute=372.412\u00b5s, output_batches=1], cumulative_cpu=1.677323ms\n                  LanceRead: uri=home/user/lancedb_data/docs.lance/data, projection=[vector], num_fragments=1, range_before=None, range_after=None, row_id=true, row_addr=false, full_filter=--, refine_filter=--, metrics=[output_rows=320, elapsed_compute=1.304911ms, fragments_scanned=1, ranges_scanned=1, rows_scanned=320, bytes_read=24576, iops=2, requests=2, task_wait_time=1.30459ms], cumulative_cpu=1.304911ms\n",
+    "operators": [
+      "ProjectionExec",
+      "Take",
+      "CoalesceBatchesExec",
+      "GlobalLimitExec",
+      "FilterExec",
+      "SortExec",
+      "KNNVectorDistance",
+      "LanceRead"
+    ],
+    "top_output_rows": 10
+  },
+  "prefilter": {
+    "explain_plan": "ProjectionExec: expr=[id@4 as id, vector@0 as vector, text@5 as text, category@1 as category, _distance@3 as _distance]\n  Take: columns=\"vector, category, _rowid, _distance, (id), (text)\"\n    CoalesceBatchesExec: target_batch_size=1024\n      GlobalLimitExec: skip=0, fetch=10\n        FilterExec: _distance@3 IS NOT NULL\n          SortExec: TopK(fetch=10), expr=[_distance@3 ASC NULLS LAST, _rowid@2 ASC NULLS LAST], preserve_partitioning=[false]\n            KNNVectorDistance: metric=l2\n              FilterExec: category@1 = alpha\n                LanceRead: uri=home/user/lancedb_data/docs.lance/data, projection=[vector, category], num_fragments=1, range_before=None, range_after=None, row_id=true, row_addr=false, full_filter=category = Utf8(\"alpha\"), refine_filter=category = Utf8(\"alpha\")\n",
+    "analyze_plan": "AnalyzeExec verbose=true, metrics=[], cumulative_cpu=1.779958ms\n  TracedExec, metrics=[], cumulative_cpu=1.779958ms\n    ProjectionExec: expr=[id@4 as id, vector@0 as vector, text@5 as text, category@1 as category, _distance@3 as _distance], metrics=[output_rows=10, elapsed_compute=3.265\u00b5s], cumulative_cpu=1.779958ms\n      Take: columns=\"vector, category, _rowid, _distance, (id), (text)\", metrics=[output_rows=10, elapsed_compute=282.692\u00b5s, batches_processed=1, bytes_read=0, iops=0, requests=0], cumulative_cpu=1.776693ms\n        CoalesceBatchesExec: target_batch_size=1024, metrics=[output_rows=10, elapsed_compute=4.697\u00b5s], cumulative_cpu=1.494001ms\n          GlobalLimitExec: skip=0, fetch=10, metrics=[output_rows=10, elapsed_compute=1.375\u00b5s], cumulative_cpu=1.489304ms\n            FilterExec: _distance@3 IS NOT NULL, metrics=[output_rows=10, elapsed_compute=4.386\u00b5s], cumulative_cpu=1.487929ms\n              SortExec: TopK(fetch=10), expr=[_distance@3 ASC NULLS LAST, _rowid@2 ASC NULLS LAST], preserve_partitioning=[false], filter=[_distance@3 < 24.416819 OR _distance@3 = 24.416819 AND _rowid@2 < 20], metrics=[output_rows=10, elapsed_compute=98.787\u00b5s, row_replacements=32], cumulative_cpu=1.483543ms\n                KNNVectorDistance: metric=l2, metrics=[output_rows=64, elapsed_compute=322.103\u00b5s, output_batches=1], cumulative_cpu=1.384756ms\n                  FilterExec: category@1 = alpha, metrics=[output_rows=64, elapsed_compute=5.224\u00b5s], cumulative_cpu=1.062653ms\n                    LanceRead: uri=home/user/lancedb_data/docs.lance/data, projection=[vector, category], num_fragments=1, range_before=None, range_after=None, row_id=true, row_addr=false, full_filter=category = Utf8(\"alpha\"), refine_filter=category = Utf8(\"alpha\"), metrics=[output_rows=64, elapsed_compute=1.057429ms, fragments_scanned=1, ranges_scanned=1, rows_scanned=320, bytes_read=20866, iops=4, requests=4, task_wait_time=1.057191ms], cumulative_cpu=1.057429ms\n",
+    "operators": [
+      "ProjectionExec",
+      "Take",
+      "CoalesceBatchesExec",
+      "GlobalLimitExec",
+      "FilterExec",
+      "SortExec",
+      "KNNVectorDistance",
+      "FilterExec",
+      "LanceRead"
+    ],
+    "top_output_rows": 10
+  },
+  "hybrid": {
+    "explain_plan": "Vector Search Plan:\nProjectionExec: expr=[id@3 as id, vector@0 as vector, text@4 as text, category@5 as category, _distance@2 as _distance]\n  Take: columns=\"vector, _rowid, _distance, (id), (text), (category)\"\n    CoalesceBatchesExec: target_batch_size=1024\n      GlobalLimitExec: skip=0, fetch=10\n        FilterExec: _distance@2 IS NOT NULL\n          SortExec: TopK(fetch=10), expr=[_distance@2 ASC NULLS LAST, _rowid@1 ASC NULLS LAST], preserve_partitioning=[false]\n            KNNVectorDistance: metric=l2\n              LanceRead: uri=home/user/lancedb_data/docs.lance/data, projection=[vector], num_fragments=1, range_before=None, range_after=None, row_id=true, row_addr=false, full_filter=--, refine_filter=--\n\nFTS Search Plan:\nProjectionExec: expr=[id@2 as id, vector@3 as vector, text@4 as text, category@5 as category, _score@1 as _score]\n  Take: columns=\"_rowid, _score, (id), (vector), (text), (category)\"\n    CoalesceBatchesExec: target_batch_size=1024\n      GlobalLimitExec: skip=0, fetch=10\n        MatchQuery: query=lancedb\n",
+    "analyze_plan": "Vector Search Plan:\nAnalyzeExec verbose=true, metrics=[], cumulative_cpu=1.734282ms\n  TracedExec, metrics=[], cumulative_cpu=1.734282ms\n    ProjectionExec: expr=[id@3 as id, vector@0 as vector, text@4 as text, category@5 as category, _distance@2 as _distance], metrics=[output_rows=10, elapsed_compute=2.544\u00b5s], cumulative_cpu=1.734282ms\n      Take: columns=\"vector, _rowid, _distance, (id), (text), (category)\", metrics=[output_rows=10, elapsed_compute=378.57\u00b5s, batches_processed=1, bytes_read=0, iops=0, requests=0], cumulative_cpu=1.731738ms\n        CoalesceBatchesExec: target_batch_size=1024, metrics=[output_rows=10, elapsed_compute=5.562\u00b5s], cumulative_cpu=1.353168ms\n          GlobalLimitExec: skip=0, fetch=10, metrics=[output_rows=10, elapsed_compute=1.905\u00b5s], cumulative_cpu=1.347606ms\n            FilterExec: _distance@2 IS NOT NULL, metrics=[output_rows=10, elapsed_compute=6.884\u00b5s], cumulative_cpu=1.345701ms\n              SortExec: TopK(fetch=10), expr=[_distance@2 ASC NULLS LAST, _rowid@1 ASC NULLS LAST], preserve_partitioning=[false], filter=[_distance@2 < 18.516092 OR _distance@2 = 18.516092 AND _rowid@1 < 39], metrics=[output_rows=10, elapsed_compute=203.111\u00b5s, row_replacements=40], cumulative_cpu=1.338817ms\n                KNNVectorDistance: metric=l2, metrics=[output_rows=320, elapsed_compute=253.325\u00b5s, output_batches=1], cumulative_cpu=1.135706ms\n                  LanceRead: uri=home/user/lancedb_data/docs.lance/data, projection=[vector], num_fragments=1, range_before=None, range_after=None, row_id=true, row_addr=false, full_filter=--, refine_filter=--, metrics=[output_rows=320, elapsed_compute=882.381\u00b5s, fragments_scanned=1, ranges_scanned=1, rows_scanned=320, bytes_read=20480, iops=1, requests=1, task_wait_time=882.072\u00b5s], cumulative_cpu=882.381\u00b5s\n\nFTS Search Plan:\nAnalyzeExec verbose=true, metrics=[], cumulative_cpu=4.759991ms\n  TracedExec, metrics=[], cumulative_cpu=4.759991ms\n    ProjectionExec: expr=[id@2 as id, vector@3 as vector, text@4 as text, category@5 as category, _score@1 as _score], metrics=[output_rows=10, elapsed_compute=3.007\u00b5s], cumulative_cpu=4.759991ms\n      Take: columns=\"_rowid, _score, (id), (vector), (text), (category)\", metrics=[output_rows=10, elapsed_compute=251.34\u00b5s, batches_processed=1, bytes_read=0, iops=0, requests=0], cumulative_cpu=4.756984ms\n        CoalesceBatchesExec: target_batch_size=1024, metrics=[output_rows=10, elapsed_compute=4.301\u00b5s], cumulative_cpu=4.505644ms\n          GlobalLimitExec: skip=0, fetch=10, metrics=[output_rows=10, elapsed_compute=2.575\u00b5s], cumulative_cpu=4.501343ms\n            MatchQuery: query=lancedb, metrics=[output_rows=10, elapsed_compute=4.498768ms, index_comparisons=10, indices_loaded=1, parts_loaded=1], cumulative_cpu=4.498768ms\n",
+    "operators": [
+      "ProjectionExec",
+      "Take",
+      "CoalesceBatchesExec",
+      "GlobalLimitExec",
+      "FilterExec",
+      "SortExec",
+      "KNNVectorDistance",
+      "LanceRead",
+      "ProjectionExec",
+      "Take",
+      "CoalesceBatchesExec",
+      "GlobalLimitExec",
+      "MatchQuery"
+    ],
+    "top_output_rows": 10
+  }
+}

@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py ........                                       [100%]
+
+=============================== warnings summary ===============================
+test_final_state.py::test_brute_force_search_returns_sentinel
+test_final_state.py::test_brute_force_search_returns_sentinel
+test_final_state.py::test_brute_force_search_returns_sentinel
+  /home/user/myproject/solution.py:134: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    ts = datetime.datetime.utcnow().isoformat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_solution_module_importable
+PASSED tests/test_final_state.py::test_brute_force_search_returns_sentinel
+PASSED tests/test_final_state.py::test_final_table_has_at_least_1025_rows
+PASSED tests/test_final_state.py::test_index_build_log_table_exists
+PASSED tests/test_final_state.py::test_index_build_log_has_exactly_three_rows
+PASSED tests/test_final_state.py::test_index_build_log_row_counts_match_thresholds
+PASSED tests/test_final_state.py::test_ivf_pq_index_present_on_vector_column
+PASSED tests/test_final_state.py::test_post_index_search_returns_sentinel
+======================== 8 passed, 3 warnings in 6.37s =========================

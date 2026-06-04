@@ -1,0 +1,101 @@
+Skipping image OS validation for hb__csv_bulk_loader_cli_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-ublefbh > /logs/artifacts/run-id && echo csv_bulk_loader_cli_py__UbLEFBh > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# CSV Bulk Loader CLI for LanceDB
+
+## Background
+A data team needs a small, reusable command-line tool that ingests CSV files into a [LanceDB](https://docs.lancedb.com/) table, embedding a designated text column via the OpenAI `text-embedding-3-small` endpoint, and then exposes a semantic search subcommand for retrieving top-k matches.
+
+The environment already contains a deterministic, pre-generated dataset at `/app/data/articles.csv` with around 5000 rows and the columns `id,title,body,category,published`. Your job is to build the CLI that loads that data into LanceDB and searches it.
+
+## Requirements
+- Implement a single Python script at `/home/user/loader_project/loader.py` exposing two subcommands:
+  - `ingest`: reads a CSV file, splits it into batches of size N, embeds the chosen text column using the OpenAI `text-embedding-3-small` model, and writes all rows (with their embeddings) to a LanceDB table.
+  - `search`: embeds a query string with the same OpenAI model, runs a vector search against an existing LanceDB table, and prints the top-k results as a single JSON object to standard output.
+- All embeddings MUST be produced by real OpenAI API calls; no local models, no mock vectors.
+- Run-id isolation: ingest/search MUST work against whatever table name the verifier passes via `--table`. The verifier will pass a name suffixed with the current `ZEALT_RUN_ID` so that concurrent test runs do not collide.
+- The LanceDB database must live at `/home/user/loader_project/lance_db`. All tables are created inside that directory.
+- Ingestion MUST preserve every CSV row exactly once (no de-duplication, no row drops). Row count in the LanceDB table after ingest MUST equal the row count of the CSV (excluding the header).
+
+## Implementation Hints
+- Read the OpenAI key from the `OPENAI_API_KEY` environment variable.
+- Use `lancedb.connect(...)` for the database connection and `db.create_table(...)` (with overwrite-on-rerun semantics) to create the embedded table.
+- Batch your OpenAI embedding calls; sending one row per HTTP call against 5000 rows will be both slow and rate-limited.
+- Decide how you want to store the CSV columns alongside the embedding vector (Arrow / Pydantic / list-of-dicts are all fine). The verifier only requires that the schema preserves `id`, `title`, `body`, `category`, `published`, and that the embedding column can be searched with `table.search(query_vector)`.
+- For `search`, run a vector search via `table.search(query_vector).limit(k)` and serialize the resulting rows (without the raw embedding vector) into JSON.
+
+## Acceptance Criteria
+- Project path: /home/user/loader_project
+- Command (ingest): `python3 loader.py ingest --csv <csv_path> --table <table_name> --text-col <column_name> --batch-size <int>`
+- Command (search): `python3 loader.py search --table <table_name> --query <query_string> --k <int>`
+- Both commands MUST exit with status 0 on success.
+- LanceDB database directory: `/home/user/loader_project/lance_db`
+- After `ingest`, the named LanceDB table MUST contain exactly the same number of rows as the source CSV (excluding the header).
+- After `ingest`, the table MUST be openable via `lancedb.connect('/home/user/loader_project/lance_db').open_table(<table_name>)` and contain at minimum the columns `id`, `title`, `body`, `category`, `published`, plus one vector column suitable for `text-embedding-3-small` (1536 dimensions).
+- `search` MUST print a single JSON object to stdout with the following shape and NOTHING else (logs may go to stderr):
+  ```json
+  {
+    "query": "<the query string passed via --query>",
+    "k": <int>,
+    "results": [
+      {
+        "id": <int>,
+        "title": "<string>",
+        "category": "<string>",
+        "published": "<string>",
+        "score": <float>
+      }
+    ]
+  }
+  ```
+  The `results` array MUST have length `min(k, table_row_count)` and be ordered from best to worst match. The `score` field may be either a distance or a similarity (any monotonic ordering) but must be a finite number.
+- The verifier will pass the table name `articles_${ZEALT_RUN_ID}` to both subcommands. Read `ZEALT_RUN_ID` is NOT required from your code (the verifier provides the suffix as part of `--table`).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

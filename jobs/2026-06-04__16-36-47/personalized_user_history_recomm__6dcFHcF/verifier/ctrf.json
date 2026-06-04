@@ -1,0 +1,82 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 1,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780591104023,
+            "stop": 1780591110288
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_recommend_script_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780591104053,
+                "stop": 1780591104055,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pure_query_ranking_matches_expected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3239,
+                "start": 1780591104055,
+                "stop": 1780591107294,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_pure_query_ranking_matches_expected():\n        \"\"\"BLEND_ALPHA=0.0 must rank items purely by the supplied query vector.\"\"\"\n        expected = _load_expected()\n        result = _run_recommend(0.0, OUT_ALPHA0)\n>       assert result.returncode == 0, (\n            f\"recommend.py failed with BLEND_ALPHA=0.0\\nstdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n        )\nE       AssertionError: recommend.py failed with BLEND_ALPHA=0.0\nE         stdout:\nE         \nE         stderr:\nE         usage: recommend.py [-h] --user-id USER_ID --query-vec QUERY_VEC --k K\nE                             --output OUTPUT\nE         recommend.py: error: argument --user-id: invalid int value: 'u_test'\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['/usr/bin/python3', '/home/user/project/recommend.py', '--user-id', 'u_test', '--query-vec', '/...EC --k K\\n                    --output OUTPUT\\nrecommend.py: error: argument --user-id: invalid int value: 'u_test'\\n\").returncode\n\ntests/test_final_state.py:57: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_pure_taste_ranking_matches_expected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2982,
+                "start": 1780591107296,
+                "stop": 1780591110278,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_pure_taste_ranking_matches_expected():\n        \"\"\"BLEND_ALPHA=1.0 must rank items purely by the user's mean-of-history vector.\"\"\"\n        expected = _load_expected()\n        result = _run_recommend(1.0, OUT_ALPHA1)\n>       assert result.returncode == 0, (\n            f\"recommend.py failed with BLEND_ALPHA=1.0\\nstdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}\"\n        )\nE       AssertionError: recommend.py failed with BLEND_ALPHA=1.0\nE         stdout:\nE         \nE         stderr:\nE         usage: recommend.py [-h] --user-id USER_ID --query-vec QUERY_VEC --k K\nE                             --output OUTPUT\nE         recommend.py: error: argument --user-id: invalid int value: 'u_test'\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['/usr/bin/python3', '/home/user/project/recommend.py', '--user-id', 'u_test', '--query-vec', '/...EC --k K\\n                    --output OUTPUT\\nrecommend.py: error: argument --user-id: invalid int value: 'u_test'\\n\").returncode\n\ntests/test_final_state.py:78: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_blend_alpha_changes_ranking",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1780591110279,
+                "stop": 1780591110283,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_blend_alpha_changes_ranking():\n        \"\"\"Sanity check that the two runs produced different orderings,\n        proving BLEND_ALPHA actually influenced the result.\"\"\"\n>       with open(OUT_ALPHA0) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/project/out_alpha0.json'\n\ntests/test_final_state.py:98: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_no_seen_items_returned",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1780591110283,
+                "stop": 1780591110288,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_no_seen_items_returned():\n        expected = _load_expected()\n        seen = set(expected[\"seen_item_ids\"])\n        for out_path in (OUT_ALPHA0, OUT_ALPHA1):\n>           with open(out_path) as f:\nE           FileNotFoundError: [Errno 2] No such file or directory: '/home/user/project/out_alpha0.json'\n\ntests/test_final_state.py:112: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 12 items
+
+tests/test_final_state.py ............                                   [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_top_level_keys
+PASSED tests/test_final_state.py::test_section_schema[plain]
+PASSED tests/test_final_state.py::test_section_schema[prefilter]
+PASSED tests/test_final_state.py::test_section_schema[hybrid]
+PASSED tests/test_final_state.py::test_plain_top_output_rows_is_ten
+PASSED tests/test_final_state.py::test_prefilter_top_output_rows_is_ten
+PASSED tests/test_final_state.py::test_prefilter_has_filter_projection_take
+PASSED tests/test_final_state.py::test_plain_has_vector_search_operator
+PASSED tests/test_final_state.py::test_hybrid_explain_plan_mentions_both_subplans
+PASSED tests/test_final_state.py::test_hybrid_operators_non_empty
+PASSED tests/test_final_state.py::test_analyze_plan_contains_metrics
+PASSED tests/test_final_state.py::test_table_still_intact
+============================== 12 passed in 4.50s ==============================

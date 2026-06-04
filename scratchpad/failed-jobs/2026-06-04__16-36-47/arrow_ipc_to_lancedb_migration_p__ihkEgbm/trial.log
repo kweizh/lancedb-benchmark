@@ -1,0 +1,101 @@
+Skipping image OS validation for hb__arrow_ipc_to_lancedb_migration_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-ihkegbm > /logs/artifacts/run-id && echo arrow_ipc_to_lancedb_migration_p__ihkEgbm > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Migrate an Arrow IPC Stream into LanceDB
+
+## Background
+
+The operations team has dropped an Apache Arrow IPC **stream** file at `/app/source/dataset.arrows` containing roughly two thousand event records, each with an `id`, `text`, a list of `tags`, a 48-dimensional `embedding` (`fixed_size_list<float32, 48>`), and a `created_at` timestamp. They also baked a single precomputed 48-dimensional query vector at `/app/query_vector.npy`. Your job is to migrate this dataset into LanceDB and prove the migration was lossless by running a top-5 nearest-neighbour search against the query vector.
+
+## Requirements
+
+- Read the Arrow IPC stream at `/app/source/dataset.arrows`.
+- Load every row into a LanceDB table whose name is `events_${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment). The LanceDB database must live on disk at `/home/user/myproject/lancedb_data`.
+- Preserve the source schema exactly: the destination table must have the same columns with the same logical types, and the embedding column must remain a `fixed_size_list<float32, 48>` (not a generic `list<float32>`).
+- Run a top-5 nearest-neighbour search using the query vector at `/app/query_vector.npy` and print the result as a JSON document to **stdout**.
+
+## Implementation Hints
+
+- The file is an Arrow **IPC stream** (record-batch stream), not a Feather/Arrow file with a footer. The right reader is `pyarrow.ipc.open_stream(...)`, which yields a `RecordBatchReader`.
+- LanceDB's `db.create_table(name, data=...)` accepts a `RecordBatchReader` directly, and `table.add(batch)` accepts individual `pyarrow.RecordBatch` objects. Choose whichever ingestion strategy you prefer.
+- The `embedding` column on the LanceDB side must be a `fixed_size_list<float32, 48>` so that it is searchable with `table.search(vector)`. If you reshape rows through pandas you will silently lose this typing.
+- `pyarrow.Schema.equals(other, check_metadata=False)` is a quick way to confirm schema parity before declaring success.
+- Use `numpy.load('/app/query_vector.npy')` to load the query vector. It is a `float32` array of shape `(48,)`.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/myproject`
+- Command: `python3 /home/user/myproject/run.py`
+- Environment variable `ZEALT_RUN_ID` is provided at runtime and must be used to name the LanceDB table as `events_${ZEALT_RUN_ID}`.
+- LanceDB database path: `/home/user/myproject/lancedb_data`.
+- Side effect (must be readable after the command exits):
+    - A LanceDB table named `events_${ZEALT_RUN_ID}` exists at the database path above.
+    - The table contains exactly the same number of rows as the source Arrow IPC stream at `/app/source/dataset.arrows`.
+    - The table schema equals the source schema field-for-field (same column names, same Arrow logical types, embedding is `fixed_size_list<float32, 48>`).
+- The command must print **one** JSON object to stdout with exactly these keys:
+    ```json
+    {
+      "table_name": "events_<run-id>",
+      "row_count": <int>,
+      "schema_match": true,
+      "top5": [
+        {"id": <int>, "distance": <float>},
+        {"id": <int>, "distance": <float>},
+        {"id": <int>, "distance": <float>},
+        {"id": <int>, "distance": <float>},
+        {"id": <int>, "distance": <float>}
+      ]
+    }
+    ```
+    - `top5` is ordered from closest to farthest (smallest L2 distance first).
+    - `id` values are integers taken from the source `id` column.
+    - `distance` values are floats; treat them as L2 distances on the 48-dimensional embedding.
+- The command must be deterministic across reruns: rerunning it (after deleting the database directory) must produce the same `top5` `id` ordering for the same source file and query vector.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

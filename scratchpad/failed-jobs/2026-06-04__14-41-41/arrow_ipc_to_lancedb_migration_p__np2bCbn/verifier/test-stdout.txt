@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py .........                                      [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_stdout_json_shape
+PASSED tests/test_final_state.py::test_table_name_uses_run_id
+PASSED tests/test_final_state.py::test_schema_match_is_true
+PASSED tests/test_final_state.py::test_row_count_matches_source
+PASSED tests/test_final_state.py::test_top5_shape
+PASSED tests/test_final_state.py::test_top5_ids_match_ground_truth
+PASSED tests/test_final_state.py::test_lancedb_table_exists_and_row_count
+PASSED tests/test_final_state.py::test_lancedb_table_schema_matches_source
+PASSED tests/test_final_state.py::test_lancedb_search_matches_ground_truth
+============================== 9 passed in 6.81s ===============================

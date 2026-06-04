@@ -1,0 +1,103 @@
+- Initializing MCP connections...
+You
+# Geospatial Haversine + Semantic POI Search with LanceDB ## Background A pre-seeded LanceDB table contains a corpus of Points-of-Interest (POIs) with geographic coordinates, a category label, and a precomputed 32-dimensional embedding for each POI. You must build a small Python CLI that searches the POI corpus by a combination of geographic distance, category filter, and vector similarity. The table is pre-seeded at container build time from a deterministic NumPy generator. The candidate code must not regenerate the table contents — it must read from the table that already exists on disk. ## Requirements * Implement a Python 3 command line program at `/home/user/myproject/search.py`. * The program must connect to the pre-seeded LanceDB database under `/home/user/myproject/lancedb`. * The program must read the existing table `pois` (which contains the columns `id INT32`, `name STRING`, `lat FLOAT64`, `lon FLOAT64`, `category STRING`, `embedding FIXED_SIZE_LIST<FLOAT32, 32>`). * Given a query center `(lat, lon)`, a radius in kilometres, a category filter, a query embedding (32-d), and a top-K integer, the program must return the top-K POIs that satisfy ALL of the following, ranked by L2 distance between the POI embedding and the query embedding (smallest distance first): 1. The great-circle distance between the POI coordinates and the query center (Haversine formula, Earth radius = 6371.0 km) is less than or equal to the radius in kilometres. 2. The POI `category` exactly matches the provided category filter. * The program must write its output to a JSON file at the path passed via `--output`. ## Implementation Hints * The implementation choice for the geographic filter is up to you. You may materialise a Haversine distance column on the LanceDB side using `add_columns({...})` with a SQL expression and then filter via `where(...)`, or you may run the vector search first and post-filter in pandas/NumPy, or you may compute everything client-side after reading the table. Any approach is acceptable as long as the final ranked output is correct. * The Earth radius constant must be `6371.0` km exactly to match the reference implementation. * LanceDB's default vector distance is L2; you may use `.search(query_vector)` directly without specifying a distance type. * Use `argparse` (or any other argument parser) — the CLI signature is fixed (see Acceptance Criteria). * The query embedding file is a plain JSON file whose top-level value is an array of 32 floats, e.g. `[0.12, -0.34, ...]`. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 /home/user/myproject/search.py` * Command-line arguments (all required): * `--center-lat <float>`: the query center latitude in degrees. * `--center-lon <float>`: the query center longitude in degrees. * `--radius-km <float>`: the search radius in kilometres (inclusive). * `--category <str>`: exact category string to filter on. * `--query-vector-path <path>`: path to a JSON file containing a length-32 array of floats. * `--top-k <int>`: the maximum number of results to return. * `--output <path>`: path to the output JSON file. * Database location: `/home/user/myproject/lancedb` (LanceDB connection string). * Table name: `pois`. * Output JSON schema written to `--output`: ```json { "results": [ { "id": <int>, "name": <string>, "category": <string>, "lat": <float>, "lon": <float>, "distance_km": <float>, "vector_distance": <float> } ] } ``` * The `results` array MUST be ordered by ascending `vector_distance` (smallest = best match first). * The array length MUST be `min(top_k, number_of_matching_pois)`. * All POIs in `results` MUST satisfy the radius and category constraints. * The program MUST exit with status 0 on success.   
+
+Pochi
+💭 Thinking for 434 characters   
+📂 Listing files in /home/user/myproject recursively ✔ 
+📖 Reading /home/user/myproject/query_vec_A.json ✔ 
+📖 Reading /home/user/myproject/query_vec_B.json ✔ 
+💫 Executing pip show lancedb 2>/dev/null | head -5; python3 -c "import lancedb; print(lancedb.__version__)" ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/home/user/myproject/lancedb')
+table = db.open_table('pois')
+print('Schema:', table.schema)
+df = table.to_pandas()
+print('Shape:', df.shape)
+print('Columns:', df.columns.tolist())
+print('Head:')
+print(df.head(3).to_string())
+print('Categories:', df['category'].unique()[:10])
+" ✔ 
+Now I have a clear picture of the data. Let me implement the `search.py` script:   
+✏️  Writing /home/user/myproject/search.py ✔ 
+Now let me verify the script works correctly with both query vectors:   
+💫 Executing cd /home/user/myproject && python3 search.py \
+  --center-lat 37.5 \
+  --center-lon -122.1 \
+  --radius-km 100 \
+  --category restaurant \
+  --query-vector-path query_vec_A.json \
+  --top-k 5 \
+  --output /tmp/out_A.json && echo "Exit: $?" && cat /tmp/out_A.json ✔ 
+💫 Executing cd /home/user/myproject && python3 search.py \
+  --center-lat 37.4 \
+  --center-lon -122.05 \
+  --radius-km 20 \
+  --category cafe \
+  --query-vector-path query_vec_B.json \
+  --top-k 3 \
+  --output /tmp/out_B.json && echo "Exit: $?" && cat /tmp/out_B.json ✔ 
+💫 Executing cd /home/user/myproject && python3 search.py \
+  --center-lat 0.0 \
+  --center-lon 0.0 \
+  --radius-km 1 \
+  --category museum \
+  --query-vector-path query_vec_A.json \
+  --top-k 5 \
+  --output /tmp/out_empty.json && echo "Exit: $?" && cat /tmp/out_empty.json ✔ 
+All cases work correctly — successful results with proper ranking, and the empty-results edge case. Let me do a quick sanity check to manually verify the ordering and filtering constraints are correct:   
+💫 Executing python3 -c "
+import json, math
+import numpy as np
+
+EARTH_RADIUS_KM = 6371.0
+
+def haversine_km(lat1, lon1, lat2, lon2):
+    lat1_r = math.radians(lat1)
+    lat2_r = math.radians(lat2)
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = math.sin(dlat/2)**2 + math.cos(lat1_r)*math.cos(lat2_r)*math.sin(dlon/2)**2
+    return EARTH_RADIUS_KM * 2.0 * math.asin(math.sqrt(a))
+
+with open('/tmp/out_A.json') as f:
+    results = json.load(f)['results']
+
+qv = json.load(open('/home/user/myproject/query_vec_A.json'))
+qv = np.array(qv, dtype=np.float32)
+
+print('Verifying test A results (center=37.5,-122.1 radius=100km category=restaurant):')
+prev_vdist = -1
+for r in results:
+    geo_ok = r['distance_km'] <= 100.0
+    cat_ok = r['category'] == 'restaurant'
+    order_ok = r['vector_distance'] >= prev_vdist
+    prev_vdist = r['vector_distance']
+    print(f\"  id={r['id']} dist_km={r['distance_km']:.2f} vec_dist={r['vector_distance']:.4f}  geo_ok={geo_ok} cat_ok={cat_ok} order_ok={order_ok}\")
+print('All constraints satisfied:', all(
+    r['distance_km'] <= 100.0 and r['category'] == 'restaurant'
+    for r in results
+))
+"
+ ✔ 
+Every result satisfies the geo, category, and ordering constraints. The implementation is complete.   
+🎉 Task Completed
+The CLI is implemented at `/home/user/myproject/search.py`. Here's a summary of how it works:
+
+**Algorithm:**
+1. Loads the 32-float query vector from the JSON file specified by `--query-vector-path`.
+2. Connects to the pre-seeded LanceDB database at `/home/user/myproject/lancedb` and reads all rows from the `pois` table into a pandas DataFrame.
+3. **Category filter** — drops all rows where `category` doesn't exactly match `--category`.
+4. **Haversine filter** — computes great-circle distance (Earth radius = 6371.0 km exactly) for every remaining POI and drops those outside `--radius-km`.
+5. **Vector ranking** — computes L2 distance between each surviving POI's `embedding` and the query vector, then sorts ascending.
+6. Takes the top `--top-k` rows and writes the output JSON to `--output`.
+
+**Output schema** matches the spec exactly — `results` array ordered by ascending `vector_distance`, each entry containing `id`, `name`, `category`, `lat`, `lon`, `distance_km`, and `vector_distance`.
+
+**Verified behaviour:**
+- Normal search (center 37.5/-122.1, radius 100 km, category `restaurant`, top-5): returns 5 results, all within radius, all `restaurant`, ordered by ascending `vector_distance`. ✓
+- Tight search (center 37.4/-122.05, radius 20 km, category `cafe`, top-3): returns 3 results respecting all constraints. ✓
+- Zero-match search (radius 1 km at origin, no POIs nearby): returns `{"results": []}`, exits 0. ✓   
+  

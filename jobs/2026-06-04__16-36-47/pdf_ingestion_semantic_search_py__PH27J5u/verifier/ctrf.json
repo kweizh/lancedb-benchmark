@@ -1,0 +1,118 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780591368239,
+            "stop": 1780591373187
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_run_id_present",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780591368282,
+                "stop": 1780591368284,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_exists",
+                "status": "passed",
+                "duration": 3317,
+                "start": 1780591368284,
+                "stop": 1780591371601,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_schema_has_required_columns",
+                "status": "passed",
+                "duration": 5,
+                "start": 1780591371602,
+                "stop": 1780591371607,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_has_minimum_rows",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780591371608,
+                "stop": 1780591371609,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_doc_ids_cover_corpus",
+                "status": "passed",
+                "duration": 30,
+                "start": 1780591371610,
+                "stop": 1780591371640,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pages_are_positive_and_reasonable",
+                "status": "passed",
+                "duration": 16,
+                "start": 1780591371641,
+                "stop": 1780591371657,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_password_anchor",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 792,
+                "start": 1780591371657,
+                "stop": 1780591372449,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "solution_module = <module 'solution' from '/home/user/myproject/solution.py'>\n\n    def test_search_password_anchor(solution_module):\n        query = \"What is the secret password mentioned in the corpus?\"\n        results = solution_module.search(query, 5)\n        _validate_result_shape(results, 5)\n        top = results[0]\n        assert top[\"doc_id\"] == \"bravo\", (\n            f\"Expected top-1 doc_id 'bravo' for the password query, got {top['doc_id']!r}. \"\n            f\"Full top-5: {[(r['doc_id'], r['page']) for r in results]}\"\n        )\n        assert top[\"page\"] == 3, (\n            f\"Expected top-1 page 3 for the password query, got {top['page']}. \"\n            f\"Full top-5: {[(r['doc_id'], r['page']) for r in results]}\"\n        )\n>       assert \"RAVENCLAW123\" in top[\"snippet\"], (\n            f\"Expected the secret password 'RAVENCLAW123' to appear in the top-1 snippet, \"\n            f\"but it was not present in: {top['snippet']!r}\"\n        )\nE       AssertionError: Expected the secret password 'RAVENCLAW123' to appear in the top-1 snippet, but it was not present in: 'Bravo Document - Page 3\\nChapter Three: Credentials. For the upcoming integration test window, the\\nse...'\nE       assert 'RAVENCLAW123' in 'Bravo Document - Page 3\\nChapter Three: Credentials. For the upcoming integration test window, the\\nse...'\n\ntests/test_final_state.py:140: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_search_butterflies_anchor",
+                "status": "passed",
+                "duration": 217,
+                "start": 1780591372449,
+                "stop": 1780591372666,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_gyroscope_anchor",
+                "status": "passed",
+                "duration": 252,
+                "start": 1780591372667,
+                "stop": 1780591372919,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_verifier_direct_openai_search",
+                "status": "passed",
+                "duration": 267,
+                "start": 1780591372919,
+                "stop": 1780591373186,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

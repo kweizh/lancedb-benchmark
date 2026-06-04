@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 10 items
+
+tests/test_final_state.py ..........                                     [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_run_id_present
+PASSED tests/test_final_state.py::test_table_exists
+PASSED tests/test_final_state.py::test_schema_has_required_columns
+PASSED tests/test_final_state.py::test_table_has_minimum_rows
+PASSED tests/test_final_state.py::test_repo_paths_cover_corpus
+PASSED tests/test_final_state.py::test_each_doc_has_at_least_three_sections
+PASSED tests/test_final_state.py::test_search_sso_anchor
+PASSED tests/test_final_state.py::test_search_rate_limit_anchor
+PASSED tests/test_final_state.py::test_search_rollback_anchor
+PASSED tests/test_final_state.py::test_verifier_direct_openai_search
+============================== 10 passed in 5.60s ==============================

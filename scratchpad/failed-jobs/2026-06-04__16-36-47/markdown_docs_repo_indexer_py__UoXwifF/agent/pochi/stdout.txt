@@ -1,0 +1,131 @@
+- Initializing MCP connections...
+You
+# Markdown Docs Repo Indexer with LanceDB ## Background A small documentation repository has been baked into this environment at `/app/docs/`. It contains six Markdown files, each with a single top-level `# Title` and several `## Section` sub-headers. Build a tiny semantic indexer that walks the repo, splits every file into per-section chunks, embeds each chunk with **OpenAI** embeddings, and persists them into a **LanceDB** table. Then expose a `search(query, k)` Python API so users can ask natural-language questions and get back the most relevant sections. The indexer must work end-to-end against real services — no mocks of OpenAI, no mocks of LanceDB, and no local model inference. ## Requirements * Walk `/app/docs/` recursively and find every `.md` file. * For each Markdown file, parse it and split it into one row per `## section`. Each row must remember: * `repo_path` — the path of the source file *relative to `/app/docs/`* (e.g. `auth-guide.md`). * `doc_title` — the text of the single top-level `# Title` in that file (without the leading `#`). * `section_title` — the text of the `## Section` header (without the leading `##`). * `content` — the text of that section (the body lines under the `##` header, up to the next `##` or end of file). * `embedding` — the OpenAI embedding vector for `content` (you may concatenate the section title with the content before embedding if you prefer). * Compute embeddings using the **real OpenAI Embeddings API** with the `text-embedding-3-small` model. Credentials are available in `OPENAI_API_KEY` (and `OPENAI_BASE_URL` if set). * Persist the rows into a LanceDB table under `/home/user/myproject/lancedb/`. * Expose a function `search(query: str, k: int) -> list[dict]` in `/home/user/myproject/indexer.py` that: * Embeds the `query` with the same OpenAI embedding model used during indexing. * Returns the top-`k` most relevant sections, ordered from most to least relevant. * Each result dict must contain the keys `repo_path` (str), `doc_title` (str), `section_title` (str), and `score` (float). ## Implementation Hints * You may use any Markdown parser you like — `markdown-it-py` is preinstalled, but a small regex or `python-markdown` is also fine. The corpus is plain CommonMark with `#` and `##` headers only. * Use the official `openai` Python client to embed text. * Use LanceDB's standard Python API (`lancedb.connect`, `create_table` / `open_table`, `table.search`) for storage and retrieval. * Persist the table under `/home/user/myproject/lancedb/` so the verifier can re-open the same connection. * To avoid collisions between concurrent runs, append the value of the `ZEALT_RUN_ID` environment variable to your table name (e.g. `docs_sections_${ZEALT_RUN_ID}`). The verifier reads the same env var and opens the same table. * Make indexing idempotent: when the script is re-run with the same `ZEALT_RUN_ID`, it should not error out and should leave the table queryable. ## Acceptance Criteria * Project path: /home/user/myproject * The candidate must provide `/home/user/myproject/indexer.py` exposing a top-level callable `search(query: str, k: int) -> list[dict]`. * Indexing entrypoint: running `python3 /home/user/myproject/indexer.py` (or whichever script the candidate chooses to drive ingestion) must produce a LanceDB table at `/home/user/myproject/lancedb/` whose name is `docs_sections_${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable). * The table schema must include at least the columns `repo_path`, `doc_title`, `section_title`, `content`, and `embedding`. * After indexing, `search(query, k)` must return a Python list of length `k` (assuming the table has at least `k` rows), each item a dict with the keys `repo_path` (str), `doc_title` (str), `section_title` (str), and `score` (float). * Result ordering: results must be ordered from most to least semantically relevant to the query. * No mocks: both indexing and `search()` must call the real OpenAI Embeddings API and the real LanceDB.   
+
+Pochi
+💭 Thinking for 287 characters   
+💫 Executing mkdir -p /home/user/myproject && ls -la /app/docs/ ✔ 
+💫 Executing cat /app/docs/auth-guide.md ✔ 
+💭 Thinking for 616 characters   
+💫 Executing pip install lancedb openai pyarrow pandas ✖ "Command exited with code 1"
+💫 Executing python3 -c "import lancedb; import openai" ✔ 
+💭 Thinking for 2783 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/indexer.py
+import os
+import re
+import lancedb
+from openai import OpenAI
+
+LANCEDB_PATH = "/home/user/myproject/lancedb/"
+DOCS_DIR = "/app/docs/"
+
+def get_table_name():
+    run_id = os.environ.get("ZEALT_RUN_ID", "default")
+    return f"docs_sections_{run_id}"
+
+def parse_markdown(filepath, repo_path):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    doc_title = ""
+    title_match = re.search(r'^#\s+(.*)', content, re.MULTILINE)
+    if title_match:
+        doc_title = title_match.group(1).strip()
+
+    sections = []
+    parts = re.split(r'^##\s+', content, flags=re.MULTILINE)
+    
+    for part in parts[1:]:
+        lines = part.split('\n', 1)
+        section_title = lines[0].strip()
+        section_content = lines[1].strip() if len(lines) > 1 else ""
+        sections.append({
+            "repo_path": repo_path,
+            "doc_title": doc_title,
+            "section_title": section_title,
+            "content": section_content
+        })
+    return sections
+
+def index_docs():
+    sections = []
+    for root, dirs, files in os.walk(DOCS_DIR):
+        for file in files:
+            if file.endswith('.md'):
+                filepath = os.path.join(root, file)
+                repo_path = os.path.relpath(filepath, DOCS_DIR)
+                sections.extend(parse_markdown(filepath, repo_path))
+
+    if not sections:
+        return
+
+    texts_to_embed = [f"{s['section_title']}\n{s['content']}" for s in sections]
+    
+    embeddings = []
+    batch_size = 100
+    client = OpenAI()
+    for i in range(0, len(texts_to_embed), batch_size):
+        batch = texts_to_embed[i:i+batch_size]
+        res = client.embeddings.create(
+            model="text-embedding-3-small",
+            input=batch
+        )
+        embeddings.extend([d.embedding for d in res.data])
+
+    for i, s in enumerate(sections):
+        s['embedding'] = embeddings[i]
+
+    db = lancedb.connect(LANCEDB_PATH)
+    table_name = get_table_name()
+    
+    if table_name in db.table_names():
+        db.drop_table(table_name)
+        
+    db.create_table(table_name, data=sections)
+
+def search(query: str, k: int) -> list[dict]:
+    client = OpenAI()
+    res = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=[query]
+    )
+    query_embedding = res.data[0].embedding
+
+    db = lancedb.connect(LANCEDB_PATH)
+    table_name = get_table_name()
+    table = db.open_table(table_name)
+
+    results = table.search(query_embedding).metric("cosine").limit(k).to_list()
+    
+    formatted_results = []
+    for r in results:
+        formatted_results.append({
+            "repo_path": r["repo_path"],
+            "doc_title": r["doc_title"],
+            "section_title": r["section_title"],
+            "score": float(1.0 - r.get("_distance", 0.0))
+        })
+    return formatted_results
+
+if __name__ == "__main__":
+    index_docs()
+EOF ✔ 
+💫 Executing python3 /home/user/myproject/indexer.py ✔ 
+💭 Thinking for 101 characters   
+💫 Executing ls -la /home/user/myproject/lancedb/ ✔ 
+💭 Thinking for 516 characters   
+💫 Executing echo $ZEALT_RUN_ID ✔ 
+💫 Executing python3 -c "import sys; sys.path.append('/home/user/myproject'); import indexer; print(indexer.search('how to configure sso', 2))" ✔ 
+💭 Thinking for 539 characters   
+💫 Executing python3 -c "import lancedb; db = lancedb.connect('/home/user/myproject/lancedb/'); print(db.open_table('docs_sections_zr-uoxwiff').schema)" ✔ 
+💭 Thinking for 291 characters   
+🎉 Task Completed
+I have created the semantic indexer in `/home/user/myproject/indexer.py` as requested. 
+
+Here is what was implemented:
+1. **Parsing**: The script recursively walks `/app/docs/` to find all Markdown files. It parses each file using regular expressions to extract the top-level `# Title` as `doc_title`, and splits the rest of the document into sections based on `## Section` headers, capturing the `section_title` and `content`.
+2. **Embedding**: It connects to the real OpenAI Embeddings API and embeds each section's title and content using the `text-embedding-3-small` model.
+3. **Storage**: The script connects to LanceDB at `/home/user/myproject/lancedb/` and persists all sections into a table named `docs_sections_${ZEALT_RUN_ID}`. The table schema includes `repo_path`, `doc_title`, `section_title`, `content`, and `embedding`.
+4. **Idempotency**: The indexing function checks if the table already exists. If it does, it drops and recreates it to ensure no errors occur during concurrent or repeated runs.
+5. **Retrieval**: The `search(query: str, k: int)` function embeds the user's query with the same OpenAI model and performs a vector search against the LanceDB table using cosine distance. It maps the distance to a relevance score (1.0 - distance) and returns the top `k` results as a list of dictionaries with `repo_path`, `doc_title`, `section_title`, and `score`, ordered from most to least semantically relevant.   
+  

@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+________________ test_tenants_are_in_physically_separate_tables ________________
+---------------------------- Captured stderr setup -----------------------------
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_tenants_are_in_physically0/tenant_db/tenant_acme.lance, it will be created
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_tenants_are_in_physically0/tenant_db/tenant_globex.lance, it will be created
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_tenants_are_in_physically0/tenant_db/tenant_umbrella.lance, it will be created
+_____________________ test_list_tenants_returns_sorted_ids _____________________
+---------------------------- Captured stderr setup -----------------------------
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_list_tenants_returns_sort0/tenant_db/tenant_acme.lance, it will be created
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_list_tenants_returns_sort0/tenant_db/tenant_globex.lance, it will be created
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_list_tenants_returns_sort0/tenant_db/tenant_umbrella.lance, it will be created
+______________________ test_search_is_isolated_per_tenant ______________________
+---------------------------- Captured stderr setup -----------------------------
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_search_is_isolated_per_te0/tenant_db/tenant_acme.lance, it will be created
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_search_is_isolated_per_te0/tenant_db/tenant_globex.lance, it will be created
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_search_is_isolated_per_te0/tenant_db/tenant_umbrella.lance, it will be created
+_____________ test_add_documents_rejects_cross_tenant_id_collision _____________
+---------------------------- Captured stderr setup -----------------------------
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_add_documents_rejects_cro0/tenant_db/tenant_acme.lance, it will be created
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_add_documents_rejects_cro0/tenant_db/tenant_globex.lance, it will be created
+[2026-06-04T14:45:57Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_add_documents_rejects_cro0/tenant_db/tenant_umbrella.lance, it will be created
+__________________ test_delete_tenant_isolates_other_tenants ___________________
+---------------------------- Captured stderr setup -----------------------------
+[2026-06-04T14:45:58Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_delete_tenant_isolates_ot0/tenant_db/tenant_acme.lance, it will be created
+[2026-06-04T14:45:58Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_delete_tenant_isolates_ot0/tenant_db/tenant_globex.lance, it will be created
+[2026-06-04T14:45:58Z WARN  lance::dataset::write::insert] No existing dataset at /tmp/pytest-of-root/pytest-0/test_delete_tenant_isolates_ot0/tenant_db/tenant_umbrella.lance, it will be created
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_tenants_are_in_physically_separate_tables
+PASSED tests/test_final_state.py::test_list_tenants_returns_sorted_ids
+PASSED tests/test_final_state.py::test_search_is_isolated_per_tenant
+PASSED tests/test_final_state.py::test_add_documents_rejects_cross_tenant_id_collision
+PASSED tests/test_final_state.py::test_delete_tenant_isolates_other_tenants
+============================== 5 passed in 4.73s ===============================

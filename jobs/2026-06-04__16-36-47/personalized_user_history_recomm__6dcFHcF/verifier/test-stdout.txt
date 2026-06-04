@@ -1,0 +1,78 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .FFFF                                          [100%]
+
+=================================== FAILURES ===================================
+___________________ test_pure_query_ranking_matches_expected ___________________
+
+    def test_pure_query_ranking_matches_expected():
+        """BLEND_ALPHA=0.0 must rank items purely by the supplied query vector."""
+        expected = _load_expected()
+        result = _run_recommend(0.0, OUT_ALPHA0)
+>       assert result.returncode == 0, (
+            f"recommend.py failed with BLEND_ALPHA=0.0\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: recommend.py failed with BLEND_ALPHA=0.0
+E         stdout:
+E         
+E         stderr:
+E         usage: recommend.py [-h] --user-id USER_ID --query-vec QUERY_VEC --k K
+E                             --output OUTPUT
+E         recommend.py: error: argument --user-id: invalid int value: 'u_test'
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['/usr/bin/python3', '/home/user/project/recommend.py', '--user-id', 'u_test', '--query-vec', '/...EC --k K\n                    --output OUTPUT\nrecommend.py: error: argument --user-id: invalid int value: 'u_test'\n").returncode
+
+tests/test_final_state.py:57: AssertionError
+___________________ test_pure_taste_ranking_matches_expected ___________________
+
+    def test_pure_taste_ranking_matches_expected():
+        """BLEND_ALPHA=1.0 must rank items purely by the user's mean-of-history vector."""
+        expected = _load_expected()
+        result = _run_recommend(1.0, OUT_ALPHA1)
+>       assert result.returncode == 0, (
+            f"recommend.py failed with BLEND_ALPHA=1.0\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: recommend.py failed with BLEND_ALPHA=1.0
+E         stdout:
+E         
+E         stderr:
+E         usage: recommend.py [-h] --user-id USER_ID --query-vec QUERY_VEC --k K
+E                             --output OUTPUT
+E         recommend.py: error: argument --user-id: invalid int value: 'u_test'
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['/usr/bin/python3', '/home/user/project/recommend.py', '--user-id', 'u_test', '--query-vec', '/...EC --k K\n                    --output OUTPUT\nrecommend.py: error: argument --user-id: invalid int value: 'u_test'\n").returncode
+
+tests/test_final_state.py:78: AssertionError
+_______________________ test_blend_alpha_changes_ranking _______________________
+
+    def test_blend_alpha_changes_ranking():
+        """Sanity check that the two runs produced different orderings,
+        proving BLEND_ALPHA actually influenced the result."""
+>       with open(OUT_ALPHA0) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/project/out_alpha0.json'
+
+tests/test_final_state.py:98: FileNotFoundError
+_________________________ test_no_seen_items_returned __________________________
+
+    def test_no_seen_items_returned():
+        expected = _load_expected()
+        seen = set(expected["seen_item_ids"])
+        for out_path in (OUT_ALPHA0, OUT_ALPHA1):
+>           with open(out_path) as f:
+E           FileNotFoundError: [Errno 2] No such file or directory: '/home/user/project/out_alpha0.json'
+
+tests/test_final_state.py:112: FileNotFoundError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_recommend_script_exists
+FAILED tests/test_final_state.py::test_pure_query_ranking_matches_expected - ...
+FAILED tests/test_final_state.py::test_pure_taste_ranking_matches_expected - ...
+FAILED tests/test_final_state.py::test_blend_alpha_changes_ranking - FileNotF...
+FAILED tests/test_final_state.py::test_no_seen_items_returned - FileNotFoundE...
+========================= 4 failed, 1 passed in 6.26s ==========================

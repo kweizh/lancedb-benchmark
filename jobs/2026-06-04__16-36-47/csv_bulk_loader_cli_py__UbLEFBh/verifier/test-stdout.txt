@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py .........                                      [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_loader_script_exists
+PASSED tests/test_final_state.py::test_ingest_runs_successfully
+PASSED tests/test_final_state.py::test_lance_db_directory_created_after_ingest
+PASSED tests/test_final_state.py::test_table_row_count_matches_csv
+PASSED tests/test_final_state.py::test_table_schema_has_required_columns
+PASSED tests/test_final_state.py::test_table_has_1536d_vector_column
+PASSED tests/test_final_state.py::test_search_query_a_returns_expected_top1
+PASSED tests/test_final_state.py::test_search_query_b_returns_expected_top1
+PASSED tests/test_final_state.py::test_search_short_query_returns_expected_top1
+============================== 9 passed in 37.21s ==============================

@@ -1,0 +1,79 @@
+- Initializing MCP connections...
+You
+# PDF Ingestion & Semantic Search with LanceDB ## Background You are given a small corpus of three PDF documents bundled in this environment at `/app/corpus/`. Build a tiny semantic-search pipeline using **LanceDB** as the vector store and **OpenAI** embeddings. The pipeline must read the PDFs from the corpus directory, chunk and embed their text, store everything in a LanceDB table, and expose a Python `search(query, k)` function that returns the most semantically similar chunks. The pipeline must work end-to-end against real services — no mocks of OpenAI or LanceDB, no local model inference. ## Requirements * Read all PDF files from `/app/corpus/` (there are exactly three files). * Extract text from each page of each PDF. * Split the extracted text into chunks suitable for embedding (choose your own chunk size / overlap strategy). * Compute embeddings for every chunk using the real OpenAI embedding API. The credentials are available in `OPENAI_API_KEY` (and `OPENAI_BASE_URL` if set). * Persist the chunks and their embeddings in a LanceDB table under `/home/user/myproject/lancedb/`. Each row must contain at least the fields `doc_id`, `page`, `chunk_id`, `text`, and `embedding`. * `doc_id` is the PDF file name without the `.pdf` extension (e.g. for `/app/corpus/alpha.pdf` use `doc_id = "alpha"`). * `page` is a 1-based integer page number identifying which page the chunk came from. * Implement a function `search(query: str, k: int) -> list[dict]` in `/home/user/myproject/solution.py` that: * Embeds the `query` with the same OpenAI embedding model used during ingestion. * Returns the top-`k` most relevant chunks as a list of dicts, ordered by descending relevance. * Each result dict must contain the keys `doc_id` (str), `page` (int), and `snippet` (str — a short excerpt of the chunk text). ## Implementation Hints * Use `pypdf` to extract page text. The `reportlab`-generated PDFs in `/app/corpus/` contain ordinary ASCII text. * Use the official `openai` Python client to embed text. Pick an embedding model that is real and currently supported by the OpenAI Embeddings API. * Use LanceDB's standard Python API (`lancedb.connect`, `create_table` / `open_table`, `table.search`) for storage and retrieval. * Persist the table under `/home/user/myproject/lancedb/` so the verifier can re-open the same connection. * To avoid collisions between concurrent runs, append the value of the `ZEALT_RUN_ID` environment variable to your table name (e.g. `pdf_chunks_${ZEALT_RUN_ID}`). The verifier reads the same env var and opens the same table. * Make ingestion idempotent: when the script is re-run with the same `ZEALT_RUN_ID`, it should not error out and should leave the table queryable. ## Acceptance Criteria * Project path: /home/user/myproject * The candidate must provide `/home/user/myproject/solution.py` exposing a top-level callable `search(query: str, k: int) -> list[dict]`. * Ingestion entrypoint: running `python3 /home/user/myproject/ingest.py` (or an equivalent script chosen by the candidate) must produce a LanceDB table at `/home/user/myproject/lancedb/` whose name is `pdf_chunks_${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable). * After ingestion, `search(query, k)` must return a Python list of length `k` (assuming the table has at least `k` rows), each item a dict with the keys `doc_id` (str), `page` (int), and `snippet` (str). * Result ordering: results must be ordered from most to least semantically relevant to the query. * No mocks: both ingestion and `search()` must call the real OpenAI Embeddings API and the real LanceDB.   
+
+Pochi
+💭 Thinking for 130 characters   
+📋 Updating todo list (4 items) ✔ 
+📂 Listing files in /app/corpus ✔ 
+💫 Executing echo "OPENAI_API_KEY=${OPENAI_API_KEY:0:10}..." && echo "OPENAI_BASE_URL=${OPENAI_BASE_URL}" && echo "ZEALT_RUN_ID=${ZEALT_RUN_ID}" && python3 -c "import sys; print(sys.version)" ✔ 
+💫 Executing pip list 2>/dev/null | grep -iE "lancedb|openai|pypdf|pyarrow|pandas|numpy|langchain" ✔ 
+💫 Executing python3 -c "
+from pypdf import PdfReader
+for name in ['alpha', 'bravo', 'charlie']:
+    r = PdfReader(f'/app/corpus/{name}.pdf')
+    print(f'{name}: {len(r.pages)} pages')
+    for i, page in enumerate(r.pages):
+        text = page.extract_text()
+        print(f'  page {i+1} ({len(text)} chars): {text[:120].strip()!r}')
+" ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject/lancedb ✔ 
+✏️  Writing /home/user/myproject/ingest.py ✔ 
+✏️  Writing /home/user/myproject/solution.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 ingest.py ✖ "Command exited with code 1"
+💫 Executing pip show openai httpx 2>/dev/null | grep -E "Name|Version" ✔ 
+💫 Executing pip install "httpx==0.27.2" -q 2>&1 | tail -5 ✔ 
+💫 Executing pip install "httpx==0.27.2" -q --break-system-packages 2>&1 | tail -5 ✔ 
+💫 Executing cd /home/user/myproject && python3 ingest.py ✔ 
+Ingestion worked. Now let's verify the search function:   
+💫 Executing cd /home/user/myproject && python3 solution.py ✔ 
+The search works correctly — top hit is the marine life page from alpha. Let me also run a quick idempotence check (re-running ingest with the same `ZEALT_RUN_ID` should not error):   
+💫 Executing cd /home/user/myproject && python3 ingest.py 2>&1 | head -5 ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+from solution import search
+import json
+
+tests = [
+    ('encryption and password security', 3),
+    ('quantum gyroscope calibration procedure', 2),
+    ('butterfly migration', 2),
+]
+for query, k in tests:
+    hits = search(query, k)
+    print(f'Query: {query!r}  k={k}')
+    for h in hits:
+        print(f'  doc_id={h[\"doc_id\"]!r}  page={h[\"page\"]}  snippet={h[\"snippet\"][:60]!r}')
+    print()
+" ✔ 
+All queries return semantically correct results. Let me verify the final file structure:   
+💫 Executing ls -lh /home/user/myproject/ && echo "---" && ls /home/user/myproject/lancedb/ ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The pipeline is fully implemented and tested end-to-end. Here's a summary:
+
+## Files created
+
+### `/home/user/myproject/ingest.py`
+- Reads all three PDFs from `/app/corpus/` using `pypdf`
+- Chunks each page's text into ~400-char overlapping windows (80-char overlap) with word-boundary alignment
+- Embeds all chunks via the real OpenAI `text-embedding-3-small` model in batches of 100
+- Persists results to LanceDB at `/home/user/myproject/lancedb/` in table `pdf_chunks_${ZEALT_RUN_ID}`
+- **Idempotent**: on re-run with the same `ZEALT_RUN_ID`, drops and recreates the table cleanly
+- Schema: `doc_id (string), page (int32), chunk_id (int32), text (string), embedding (list<float32>[1536])`
+
+### `/home/user/myproject/solution.py`
+- Exposes `search(query: str, k: int) -> list[dict]`
+- Embeds the query with the same OpenAI model, performs ANN vector search via LanceDB
+- Returns top-`k` results ordered by descending relevance, each dict containing `doc_id`, `page`, and `snippet` (≤200 chars, word-boundary trimmed)
+- Uses module-level singletons for the OpenAI client and LanceDB table (efficient repeated calls)
+
+## Verified results
+- Ingested 20 chunks across 15 pages (3 docs × 5 pages) with embedding dim=1536
+- Semantic queries correctly retrieve documents from the right corpus file:
+  - *"encryption and password security"* → bravo (p2, p4, p3)
+  - *"quantum gyroscope calibration"* → charlie (p4)
+  - *"butterfly migration"* → alpha (p2)
+  - *"coral reefs and marine biodiversity"* → alpha (p4)   
+  

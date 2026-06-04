@@ -1,0 +1,65 @@
+{
+    "id": "af4744bf-730f-405a-9529-3e13ca6b6954",
+    "started_at": "2026-06-04T16:36:51.073570",
+    "updated_at": "2026-06-04T16:47:04.793856",
+    "finished_at": "2026-06-04T16:47:04.793856",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 4,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__pending-tasks": {
+                "n_trials": 16,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.6
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "multi_tenant_namespace_isolation__Aaf3zXY",
+                            "markdown_docs_repo_indexer_py__UoXwifF",
+                            "dataset_versioning_diff_py__r9ZhSDV",
+                            "query_explain_plan_analysis_py__hnkaDcZ",
+                            "flask_admin_crud_dashboard_py__LS4Bdwy",
+                            "fts_snippet_highlight_extraction__BWWo94L",
+                            "auto_index_trigger_threshold_py__v7AsCty",
+                            "tantivy_fts_phrase_boost_py__RFpxECY",
+                            "embedding_pca_projection_py__x6gRMDo",
+                            "csv_bulk_loader_cli_py__UbLEFBh",
+                            "arrow_ipc_to_lancedb_migration_p__ihkEgbm",
+                            "geospatial_haversine_search_py__7Nrz3pT"
+                        ],
+                        "0.0": [
+                            "personalized_user_history_recomm__6dcFHcF",
+                            "concurrent_writer_retry_py__gBoLHif",
+                            "query_logging_audit_table_py__gDr4hWN",
+                            "pdf_ingestion_semantic_search_py__PH27J5u"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "RuntimeError": [
+                        "fastapi_sse_streaming_rag_py__XPuWBVp",
+                        "streamlit_lancedb_explorer_py__eWGtQuZ",
+                        "langchain_agent_lancedb_tool_py__JTbRazf"
+                    ],
+                    "InitialStateError": [
+                        "cohere_rerank_api_hybrid_py__pGKw5fE"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 288961,
+        "cost_usd": null
+    }
+}

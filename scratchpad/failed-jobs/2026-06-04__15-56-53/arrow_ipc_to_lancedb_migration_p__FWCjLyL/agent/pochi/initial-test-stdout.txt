@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_pyarrow_importable PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_source_arrow_ipc_file_exists PASSED
+bootstrap/test_initial_state.py::test_query_vector_file_exists PASSED
+bootstrap/test_initial_state.py::test_source_arrow_stream_has_expected_row_count_and_schema PASSED
+bootstrap/test_initial_state.py::test_query_vector_has_correct_shape_and_dtype PASSED
+
+============================== 8 passed in 3.45s ===============================

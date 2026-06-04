@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780588946589,
+            "stop": 1780588953811
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_initial_index_lists_seeded_products",
+                "status": "passed",
+                "duration": 3076,
+                "start": 1780588946887,
+                "stop": 1780588949963,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_initial_api_products_matches_seed",
+                "status": "passed",
+                "duration": 17,
+                "start": 1780588949964,
+                "stop": 1780588949981,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_edit_form_is_prefilled_for_prod_003",
+                "status": "passed",
+                "duration": 24,
+                "start": 1780588949982,
+                "stop": 1780588950006,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_create_product_appears_in_listing_and_api",
+                "status": "passed",
+                "duration": 94,
+                "start": 1780588950007,
+                "stop": 1780588950101,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_update_existing_product_price",
+                "status": "passed",
+                "duration": 81,
+                "start": 1780588950102,
+                "stop": 1780588950183,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_delete_existing_product",
+                "status": "passed",
+                "duration": 54,
+                "start": 1780588950183,
+                "stop": 1780588950237,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_on_disk_reflects_changes",
+                "status": "passed",
+                "duration": 3574,
+                "start": 1780588950237,
+                "stop": 1780588953811,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

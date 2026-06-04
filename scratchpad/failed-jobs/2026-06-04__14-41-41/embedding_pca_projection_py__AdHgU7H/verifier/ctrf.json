@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780584944118,
+            "stop": 1780584947857
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_new_table_has_600_rows",
+                "status": "passed",
+                "duration": 3354,
+                "start": 1780584944404,
+                "stop": 1780584947758,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_new_table_schema",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780584947759,
+                "stop": 1780584947761,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_new_table_original_id_covers_source_ids",
+                "status": "passed",
+                "duration": 24,
+                "start": 1780584947761,
+                "stop": 1780584947785,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pca_model_artifact_loadable",
+                "status": "passed",
+                "duration": 4,
+                "start": 1780584947786,
+                "stop": 1780584947790,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reprojection_matches_stored",
+                "status": "passed",
+                "duration": 16,
+                "start": 1780584947791,
+                "stop": 1780584947807,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_returns_correct_shape",
+                "status": "passed",
+                "duration": 16,
+                "start": 1780584947808,
+                "stop": 1780584947824,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_overlaps_with_128d_ground_truth",
+                "status": "passed",
+                "duration": 16,
+                "start": 1780584947824,
+                "stop": 1780584947840,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_verifier_direct_pca_search_matches_candidate",
+                "status": "passed",
+                "duration": 16,
+                "start": 1780584947840,
+                "stop": 1780584947856,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

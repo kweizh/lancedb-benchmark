@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780590401940,
+            "stop": 1780590408311
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_module_importable",
+                "status": "passed",
+                "duration": 5379,
+                "start": 1780590402181,
+                "stop": 1780590407560,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_brute_force_search_returns_sentinel",
+                "status": "passed",
+                "duration": 702,
+                "start": 1780590407561,
+                "stop": 1780590408263,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_final_table_has_at_least_1025_rows",
+                "status": "passed",
+                "duration": 7,
+                "start": 1780590408265,
+                "stop": 1780590408272,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_index_build_log_table_exists",
+                "status": "passed",
+                "duration": 7,
+                "start": 1780590408272,
+                "stop": 1780590408279,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_index_build_log_has_exactly_three_rows",
+                "status": "passed",
+                "duration": 7,
+                "start": 1780590408280,
+                "stop": 1780590408287,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_index_build_log_row_counts_match_thresholds",
+                "status": "passed",
+                "duration": 13,
+                "start": 1780590408287,
+                "stop": 1780590408300,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ivf_pq_index_present_on_vector_column",
+                "status": "passed",
+                "duration": 8,
+                "start": 1780590408300,
+                "stop": 1780590408308,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_post_index_search_returns_sentinel",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780590408308,
+                "stop": 1780590408310,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

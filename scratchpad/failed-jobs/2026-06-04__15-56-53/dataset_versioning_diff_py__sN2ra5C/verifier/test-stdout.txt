@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_diff_v1_to_v4_matches_ground_truth
+PASSED tests/test_final_state.py::test_diff_v2_to_v3_matches_ground_truth
+PASSED tests/test_final_state.py::test_diff_v3_to_v4_matches_ground_truth
+PASSED tests/test_final_state.py::test_diff_is_stable_across_repeated_calls
+PASSED tests/test_final_state.py::test_table_untouched_after_solution_runs
+============================== 5 passed in 3.28s ===============================

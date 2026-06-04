@@ -1,0 +1,70 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780589093813,
+            "stop": 1780589106523
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_phrase_query_returns_phrase_match",
+                "status": "passed",
+                "duration": 3140,
+                "start": 1780589093848,
+                "stop": 1780589096988,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_field_boost_query_promotes_title_match",
+                "status": "passed",
+                "duration": 2722,
+                "start": 1780589096989,
+                "stop": 1780589099711,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_boolean_and_query_returns_both_terms_doc",
+                "status": "passed",
+                "duration": 2802,
+                "start": 1780589099712,
+                "stop": 1780589102514,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tantivy_fts_index_was_created",
+                "status": "passed",
+                "duration": 4002,
+                "start": 1780589102515,
+                "stop": 1780589106517,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_row_count_after_first_run",
+                "status": "passed",
+                "duration": 6,
+                "start": 1780589106517,
+                "stop": 1780589106523,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

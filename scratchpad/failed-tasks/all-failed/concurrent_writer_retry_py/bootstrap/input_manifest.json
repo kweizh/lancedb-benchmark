@@ -1,0 +1,7 @@
+{
+  "library_name": "LanceDB",
+  "task_name": "concurrent_writer_retry_py",
+  "complexity_level": "much more complicated task that is not easy for LLM agents to solve and provides only a simple instruction.md",
+  "research_plan_path": "N/A (interactive prompt with verified docs at https://docs.lancedb.com/tables/update and https://docs.lancedb.com/tables/consistency)",
+  "output_dir": "scratchpad/pending-tasks/"
+}

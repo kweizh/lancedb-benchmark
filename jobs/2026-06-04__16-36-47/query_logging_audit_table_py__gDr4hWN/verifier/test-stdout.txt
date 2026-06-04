@@ -1,0 +1,55 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 11 items
+
+tests/test_final_state.py .F......F..                                    [100%]
+
+=================================== FAILURES ===================================
+_________________ test_search_returns_list_with_required_keys __________________
+
+run_results = {'query_vectors': array([[-0.7931225 ,  0.24057129, -1.8963263 ,  1.3957717 ,  0.63829476,
+        -0.29204747, -0.311...31, 0.9584136605262756, ...], 'id': 1, 'title': 'A'}]], 'searcher': <solution.LoggedSearcher object at 0x7f0d490a2f30>}
+
+    def test_search_returns_list_with_required_keys(run_results):
+        for i, hits in enumerate(run_results["returned_hits"]):
+            assert isinstance(hits, list), f"Call {i}: searcher.search must return a list, got {type(hits)!r}."
+>           assert len(hits) == TOP_K, f"Call {i}: expected {TOP_K} hits, got {len(hits)}."
+E           AssertionError: Call 0: expected 5 hits, got 1.
+E           assert 1 == 5
+E            +  where 1 = len([{'_distance': 82.41899108886719, 'embedding': [0.8613508939743042, 0.6806680560112, 0.6068739295005798, 0.14115552604198456, 0.9480370283126831, 0.9584136605262756, ...], 'id': 1, 'title': 'A'}])
+
+tests/test_final_state.py:97: AssertionError
+__________________________ test_hit_count_consistency __________________________
+
+    def test_hit_count_consistency():
+        db = lancedb.connect(DB_PATH)
+        tbl = db.open_table(LOGS_TABLE)
+        df = tbl.to_pandas()
+        for _, row in df.iterrows():
+            hc = int(row["hit_count"])
+            top_ids = _coerce_id_list(row["top_ids"])
+            assert top_ids is not None, f"Row {row.get('query_id')}: top_ids is missing/not a list."
+            assert hc == len(top_ids), (
+                f"Row {row.get('query_id')}: hit_count={hc} does not match len(top_ids)={len(top_ids)}."
+            )
+>           assert hc == TOP_K, f"Row {row.get('query_id')}: expected hit_count={TOP_K}, got {hc}."
+E           AssertionError: Row q-001: expected hit_count=5, got 1.
+E           assert 1 == 5
+
+tests/test_final_state.py:241: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_solution_module_importable
+PASSED tests/test_final_state.py::test_query_logs_table_exists
+PASSED tests/test_final_state.py::test_query_logs_row_count
+PASSED tests/test_final_state.py::test_logs_have_required_columns
+PASSED tests/test_final_state.py::test_timestamps_monotonic_non_decreasing
+PASSED tests/test_final_state.py::test_latency_ms_strictly_positive
+PASSED tests/test_final_state.py::test_top_ids_match_raw_search
+PASSED tests/test_final_state.py::test_metadata_round_trip
+PASSED tests/test_final_state.py::test_search_fidelity_recall
+FAILED tests/test_final_state.py::test_search_returns_list_with_required_keys
+FAILED tests/test_final_state.py::test_hit_count_consistency - AssertionError...
+========================= 2 failed, 9 passed in 4.49s ==========================

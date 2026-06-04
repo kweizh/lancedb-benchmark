@@ -1,0 +1,22 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 11 items
+
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_corpus_dir_exists PASSED
+bootstrap/test_initial_state.py::test_corpus_has_three_pdfs PASSED
+bootstrap/test_initial_state.py::test_corpus_pdf_nonempty[alpha.pdf] PASSED
+bootstrap/test_initial_state.py::test_corpus_pdf_nonempty[bravo.pdf] PASSED
+bootstrap/test_initial_state.py::test_corpus_pdf_nonempty[charlie.pdf] PASSED
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_openai_importable PASSED
+bootstrap/test_initial_state.py::test_pypdf_importable PASSED
+bootstrap/test_initial_state.py::test_openai_api_key_set PASSED
+bootstrap/test_initial_state.py::test_zealt_run_id_set PASSED
+
+============================== 11 passed in 5.69s ==============================

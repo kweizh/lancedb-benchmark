@@ -1,0 +1,115 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780588762883,
+            "stop": 1780588769005
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_run_id_present",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780588762936,
+                "stop": 1780588762937,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_exists",
+                "status": "passed",
+                "duration": 4022,
+                "start": 1780588762937,
+                "stop": 1780588766959,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_schema_has_required_columns",
+                "status": "passed",
+                "duration": 8,
+                "start": 1780588766960,
+                "stop": 1780588766968,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_has_minimum_rows",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780588766968,
+                "stop": 1780588766971,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repo_paths_cover_corpus",
+                "status": "passed",
+                "duration": 31,
+                "start": 1780588766971,
+                "stop": 1780588767002,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_each_doc_has_at_least_three_sections",
+                "status": "passed",
+                "duration": 23,
+                "start": 1780588767002,
+                "stop": 1780588767025,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_sso_anchor",
+                "status": "passed",
+                "duration": 996,
+                "start": 1780588767025,
+                "stop": 1780588768021,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_rate_limit_anchor",
+                "status": "passed",
+                "duration": 466,
+                "start": 1780588768022,
+                "stop": 1780588768488,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_rollback_anchor",
+                "status": "passed",
+                "duration": 146,
+                "start": 1780588768489,
+                "stop": 1780588768635,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_verifier_direct_openai_search",
+                "status": "passed",
+                "duration": 368,
+                "start": 1780588768636,
+                "stop": 1780588769004,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

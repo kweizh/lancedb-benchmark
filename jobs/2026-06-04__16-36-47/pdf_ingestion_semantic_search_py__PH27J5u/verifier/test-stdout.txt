@@ -1,0 +1,47 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 10 items
+
+tests/test_final_state.py ......F...                                     [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_search_password_anchor __________________________
+
+solution_module = <module 'solution' from '/home/user/myproject/solution.py'>
+
+    def test_search_password_anchor(solution_module):
+        query = "What is the secret password mentioned in the corpus?"
+        results = solution_module.search(query, 5)
+        _validate_result_shape(results, 5)
+        top = results[0]
+        assert top["doc_id"] == "bravo", (
+            f"Expected top-1 doc_id 'bravo' for the password query, got {top['doc_id']!r}. "
+            f"Full top-5: {[(r['doc_id'], r['page']) for r in results]}"
+        )
+        assert top["page"] == 3, (
+            f"Expected top-1 page 3 for the password query, got {top['page']}. "
+            f"Full top-5: {[(r['doc_id'], r['page']) for r in results]}"
+        )
+>       assert "RAVENCLAW123" in top["snippet"], (
+            f"Expected the secret password 'RAVENCLAW123' to appear in the top-1 snippet, "
+            f"but it was not present in: {top['snippet']!r}"
+        )
+E       AssertionError: Expected the secret password 'RAVENCLAW123' to appear in the top-1 snippet, but it was not present in: 'Bravo Document - Page 3\nChapter Three: Credentials. For the upcoming integration test window, the\nse...'
+E       assert 'RAVENCLAW123' in 'Bravo Document - Page 3\nChapter Three: Credentials. For the upcoming integration test window, the\nse...'
+
+tests/test_final_state.py:140: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_run_id_present
+PASSED tests/test_final_state.py::test_table_exists
+PASSED tests/test_final_state.py::test_schema_has_required_columns
+PASSED tests/test_final_state.py::test_table_has_minimum_rows
+PASSED tests/test_final_state.py::test_doc_ids_cover_corpus
+PASSED tests/test_final_state.py::test_pages_are_positive_and_reasonable
+PASSED tests/test_final_state.py::test_search_butterflies_anchor
+PASSED tests/test_final_state.py::test_search_gyroscope_anchor
+PASSED tests/test_final_state.py::test_verifier_direct_openai_search
+FAILED tests/test_final_state.py::test_search_password_anchor - AssertionErro...
+========================= 1 failed, 9 passed in 4.94s ==========================

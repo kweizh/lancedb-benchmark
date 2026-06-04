@@ -1,0 +1,7 @@
+{
+  "library_name": "LanceDB",
+  "task_name": "csv_bulk_loader_cli_py",
+  "complexity_level": "much more complicated task that is not easy for LLM agents to solve",
+  "research_plan_path": "N/A (concept provided directly by user: CSV Bulk Loader CLI with ingest/search subcommands backed by LanceDB and real OpenAI text-embedding-3-small)",
+  "output_dir": "scratchpad/pending-tasks/"
+}

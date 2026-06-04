@@ -1,0 +1,196 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 15,
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780591342880,
+            "stop": 1780591346434
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_module_importable",
+                "status": "passed",
+                "duration": 3204,
+                "start": 1780591342925,
+                "stop": 1780591346129,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top1_matches_expected_id",
+                "status": "passed",
+                "duration": 23,
+                "start": 1780591346130,
+                "stop": 1780591346153,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_top1_matches_expected_id",
+                "status": "passed",
+                "duration": 17,
+                "start": 1780591346154,
+                "stop": 1780591346171,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_top1_matches_expected_id",
+                "status": "passed",
+                "duration": 16,
+                "start": 1780591346171,
+                "stop": 1780591346187,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_snippet_length_within_budget",
+                "status": "passed",
+                "duration": 15,
+                "start": 1780591346187,
+                "stop": 1780591346202,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_snippet_length_within_budget",
+                "status": "passed",
+                "duration": 14,
+                "start": 1780591346202,
+                "stop": 1780591346216,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_snippet_length_within_budget",
+                "status": "passed",
+                "duration": 14,
+                "start": 1780591346217,
+                "stop": 1780591346231,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_mark_wraps_query_term",
+                "status": "passed",
+                "duration": 34,
+                "start": 1780591346232,
+                "stop": 1780591346266,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_mark_wraps_query_term",
+                "status": "passed",
+                "duration": 25,
+                "start": 1780591346267,
+                "stop": 1780591346292,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_mark_wraps_query_term",
+                "status": "passed",
+                "duration": 25,
+                "start": 1780591346292,
+                "stop": 1780591346317,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_snippet_offset_aligns_with_body",
+                "status": "passed",
+                "duration": 24,
+                "start": 1780591346318,
+                "stop": 1780591346342,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_snippet_offset_aligns_with_body",
+                "status": "passed",
+                "duration": 23,
+                "start": 1780591346343,
+                "stop": 1780591346366,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_snippet_offset_aligns_with_body",
+                "status": "passed",
+                "duration": 24,
+                "start": 1780591346367,
+                "stop": 1780591346391,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_top_id::[('chromaspectrum', 7), ('hyperloomic', 23), ('zephyrglyph', 41)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_snippet_chars_clamp_is_respected",
+                "status": "passed",
+                "duration": 15,
+                "start": 1780591346392,
+                "stop": 1780591346407,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_results_are_deterministic",
+                "status": "passed",
+                "duration": 27,
+                "start": 1780591346407,
+                "stop": 1780591346434,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

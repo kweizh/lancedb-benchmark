@@ -1,0 +1,70 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780584353370,
+            "stop": 1780584358104
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_tenants_are_in_physically_separate_tables",
+                "status": "passed",
+                "duration": 95,
+                "start": 1780584357701,
+                "stop": 1780584357796,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_list_tenants_returns_sorted_ids",
+                "status": "passed",
+                "duration": 64,
+                "start": 1780584357797,
+                "stop": 1780584357861,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_is_isolated_per_tenant",
+                "status": "passed",
+                "duration": 74,
+                "start": 1780584357862,
+                "stop": 1780584357936,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_add_documents_rejects_cross_tenant_id_collision",
+                "status": "passed",
+                "duration": 91,
+                "start": 1780584357937,
+                "stop": 1780584358028,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_delete_tenant_isolates_other_tenants",
+                "status": "passed",
+                "duration": 74,
+                "start": 1780584358029,
+                "stop": 1780584358103,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,53 @@
+- Initializing MCP connections...
+You
+# Tantivy-backed Full-Text Search with Phrase & Field Boost ## Background You are building a keyword search utility on top of LanceDB. The corpus is a small catalogue of technical documents (60 rows; each row has an integer `id`, a `title` string, and a `body` string) that has been pre-seeded into a JSON file. Your job is to load the docs into LanceDB, build a **Tantivy-backed** full-text search index on the text columns, and expose a single command-line entrypoint that runs raw Tantivy query strings (phrase queries, field boosts, boolean AND, etc.) and prints the top-k results as JSON. Unlike the simpler native-Lance FTS path, the Tantivy backend exposes the full Tantivy *query parser* string syntax: quoted phrases such as `"REDACTED"`, field-scoped terms such as `title:lancedb`, per-field boosts such as `title:lancedb^3`, and boolean operators such as `+rust +tantivy` or `rust AND tantivy`. ## Requirements * Implement a Python script (`search.py`) under `/home/user/myproject` that, when invoked, runs a Tantivy FTS query against a LanceDB table and prints a JSON list of the top-k hits to stdout. * The script must be idempotent: on first invocation it should load the 60 seed documents from `/home/user/myproject/seed/docs.json` into a LanceDB table whose name is derived from the current `ZEALT_RUN_ID` environment variable, and then build the Tantivy-backed FTS index. Subsequent invocations should reuse the existing table and index. * The FTS index **must** be Tantivy-backed (i.e. created with `use_tantivy=True`) and must cover both the `title` and `body` columns so that field-scoped queries work. * The script must accept two CLI arguments: `--query` (the raw Tantivy query string) and `--k` (the number of results to return, an integer). The query string must be passed through to LanceDB / Tantivy unmodified. * The JSON written to stdout must be a list of result objects, each containing at least the keys `id` (integer), `title` (string), and `body` (string), ordered by descending relevance (rank 0 = best match). ## Implementation Hints * Read the seed corpus from the JSON file shipped in the image; do not regenerate it. * Connect to LanceDB at a writable directory under `/home/user/myproject` (e.g. `lancedb_data/`). Append the value of `ZEALT_RUN_ID` to the table name so parallel runs do not collide on shared storage. * Build the Tantivy FTS index with multiple text columns in a single `create_fts_index([...], use_tantivy=True, ...)` call so that field-scoped queries can target either column. * When the candidate passes a query string to `table.search(...)`, LanceDB will route it through Tantivy's query parser; standard Tantivy syntax (quoted phrases, `field:term`, `field:term^boost`, `+term -term`, `AND`/`OR`) is supported. * Use `.limit(k).to_list()` to materialize the hits and strip any internal score/distance columns before serializing to JSON. * The Tantivy `tantivy-py` wheel must already be importable in the environment; the candidate does not need to install anything beyond what is provided. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 search.py --query <tantivy-query-string> --k <int>` * The script reads the current `run-id` from the `ZEALT_RUN_ID` environment variable and uses it to scope the LanceDB table name. * On the first invocation, the script must create a LanceDB table containing all 60 seeded documents and build a Tantivy-backed FTS index covering both `title` and `body` columns. The index must be Tantivy-backed (created with `use_tantivy=True`). * The script must print a JSON list of result objects to stdout, in descending relevance order. Each object must include at least `id` (integer), `title` (string), and `body` (string). * The script must accept Tantivy query parser syntax verbatim, including: * Quoted phrase queries (e.g. a query that contains a double-quoted multi-word expression). * Field-scoped terms with per-field boosts using the `field:term^weight` syntax. * Boolean AND queries using either `+term +term` or the `AND` operator. * For each query, the top-1 hit must be the document that uniquely satisfies the query semantics over the seeded corpus. * The script must succeed (exit code 0) for all three query shapes above.   
+
+Pochi
+💭 Thinking for 112 characters   
+📂 Listing files in /home/user/myproject recursively ✔ 
+📖 Reading /home/user/myproject/seed/docs.json ✔ 
+Now let me check what Python packages are available in the environment:   
+💫 Executing pip show lancedb tantivy 2>&1 | head -40 ✔ 
+💫 Executing python3 -c "import lancedb; help(lancedb.table.LanceTable.create_fts_index)" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "import lancedb; help(lancedb.table.LanceTable.search)" 2>&1 | head -60 ✔ 
+Now I have all the information I need. Let me write the `search.py` script:   
+✏️  Writing /home/user/myproject/search.py ✔ 
+Now let's run a quick smoke-test to verify the script works end-to-end:   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test1 python3 search.py --query '"REDACTED"' --k 3 2>&1 ✔ 
+Phrase query works — doc 57 ("Modern Vector Database Systems") is the correct top hit. Now test field-scoped boost:   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test1 python3 search.py --query 'title:lancedb^3' --k 3 2>&1 ✔ 
+Field-boost query works — doc 58 ("LanceDB Tutorial Guide") is the correct top hit. Now test the boolean AND query:   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test1 python3 search.py --query '+rust +tantivy' --k 3 2>&1 ✔ 
+Boolean AND works — doc 59 ("Native Search Performance Notes") is the correct top hit. Let's also verify the idempotency (second invocation reuses the existing table) and that exit code is 0:   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test1 python3 search.py --query 'tantivy AND rust' --k 2 2>&1; echo "exit=$?" ✔ 
+All three query shapes pass with exit code 0 and correct top-1 hits.   
+🎉 Task Completed
+Implemented `/home/user/myproject/search.py`. Here's what it does:
+
+## What was built
+
+**`search.py`** — a single-file CLI that:
+
+1. **Derives the table name** from `$ZEALT_RUN_ID` (falls back to `"default"`), producing e.g. `docs_test1`.
+2. **Is idempotent** — on first run it loads the 60 documents from `seed/docs.json`, creates the LanceDB table at `lancedb_data/`, and builds a Tantivy-backed FTS index with `use_tantivy=True` covering both `title` and `body`. On subsequent runs it opens the existing table/index.
+3. **Executes the raw Tantivy query string** via `table.search(query, query_type="fts").limit(k).to_list()` — the string is passed through unmodified to Tantivy's query parser.
+4. **Prints a JSON list** of `{"id": int, "title": str, "body": str}` objects ordered by descending relevance.
+
+## Verified query shapes
+
+| Query | Top-1 hit |
+|---|---|
+| `"REDACTED"` (phrase) | id=57 *Modern Vector Database Systems* |
+| `title:lancedb^3` (field + boost) | id=58 *LanceDB Tutorial Guide* |
+| `+rust +tantivy` / `tantivy AND rust` (boolean AND) | id=59 *Native Search Performance Notes* |
+
+All three return exit code 0 and the semantically correct top-1 document.
+
+## Usage
+
+```bash
+ZEALT_RUN_ID=myrun python3 search.py --query '"REDACTED"' --k 5
+ZEALT_RUN_ID=myrun python3 search.py --query 'title:lancedb^3' --k 3
+ZEALT_RUN_ID=myrun python3 search.py --query '+rust +tantivy' --k 1
+```   
+  

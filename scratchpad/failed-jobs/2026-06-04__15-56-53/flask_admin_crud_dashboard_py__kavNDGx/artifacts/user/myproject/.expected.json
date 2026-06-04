@@ -1,0 +1,35 @@
+{
+  "seeded_products": [
+    {
+      "id": "prod-001",
+      "name": "Acme Notebook",
+      "category": "stationery",
+      "price": 4.99
+    },
+    {
+      "id": "prod-002",
+      "name": "Acme Pen Pack",
+      "category": "stationery",
+      "price": 2.49
+    },
+    {
+      "id": "prod-003",
+      "name": "Acme Desk Lamp",
+      "category": "lighting",
+      "price": 24.95
+    },
+    {
+      "id": "prod-004",
+      "name": "Acme USB Cable",
+      "category": "electronics",
+      "price": 9.95
+    },
+    {
+      "id": "prod-005",
+      "name": "Acme Coffee Mug",
+      "category": "kitchenware",
+      "price": 12.5
+    }
+  ],
+  "vector_dim": 32
+}

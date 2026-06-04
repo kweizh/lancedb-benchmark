@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 15 items
+
+tests/test_final_state.py ...............                                [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_solution_module_importable
+PASSED tests/test_final_state.py::test_top1_matches_expected_id[chromaspectrum-7]
+PASSED tests/test_final_state.py::test_top1_matches_expected_id[hyperloomic-23]
+PASSED tests/test_final_state.py::test_top1_matches_expected_id[zephyrglyph-41]
+PASSED tests/test_final_state.py::test_snippet_length_within_budget[chromaspectrum-7]
+PASSED tests/test_final_state.py::test_snippet_length_within_budget[hyperloomic-23]
+PASSED tests/test_final_state.py::test_snippet_length_within_budget[zephyrglyph-41]
+PASSED tests/test_final_state.py::test_mark_wraps_query_term[chromaspectrum-7]
+PASSED tests/test_final_state.py::test_mark_wraps_query_term[hyperloomic-23]
+PASSED tests/test_final_state.py::test_mark_wraps_query_term[zephyrglyph-41]
+PASSED tests/test_final_state.py::test_snippet_offset_aligns_with_body[chromaspectrum-7]
+PASSED tests/test_final_state.py::test_snippet_offset_aligns_with_body[hyperloomic-23]
+PASSED tests/test_final_state.py::test_snippet_offset_aligns_with_body[zephyrglyph-41]
+PASSED tests/test_final_state.py::test_snippet_chars_clamp_is_respected
+PASSED tests/test_final_state.py::test_results_are_deterministic
+============================== 15 passed in 4.23s ==============================

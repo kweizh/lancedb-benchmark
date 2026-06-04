@@ -1,0 +1,142 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780584300783,
+            "stop": 1780584305289
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_top_level_keys",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780584305255,
+                "stop": 1780584305257,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_section_schema",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305257,
+                "stop": 1780584305258,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::section::['plain', 'prefilter', 'hybrid']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_section_schema",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305259,
+                "stop": 1780584305260,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::section::['plain', 'prefilter', 'hybrid']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_section_schema",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305261,
+                "stop": 1780584305262,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::section::['plain', 'prefilter', 'hybrid']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_plain_top_output_rows_is_ten",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305262,
+                "stop": 1780584305263,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prefilter_top_output_rows_is_ten",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305263,
+                "stop": 1780584305264,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prefilter_has_filter_projection_take",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305264,
+                "stop": 1780584305265,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_plain_has_vector_search_operator",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305265,
+                "stop": 1780584305266,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hybrid_explain_plan_mentions_both_subplans",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305267,
+                "stop": 1780584305268,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hybrid_operators_non_empty",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780584305268,
+                "stop": 1780584305269,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_analyze_plan_contains_metrics",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780584305269,
+                "stop": 1780584305271,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_still_intact",
+                "status": "passed",
+                "duration": 18,
+                "start": 1780584305271,
+                "stop": 1780584305289,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

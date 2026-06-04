@@ -1,0 +1,52 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780590575696,
+            "stop": 1780590581850
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_search_script_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780590575945,
+                "stop": 1780590575947,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_query_a_restaurant_top5",
+                "status": "passed",
+                "duration": 3007,
+                "start": 1780590575947,
+                "stop": 1780590578954,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_query_b_cafe_top7",
+                "status": "passed",
+                "duration": 2895,
+                "start": 1780590578955,
+                "stop": 1780590581850,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+___________________ test_initial_index_lists_seeded_products ___________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/flask_crud_app$ python3 app.py
+process 'flask_crud_app' started pid=1062
+flask_crud_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_initial_index_lists_seeded_products
+PASSED tests/test_final_state.py::test_initial_api_products_matches_seed
+PASSED tests/test_final_state.py::test_edit_form_is_prefilled_for_prod_003
+PASSED tests/test_final_state.py::test_create_product_appears_in_listing_and_api
+PASSED tests/test_final_state.py::test_update_existing_product_price
+PASSED tests/test_final_state.py::test_delete_existing_product
+PASSED tests/test_final_state.py::test_lancedb_on_disk_reflects_changes
+============================== 7 passed in 7.21s ===============================

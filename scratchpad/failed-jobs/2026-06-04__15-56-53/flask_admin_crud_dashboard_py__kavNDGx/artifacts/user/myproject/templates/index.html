@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Products – Admin Dashboard{% endblock %}
+{% block content %}
+<h1>Products Admin Dashboard</h1>
+<p><a href="{{ url_for('product_new') }}" class="btn btn-submit">+ New Product</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+    <tr>
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ "%.2f"|format(product.price) }}</td>
+      <td>
+        <a href="{{ url_for('product_edit', prod_id=product.id) }}" class="btn btn-edit">Edit</a>
+        <form class="inline" method="POST" action="{{ url_for('product_delete', prod_id=product.id) }}"
+              onsubmit="return confirm('Delete {{ product.id }}?');">
+          <button type="submit" class="btn btn-delete">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No products found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

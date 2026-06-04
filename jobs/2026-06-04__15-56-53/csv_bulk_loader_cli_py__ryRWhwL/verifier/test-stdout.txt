@@ -1,0 +1,517 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py .EEEEEEEE                                      [100%]
+
+==================================== ERRORS ====================================
+_______________ ERROR at setup of test_ingest_runs_successfully ________________
+
+cleaned_db = None
+
+    @pytest.fixture(scope="module")
+    def ingested(cleaned_db):
+        loader = os.path.join(PROJECT_DIR, "loader.py")
+        assert os.path.isfile(loader), f"loader.py not found at {loader}"
+    
+        result = subprocess.run(
+            [
+                "python3",
+                "loader.py",
+                "ingest",
+                "--csv",
+                CSV_PATH,
+                "--table",
+                TABLE_NAME,
+                "--text-col",
+                "body",
+                "--batch-size",
+                "500",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`loader.py ingest` failed with exit {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: `loader.py ingest` failed with exit 1.
+E         STDOUT:
+E         
+E         STDERR:
+E         [ingest] Reading CSV: /app/data/articles.csv
+E         [ingest] 5000 rows loaded.
+E         Traceback (most recent call last):
+E           File "/home/user/loader_project/loader.py", line 234, in <module>
+E             main()
+E           File "/home/user/loader_project/loader.py", line 225, in main
+E             cmd_ingest(args)
+E           File "/home/user/loader_project/loader.py", line 96, in cmd_ingest
+E             client = get_openai_client()
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/loader_project/loader.py", line 34, in get_openai_client
+E             return OpenAI(api_key=api_key)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_client.py", line 123, in __init__
+E             super().__init__(
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 857, in __init__
+E             self._client = http_client or SyncHttpxClientWrapper(
+E                                           ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 755, in __init__
+E             super().__init__(**kwargs)
+E         TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'loader.py', 'ingest', '--csv', '/app/data/articles.csv', '--table', 'articles_zr-ry...init__\n    super().__init__(**kwargs)\nTypeError: Client.__init__() got an unexpected keyword argument \'proxies\'\n').returncode
+
+tests/test_final_state.py:69: AssertionError
+________ ERROR at setup of test_lance_db_directory_created_after_ingest ________
+
+cleaned_db = None
+
+    @pytest.fixture(scope="module")
+    def ingested(cleaned_db):
+        loader = os.path.join(PROJECT_DIR, "loader.py")
+        assert os.path.isfile(loader), f"loader.py not found at {loader}"
+    
+        result = subprocess.run(
+            [
+                "python3",
+                "loader.py",
+                "ingest",
+                "--csv",
+                CSV_PATH,
+                "--table",
+                TABLE_NAME,
+                "--text-col",
+                "body",
+                "--batch-size",
+                "500",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`loader.py ingest` failed with exit {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: `loader.py ingest` failed with exit 1.
+E         STDOUT:
+E         
+E         STDERR:
+E         [ingest] Reading CSV: /app/data/articles.csv
+E         [ingest] 5000 rows loaded.
+E         Traceback (most recent call last):
+E           File "/home/user/loader_project/loader.py", line 234, in <module>
+E             main()
+E           File "/home/user/loader_project/loader.py", line 225, in main
+E             cmd_ingest(args)
+E           File "/home/user/loader_project/loader.py", line 96, in cmd_ingest
+E             client = get_openai_client()
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/loader_project/loader.py", line 34, in get_openai_client
+E             return OpenAI(api_key=api_key)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_client.py", line 123, in __init__
+E             super().__init__(
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 857, in __init__
+E             self._client = http_client or SyncHttpxClientWrapper(
+E                                           ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 755, in __init__
+E             super().__init__(**kwargs)
+E         TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'loader.py', 'ingest', '--csv', '/app/data/articles.csv', '--table', 'articles_zr-ry...init__\n    super().__init__(**kwargs)\nTypeError: Client.__init__() got an unexpected keyword argument \'proxies\'\n').returncode
+
+tests/test_final_state.py:69: AssertionError
+______________ ERROR at setup of test_table_row_count_matches_csv ______________
+
+cleaned_db = None
+
+    @pytest.fixture(scope="module")
+    def ingested(cleaned_db):
+        loader = os.path.join(PROJECT_DIR, "loader.py")
+        assert os.path.isfile(loader), f"loader.py not found at {loader}"
+    
+        result = subprocess.run(
+            [
+                "python3",
+                "loader.py",
+                "ingest",
+                "--csv",
+                CSV_PATH,
+                "--table",
+                TABLE_NAME,
+                "--text-col",
+                "body",
+                "--batch-size",
+                "500",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`loader.py ingest` failed with exit {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: `loader.py ingest` failed with exit 1.
+E         STDOUT:
+E         
+E         STDERR:
+E         [ingest] Reading CSV: /app/data/articles.csv
+E         [ingest] 5000 rows loaded.
+E         Traceback (most recent call last):
+E           File "/home/user/loader_project/loader.py", line 234, in <module>
+E             main()
+E           File "/home/user/loader_project/loader.py", line 225, in main
+E             cmd_ingest(args)
+E           File "/home/user/loader_project/loader.py", line 96, in cmd_ingest
+E             client = get_openai_client()
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/loader_project/loader.py", line 34, in get_openai_client
+E             return OpenAI(api_key=api_key)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_client.py", line 123, in __init__
+E             super().__init__(
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 857, in __init__
+E             self._client = http_client or SyncHttpxClientWrapper(
+E                                           ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 755, in __init__
+E             super().__init__(**kwargs)
+E         TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'loader.py', 'ingest', '--csv', '/app/data/articles.csv', '--table', 'articles_zr-ry...init__\n    super().__init__(**kwargs)\nTypeError: Client.__init__() got an unexpected keyword argument \'proxies\'\n').returncode
+
+tests/test_final_state.py:69: AssertionError
+___________ ERROR at setup of test_table_schema_has_required_columns ___________
+
+cleaned_db = None
+
+    @pytest.fixture(scope="module")
+    def ingested(cleaned_db):
+        loader = os.path.join(PROJECT_DIR, "loader.py")
+        assert os.path.isfile(loader), f"loader.py not found at {loader}"
+    
+        result = subprocess.run(
+            [
+                "python3",
+                "loader.py",
+                "ingest",
+                "--csv",
+                CSV_PATH,
+                "--table",
+                TABLE_NAME,
+                "--text-col",
+                "body",
+                "--batch-size",
+                "500",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`loader.py ingest` failed with exit {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: `loader.py ingest` failed with exit 1.
+E         STDOUT:
+E         
+E         STDERR:
+E         [ingest] Reading CSV: /app/data/articles.csv
+E         [ingest] 5000 rows loaded.
+E         Traceback (most recent call last):
+E           File "/home/user/loader_project/loader.py", line 234, in <module>
+E             main()
+E           File "/home/user/loader_project/loader.py", line 225, in main
+E             cmd_ingest(args)
+E           File "/home/user/loader_project/loader.py", line 96, in cmd_ingest
+E             client = get_openai_client()
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/loader_project/loader.py", line 34, in get_openai_client
+E             return OpenAI(api_key=api_key)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_client.py", line 123, in __init__
+E             super().__init__(
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 857, in __init__
+E             self._client = http_client or SyncHttpxClientWrapper(
+E                                           ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 755, in __init__
+E             super().__init__(**kwargs)
+E         TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'loader.py', 'ingest', '--csv', '/app/data/articles.csv', '--table', 'articles_zr-ry...init__\n    super().__init__(**kwargs)\nTypeError: Client.__init__() got an unexpected keyword argument \'proxies\'\n').returncode
+
+tests/test_final_state.py:69: AssertionError
+_____________ ERROR at setup of test_table_has_1536d_vector_column _____________
+
+cleaned_db = None
+
+    @pytest.fixture(scope="module")
+    def ingested(cleaned_db):
+        loader = os.path.join(PROJECT_DIR, "loader.py")
+        assert os.path.isfile(loader), f"loader.py not found at {loader}"
+    
+        result = subprocess.run(
+            [
+                "python3",
+                "loader.py",
+                "ingest",
+                "--csv",
+                CSV_PATH,
+                "--table",
+                TABLE_NAME,
+                "--text-col",
+                "body",
+                "--batch-size",
+                "500",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`loader.py ingest` failed with exit {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: `loader.py ingest` failed with exit 1.
+E         STDOUT:
+E         
+E         STDERR:
+E         [ingest] Reading CSV: /app/data/articles.csv
+E         [ingest] 5000 rows loaded.
+E         Traceback (most recent call last):
+E           File "/home/user/loader_project/loader.py", line 234, in <module>
+E             main()
+E           File "/home/user/loader_project/loader.py", line 225, in main
+E             cmd_ingest(args)
+E           File "/home/user/loader_project/loader.py", line 96, in cmd_ingest
+E             client = get_openai_client()
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/loader_project/loader.py", line 34, in get_openai_client
+E             return OpenAI(api_key=api_key)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_client.py", line 123, in __init__
+E             super().__init__(
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 857, in __init__
+E             self._client = http_client or SyncHttpxClientWrapper(
+E                                           ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 755, in __init__
+E             super().__init__(**kwargs)
+E         TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'loader.py', 'ingest', '--csv', '/app/data/articles.csv', '--table', 'articles_zr-ry...init__\n    super().__init__(**kwargs)\nTypeError: Client.__init__() got an unexpected keyword argument \'proxies\'\n').returncode
+
+tests/test_final_state.py:69: AssertionError
+_________ ERROR at setup of test_search_query_a_returns_expected_top1 __________
+
+cleaned_db = None
+
+    @pytest.fixture(scope="module")
+    def ingested(cleaned_db):
+        loader = os.path.join(PROJECT_DIR, "loader.py")
+        assert os.path.isfile(loader), f"loader.py not found at {loader}"
+    
+        result = subprocess.run(
+            [
+                "python3",
+                "loader.py",
+                "ingest",
+                "--csv",
+                CSV_PATH,
+                "--table",
+                TABLE_NAME,
+                "--text-col",
+                "body",
+                "--batch-size",
+                "500",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`loader.py ingest` failed with exit {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: `loader.py ingest` failed with exit 1.
+E         STDOUT:
+E         
+E         STDERR:
+E         [ingest] Reading CSV: /app/data/articles.csv
+E         [ingest] 5000 rows loaded.
+E         Traceback (most recent call last):
+E           File "/home/user/loader_project/loader.py", line 234, in <module>
+E             main()
+E           File "/home/user/loader_project/loader.py", line 225, in main
+E             cmd_ingest(args)
+E           File "/home/user/loader_project/loader.py", line 96, in cmd_ingest
+E             client = get_openai_client()
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/loader_project/loader.py", line 34, in get_openai_client
+E             return OpenAI(api_key=api_key)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_client.py", line 123, in __init__
+E             super().__init__(
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 857, in __init__
+E             self._client = http_client or SyncHttpxClientWrapper(
+E                                           ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 755, in __init__
+E             super().__init__(**kwargs)
+E         TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'loader.py', 'ingest', '--csv', '/app/data/articles.csv', '--table', 'articles_zr-ry...init__\n    super().__init__(**kwargs)\nTypeError: Client.__init__() got an unexpected keyword argument \'proxies\'\n').returncode
+
+tests/test_final_state.py:69: AssertionError
+_________ ERROR at setup of test_search_query_b_returns_expected_top1 __________
+
+cleaned_db = None
+
+    @pytest.fixture(scope="module")
+    def ingested(cleaned_db):
+        loader = os.path.join(PROJECT_DIR, "loader.py")
+        assert os.path.isfile(loader), f"loader.py not found at {loader}"
+    
+        result = subprocess.run(
+            [
+                "python3",
+                "loader.py",
+                "ingest",
+                "--csv",
+                CSV_PATH,
+                "--table",
+                TABLE_NAME,
+                "--text-col",
+                "body",
+                "--batch-size",
+                "500",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`loader.py ingest` failed with exit {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: `loader.py ingest` failed with exit 1.
+E         STDOUT:
+E         
+E         STDERR:
+E         [ingest] Reading CSV: /app/data/articles.csv
+E         [ingest] 5000 rows loaded.
+E         Traceback (most recent call last):
+E           File "/home/user/loader_project/loader.py", line 234, in <module>
+E             main()
+E           File "/home/user/loader_project/loader.py", line 225, in main
+E             cmd_ingest(args)
+E           File "/home/user/loader_project/loader.py", line 96, in cmd_ingest
+E             client = get_openai_client()
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/loader_project/loader.py", line 34, in get_openai_client
+E             return OpenAI(api_key=api_key)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_client.py", line 123, in __init__
+E             super().__init__(
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 857, in __init__
+E             self._client = http_client or SyncHttpxClientWrapper(
+E                                           ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 755, in __init__
+E             super().__init__(**kwargs)
+E         TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'loader.py', 'ingest', '--csv', '/app/data/articles.csv', '--table', 'articles_zr-ry...init__\n    super().__init__(**kwargs)\nTypeError: Client.__init__() got an unexpected keyword argument \'proxies\'\n').returncode
+
+tests/test_final_state.py:69: AssertionError
+_______ ERROR at setup of test_search_short_query_returns_expected_top1 ________
+
+cleaned_db = None
+
+    @pytest.fixture(scope="module")
+    def ingested(cleaned_db):
+        loader = os.path.join(PROJECT_DIR, "loader.py")
+        assert os.path.isfile(loader), f"loader.py not found at {loader}"
+    
+        result = subprocess.run(
+            [
+                "python3",
+                "loader.py",
+                "ingest",
+                "--csv",
+                CSV_PATH,
+                "--table",
+                TABLE_NAME,
+                "--text-col",
+                "body",
+                "--batch-size",
+                "500",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`loader.py ingest` failed with exit {result.returncode}.\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+E       AssertionError: `loader.py ingest` failed with exit 1.
+E         STDOUT:
+E         
+E         STDERR:
+E         [ingest] Reading CSV: /app/data/articles.csv
+E         [ingest] 5000 rows loaded.
+E         Traceback (most recent call last):
+E           File "/home/user/loader_project/loader.py", line 234, in <module>
+E             main()
+E           File "/home/user/loader_project/loader.py", line 225, in main
+E             cmd_ingest(args)
+E           File "/home/user/loader_project/loader.py", line 96, in cmd_ingest
+E             client = get_openai_client()
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/loader_project/loader.py", line 34, in get_openai_client
+E             return OpenAI(api_key=api_key)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_client.py", line 123, in __init__
+E             super().__init__(
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 857, in __init__
+E             self._client = http_client or SyncHttpxClientWrapper(
+E                                           ^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/openai/_base_client.py", line 755, in __init__
+E             super().__init__(**kwargs)
+E         TypeError: Client.__init__() got an unexpected keyword argument 'proxies'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'loader.py', 'ingest', '--csv', '/app/data/articles.csv', '--table', 'articles_zr-ry...init__\n    super().__init__(**kwargs)\nTypeError: Client.__init__() got an unexpected keyword argument \'proxies\'\n').returncode
+
+tests/test_final_state.py:69: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_loader_script_exists
+ERROR tests/test_final_state.py::test_ingest_runs_successfully - AssertionErr...
+ERROR tests/test_final_state.py::test_lance_db_directory_created_after_ingest
+ERROR tests/test_final_state.py::test_table_row_count_matches_csv - Assertion...
+ERROR tests/test_final_state.py::test_table_schema_has_required_columns - Ass...
+ERROR tests/test_final_state.py::test_table_has_1536d_vector_column - Asserti...
+ERROR tests/test_final_state.py::test_search_query_a_returns_expected_top1 - ...
+ERROR tests/test_final_state.py::test_search_query_b_returns_expected_top1 - ...
+ERROR tests/test_final_state.py::test_search_short_query_returns_expected_top1
+========================= 1 passed, 8 errors in 3.50s ==========================
