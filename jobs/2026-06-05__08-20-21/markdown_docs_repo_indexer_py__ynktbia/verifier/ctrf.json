@@ -1,0 +1,132 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 1,
+            "failed": 9,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780647774975,
+            "stop": 1780647779724
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_run_id_present",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780647775033,
+                "stop": 1780647775035,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3708,
+                "start": 1780647775035,
+                "stop": 1780647778743,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "db = LanceDBConnection(uri='/home/user/myproject/lancedb')\n\n    def test_table_exists(db):\n        names = db.table_names()\n>       assert TABLE_NAME in names, (\n            f\"Expected LanceDB table '{TABLE_NAME}' to exist under {LANCEDB_PATH}; \"\n            f\"found tables: {names}.\"\n        )\nE       AssertionError: Expected LanceDB table 'docs_sections_zr-ynktbia' to exist under /home/user/myproject/lancedb; found tables: ['docs_sections_test_run_1'].\nE       assert 'docs_sections_zr-ynktbia' in ['docs_sections_test_run_1']\n\ntests/test_final_state.py:89: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_schema_has_required_columns",
+                "status": "failed",
+                "duration": 9,
+                "start": 1780647778743,
+                "stop": 1780647778752,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "db = LanceDBConnection(uri='/home/user/myproject/lancedb')\n\n    @pytest.fixture(scope=\"module\")\n    def table(db):\n        names = db.table_names()\n>       assert TABLE_NAME in names, (\n            f\"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, \"\n            f\"but only found {names}. Make sure indexing used the ZEALT_RUN_ID suffix.\"\n        )\nE       AssertionError: Expected LanceDB table 'docs_sections_zr-ynktbia' under /home/user/myproject/lancedb, but only found ['docs_sections_test_run_1']. Make sure indexing used the ZEALT_RUN_ID suffix.\nE       assert 'docs_sections_zr-ynktbia' in ['docs_sections_test_run_1']\n\ntests/test_final_state.py:41: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_table_has_minimum_rows",
+                "status": "failed",
+                "duration": 8,
+                "start": 1780647778753,
+                "stop": 1780647778761,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "db = LanceDBConnection(uri='/home/user/myproject/lancedb')\n\n    @pytest.fixture(scope=\"module\")\n    def table(db):\n        names = db.table_names()\n>       assert TABLE_NAME in names, (\n            f\"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, \"\n            f\"but only found {names}. Make sure indexing used the ZEALT_RUN_ID suffix.\"\n        )\nE       AssertionError: Expected LanceDB table 'docs_sections_zr-ynktbia' under /home/user/myproject/lancedb, but only found ['docs_sections_test_run_1']. Make sure indexing used the ZEALT_RUN_ID suffix.\nE       assert 'docs_sections_zr-ynktbia' in ['docs_sections_test_run_1']\n\ntests/test_final_state.py:41: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_repo_paths_cover_corpus",
+                "status": "failed",
+                "duration": 8,
+                "start": 1780647778762,
+                "stop": 1780647778770,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "db = LanceDBConnection(uri='/home/user/myproject/lancedb')\n\n    @pytest.fixture(scope=\"module\")\n    def table(db):\n        names = db.table_names()\n>       assert TABLE_NAME in names, (\n            f\"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, \"\n            f\"but only found {names}. Make sure indexing used the ZEALT_RUN_ID suffix.\"\n        )\nE       AssertionError: Expected LanceDB table 'docs_sections_zr-ynktbia' under /home/user/myproject/lancedb, but only found ['docs_sections_test_run_1']. Make sure indexing used the ZEALT_RUN_ID suffix.\nE       assert 'docs_sections_zr-ynktbia' in ['docs_sections_test_run_1']\n\ntests/test_final_state.py:41: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_each_doc_has_at_least_three_sections",
+                "status": "failed",
+                "duration": 8,
+                "start": 1780647778771,
+                "stop": 1780647778779,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "db = LanceDBConnection(uri='/home/user/myproject/lancedb')\n\n    @pytest.fixture(scope=\"module\")\n    def table(db):\n        names = db.table_names()\n>       assert TABLE_NAME in names, (\n            f\"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, \"\n            f\"but only found {names}. Make sure indexing used the ZEALT_RUN_ID suffix.\"\n        )\nE       AssertionError: Expected LanceDB table 'docs_sections_zr-ynktbia' under /home/user/myproject/lancedb, but only found ['docs_sections_test_run_1']. Make sure indexing used the ZEALT_RUN_ID suffix.\nE       assert 'docs_sections_zr-ynktbia' in ['docs_sections_test_run_1']\n\ntests/test_final_state.py:41: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_search_sso_anchor",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 719,
+                "start": 1780647778780,
+                "stop": 1780647779499,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "indexer_module = <module 'indexer' from '/home/user/myproject/indexer.py'>\n\n    def test_search_sso_anchor(indexer_module):\n        query = \"How do I configure single sign-on with Okta SAML for our application?\"\n>       results = indexer_module.search(query, 3)\n\ntests/test_final_state.py:136: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nhome/user/myproject/indexer.py:88: in search\n    table = db.open_table(table_name)\nusr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table\n    return LanceTable.open(\nusr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open\n    tbl = cls(db, name, namespace=namespace, **kwargs)\nusr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__\n    self._table = LOOP.run(\nusr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run\n    return asyncio.run_coroutine_threadsafe(future, self.loop).result()\nusr/lib/python3.12/concurrent/futures/_base.py:456: in result\n    return self.__get_result()\nusr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result\n    raise self._exception\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = ListingDatabase(uri=/home/user/myproject/lancedb, read_consistency_interval=None)\nname = 'docs_sections_zr-ynktbia'\n\n    async def open_table(\n        self,\n        name: str,\n        *,\n        namespace: List[str] = [],\n        storage_options: Optional[Dict[str, str]] = None,\n        index_cache_size: Optional[int] = None,\n    ) -> AsyncTable:\n        \"\"\"Open a Lance Table in the database.\n    \n        Parameters\n        ----------\n        name: str\n            The name of the table.\n        namespace: List[str], optional\n            The namespace to open the table from.\n            None or empty list represents root namespace.\n        storage_options: dict, optional\n            Additional options for the storage backend. Options already set on the\n            connection will be inherited by the table, but can be overridden here.\n            See available options at\n            <https://lancedb.github.io/lancedb/guides/storage/>\n        index_cache_size: int, default 256\n            **Deprecated**: Use session-level cache configuration instead.\n            Create a Session with custom cache sizes and pass it to lancedb.connect().\n    \n            Set the size of the index cache, specified as a number of entries\n    \n            The exact meaning of an \"entry\" will depend on the type of index:\n            * IVF - there is one entry for each IVF partition\n            * BTREE - there is one entry for the entire index\n    \n            This cache applies to the entire opened table, across all indices.\n            Setting this value higher will increase performance on larger datasets\n            at the expense of more RAM\n    \n        Returns\n        -------\n        A LanceTable object representing the table.\n        \"\"\"\n>       table = await self._inner.open_table(\n            name,\n            namespace=namespace,\n            storage_options=storage_options,\n            index_cache_size=index_cache_size,\n        )\nE       ValueError: Table 'docs_sections_zr-ynktbia' was not found\n\nusr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_search_rate_limit_anchor",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 99,
+                "start": 1780647779499,
+                "stop": 1780647779598,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "indexer_module = <module 'indexer' from '/home/user/myproject/indexer.py'>\n\n    def test_search_rate_limit_anchor(indexer_module):\n        query = \"What HTTP status does the API return when a client exceeds the rate limit, and how should the client back off?\"\n>       results = indexer_module.search(query, 3)\n\ntests/test_final_state.py:151: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nhome/user/myproject/indexer.py:88: in search\n    table = db.open_table(table_name)\nusr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table\n    return LanceTable.open(\nusr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open\n    tbl = cls(db, name, namespace=namespace, **kwargs)\nusr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__\n    self._table = LOOP.run(\nusr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run\n    return asyncio.run_coroutine_threadsafe(future, self.loop).result()\nusr/lib/python3.12/concurrent/futures/_base.py:456: in result\n    return self.__get_result()\nusr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result\n    raise self._exception\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = ListingDatabase(uri=/home/user/myproject/lancedb, read_consistency_interval=None)\nname = 'docs_sections_zr-ynktbia'\n\n    async def open_table(\n        self,\n        name: str,\n        *,\n        namespace: List[str] = [],\n        storage_options: Optional[Dict[str, str]] = None,\n        index_cache_size: Optional[int] = None,\n    ) -> AsyncTable:\n        \"\"\"Open a Lance Table in the database.\n    \n        Parameters\n        ----------\n        name: str\n            The name of the table.\n        namespace: List[str], optional\n            The namespace to open the table from.\n            None or empty list represents root namespace.\n        storage_options: dict, optional\n            Additional options for the storage backend. Options already set on the\n            connection will be inherited by the table, but can be overridden here.\n            See available options at\n            <https://lancedb.github.io/lancedb/guides/storage/>\n        index_cache_size: int, default 256\n            **Deprecated**: Use session-level cache configuration instead.\n            Create a Session with custom cache sizes and pass it to lancedb.connect().\n    \n            Set the size of the index cache, specified as a number of entries\n    \n            The exact meaning of an \"entry\" will depend on the type of index:\n            * IVF - there is one entry for each IVF partition\n            * BTREE - there is one entry for the entire index\n    \n            This cache applies to the entire opened table, across all indices.\n            Setting this value higher will increase performance on larger datasets\n            at the expense of more RAM\n    \n        Returns\n        -------\n        A LanceTable object representing the table.\n        \"\"\"\n>       table = await self._inner.open_table(\n            name,\n            namespace=namespace,\n            storage_options=storage_options,\n            index_cache_size=index_cache_size,\n        )\nE       ValueError: Table 'docs_sections_zr-ynktbia' was not found\n\nusr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_search_rollback_anchor",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 116,
+                "start": 1780647779599,
+                "stop": 1780647779715,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "indexer_module = <module 'indexer' from '/home/user/myproject/indexer.py'>\n\n    def test_search_rollback_anchor(indexer_module):\n        query = \"What is the procedure to roll back a failed database migration that left the schema in an inconsistent state?\"\n>       results = indexer_module.search(query, 3)\n\ntests/test_final_state.py:166: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nhome/user/myproject/indexer.py:88: in search\n    table = db.open_table(table_name)\nusr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table\n    return LanceTable.open(\nusr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open\n    tbl = cls(db, name, namespace=namespace, **kwargs)\nusr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__\n    self._table = LOOP.run(\nusr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run\n    return asyncio.run_coroutine_threadsafe(future, self.loop).result()\nusr/lib/python3.12/concurrent/futures/_base.py:456: in result\n    return self.__get_result()\nusr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result\n    raise self._exception\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = ListingDatabase(uri=/home/user/myproject/lancedb, read_consistency_interval=None)\nname = 'docs_sections_zr-ynktbia'\n\n    async def open_table(\n        self,\n        name: str,\n        *,\n        namespace: List[str] = [],\n        storage_options: Optional[Dict[str, str]] = None,\n        index_cache_size: Optional[int] = None,\n    ) -> AsyncTable:\n        \"\"\"Open a Lance Table in the database.\n    \n        Parameters\n        ----------\n        name: str\n            The name of the table.\n        namespace: List[str], optional\n            The namespace to open the table from.\n            None or empty list represents root namespace.\n        storage_options: dict, optional\n            Additional options for the storage backend. Options already set on the\n            connection will be inherited by the table, but can be overridden here.\n            See available options at\n            <https://lancedb.github.io/lancedb/guides/storage/>\n        index_cache_size: int, default 256\n            **Deprecated**: Use session-level cache configuration instead.\n            Create a Session with custom cache sizes and pass it to lancedb.connect().\n    \n            Set the size of the index cache, specified as a number of entries\n    \n            The exact meaning of an \"entry\" will depend on the type of index:\n            * IVF - there is one entry for each IVF partition\n            * BTREE - there is one entry for the entire index\n    \n            This cache applies to the entire opened table, across all indices.\n            Setting this value higher will increase performance on larger datasets\n            at the expense of more RAM\n    \n        Returns\n        -------\n        A LanceTable object representing the table.\n        \"\"\"\n>       table = await self._inner.open_table(\n            name,\n            namespace=namespace,\n            storage_options=storage_options,\n            index_cache_size=index_cache_size,\n        )\nE       ValueError: Table 'docs_sections_zr-ynktbia' was not found\n\nusr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_verifier_direct_openai_search",
+                "status": "failed",
+                "duration": 9,
+                "start": 1780647779715,
+                "stop": 1780647779724,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "db = LanceDBConnection(uri='/home/user/myproject/lancedb')\n\n    @pytest.fixture(scope=\"module\")\n    def table(db):\n        names = db.table_names()\n>       assert TABLE_NAME in names, (\n            f\"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, \"\n            f\"but only found {names}. Make sure indexing used the ZEALT_RUN_ID suffix.\"\n        )\nE       AssertionError: Expected LanceDB table 'docs_sections_zr-ynktbia' under /home/user/myproject/lancedb, but only found ['docs_sections_test_run_1']. Make sure indexing used the ZEALT_RUN_ID suffix.\nE       assert 'docs_sections_zr-ynktbia' in ['docs_sections_test_run_1']\n\ntests/test_final_state.py:41: AssertionError"
+            }
+        ]
+    }
+}

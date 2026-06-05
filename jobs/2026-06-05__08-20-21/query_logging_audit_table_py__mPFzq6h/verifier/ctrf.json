@@ -1,0 +1,124 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780647716701,
+            "stop": 1780647726157
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_module_importable",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780647725762,
+                "stop": 1780647725765,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_returns_list_with_required_keys",
+                "status": "passed",
+                "duration": 192,
+                "start": 1780647725765,
+                "stop": 1780647725957,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_query_logs_table_exists",
+                "status": "passed",
+                "duration": 4,
+                "start": 1780647725957,
+                "stop": 1780647725961,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_query_logs_row_count",
+                "status": "passed",
+                "duration": 5,
+                "start": 1780647725961,
+                "stop": 1780647725966,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_logs_have_required_columns",
+                "status": "passed",
+                "duration": 5,
+                "start": 1780647725966,
+                "stop": 1780647725971,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_timestamps_monotonic_non_decreasing",
+                "status": "passed",
+                "duration": 55,
+                "start": 1780647725971,
+                "stop": 1780647726026,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_latency_ms_strictly_positive",
+                "status": "passed",
+                "duration": 13,
+                "start": 1780647726027,
+                "stop": 1780647726040,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top_ids_match_raw_search",
+                "status": "passed",
+                "duration": 56,
+                "start": 1780647726041,
+                "stop": 1780647726097,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hit_count_consistency",
+                "status": "passed",
+                "duration": 12,
+                "start": 1780647726097,
+                "stop": 1780647726109,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_metadata_round_trip",
+                "status": "passed",
+                "duration": 12,
+                "start": 1780647726110,
+                "stop": 1780647726122,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_fidelity_recall",
+                "status": "passed",
+                "duration": 33,
+                "start": 1780647726123,
+                "stop": 1780647726156,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

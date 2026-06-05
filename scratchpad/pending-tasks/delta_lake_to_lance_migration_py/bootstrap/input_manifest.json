@@ -1,0 +1,7 @@
+{
+  "library_name": "lancedb",
+  "task_name": "delta_lake_to_lance_migration_py",
+  "complexity_level": "much more complicated task that is not easy for LLM agents to solve and provides only a simple instruction.md",
+  "research_plan_path": "N/A (inline prompt; verified against https://docs.lancedb.com/quickstart, https://docs.lancedb.com/tables/versioning, and https://delta-io.github.io/delta-rs/usage/)",
+  "output_dir": "scratchpad/pending-tasks/"
+}

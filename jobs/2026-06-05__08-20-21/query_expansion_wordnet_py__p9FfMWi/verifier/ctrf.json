@@ -1,0 +1,106 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780647880681,
+            "stop": 1780647887629
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780647880710,
+                "stop": 1780647880711,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expanded_search_is_callable",
+                "status": "passed",
+                "duration": 2799,
+                "start": 1780647880712,
+                "stop": 1780647883511,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expanded_search_return_contract",
+                "status": "passed",
+                "duration": 3955,
+                "start": 1780647883512,
+                "stop": 1780647887467,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_native_fts_index_on_content",
+                "status": "passed",
+                "duration": 27,
+                "start": 1780647887467,
+                "stop": 1780647887494,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixture_invariant_synonym_only_docs_exist",
+                "status": "passed",
+                "duration": 18,
+                "start": 1780647887494,
+                "stop": 1780647887512,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_baseline_isolation",
+                "status": "passed",
+                "duration": 37,
+                "start": 1780647887513,
+                "stop": 1780647887550,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_synonym_recall_via_expansion",
+                "status": "passed",
+                "duration": 26,
+                "start": 1780647887551,
+                "stop": 1780647887577,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expansion_differs_from_baseline",
+                "status": "passed",
+                "duration": 23,
+                "start": 1780647887578,
+                "stop": 1780647887601,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expanded_search_is_idempotent",
+                "status": "passed",
+                "duration": 27,
+                "start": 1780647887602,
+                "stop": 1780647887629,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

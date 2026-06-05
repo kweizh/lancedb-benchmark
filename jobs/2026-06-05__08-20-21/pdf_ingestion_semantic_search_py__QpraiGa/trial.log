@@ -1,0 +1,87 @@
+Skipping image OS validation for hb__pdf_ingestion_semantic_search_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-qpraiga > /logs/artifacts/run-id && echo pdf_ingestion_semantic_search_py__QpraiGa > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# PDF Ingestion & Semantic Search with LanceDB
+
+## Background
+You are given a small corpus of three PDF documents bundled in this environment at `/app/corpus/`. Build a tiny semantic-search pipeline using **LanceDB** as the vector store and **OpenAI** embeddings. The pipeline must read the PDFs from the corpus directory, chunk and embed their text, store everything in a LanceDB table, and expose a Python `search(query, k)` function that returns the most semantically similar chunks.
+
+The pipeline must work end-to-end against real services — no mocks of OpenAI or LanceDB, no local model inference.
+
+## Requirements
+- Read all PDF files from `/app/corpus/` (there are exactly three files).
+- Extract text from each page of each PDF.
+- Split the extracted text into chunks suitable for embedding (choose your own chunk size / overlap strategy).
+- Compute embeddings for every chunk using the real OpenAI embedding API. The credentials are available in `OPENAI_API_KEY` (and `OPENAI_BASE_URL` if set).
+- Persist the chunks and their embeddings in a LanceDB table under `/home/user/myproject/lancedb/`. Each row must contain at least the fields `doc_id`, `page`, `chunk_id`, `text`, and `embedding`.
+  - `doc_id` is the PDF file name without the `.pdf` extension (e.g. for `/app/corpus/alpha.pdf` use `doc_id = "alpha"`).
+  - `page` is a 1-based integer page number identifying which page the chunk came from.
+- Implement a function `search(query: str, k: int) -> list[dict]` in `/home/user/myproject/solution.py` that:
+  - Embeds the `query` with the same OpenAI embedding model used during ingestion.
+  - Returns the top-`k` most relevant chunks as a list of dicts, ordered by descending relevance.
+  - Each result dict must contain the keys `doc_id` (str), `page` (int), and `snippet` (str — a short excerpt of the chunk text).
+
+## Implementation Hints
+- Use `pypdf` to extract page text. The `reportlab`-generated PDFs in `/app/corpus/` contain ordinary ASCII text.
+- Use the official `openai` Python client to embed text. Pick an embedding model that is real and currently supported by the OpenAI Embeddings API.
+- Use LanceDB's standard Python API (`lancedb.connect`, `create_table` / `open_table`, `table.search`) for storage and retrieval.
+- Persist the table under `/home/user/myproject/lancedb/` so the verifier can re-open the same connection.
+- To avoid collisions between concurrent runs, append the value of the `ZEALT_RUN_ID` environment variable to your table name (e.g. `pdf_chunks_${ZEALT_RUN_ID}`). The verifier reads the same env var and opens the same table.
+- Make ingestion idempotent: when the script is re-run with the same `ZEALT_RUN_ID`, it should not error out and should leave the table queryable.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- The candidate must provide `/home/user/myproject/solution.py` exposing a top-level callable `search(query: str, k: int) -> list[dict]`.
+- Ingestion entrypoint: running `python3 /home/user/myproject/ingest.py` (or an equivalent script chosen by the candidate) must produce a LanceDB table at `/home/user/myproject/lancedb/` whose name is `pdf_chunks_${ZEALT_RUN_ID}` (where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable).
+- After ingestion, `search(query, k)` must return a Python list of length `k` (assuming the table has at least `k` rows), each item a dict with the keys `doc_id` (str), `page` (int), and `snippet` (str).
+- Result ordering: results must be ordered from most to least semantically relevant to the query.
+- No mocks: both ingestion and `search()` must call the real OpenAI Embeddings API and the real LanceDB.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

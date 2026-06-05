@@ -1,0 +1,61 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780647894392,
+            "stop": 1780647903367
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_table_row_count_and_schema",
+                "status": "passed",
+                "duration": 4074,
+                "start": 1780647898229,
+                "stop": 1780647902303,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_english_anchor_query_eiffel",
+                "status": "passed",
+                "duration": 901,
+                "start": 1780647902304,
+                "stop": 1780647903205,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spanish_anchor_query_everest",
+                "status": "passed",
+                "duration": 152,
+                "start": 1780647903209,
+                "stop": 1780647903361,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_hardcoded_cohere_key",
+                "status": "passed",
+                "duration": 6,
+                "start": 1780647903361,
+                "stop": 1780647903367,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

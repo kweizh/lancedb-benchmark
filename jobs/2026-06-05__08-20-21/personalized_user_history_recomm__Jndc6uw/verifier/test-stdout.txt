@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_recommend_script_exists
+PASSED tests/test_final_state.py::test_pure_query_ranking_matches_expected
+PASSED tests/test_final_state.py::test_pure_taste_ranking_matches_expected
+PASSED tests/test_final_state.py::test_blend_alpha_changes_ranking
+PASSED tests/test_final_state.py::test_no_seen_items_returned
+============================== 5 passed in 6.07s ===============================

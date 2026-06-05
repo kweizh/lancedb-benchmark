@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 12 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_pyarrow_importable PASSED
+bootstrap/test_initial_state.py::test_nltk_importable PASSED
+bootstrap/test_initial_state.py::test_wordnet_corpus_available_offline PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_uri_env_set PASSED
+bootstrap/test_initial_state.py::test_lancedb_table_env_set PASSED
+bootstrap/test_initial_state.py::test_lancedb_data_dir_exists PASSED
+bootstrap/test_initial_state.py::test_seeded_table_has_100_rows PASSED
+bootstrap/test_initial_state.py::test_seeded_table_schema PASSED
+bootstrap/test_initial_state.py::test_no_pre_built_fts_index PASSED
+bootstrap/test_initial_state.py::test_solution_file_not_pre_present PASSED
+
+============================== 12 passed in 9.73s ==============================

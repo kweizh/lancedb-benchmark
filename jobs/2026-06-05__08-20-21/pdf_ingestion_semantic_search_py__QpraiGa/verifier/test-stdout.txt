@@ -1,0 +1,346 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 10 items
+
+tests/test_final_state.py .FEEEEFFFE                                     [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_schema_has_required_columns ______________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+
+    @pytest.fixture(scope="module")
+    def table(db):
+        names = db.table_names()
+>       assert TABLE_NAME in names, (
+            f"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, "
+            f"but only found {names}. Make sure ingestion used the ZEALT_RUN_ID suffix."
+        )
+E       AssertionError: Expected LanceDB table 'pdf_chunks_zr-qpraiga' under /home/user/myproject/lancedb, but only found ['pdf_chunks_test_run_1']. Make sure ingestion used the ZEALT_RUN_ID suffix.
+E       assert 'pdf_chunks_zr-qpraiga' in ['pdf_chunks_test_run_1']
+
+tests/test_final_state.py:32: AssertionError
+________________ ERROR at setup of test_table_has_minimum_rows _________________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+
+    @pytest.fixture(scope="module")
+    def table(db):
+        names = db.table_names()
+>       assert TABLE_NAME in names, (
+            f"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, "
+            f"but only found {names}. Make sure ingestion used the ZEALT_RUN_ID suffix."
+        )
+E       AssertionError: Expected LanceDB table 'pdf_chunks_zr-qpraiga' under /home/user/myproject/lancedb, but only found ['pdf_chunks_test_run_1']. Make sure ingestion used the ZEALT_RUN_ID suffix.
+E       assert 'pdf_chunks_zr-qpraiga' in ['pdf_chunks_test_run_1']
+
+tests/test_final_state.py:32: AssertionError
+_________________ ERROR at setup of test_doc_ids_cover_corpus __________________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+
+    @pytest.fixture(scope="module")
+    def table(db):
+        names = db.table_names()
+>       assert TABLE_NAME in names, (
+            f"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, "
+            f"but only found {names}. Make sure ingestion used the ZEALT_RUN_ID suffix."
+        )
+E       AssertionError: Expected LanceDB table 'pdf_chunks_zr-qpraiga' under /home/user/myproject/lancedb, but only found ['pdf_chunks_test_run_1']. Make sure ingestion used the ZEALT_RUN_ID suffix.
+E       assert 'pdf_chunks_zr-qpraiga' in ['pdf_chunks_test_run_1']
+
+tests/test_final_state.py:32: AssertionError
+___________ ERROR at setup of test_pages_are_positive_and_reasonable ___________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+
+    @pytest.fixture(scope="module")
+    def table(db):
+        names = db.table_names()
+>       assert TABLE_NAME in names, (
+            f"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, "
+            f"but only found {names}. Make sure ingestion used the ZEALT_RUN_ID suffix."
+        )
+E       AssertionError: Expected LanceDB table 'pdf_chunks_zr-qpraiga' under /home/user/myproject/lancedb, but only found ['pdf_chunks_test_run_1']. Make sure ingestion used the ZEALT_RUN_ID suffix.
+E       assert 'pdf_chunks_zr-qpraiga' in ['pdf_chunks_test_run_1']
+
+tests/test_final_state.py:32: AssertionError
+_____________ ERROR at setup of test_verifier_direct_openai_search _____________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+
+    @pytest.fixture(scope="module")
+    def table(db):
+        names = db.table_names()
+>       assert TABLE_NAME in names, (
+            f"Expected LanceDB table '{TABLE_NAME}' under {LANCEDB_PATH}, "
+            f"but only found {names}. Make sure ingestion used the ZEALT_RUN_ID suffix."
+        )
+E       AssertionError: Expected LanceDB table 'pdf_chunks_zr-qpraiga' under /home/user/myproject/lancedb, but only found ['pdf_chunks_test_run_1']. Make sure ingestion used the ZEALT_RUN_ID suffix.
+E       assert 'pdf_chunks_zr-qpraiga' in ['pdf_chunks_test_run_1']
+
+tests/test_final_state.py:32: AssertionError
+=================================== FAILURES ===================================
+______________________________ test_table_exists _______________________________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+
+    def test_table_exists(db):
+        names = db.table_names()
+>       assert TABLE_NAME in names, (
+            f"Expected LanceDB table '{TABLE_NAME}' to exist under {LANCEDB_PATH}; "
+            f"found tables: {names}."
+        )
+E       AssertionError: Expected LanceDB table 'pdf_chunks_zr-qpraiga' to exist under /home/user/myproject/lancedb; found tables: ['pdf_chunks_test_run_1'].
+E       assert 'pdf_chunks_zr-qpraiga' in ['pdf_chunks_test_run_1']
+
+tests/test_final_state.py:77: AssertionError
+_________________________ test_search_password_anchor __________________________
+
+solution_module = <module 'solution' from '/home/user/myproject/solution.py'>
+
+    def test_search_password_anchor(solution_module):
+        query = "What is the secret password mentioned in the corpus?"
+>       results = solution_module.search(query, 5)
+
+tests/test_final_state.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+home/user/myproject/solution.py:24: in search
+    table = db.open_table(TABLE_NAME)
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/home/user/myproject/lancedb, read_consistency_interval=None)
+name = 'pdf_chunks_zr-qpraiga'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'pdf_chunks_zr-qpraiga' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+________________________ test_search_butterflies_anchor ________________________
+
+solution_module = <module 'solution' from '/home/user/myproject/solution.py'>
+
+    def test_search_butterflies_anchor(solution_module):
+        query = "Which document discusses the cobalt blue migration of butterflies across the Sahara?"
+>       results = solution_module.search(query, 5)
+
+tests/test_final_state.py:148: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+home/user/myproject/solution.py:24: in search
+    table = db.open_table(TABLE_NAME)
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/home/user/myproject/lancedb, read_consistency_interval=None)
+name = 'pdf_chunks_zr-qpraiga'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'pdf_chunks_zr-qpraiga' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+_________________________ test_search_gyroscope_anchor _________________________
+
+solution_module = <module 'solution' from '/home/user/myproject/solution.py'>
+
+    def test_search_gyroscope_anchor(solution_module):
+        query = "Where can I find the procedure to calibrate a quantum gyroscope using lithium niobate?"
+>       results = solution_module.search(query, 5)
+
+tests/test_final_state.py:163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+home/user/myproject/solution.py:24: in search
+    table = db.open_table(TABLE_NAME)
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/home/user/myproject/lancedb, read_consistency_interval=None)
+name = 'pdf_chunks_zr-qpraiga'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'pdf_chunks_zr-qpraiga' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_run_id_present
+ERROR tests/test_final_state.py::test_schema_has_required_columns - Assertion...
+ERROR tests/test_final_state.py::test_table_has_minimum_rows - AssertionError...
+ERROR tests/test_final_state.py::test_doc_ids_cover_corpus - AssertionError: ...
+ERROR tests/test_final_state.py::test_pages_are_positive_and_reasonable - Ass...
+ERROR tests/test_final_state.py::test_verifier_direct_openai_search - Asserti...
+FAILED tests/test_final_state.py::test_table_exists - AssertionError: Expecte...
+FAILED tests/test_final_state.py::test_search_password_anchor - ValueError: T...
+FAILED tests/test_final_state.py::test_search_butterflies_anchor - ValueError...
+FAILED tests/test_final_state.py::test_search_gyroscope_anchor - ValueError: ...
+==================== 4 failed, 1 passed, 5 errors in 4.30s =====================

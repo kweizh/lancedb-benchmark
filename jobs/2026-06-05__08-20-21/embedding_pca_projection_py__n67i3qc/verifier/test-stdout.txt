@@ -1,0 +1,277 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py EEE.EFFE                                       [100%]
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_new_table_has_600_rows _________________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+new_table_name = 'articles_pca_zr-n67i3qc'
+
+    @pytest.fixture(scope="session")
+    def pca_tbl(db, new_table_name):
+>       assert new_table_name in db.table_names(), (
+            f"Expected new PCA table '{new_table_name}' in {db.table_names()}."
+        )
+E       AssertionError: Expected new PCA table 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run'].
+E       assert 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run']
+E        +  where ['articles', 'articles_pca_test_run'] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')> = LanceDBConnection(uri='/home/user/myproject/lancedb').table_names
+
+tests/test_final_state.py:42: AssertionError
+___________________ ERROR at setup of test_new_table_schema ____________________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+new_table_name = 'articles_pca_zr-n67i3qc'
+
+    @pytest.fixture(scope="session")
+    def pca_tbl(db, new_table_name):
+>       assert new_table_name in db.table_names(), (
+            f"Expected new PCA table '{new_table_name}' in {db.table_names()}."
+        )
+E       AssertionError: Expected new PCA table 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run'].
+E       assert 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run']
+E        +  where ['articles', 'articles_pca_test_run'] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')> = LanceDBConnection(uri='/home/user/myproject/lancedb').table_names
+
+tests/test_final_state.py:42: AssertionError
+________ ERROR at setup of test_new_table_original_id_covers_source_ids ________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+new_table_name = 'articles_pca_zr-n67i3qc'
+
+    @pytest.fixture(scope="session")
+    def pca_tbl(db, new_table_name):
+>       assert new_table_name in db.table_names(), (
+            f"Expected new PCA table '{new_table_name}' in {db.table_names()}."
+        )
+E       AssertionError: Expected new PCA table 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run'].
+E       assert 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run']
+E        +  where ['articles', 'articles_pca_test_run'] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')> = LanceDBConnection(uri='/home/user/myproject/lancedb').table_names
+
+tests/test_final_state.py:42: AssertionError
+______________ ERROR at setup of test_reprojection_matches_stored ______________
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+new_table_name = 'articles_pca_zr-n67i3qc'
+
+    @pytest.fixture(scope="session")
+    def pca_tbl(db, new_table_name):
+>       assert new_table_name in db.table_names(), (
+            f"Expected new PCA table '{new_table_name}' in {db.table_names()}."
+        )
+E       AssertionError: Expected new PCA table 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run'].
+E       assert 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run']
+E        +  where ['articles', 'articles_pca_test_run'] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')> = LanceDBConnection(uri='/home/user/myproject/lancedb').table_names
+
+tests/test_final_state.py:42: AssertionError
+_____ ERROR at setup of test_verifier_direct_pca_search_matches_candidate ______
+
+db = LanceDBConnection(uri='/home/user/myproject/lancedb')
+new_table_name = 'articles_pca_zr-n67i3qc'
+
+    @pytest.fixture(scope="session")
+    def pca_tbl(db, new_table_name):
+>       assert new_table_name in db.table_names(), (
+            f"Expected new PCA table '{new_table_name}' in {db.table_names()}."
+        )
+E       AssertionError: Expected new PCA table 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run'].
+E       assert 'articles_pca_zr-n67i3qc' in ['articles', 'articles_pca_test_run']
+E        +  where ['articles', 'articles_pca_test_run'] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/lancedb')> = LanceDBConnection(uri='/home/user/myproject/lancedb').table_names
+
+tests/test_final_state.py:42: AssertionError
+=================================== FAILURES ===================================
+______________________ test_search_returns_correct_shape _______________________
+
+solution_module = <module 'candidate_solution' from '/home/user/myproject/solution.py'>
+
+    def test_search_returns_correct_shape(solution_module):
+        query = _make_query()
+>       result = solution_module.search(query, 5)
+
+tests/test_final_state.py:193: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+home/user/myproject/solution.py:56: in search
+    searcher = PCASearcher()
+home/user/myproject/solution.py:31: in __init__
+    self.table = self.db.open_table(self.table_name)
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/home/user/myproject/lancedb, read_consistency_interval=None)
+name = 'articles_pca_zr-n67i3qc'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'articles_pca_zr-n67i3qc' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+_________________ test_search_overlaps_with_128d_ground_truth __________________
+
+solution_module = <module 'candidate_solution' from '/home/user/myproject/solution.py'>
+src_df =       id  ...                                          embedding
+0      0  ...  [0.45462748, -0.40138403, -0.68331313,...706348, 0.5088028, -0.12013...
+599  599  ...  [-0.1545758, 0.46248904, -1.0029219, 0.2685579...
+
+[600 rows x 3 columns]
+src_vectors = array([[ 0.45462748, -0.40138403, -0.68331313, ..., -0.13774696,
+        -0.52584875,  0.0379261 ],
+       [ 0.0710891...946, -1.02162671],
+       [-0.15457579,  0.46248904, -1.00292194, ...,  0.2526373 ,
+        -0.17380954, -0.53797758]])
+
+    def test_search_overlaps_with_128d_ground_truth(solution_module, src_df, src_vectors):
+        query = _make_query()
+        # Ground truth in original 128-d space using L2 distance.
+        diffs = src_vectors - query.astype(np.float64)
+        dists = np.einsum("ij,ij->i", diffs, diffs)
+        order = np.argsort(dists)[:5]
+        gt_top5 = set(int(src_df["id"].iloc[i]) for i in order)
+    
+>       result = solution_module.search(query, 5)
+
+tests/test_final_state.py:215: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+home/user/myproject/solution.py:56: in search
+    searcher = PCASearcher()
+home/user/myproject/solution.py:31: in __init__
+    self.table = self.db.open_table(self.table_name)
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/home/user/myproject/lancedb, read_consistency_interval=None)
+name = 'articles_pca_zr-n67i3qc'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'articles_pca_zr-n67i3qc' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_pca_model_artifact_loadable
+ERROR tests/test_final_state.py::test_new_table_has_600_rows - AssertionError...
+ERROR tests/test_final_state.py::test_new_table_schema - AssertionError: Expe...
+ERROR tests/test_final_state.py::test_new_table_original_id_covers_source_ids
+ERROR tests/test_final_state.py::test_reprojection_matches_stored - Assertion...
+ERROR tests/test_final_state.py::test_verifier_direct_pca_search_matches_candidate
+FAILED tests/test_final_state.py::test_search_returns_correct_shape - ValueEr...
+FAILED tests/test_final_state.py::test_search_overlaps_with_128d_ground_truth
+==================== 2 failed, 1 passed, 5 errors in 4.04s =====================

@@ -1,0 +1,34 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py ....                                           [100%]
+
+=============================== warnings summary ===============================
+test_final_state.py::test_english_anchor_query_eiffel
+test_final_state.py::test_english_anchor_query_eiffel
+test_final_state.py::test_spanish_anchor_query_everest
+test_final_state.py::test_spanish_anchor_query_everest
+  /usr/local/lib/python3.12/dist-packages/cohere/core/unchecked_base_model.py:328: PydanticDeprecatedSince20: The `__fields__` attribute is deprecated, use the `model_fields` class property instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    if inner_type.__fields__[metadata.discriminant].default == objects_discriminant:
+
+test_final_state.py::test_english_anchor_query_eiffel
+test_final_state.py::test_spanish_anchor_query_everest
+  /usr/local/lib/python3.12/dist-packages/cohere/core/pydantic_utilities.py:493: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    return cast(Mapping[str, PydanticField], model.model_fields)  # type: ignore[attr-defined]
+
+test_final_state.py::test_english_anchor_query_eiffel
+test_final_state.py::test_spanish_anchor_query_everest
+  /usr/local/lib/python3.12/dist-packages/cohere/utils.py:236: PydanticDeprecatedSince20: The `parse_obj` method is deprecated; use `model_validate` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    embeddings_by_type_merged = EmbedByTypeResponseEmbeddings.parse_obj(merged_dicts)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_table_row_count_and_schema
+PASSED tests/test_final_state.py::test_english_anchor_query_eiffel
+PASSED tests/test_final_state.py::test_spanish_anchor_query_everest
+PASSED tests/test_final_state.py::test_no_hardcoded_cohere_key
+======================== 4 passed, 8 warnings in 8.97s =========================

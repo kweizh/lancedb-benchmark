@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 10 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_pyarrow_importable PASSED
+bootstrap/test_initial_state.py::test_sklearn_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_dir_exists PASSED
+bootstrap/test_initial_state.py::test_source_articles_table_present_with_600_rows PASSED
+bootstrap/test_initial_state.py::test_source_articles_schema_is_128d PASSED
+bootstrap/test_initial_state.py::test_zealt_run_id_env_var_present PASSED
+bootstrap/test_initial_state.py::test_pca_model_artifact_not_pre_created PASSED
+
+============================== 10 passed in 4.86s ==============================
