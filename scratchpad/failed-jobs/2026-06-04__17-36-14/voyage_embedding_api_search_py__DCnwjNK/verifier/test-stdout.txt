@@ -1,0 +1,106 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: langsmith-0.8.9, anyio-4.13.0, json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py .......F                                       [100%]
+
+=================================== FAILURES ===================================
+______________ test_verifier_direct_voyage_search_matches_anchor _______________
+
+    def test_verifier_direct_voyage_search_matches_anchor():
+        """Independent end-to-end check: the verifier embeds the query with voyageai
+        using `input_type='query'`, runs a direct LanceDB vector search against the
+        candidate's table, and confirms the rigged anchor wins. This proves the
+        table holds genuine Voyage embeddings rather than random or precomputed data.
+        """
+        import lancedb
+        import voyageai
+    
+        api_key = os.environ.get("VOYAGE_API_KEY")
+        assert api_key, "VOYAGE_API_KEY must be set in the verifier env."
+    
+        client = voyageai.Client(api_key=api_key)
+        query = "noise cancelling over-ear bluetooth headphones for travel"
+>       resp = client.embed([query], model="voyage-3", input_type="query")
+
+tests/test_final_state.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/voyageai/client.py:76: in embed
+    for attempt in self._make_retry_controller():
+usr/local/lib/python3.12/dist-packages/tenacity/__init__.py:438: in __iter__
+    do = self.iter(retry_state=retry_state)
+usr/local/lib/python3.12/dist-packages/tenacity/__init__.py:371: in iter
+    result = action(retry_state)
+usr/local/lib/python3.12/dist-packages/tenacity/__init__.py:413: in exc_check
+    raise retry_exc.reraise()
+usr/local/lib/python3.12/dist-packages/tenacity/__init__.py:184: in reraise
+    raise self.last_attempt.result()
+usr/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+usr/local/lib/python3.12/dist-packages/voyageai/client.py:78: in embed
+    response = voyageai.Embedding.create(
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/embedding.py:19: in create
+    response = super().create(*args, **kwargs)
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_resource.py:45: in create
+    response = requestor.request(
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:146: in request
+    resp = self._interpret_response(result)
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:394: in _interpret_response
+    return self._interpret_response_line(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <voyageai.api_resources.api_requestor.APIRequestor object at 0x7f20e845a570>
+rbody = '{"detail":"You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM ...r several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model."}'
+rcode = 429
+rheaders = {'date': 'Thu, 04 Jun 2026 17:48:20 GMT', 'server': 'uvicorn', 'Content-Length': '601', 'content-type': 'application/j...: '1b362ba2ea94279276ff9864e0fa7070', 'Via': '1.1 google', 'Alt-Svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}
+
+    def _interpret_response_line(self, rbody: str, rcode: int, rheaders) -> VoyageHttpResponse:
+        # HTTP 204 response code does not have any content in the body.
+        if rcode == 204:
+            return VoyageHttpResponse(None, rheaders)
+    
+        if rcode == 500:
+            raise error.ServerError(
+                "The server failed to process the request.",
+                rbody,
+                rcode,
+                headers=rheaders,
+            )
+        elif rcode in [502, 503, 504]:
+            raise error.ServiceUnavailableError(
+                "The server is overloaded or not ready yet.",
+                rbody,
+                rcode,
+                headers=rheaders,
+            )
+        try:
+            if "text/plain" in rheaders.get("Content-Type", ""):
+                data = rbody
+            else:
+                data = json.loads(rbody)
+        except (JSONDecodeError, UnicodeDecodeError) as e:
+            raise error.APIError(
+                f"HTTP code {rcode} from API ({rbody})", rbody, rcode, headers=rheaders
+            ) from e
+    
+        resp = VoyageHttpResponse(data, rheaders)
+        if 400 <= rcode < 500:
+>           raise self.handle_error_response(rbody, rcode, resp.data, rheaders)
+E           voyageai.error.RateLimitError: You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM and 10K TPM. To unlock our standard rate limits, please add a payment method in the billing page for the appropriate organization in the user dashboard (https://dashboard.voyageai.com/). Even with payment methods entered, the free tokens (200M tokens for Voyage series 3) will still apply. After adding a payment method, you should see your rate limits increase after several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.
+
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:445: RateLimitError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_candidate_files_exist
+PASSED tests/test_final_state.py::test_lancedb_table_exists_with_correct_shape
+PASSED tests/test_final_state.py::test_cli_top1_matches_anchor[noise cancelling over-ear bluetooth headphones for travel-prod-electronics-headphones-anc-5]
+PASSED tests/test_final_state.py::test_cli_top1_matches_anchor[high pressure espresso machine for home baristas-prod-kitchen-espresso-machine-5]
+PASSED tests/test_final_state.py::test_cli_top1_matches_anchor[lightweight running shoes with carbon plate for marathon racing-prod-fitness-carbon-marathon-shoes-3]
+PASSED tests/test_final_state.py::test_cli_top1_matches_anchor[bestselling fantasy novel about a young wizard and dragons-prod-books-dragon-wizard-fantasy-3]
+PASSED tests/test_final_state.py::test_solution_search_matches_cli_top1
+FAILED tests/test_final_state.py::test_verifier_direct_voyage_search_matches_anchor
+==================== 1 failed, 7 passed in 99.51s (0:01:39) ====================

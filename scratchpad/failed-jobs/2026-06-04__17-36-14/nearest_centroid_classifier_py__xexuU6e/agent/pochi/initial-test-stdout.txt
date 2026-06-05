@@ -1,0 +1,119 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_dir_exists PASSED
+bootstrap/test_initial_state.py::test_zealt_run_id_env_set PASSED
+bootstrap/test_initial_state.py::test_training_table_exists_and_schema FAILED
+bootstrap/test_initial_state.py::test_training_table_labels_well_formed FAILED
+bootstrap/test_initial_state.py::test_test_set_fixture_exists PASSED
+bootstrap/test_initial_state.py::test_centroids_table_does_not_exist_yet PASSED
+
+=================================== FAILURES ===================================
+____________________ test_training_table_exists_and_schema _____________________
+
+    def test_training_table_exists_and_schema():
+        import lancedb
+    
+        run_id = os.environ["ZEALT_RUN_ID"]
+        db = lancedb.connect(LANCEDB_DIR)
+        name = f"train_data_{run_id}"
+>       assert name in db.table_names(), (
+            f"Training table {name} must exist in {LANCEDB_DIR}."
+        )
+E       AssertionError: Training table train_data_zr-xexuu6e must exist in /app/lancedb_data.
+E       assert 'train_data_zr-xexuu6e' in ['train_data_build']
+E        +  where ['train_data_build'] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/app/lancedb_data')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/app/lancedb_data')> = LanceDBConnection(uri='/app/lancedb_data').table_names
+
+bootstrap/test_initial_state.py:37: AssertionError
+____________________ test_training_table_labels_well_formed ____________________
+
+    def test_training_table_labels_well_formed():
+        import lancedb
+        from collections import Counter
+    
+        run_id = os.environ["ZEALT_RUN_ID"]
+        db = lancedb.connect(LANCEDB_DIR)
+>       tbl = db.open_table(f"train_data_{run_id}")
+
+bootstrap/test_initial_state.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/app/lancedb_data, read_consistency_interval=None)
+name = 'train_data_zr-xexuu6e'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'train_data_zr-xexuu6e' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_training_table_exists_and_schema
+FAILED bootstrap/test_initial_state.py::test_training_table_labels_well_formed
+========================= 2 failed, 7 passed in 3.28s ==========================

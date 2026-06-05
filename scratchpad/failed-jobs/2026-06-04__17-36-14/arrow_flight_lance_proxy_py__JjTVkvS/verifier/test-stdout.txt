@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+____________________________ test_server_reachable _____________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/flight_server$ /usr/bin/python3 server.py
+process 'flight_server' started pid=1579
+flight_server process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_server_reachable
+PASSED tests/test_final_state.py::test_topk_matches_ground_truth_for_doc_042
+PASSED tests/test_final_state.py::test_topk_respects_k_parameter
+PASSED tests/test_final_state.py::test_topk_matches_for_arbitrary_query_vector
+PASSED tests/test_final_state.py::test_schema_preserves_fixed_size_list
+============================== 5 passed in 6.51s ===============================

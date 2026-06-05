@@ -1,0 +1,35 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py ....F.                                         [100%]
+
+=================================== FAILURES ===================================
+____________________ test_lambda_low_drives_high_diversity _____________________
+
+    def test_lambda_low_drives_high_diversity():
+        ids, cluster_ids, vectors = _load_rows()
+        query = _build_query(ids, cluster_ids, vectors)
+        result = _call_candidate(query, k=10, lambda_=0.3)
+        cluster_by_id = {int(i): int(c) for i, c in zip(ids, cluster_ids)}
+        distinct_clusters = {cluster_by_id[i] for i in result}
+>       assert len(distinct_clusters) >= 7, (
+            "mmr_search with lambda_=0.3 must span at least 7 distinct clusters (diversity dominates). "
+            f"Got clusters {sorted(distinct_clusters)} from ids {result}."
+        )
+E       AssertionError: mmr_search with lambda_=0.3 must span at least 7 distinct clusters (diversity dominates). Got clusters [0, 1, 2, 3, 4] from ids [57, 13, 42, 0, 34, 59, 17, 48, 16, 37].
+E       assert 5 >= 7
+E        +  where 5 = len({0, 1, 2, 3, 4})
+
+tests/test_final_state.py:186: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_table_exists_with_120_rows
+PASSED tests/test_final_state.py::test_table_schema_id_cluster_and_fixed_size_vector
+PASSED tests/test_final_state.py::test_ids_and_cluster_counts
+PASSED tests/test_final_state.py::test_lambda_one_matches_pure_vector_search
+PASSED tests/test_final_state.py::test_lambda_balanced_preserves_top1_and_some_diversity
+FAILED tests/test_final_state.py::test_lambda_low_drives_high_diversity - Ass...
+========================= 1 failed, 5 passed in 3.73s ==========================

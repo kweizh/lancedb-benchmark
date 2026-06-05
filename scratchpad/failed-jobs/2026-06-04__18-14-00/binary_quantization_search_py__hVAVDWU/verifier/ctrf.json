@@ -1,0 +1,64 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780597025532,
+            "stop": 1780597035139
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_schema_and_row_count",
+                "status": "passed",
+                "duration": 7750,
+                "start": 1780597025564,
+                "stop": 1780597033314,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ivf_pq_index_registered",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 87,
+                "start": 1780597033314,
+                "stop": 1780597033401,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_ivf_pq_index_registered():\n        tbl = _open_table()\n        indices = list(tbl.list_indices())\n        assert len(indices) >= 1, (\n            f\"No indices reported by table.list_indices() for '{_table_name()}'.\"\n        )\n        matched = []\n        for idx in indices:\n            # IndexConfig has .columns (list[str]) and .index_type (str)\n            cols = getattr(idx, \"columns\", None) or []\n            itype = getattr(idx, \"index_type\", \"\") or \"\"\n            if \"vector\" in cols and \"ivf_pq\" in str(itype).lower().replace(\"-\", \"_\"):\n                matched.append(idx)\n>       assert matched, (\n            \"Expected at least one IVF_PQ index on the 'vector' column. \"\n            f\"list_indices() returned: {[ (getattr(i, 'name', None), getattr(i, 'columns', None), getattr(i, 'index_type', None)) for i in indices ]}\"\n        )\nE       AssertionError: Expected at least one IVF_PQ index on the 'vector' column. list_indices() returned: [('vector_idx', ['vector'], 'IvfPq')]\nE       assert []\n\ntests/test_final_state.py:105: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_evaluate_recall_returns_float_in_range_and_meets_threshold",
+                "status": "passed",
+                "duration": 1185,
+                "start": 1780597033401,
+                "stop": 1780597034586,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_evaluate_recall_stable_on_repeat_call",
+                "status": "passed",
+                "duration": 552,
+                "start": 1780597034587,
+                "stop": 1780597035139,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,156 @@
+- Initializing MCP connections...
+You
+# LanceDB Snapshot Tags & Diff Tool ## Background LanceDB uses immutable manifests so every write (insert, update, delete) creates a new numeric version. The `table.tags` API lets you attach human-readable labels (similar to git tags) to specific versions, and the tagged versions are protected from `cleanup_old_versions()` pruning. In this task you will build a small tool that captures three named snapshots of an evolving `documents` table and provides a diff utility that compares two snapshots by their tag names using time-travel (`table.checkout(...)`). ## Requirements * Build a Python module at `/home/user/myproject/solution.py` that uses the **real** LanceDB Python API (no mocking) and exposes two callables: * `build_snapshots(db_path: str, table_name: str) -> None` — creates the table, performs the three mutations, and writes three named tags. * `diff(db_path: str, table_name: str, tag_a: str, tag_b: str) -> dict` — returns the difference between two snapshots. * Connect to a local LanceDB database at `/app/db`. The table name MUST be `documents_${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable so concurrent trials do not collide. * The table schema is `id: int64`, `text: string`, `vector: fixed_size_list<float32, 16>`. * Seed phase (write version v1): * Insert 50 rows with `id` in `[0, 50)`. Use `numpy.random.default_rng(seed=2026)` to generate the 16-d float32 vectors deterministically; set `text = f"doc-{id}"`. * Attach the tag `v1_baseline` to the resulting version. * Extend phase (write version v2): * Append 20 more rows with `id` in `[50, 70)`, vectors drawn from the same RNG sequence (so the seed is reproducible), and `text = f"doc-{id}"`. * Attach the tag `v2_extended` to the resulting version. * Prune phase (write version v3): * Delete the rows whose `id < 5` via a SQL predicate (this removes exactly 5 rows). * Attach the tag `v3_pruned` to the resulting version. * The `diff(tag_a, tag_b)` function MUST use `table.checkout(...)` (or equivalent tag-based time-travel) to read the `id` column from each snapshot and return a dict shaped exactly as: ```python { "added_ids": sorted list of ints present in B but not in A, "removed_ids": sorted list of ints present in A but not in B, "common_count": int (number of ids in both snapshots) } ``` After running, the function MUST call `table.checkout_latest()` so subsequent callers see the live version. * Provide a CLI entry point so running `python3 /home/user/myproject/solution.py` executes `build_snapshots(...)` end-to-end against `/app/db` and the `documents_${run-id}` table. ## Implementation Hints * The tags API lives on the table object: `table.tags.create(name, version)`, `table.tags.list()`, `table.checkout(tag_name)`. Verify by browsing https://docs.lancedb.com/tables/versioning. * `table.version` returns the current numeric version after each write; use it when calling `table.tags.create`. * LanceDB pins the schema's `vector` column with `pyarrow.list_(pa.float32(), 16)` (fixed-size list of length 16) — use this to avoid Arrow type-mismatch errors. * `table.delete("id < 5")` accepts a SQL predicate string. * The candidate is responsible for executing `python3 /home/user/myproject/solution.py` once before the verifier runs so that the three tags and the persisted data exist at `/app/db`. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 /home/user/myproject/solution.py` * Database path: `/app/db` * Table name: `documents_${run-id}` (read `run-id` from `ZEALT_RUN_ID`) * After running the command, opening the table from `/app/db` MUST report the three tags `v1_baseline`, `v2_extended`, and `v3_pruned` via `table.tags.list()`. * The live (latest) table version MUST contain exactly 65 rows. * `solution.diff("/app/db", "documents_${run-id}", "v1_baseline", "v2_extended")` MUST return `{"added_ids": [50, 51, ..., 69], "removed_ids": [], "common_count": 50}`. * `solution.diff("/app/db", "documents_${run-id}", "v2_extended", "v3_pruned")` MUST return `{"added_ids": [], "removed_ids": [0, 1, 2, 3, 4], "common_count": 65}`.   
+
+Pochi
+💭 Thinking for 604 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 34 characters   
+💫 Executing python3 -c "import lancedb; print(lancedb.__version__)" 2>&1 ✔ 
+💫 Executing echo "ZEALT_RUN_ID=$ZEALT_RUN_ID" ✔ 
+💫 Executing ls /app/db 2>&1; ls /home/user/myproject 2>&1 ✔ 
+💭 Thinking for 251 characters   
+💫 Executing python3 -c "import lancedb; db = lancedb.connect('/tmp/test_db'); import pyarrow as pa; tbl = db.create_table('test', schema=pa.schema([pa.field('id', pa.int64())])); print(dir(tbl)); print('---'); print(type(tbl.tags)); print(dir(tbl.tags))" 2>&1 ✔ 
+💭 Thinking for 344 characters   
+💫 Executing python3 -c "
+import lancedb
+import pyarrow as pa
+import numpy as np
+import shutil, os
+
+# Clean up
+if os.path.exists('/tmp/test_db2'):
+    shutil.rmtree('/tmp/test_db2')
+
+db = lancedb.connect('/tmp/test_db2')
+schema = pa.schema([
+    pa.field('id', pa.int64()),
+    pa.field('text', pa.string()),
+    pa.field('vector', pa.list_(pa.float32(), 16)),
+])
+
+rng = np.random.default_rng(seed=2026)
+data = []
+for i in range(5):
+    data.append({
+        'id': i,
+        'text': f'doc-{i}',
+        'vector': rng.random(16).astype(np.float32).tolist()
+    })
+
+tbl = db.create_table('test', data)
+print('Version after create:', tbl.version)
+
+# Create tag
+tbl.tags.create('v1', tbl.version)
+print('Tags:', tbl.tags.list())
+
+# Add more rows
+more_data = []
+for i in range(5, 8):
+    more_data.append({
+        'id': i,
+        'text': f'doc-{i}',
+        'vector': rng.random(16).astype(np.float32).tolist()
+    })
+tbl.add(more_data)
+print('Version after add:', tbl.version)
+
+tbl.tags.create('v2', tbl.version)
+print('Tags:', tbl.tags.list())
+
+# Checkout v1
+tbl.checkout('v1')
+print('After checkout v1, count:', tbl.count_rows())
+ids_v1 = tbl.to_arrow()['id'].to_pylist()
+print('IDs v1:', sorted(ids_v1))
+
+# Checkout v2
+tbl.checkout('v2')
+print('After checkout v2, count:', tbl.count_rows())
+ids_v2 = tbl.to_arrow()['id'].to_pylist()
+print('IDs v2:', sorted(ids_v2))
+
+# Checkout latest
+tbl.checkout_latest()
+print('After checkout_latest, count:', tbl.count_rows())
+" 2>&1 ✔ 
+💭 Thinking for 97 characters   
+💫 Executing python3 -c "
+import lancedb
+import pyarrow as pa
+import numpy as np
+import shutil, os
+
+# Clean up
+if os.path.exists('/tmp/test_db3'):
+    shutil.rmtree('/tmp/test_db3')
+
+db = lancedb.connect('/tmp/test_db3')
+schema = pa.schema([
+    pa.field('id', pa.int64()),
+    pa.field('text', pa.string()),
+    pa.field('vector', pa.list_(pa.float32(), 16)),
+])
+
+rng = np.random.default_rng(seed=2026)
+data = []
+for i in range(10):
+    data.append({
+        'id': i,
+        'text': f'doc-{i}',
+        'vector': rng.random(16).astype(np.float32).tolist()
+    })
+
+tbl = db.create_table('test', data)
+print('Version after create:', tbl.version)
+print('Count:', tbl.count_rows())
+
+tbl.delete('id < 5')
+print('Version after delete:', tbl.version)
+print('Count after delete:', tbl.count_rows())
+ids = tbl.to_arrow()['id'].to_pylist()
+print('IDs:', sorted(ids))
+" 2>&1 ✔ 
+💭 Thinking for 69 characters   
+Now I have a clear understanding of the LanceDB API. Let me create thesolution.   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject ✔ 
+✏️  Writing /home/user/myproject/solution.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing python3 /home/user/myproject/solution.py 2>&1 ✔ 
+💭 Thinking for 625 characters   
+All checks pass. Let me verify the exact expected outputs match:   
+💫 Executing python3 -c "
+import solution, os
+
+db_path = '/app/db'
+table_name = f'documents_{os.environ[\"ZEALT_RUN_ID\"]}'
+
+r1 = solution.diff(db_path, table_name, 'v1_baseline', 'v2_extended')
+expected1 = {'added_ids': list(range(50, 70)), 'removed_ids': [], 'common_count': 50}
+assert r1 == expected1, f'Mismatch: {r1} != {expected1}'
+
+r2 = solution.diff(db_path, table_name, 'v2_extended', 'v3_pruned')
+expected2 = {'added_ids': [], 'removed_ids': [0, 1, 2, 3, 4], 'common_count': 65}
+assert r2 == expected2, f'Mismatch: {r2} != {expected2}'
+
+print('All assertions passed!')
+" 2>&1 ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+Successfully created `/home/user/myproject/solution.py` with the LanceDB Snapshot Tags & Diff Tool. All acceptance criteria are verified:
+
+1. **Three tags exist**: `v1_baseline` (version 1), `v2_extended` (version 2), `v3_pruned` (version 3)
+2. **Live table has 65 rows** (50 initial - 5 deleted + 20 appended)
+3. **diff(v1_baseline, v2_extended)** returns `{"added_ids": [50, 51, ..., 69], "removed_ids": [], "common_count": 50}` ✓
+4. **diff(v2_extended, v3_pruned)** returns `{"added_ids": [], "removed_ids": [0, 1, 2, 3, 4], "common_count": 65}` ✓
+
+The solution:
+- Uses `numpy.random.default_rng(seed=2026)` for deterministic vector generation
+- Creates the table with `pa.list_(pa.float32(), 16)` for the fixed-size vector column
+- Uses `table.tags.create(name, version)` to attach tags after each mutation
+- Uses `table.checkout(tag)` for time-travel reads and `table.checkout_latest()` to restore the live version
+- Reads `ZEALT_RUN_ID` from the environment for the table name (`documents_zr-dvziu4j`)
+- Database persisted at `/app/db`   
+  

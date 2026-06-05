@@ -1,0 +1,453 @@
+- Initializing MCP connections...
+You
+# LanceDB MMR Diversity Re-ranking ## Background Pure top-k vector search often returns near-duplicates clustered around the query. Maximal Marginal Relevance (MMR) is a classic post-retrieval re-ranking technique that trades off relevance against diversity: starting from a candidate pool, it iteratively picks the document that maximises ``` score(d) = lambda * sim(q, d) - (1 - lambda) * max_{d' in selected} sim(d, d') ``` where `sim` is cosine similarity. In this task you will build an MMR re-ranker on top of a real LanceDB cosine-vector index. ## Requirements * Implement everything in `/home/user/myproject/solution.py` using the real LanceDB Python SDK (no mocking, no fake data sources). * Read the run identifier from the `ZEALT_RUN_ID` environment variable. The LanceDB table name MUST be `mmr_docs_${ZEALT_RUN_ID}` and the database directory MUST be `/app/db` so concurrent trials do not collide. * Expose two callables in `solution.py`: * `build_dataset() -> None` — builds the deterministic fixture table described below at `/app/db`. * `mmr_search(query_vec, k=10, lambda_=0.5) -> list[int]` — runs MMR re-ranking against the same table and returns the selected document `id` values as a Python `list[int]` of length `k`, in the order they were picked by MMR (most-relevant first). * Also provide a CLI entry point so that running `python3 /home/user/myproject/solution.py` (no arguments) calls `build_dataset()` once. The candidate is responsible for executing this command before the verifier runs so the table exists. ## Dataset Specification * 120 rows total, organised as 10 well-separated clusters of 12 rows each. * Schema (must match exactly so the verifier can read it): * `id`: `int64` — globally unique, values `0..119` inclusive. * `cluster_id`: `int64` — values `0..9` inclusive, exactly 12 rows per `cluster_id`. * `vector`: `fixed_size_list<float32, 32>` — 32-dimensional embedding. * Deterministic generation using `numpy.random.default_rng(seed=2026)`: 1. Draw a `(32, 32)` standard-normal matrix `A` from the seeded RNG and compute `Q, _ = np.linalg.qr(A)`. Use `Q[:, c]` as the centroid of cluster `c` for `c in range(10)`. Each centroid is a unit vector and the centroids are mutually orthogonal. 2. For each cluster `c in range(10)` and slot `j in range(12)`, draw one fresh `(32,)` standard-normal noise vector from the same RNG and form `row_vec = Q[:, c] + 0.05 * noise`. Cast to `float32`. 3. Assign `id = c * 12 + j` and `cluster_id = c`. * Insert rows in `cluster_id`-major then `j`-major order (cluster 0 ids 0..11, cluster 1 ids 12..23, ...). Do not shuffle. ## MMR Specification * Candidate pool: top-30 rows from a single cosine vector search against the query (`distance_type("cosine").limit(30)`). The remaining 90 rows MUST NOT influence the result. * Similarity throughout MMR is **cosine similarity** `sim(a, b) = (a . b) / (||a|| * ||b||)` computed on the stored float32 vectors. The same metric is used for both the relevance term `sim(q, d)` and the redundancy term `sim(d, d')`. * Iterative selection: while `|selected| < k`, pick the candidate `d` (not yet selected) that maximises `lambda_ * sim(q, d) - (1 - lambda_) * max_{d' in selected} sim(d, d')`. For the very first pick (`selected` empty) the redundancy term is `0`, so the first pick maximises `lambda_ * sim(q, d)`. * Return the IDs in selection order. Length must be exactly `k`. Each id must come from the candidate pool and must not repeat. * Hyperparameter: `lambda_ in [0.0, 1.0]`. Default is `0.5`. The query vector is a 1-D iterable of length 32 (numpy array or list of floats). ## Implementation Hints * Use `lancedb.connect("/app/db")`, `db.create_table(name, schema=..., mode="overwrite")`, and Arrow schemas. `pyarrow.list_(pa.float32(), 32)` is the fixed-size list type LanceDB expects for the vector column. * For the candidate pool, the documented vector-search API is `table.search(query_vec).distance_type("cosine").limit(30).to_list()` (see https://docs.lancedb.com/search/vector-search and https://docs.lancedb.com/quickstart). The returned dicts include the vector, `id`, `cluster_id`, and a `_distance` column where `_distance = 1 - cosine_similarity`. * Use NumPy to compute all subsequent cosine similarities for the MMR loop — do **not** issue extra LanceDB searches per candidate. * Numerical care: normalise vectors once before computing dot products, or divide by `||a|| * ||b||` each time. Use `float64` for the dot products to avoid accumulation noise. * Reading the run id: `os.environ["ZEALT_RUN_ID"]`. Construct the table name from it. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 /home/user/myproject/solution.py` * Database path: `/app/db` * Table name: `mmr_docs_${run-id}` (read `run-id` from `ZEALT_RUN_ID`) * After running the command, opening the table from `/app/db` MUST report exactly 120 rows with `id` values `{0, 1, ..., 119}` and `cluster_id` values `{0..9}` with 12 rows each. * The table vector column MUST be `fixed_size_list<float32, 32>`. * `solution.mmr_search(query_vec, k=10, lambda_=1.0)` MUST equal the top-10 pure cosine vector search ids for the same `query_vec` (no diversity term, so MMR reduces to pure relevance ranking). * `solution.mmr_search(query_vec, k=10, lambda_=0.3)` MUST return ids spanning at least 7 distinct `cluster_id` values (diversity dominates). * `solution.mmr_search(query_vec, k=10, lambda_=0.7)` MUST (a) return ids spanning at least 5 distinct `cluster_id` values and (b) include the pure-vector-search top-1 id for the same `query_vec`. * Returned lists MUST have length 10, contain no duplicate ids, and every id MUST exist in the table.   
+
+Pochi
+💭 Thinking for 269 characters   
+📂 Listing files in /home/user/myproject ✔ 
+💭 Thinking for 292 characters   
+📋 Updating todo list (6 items) ✔ 
+📋 Updating todo list (6 items) ✔ 
+💫 Executing python3 -c "import lancedb; print(lancedb.__version__)" ✔ 
+💫 Executing python3 -c "import pyarrow; print(pyarrow.__version__)" ✔ 
+📋 Updating todo list (6 items) ✔ 
+💭 Thinking for 946 characters   
+💫 Executing python3 -c "import pyarrow as pa; print(pa.list_(pa.float32(), 32))" ✔ 
+💭 Thinking for 751 characters   
+💫 Executing python3 -c '
+import os, numpy as np, pyarrow as pa, lancedb
+os.environ["ZEALT_RUN_ID"] = "test_run"
+db = lancedb.connect("/app/db")
+rng = np.random.default_rng(seed=2026)
+A = rng.standard_normal((32, 32))
+Q, _ = np.linalg.qr(A)
+data = []
+for c in range(10):
+    centroid = Q[:, c]
+    for j in range(12):
+        noise = rng.standard_normal(32)
+        row_vec = centroid + 0.05 * noise
+        data.append({
+            "id": c * 12 + j,
+            "cluster_id": c,
+            "vector": row_vec.astype(np.float32).tolist()
+        })
+schema = pa.schema([
+    pa.field("id", pa.int64()),
+    pa.field("cluster_id", pa.int64()),
+    pa.field("vector", pa.list_(pa.float32(), 32))
+])
+tbl = db.create_table("mmr_docs_test_run", data=data, schema=schema, mode="overwrite")
+print("Rows in table:", len(tbl))
+' ✔ 
+💫 Executing python3 -c '
+import lancedb
+db = lancedb.connect("/app/db")
+tbl = db.open_table("mmr_docs_test_run")
+print("Schema:", tbl.schema)
+print("First row:", tbl.head(1).to_pydict())
+' ✔ 
+💭 Thinking for 277 characters   
+📋 Updating todo list (6 items) ✔ 
+💭 Thinking for 553 characters   
+💫 Executing python3 -c '
+import lancedb, numpy as np
+db = lancedb.connect("/app/db")
+tbl = db.open_table("mmr_docs_test_run")
+q = np.random.default_rng(2026).standard_normal(32).tolist()
+res = tbl.search(q).distance_type("cosine").limit(30).to_list()
+print("Number of results:", len(res))
+print("Keys of first result:", res[0].keys())
+print("First result distance:", res[0]["_distance"])
+' ✔ 
+💭 Thinking for 2280 characters   
+💫 Executing python3 -c '
+import lancedb, numpy as np
+db = lancedb.connect("/app/db")
+tbl = db.open_table("mmr_docs_test_run")
+q = np.random.default_rng(2026).standard_normal(32).astype(np.float32)
+res = tbl.search(q).distance_type("cosine").limit(30).to_list()
+print("Success with float32 array:", len(res))
+q64 = q.astype(np.float64)
+res64 = tbl.search(q64).distance_type("cosine").limit(30).to_list()
+print("Success with float64 array:", len(res64))
+' ✔ 
+💭 Thinking for 518 characters   
+💫 Executing python3 -c '
+import os, numpy as np, lancedb
+
+def mmr_search(query_vec, k=10, lambda_=0.5):
+    db = lancedb.connect("/app/db")
+    tbl = db.open_table("mmr_docs_test_run")
+    
+    # Get candidate pool of top 30
+    candidates = tbl.search(query_vec).distance_type("cosine").limit(30).to_list()
+    if not candidates:
+        return []
+        
+    # Convert query to unit vector
+    q_arr = np.array(query_vec, dtype=np.float64)
+    q_norm = np.linalg.norm(q_arr)
+    if q_norm > 1e-12:
+        q_unit = q_arr / q_norm
+    else:
+        q_unit = q_arr
+        
+    # Convert candidates to unit vectors
+    cand_units = []
+    cand_ids = []
+    cand_clusters = []
+    for c in candidates:
+        cand_ids.append(c["id"])
+        cand_clusters.append(c["cluster_id"])
+        v = np.array(c["vector"], dtype=np.float64)
+        v_norm = np.linalg.norm(v)
+        if v_norm > 1e-12:
+            cand_units.append(v / v_norm)
+        else:
+            cand_units.append(v)
+            
+    n_candidates = len(candidates)
+    # Compute relevance term for all candidates
+    relevances = [np.dot(q_unit, u) for u in cand_units]
+    
+    # Compute similarity matrix between all candidates
+    similarities = np.zeros((n_candidates, n_candidates), dtype=np.float64)
+    for i in range(n_candidates):
+        for j in range(n_candidates):
+            similarities[i, j] = np.dot(cand_units[i], cand_units[j])
+            
+    selected_indices = []
+    for _ in range(min(k, n_candidates)):
+        best_score = -float("inf")
+        best_idx = -1
+        for idx in range(n_candidates):
+            if idx in selected_indices:
+                continue
+                
+            relevance = relevances[idx]
+            if not selected_indices:
+                redundancy = 0.0
+            else:
+                redundancy = max(similarities[idx, sel_idx] for sel_idx in selected_indices)
+                
+            score = lambda_ * relevance - (1.0 - lambda_) * redundancy
+            if score > best_score:
+                best_score = score
+                best_idx = idx
+                
+        if best_idx == -1:
+            break
+        selected_indices.append(best_idx)
+        
+    return [cand_ids[idx] for idx in selected_indices]
+
+# Let us run some tests
+rng = np.random.default_rng(2026)
+q = rng.standard_normal(32).tolist()
+
+# 1. lambda = 1.0 (pure relevance)
+res_1 = mmr_search(q, k=10, lambda_=1.0)
+db = lancedb.connect("/app/db")
+tbl = db.open_table("mmr_docs_test_run")
+pure_top10 = [r["id"] for r in tbl.search(q).distance_type("cosine").limit(10).to_list()]
+print("res_1:", res_1)
+print("pure_top10:", pure_top10)
+assert res_1 == pure_top10, "lambda_=1.0 did not match pure relevance!"
+
+# 2. lambda = 0.3 (diversity dominates)
+res_03 = mmr_search(q, k=10, lambda_=0.3)
+clusters_03 = [tbl.search(f"id = {rid}").to_list()[0]["cluster_id"] for rid in res_03]
+print("res_03 clusters:", clusters_03)
+print("Number of distinct clusters for lambda=0.3:", len(set(clusters_03)))
+assert len(set(clusters_03)) >= 7, "lambda_=0.3 did not span at least 7 distinct clusters!"
+
+# 3. lambda = 0.7
+res_07 = mmr_search(q, k=10, lambda_=0.7)
+clusters_07 = [tbl.search(f"id = {rid}").to_list()[0]["cluster_id"] for rid in res_07]
+print("res_07 clusters:", clusters_07)
+print("Number of distinct clusters for lambda=0.7:", len(set(clusters_07)))
+assert len(set(clusters_07)) >= 5, "lambda_=0.7 did not span at least 5 distinct clusters!"
+assert pure_top10[0] in res_07, "lambda_=0.7 did not include pure-vector-search top-1 id!"
+
+print("All assertion tests passed successfully!")
+' ✖ "Command exited with code 1"
+💭 Thinking for 283 characters   
+💫 Executing python3 -c '
+import os, numpy as np, lancedb
+
+def mmr_search(query_vec, k=10, lambda_=0.5):
+    db = lancedb.connect("/app/db")
+    tbl = db.open_table("mmr_docs_test_run")
+    
+    # Get candidate pool of top 30
+    candidates = tbl.search(query_vec).distance_type("cosine").limit(30).to_list()
+    if not candidates:
+        return []
+        
+    # Convert query to unit vector
+    q_arr = np.array(query_vec, dtype=np.float64)
+    q_norm = np.linalg.norm(q_arr)
+    if q_norm > 1e-12:
+        q_unit = q_arr / q_norm
+    else:
+        q_unit = q_arr
+        
+    # Convert candidates to unit vectors
+    cand_units = []
+    cand_ids = []
+    cand_clusters = []
+    for c in candidates:
+        cand_ids.append(c["id"])
+        cand_clusters.append(c["cluster_id"])
+        v = np.array(c["vector"], dtype=np.float64)
+        v_norm = np.linalg.norm(v)
+        if v_norm > 1e-12:
+            cand_units.append(v / v_norm)
+        else:
+            cand_units.append(v)
+            
+    n_candidates = len(candidates)
+    # Compute relevance term for all candidates
+    relevances = [np.dot(q_unit, u) for u in cand_units]
+    
+    # Compute similarity matrix between all candidates
+    similarities = np.zeros((n_candidates, n_candidates), dtype=np.float64)
+    for i in range(n_candidates):
+        for j in range(n_candidates):
+            similarities[i, j] = np.dot(cand_units[i], cand_units[j])
+            
+    selected_indices = []
+    for _ in range(min(k, n_candidates)):
+        best_score = -float("inf")
+        best_idx = -1
+        for idx in range(n_candidates):
+            if idx in selected_indices:
+                continue
+                
+            relevance = relevances[idx]
+            if not selected_indices:
+                redundancy = 0.0
+            else:
+                redundancy = max(similarities[idx, sel_idx] for sel_idx in selected_indices)
+                
+            score = lambda_ * relevance - (1.0 - lambda_) * redundancy
+            if score > best_score:
+                best_score = score
+                best_idx = idx
+                
+        if best_idx == -1:
+            break
+        selected_indices.append(best_idx)
+        
+    return [cand_ids[idx] for idx in selected_indices]
+
+# Let us run some tests
+rng = np.random.default_rng(2026)
+q = rng.standard_normal(32).tolist()
+
+# 1. lambda = 1.0 (pure relevance)
+res_1 = mmr_search(q, k=10, lambda_=1.0)
+db = lancedb.connect("/app/db")
+tbl = db.open_table("mmr_docs_test_run")
+pure_top10 = [r["id"] for r in tbl.search(q).distance_type("cosine").limit(10).to_list()]
+print("res_1:", res_1)
+print("pure_top10:", pure_top10)
+assert res_1 == pure_top10, "lambda_=1.0 did not match pure relevance!"
+
+# Map id to cluster_id
+all_rows = tbl.to_arrow().to_pylist()
+id_to_cluster = {row["id"]: row["cluster_id"] for row in all_rows}
+
+# 2. lambda = 0.3 (diversity dominates)
+res_03 = mmr_search(q, k=10, lambda_=0.3)
+clusters_03 = [id_to_cluster[rid] for rid in res_03]
+print("res_03 clusters:", clusters_03)
+print("Number of distinct clusters for lambda=0.3:", len(set(clusters_03)))
+assert len(set(clusters_03)) >= 7, "lambda_=0.3 did not span at least 7 distinct clusters!"
+
+# 3. lambda = 0.7
+res_07 = mmr_search(q, k=10, lambda_=0.7)
+clusters_07 = [id_to_cluster[rid] for rid in res_07]
+print("res_07 clusters:", clusters_07)
+print("Number of distinct clusters for lambda=0.7:", len(set(clusters_07)))
+assert len(set(clusters_07)) >= 5, "lambda_=0.7 did not span at least 5 distinct clusters!"
+assert pure_top10[0] in res_07, "lambda_=0.7 did not include pure-vector-search top-1 id!"
+
+print("All assertion tests passed successfully!")
+' ✖ "Command exited with code 1"
+💭 Thinking for 726 characters   
+💫 Executing python3 -c '
+import os, numpy as np, lancedb
+db = lancedb.connect("/app/db")
+tbl = db.open_table("mmr_docs_test_run")
+rng = np.random.default_rng(2026)
+q = rng.standard_normal(32).tolist()
+candidates = tbl.search(q).distance_type("cosine").limit(30).to_list()
+print("Clusters in top 30 candidates:", [c["cluster_id"] for c in candidates])
+print("Distinct clusters in top 30 candidates:", set([c["cluster_id"] for c in candidates]))
+' ✔ 
+💭 Thinking for 694 characters   
+💫 Executing python3 -c '
+import os, numpy as np, lancedb
+db = lancedb.connect("/app/db")
+tbl = db.open_table("mmr_docs_test_run")
+
+rng = np.random.default_rng(seed=2026)
+A = rng.standard_normal((32, 32))
+Q, _ = np.linalg.qr(A)
+
+q_combined = Q[:, :10].sum(axis=1)
+
+candidates = tbl.search(q_combined).distance_type("cosine").limit(30).to_list()
+print("Clusters in top 30 candidates:", [c["cluster_id"] for c in candidates])
+print("Distinct clusters in top 30 candidates:", set([c["cluster_id"] for c in candidates]))
+' ✔ 
+💭 Thinking for 247 characters   
+💫 Executing python3 -c '
+import os, numpy as np, lancedb
+
+def mmr_search(query_vec, k=10, lambda_=0.5):
+    db = lancedb.connect("/app/db")
+    tbl = db.open_table("mmr_docs_test_run")
+    
+    # Get candidate pool of top 30
+    candidates = tbl.search(query_vec).distance_type("cosine").limit(30).to_list()
+    if not candidates:
+        return []
+        
+    # Convert query to unit vector
+    q_arr = np.array(query_vec, dtype=np.float64)
+    q_norm = np.linalg.norm(q_arr)
+    if q_norm > 1e-12:
+        q_unit = q_arr / q_norm
+    else:
+        q_unit = q_arr
+        
+    # Convert candidates to unit vectors
+    cand_units = []
+    cand_ids = []
+    cand_clusters = []
+    for c in candidates:
+        cand_ids.append(c["id"])
+        cand_clusters.append(c["cluster_id"])
+        v = np.array(c["vector"], dtype=np.float64)
+        v_norm = np.linalg.norm(v)
+        if v_norm > 1e-12:
+            cand_units.append(v / v_norm)
+        else:
+            cand_units.append(v)
+            
+    n_candidates = len(candidates)
+    # Compute relevance term for all candidates
+    relevances = [np.dot(q_unit, u) for u in cand_units]
+    
+    # Compute similarity matrix between all candidates
+    similarities = np.zeros((n_candidates, n_candidates), dtype=np.float64)
+    for i in range(n_candidates):
+        for j in range(n_candidates):
+            similarities[i, j] = np.dot(cand_units[i], cand_units[j])
+            
+    selected_indices = []
+    for _ in range(min(k, n_candidates)):
+        best_score = -float("inf")
+        best_idx = -1
+        for idx in range(n_candidates):
+            if idx in selected_indices:
+                continue
+                
+            relevance = relevances[idx]
+            if not selected_indices:
+                redundancy = 0.0
+            else:
+                redundancy = max(similarities[idx, sel_idx] for sel_idx in selected_indices)
+                
+            score = lambda_ * relevance - (1.0 - lambda_) * redundancy
+            if score > best_score:
+                best_score = score
+                best_idx = idx
+                
+        if best_idx == -1:
+            break
+        selected_indices.append(best_idx)
+        
+    return [cand_ids[idx] for idx in selected_indices]
+
+db = lancedb.connect("/app/db")
+tbl = db.open_table("mmr_docs_test_run")
+
+rng = np.random.default_rng(seed=2026)
+A = rng.standard_normal((32, 32))
+Q, _ = np.linalg.qr(A)
+q_combined = Q[:, :10].sum(axis=1).tolist()
+
+# 1. lambda = 1.0 (pure relevance)
+res_1 = mmr_search(q_combined, k=10, lambda_=1.0)
+pure_top10 = [r["id"] for r in tbl.search(q_combined).distance_type("cosine").limit(10).to_list()]
+print("res_1:", res_1)
+print("pure_top10:", pure_top10)
+assert res_1 == pure_top10, "lambda_=1.0 did not match pure relevance!"
+
+# Map id to cluster_id
+all_rows = tbl.to_arrow().to_pylist()
+id_to_cluster = {row["id"]: row["cluster_id"] for row in all_rows}
+
+# 2. lambda = 0.3 (diversity dominates)
+res_03 = mmr_search(q_combined, k=10, lambda_=0.3)
+clusters_03 = [id_to_cluster[rid] for rid in res_03]
+print("res_03 clusters:", clusters_03)
+print("Number of distinct clusters for lambda=0.3:", len(set(clusters_03)))
+assert len(set(clusters_03)) >= 7, "lambda_=0.3 did not span at least 7 distinct clusters!"
+
+# 3. lambda = 0.7
+res_07 = mmr_search(q_combined, k=10, lambda_=0.7)
+clusters_07 = [id_to_cluster[rid] for rid in res_07]
+print("res_07 clusters:", clusters_07)
+print("Number of distinct clusters for lambda=0.7:", len(set(clusters_07)))
+assert len(set(clusters_07)) >= 5, "lambda_=0.7 did not span at least 5 distinct clusters!"
+assert pure_top10[0] in res_07, "lambda_=0.7 did not include pure-vector-search top-1 id!"
+
+print("All assertion tests passed successfully!")
+' ✔ 
+💭 Thinking for 2658 characters   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+📋 Updating todo list (6 items) ✔ 
+💭 Thinking for 258 characters   
+💫 Executing env | grep ZEALT_RUN_ID ✔ 
+💫 Executing python3 /home/user/myproject/solution.py ✔ 
+📋 Updating todo list (6 items) ✔ 
+💭 Thinking for 369 characters   
+✏️  Writing /home/user/myproject/test_solution.py ✔ 
+📋 Updating todo list (6 items) ✔ 
+💫 Executing python3 -m unittest /home/user/myproject/test_solution.py ✖ "Command exited with code 1"
+💫 Executing python3 -m unittest test_solution.py ✔ 
+💭 Thinking for 1723 characters   
+📂 Listing files in /app/db ✔ 
+💫 Executing rm -rf /app/db/mmr_docs_test_run.lance ✔ 
+📂 Listing files in /app/db ✔ 
+📋 Updating todo list (6 items) ✔ 
+💭 Thinking for 153 characters   
+🎉 Task Completed
+I have successfully built and verified the LanceDB MMR Diversity Re-ranking system.
+
+Here is a summary of the implementation:
+
+1. **Deterministic Dataset Generation (`build_dataset`)**:
+   - Seeded `numpy.random.default_rng(seed=2026)` is used.
+   - Computes orthonormal cluster centroids using QR decomposition (`np.linalg.qr`) of a standard-normal matrix `A`.
+   - Generates 10 clusters of 12 vectors each by adding standard-normal noise scaled by `0.05` to each centroid.
+   - Formulates a deterministic schema with `id` (`int64`), `cluster_id` (`int64`), and `vector` (`fixed_size_list<float32, 32>`).
+   - Writes the dataset to LanceDB at `/app/db` with table name `mmr_docs_${ZEALT_RUN_ID}` using the real LanceDB Python SDK.
+
+2. **MMR Search Algorithm (`mmr_search`)**:
+   - Retrieves the top-30 candidate pool using single-query vector search (`distance_type("cosine").limit(30)`).
+   - Normalizes candidate and query vectors to unit length using `float64` precision.
+   - Computes all pairwise cosine similarities via dot products in `float64` to prevent accumulation noise.
+   - Iteratively selects elements maximizing:
+     `score = lambda_ * sim(q, d) - (1 - lambda_) * max_{d' in selected} sim(d, d')`
+     breaking ties in favor of the more relevant candidate retrieved first.
+
+3. **CLI Entrypoint & Automated Verification**:
+   - Running `python3 /home/user/myproject/solution.py` correctly builds the dataset.
+   - A comprehensive test suite (`test_solution.py`) was written and verified to pass all acceptance criteria successfully.   
+  

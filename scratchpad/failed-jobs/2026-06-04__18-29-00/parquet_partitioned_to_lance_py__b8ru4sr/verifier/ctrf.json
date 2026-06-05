@@ -1,0 +1,160 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780598741043,
+            "stop": 1780598744950
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_total_row_count",
+                "status": "passed",
+                "duration": 40,
+                "start": 1780598744765,
+                "stop": 1780598744805,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_row_count_per_year",
+                "status": "passed",
+                "duration": 11,
+                "start": 1780598744806,
+                "stop": 1780598744817,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::year::[2022, 2023, 2024]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_row_count_per_year",
+                "status": "passed",
+                "duration": 6,
+                "start": 1780598744818,
+                "stop": 1780598744824,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::year::[2022, 2023, 2024]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_row_count_per_year",
+                "status": "passed",
+                "duration": 6,
+                "start": 1780598744824,
+                "stop": 1780598744830,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::year::[2022, 2023, 2024]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_schema_has_required_columns",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780598744830,
+                "stop": 1780598744832,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_year_values_are_correct_set",
+                "status": "passed",
+                "duration": 10,
+                "start": 1780598744832,
+                "stop": 1780598744842,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_year_returns_only_requested_year",
+                "status": "passed",
+                "duration": 14,
+                "start": 1780598744843,
+                "stop": 1780598744857,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::year::[2022, 2023, 2024]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_search_year_returns_only_requested_year",
+                "status": "passed",
+                "duration": 14,
+                "start": 1780598744857,
+                "stop": 1780598744871,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::year::[2022, 2023, 2024]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_search_year_returns_only_requested_year",
+                "status": "passed",
+                "duration": 13,
+                "start": 1780598744872,
+                "stop": 1780598744885,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::year::[2022, 2023, 2024]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_search_year_top1_matches_seeded_embedding",
+                "status": "passed",
+                "duration": 15,
+                "start": 1780598744885,
+                "stop": 1780598744900,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_year_matches_direct_lancedb_query",
+                "status": "passed",
+                "duration": 25,
+                "start": 1780598744901,
+                "stop": 1780598744926,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_year_returns_full_k_within_partition",
+                "status": "passed",
+                "duration": 13,
+                "start": 1780598744927,
+                "stop": 1780598744940,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_idempotent_reimport",
+                "status": "passed",
+                "duration": 9,
+                "start": 1780598744941,
+                "stop": 1780598744950,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

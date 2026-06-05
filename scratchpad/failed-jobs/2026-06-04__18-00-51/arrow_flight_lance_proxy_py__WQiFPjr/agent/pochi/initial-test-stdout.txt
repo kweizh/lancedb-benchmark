@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 6 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_pyarrow_flight_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_dir_exists PASSED
+bootstrap/test_initial_state.py::test_documents_table_seeded PASSED
+bootstrap/test_initial_state.py::test_documents_schema_has_expected_columns PASSED
+
+============================== 6 passed in 5.77s ===============================
+pytest-xprocess reminder::Be sure to terminate the started process by running 'pytest --xkill' if you have not explicitly done so in your fixture with 'xprocess.getinfo(<process_name>).terminate()'.

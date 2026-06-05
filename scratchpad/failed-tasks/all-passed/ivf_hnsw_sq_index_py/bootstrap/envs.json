@@ -1,0 +1,4 @@
+{
+    "task": ["LANCE_DB_PATH"],
+    "verifier": ["LANCE_DB_PATH"]
+}

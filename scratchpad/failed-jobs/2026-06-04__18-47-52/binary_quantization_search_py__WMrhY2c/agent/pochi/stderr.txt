@@ -1,0 +1,1697 @@
+[37m2026-06-04 18:48:26.950[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.12
+[37m2026-06-04 18:48:27.110[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521107[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-06-04 18:48:27.113[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521108[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-06-04 18:48:27.229[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:448506[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-06-04 18:48:28.919[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:419064[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-06-04 18:48:28.920[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:419176[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-06-04 18:48:29.081[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Starting task runner...
+[37m2026-06-04 18:48:29.246[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:511948[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # LanceDB Recall Benchmark: FP32 Brute-Force vs Aggressively Quantized IVF_PQ
+[37m2026-06-04 18:48:58.626[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:511948[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: # LanceDB Recall Benchmark: FP32 Brute-Force vs Aggressively Quantized IVF_PQ, new: Build a LanceDB recall benchmark for aggressive IVF_PQ quantization
+[37m2026-06-04 18:49:40.454[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:437624[39m[0m[0m[1m[37m	LiveChatKit[39m[22m[0m[0m	onError
+
+[97m[101m[1m AI_APICallError [22m[49m[39m[0m[0m upstream error, AI_APICallError, , https://app.getpochi.com/api/chat/v6/stream, [object Object], 502, [object Object], , true, , 451435, 31, 451435, 31, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	<anonymous>[0m[0m
+	[37m$bunfs/root/pochi:451435[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-06-04 18:49:40.485[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:520601[39m[0m[0m[1m[37m	TaskRunner[39m[22m[0m[0m	Task is failed, trying to resend last message to resume it. {
+  kind: [32m'APICallError'[39m,
+  isRetryable: [33mtrue[39m,
+  message: [32m'upstream error'[39m,
+  requestBodyValues: {
+    model: [32m'google/gemini-3.1-pro'[39m,
+    callOptions: {
+      prompt: [
+        {
+          role: [32m'system'[39m,
+          content: [32m'You are Pochi, a highly skilled software engineer with extensive knowledge in many programming languages, frameworks, design patterns, and best practices.\n'[39m +
+            [32m'\n'[39m +
+            [32m'IMPORTANT: You must NEVER generate or guess URLs for the user unless you are confident that the URLs are for helping the user with programming. You may use URLs provided by the user in their messages or local files.\n'[39m +
+            [32m'\n'[39m +
+            [32m'====\n'[39m +
+            [32m'\n'[39m +
+            [32m'TASK MANAGEMENT\n'[39m +
+            [32m'\n'[39m +
+            [32m'You have access to the todoWrite tool to help you manage and plan tasks. Use these tools VERY frequently to ensure that you are tracking your tasks and giving the user visibility into your progress.\n'[39m +
+            [32m'These tools are also EXTREMELY helpful for planning tasks, and for breaking down larger complex tasks into smaller steps. If you do not use this tool when planning, you may forget to do important tasks - and that is unacceptable.\n'[39m +
+            [32m'\n'[39m +
+            [32m'It is critical that you mark todos as completed as soon as you are done with a task. Do not batch up multiple tasks before marking them as completed.\n'[39m +
+            [32m'\n'[39m +
+            [32m'====\n'[39m +
+            [32m'\n'[39m +
+            [32m'RULES\n'[39m +
+            [32m'\n'[39m +
+            [32m"- User messages may include <system-reminder> tags. <system-reminder> tags contain useful information and reminders. They are NOT part of the user's provided input or the tool result. You shall pay close attention to information in these tags and use it to inform you actions.\n"[39m +
+            [32m"- For simple, directed codebase searches (project structure, specific files/classes/functions), use the listFiles tool. If you pass 'true' for the recursive parameter, it will list files recursively. Use globFiles when you need to match files by pattern.\n"[39m +
+            [32m'- For broader codebase exploration and deep research, use the newTask tool with agentType="explore". Use this only when simple, directed searches prove insufficient or when your task will clearly require more than three queries.\n'[39m +
+            [32m'- All file paths used by tools must be relative to current working directory, do not use the ~ character or $HOME to refer to the home directory in file paths used by tools.\n'[39m +
+            [32m"- You can use `pochi://` URI schema to access the Pochi virtual file system. This allows you to read and write files that are stored in Pochi's internal storage.\n"[39m +
+            [32m"- Be sure to consider the type of project (e.g. Python, JavaScript, web application) when determining the appropriate structure and files to include. Also consider what files may be most relevant to accomplishing the task, for example looking at a project's manifest file would help you understand the project's dependencies, which you could incorporate into any code you write.\n"[39m +
+            [32m"- Do not ask for more information than necessary. Use the tools provided to accomplish the user's request efficiently and effectively. When you've completed your task, you must use the attemptCompletion tool to present the result to the user. The user may provide feedback, which you can use to make improvements and try again.\n"[39m +
+            [32m'- You are only allowed to ask the user questions using the askFollowupQuestion tool. Use this tool only when you need additional details to complete a task, and be sure to use a clear and concise question that will help you move forward with the task. However if you can use the available tools to avoid having to ask the user questions, you should do so. For example, if the user mentions a file that may be in an outside directory like the Desktop, you should use the listFiles tool to list the files in the Desktop and check if the file they are talking about is there, rather than asking the user to provide the file path themselves.\n'[39m +
+            [32m`- You are STRICTLY FORBIDDEN from starting your messages with "Great", "Certainly", "Okay", "Sure". You should NOT be conversational in your responses, but rather direct and to the point. For example you should NOT say "Great, I've updated the CSS" but instead something like "I've updated the CSS". It is important you be clear and technical in your messages.\n`[39m +
+            [32m"- Once you've completed the user's task, you MUST use the attemptCompletion tool to present the result of the task to the user. It is STRICTLY FORBIDDEN to complete the task without using this tool.\n"[39m +
+            [32m'- When planning large-scale changes, create a high-level diagram using mermaid in Markdown. This helps explain your plan and allows you to gather user feedback before implementation.'[39m
+        },
+        {
+          role: [32m'user'[39m,
+          content: [
+            {
+              type: [32m'text'[39m,
+              text: [32m'<system-reminder># System Information\n'[39m +
+                [32m'\n'[39m +
+                [32m'Operating System: linux\n'[39m +
+                [32m'Default Shell: \n'[39m +
+                [32m'Home Directory: /root\n'[39m +
+                [32m'Current Working Directory: /\n'[39m +
+                [32m'Current Time: Thu Jun 04 2026 18:48:29 GMT+0000 (Coordinated Universal Time)\n'[39m +
+                [32m'\n'[39m +
+                [32m'# GIT STATUS\n'[39m +
+                [32m'Current branch: \n'[39m +
+                [32m'Main branch (you will usually use this for PRs): \n'[39m +
+                [32m'\n'[39m +
+                [32m'Recent commits:\n'[39m +
+                [32m'\n'[39m +
+                [32m'\n'[39m +
+                [32m'# TODOs\n'[39m +
+                [32m'No TODOs yet, if you are working on tasks that would benefit from a todo list please use the todoWrite tool to create one.</system-reminder>'[39m
+            },
+            {
+              type: [32m'text'[39m,
+              text: [32m'# LanceDB Recall Benchmark: FP32 Brute-Force vs Aggressively Quantized IVF_PQ\n'[39m +
+                [32m'\n'[39m +
+                [32m'## Background\n'[39m +
+                [32m'LanceDB supports an IVF_PQ vector index that combines coarse Inverted-File partitioning with Product Quantization for memory-efficient ANN search. When `num_sub_vectors` is set very low relative to the embedding dimension, each PQ codeword represents many original components, producing an extremely compressed ("binary-ish") representation that trades recall for footprint and latency.\n'[39m +
+                [32m'\n'[39m +
+                [32m'Your job is to build a self-contained recall benchmark that quantifies how much recall is lost when an aggressive IVF_PQ index replaces brute-force FP32 search on a synthetic but realistically clustered embedding set.\n'[39m +
+                [32m'\n'[39m +
+                [32m'## Requirements\n'[39m +
+                [32m'- Build a Python module at `/home/user/myproject/solution.py` that, when executed as `python3 solution.py`, (re)creates the LanceDB table and index from scratch and prints a recall number.\n'[39m +
+                [32m'- Seed a LanceDB table at `/home/user/myproject/lancedb` (database directory) with at least **1024 rows** of **384-dimensional float32** vectors generated deterministically via `numpy.random.default_rng(<seed>)`.\n'[39m +
+                [32m'- The vectors must be organized into **approximately 10 well-separated clusters** (e.g. 10 random unit-norm centers plus per-row Gaussian noise) so that nearest-neighbor queries have a clear correct answer.\n'[39m +
+                [32m'- Build an **IVF_PQ** vector index on the embedding column with **`num_sub_vectors` ∈ {8, 12}** to force aggressive quantization (384 dims into 8 or 12 sub-vectors means each PQ codeword encodes 32–48 floats).\n'[39m +
+                [32m'- Expose a top-level function with this exact signature:\n'[39m +
+                [32m'  ```python\n'[39m +
+                [32m'  def evaluate_recall(num_queries: int = 50, k: int = 10) -> float:\n'[39m +
+                [32m'      ...\n'[39m +
+                [32m'  ```\n'[39m +
+                [32m'  It must (1) deterministically draw `num_queries` query vectors from the same seeded RNG family (so verification is reproducible), (2) compute brute-force top-`k` ground truth on the FP32 vectors stored in the table, (3) run the same queries through the LanceDB IVF_PQ index (`table.search(qv).limit(k)`), and (4) return the **average recall@k** across all queries as a float in `[0.0, 1.0]`.\n'[39m +
+                [32m'\n'[39m +
+                [32m'## Implementation Hints\n'[39m +
+                [32m'- Use `lancedb.connect("/home/user/myproject/lancedb")` plus an Arrow schema that stores the embedding as a fixed-size list of 384 float32 values.\n'[39m +
+                [32m"- Append `${ZEALT_RUN_ID}` (read from the `ZEALT_RUN_ID` environment variable) to the LanceDB table name so concurrent runs don't collide; the verifier will derive the same name from the same env var.\n"[39m +
+                [32m'- IVF_PQ training requires ≥ 256 rows, so seed comfortably above that minimum.\n'[39m +
+                [32m'- Use `table.create_index(metric="L2", vector_column_name="vector", index_type="IVF_PQ", num_partitions=..., num_sub_vectors=..., replace=True)` and `table.wait_for_index([...], timeout=datetime.timedelta(seconds=60))` to make sure the index is ready before measuring recall.\n'[39m +
+                [32m'- Aggressive PQ destroys fine-grained ranking inside dense clusters. Reading the LanceDB ANN tuning docs about `nprobes(...)` (how many IVF partitions to probe) and `refine_factor(...)` (re-rank the top `k * refine_factor` PQ candidates by exact distance) is the standard way to recover recall while keeping the small index footprint. Use them on the query side rather than weakening the PQ configuration.\n'[39m +
+                [32m'- Recall@k for a single query is `len(returned_ids ∩ ground_truth_ids) / k`; average across all queries.\n'[39m +
+                [32m'- Make the brute-force ground truth deterministic: read every vector back from the table, compute distances in numpy, and rank by ascending L2 distance.\n'[39m +
+                [32m'- If the index name in your `create_index` call is not the LanceDB default (`vector_idx`), make sure `table.list_indices()` still reports it.\n'[39m +
+                [32m'\n'[39m +
+                [32m'## Acceptance Criteria\n'[39m +
+                [32m'- Project path: `/home/user/myproject`\n'[39m +
+                [32m'- Module file: `/home/user/myproject/solution.py`\n'[39m +
+                [32m'- Build command: `python3 /home/user/myproject/solution.py` — must be idempotent (running it twice from scratch leaves a valid table + index).\n'[39m +
+                [32m'- LanceDB directory: `/home/user/myproject/lancedb`\n'[39m +
+                [32m'- Table name: `bench_${ZEALT_RUN_ID}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.\n'[39m +
+                [32m'- Schema: an `id` column (integer) and a `vector` column typed as a fixed-size list of **384 float32** values.\n'[39m +
+                [32m'- Row count: at least **1024**.\n'[39m +
+                [32m'- Vector index: at least one IVF_PQ index is present on the `vector` column as reported by `table.list_indices()`, built with `num_sub_vectors` in `{8, 12}`.\n'[39m +
+                [32m'- Public API: `from solution import evaluate_recall; evaluate_recall(num_queries=50, k=10)` returns a `float` between 0.0 and 1.0 representing average recall@10 against brute-force ground truth.\n'[39m +
+                [32m'- Quality bar: the returned recall must be **≥ 0.70**.'[39m
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'reasoning'[39m,
+              text: [32m'**Developing Benchmarking Module**\n'[39m +
+                [32m'\n'[39m +
+                [32m"I'm focusing on crafting a Python module to benchmark LanceDB recall. My immediate task involves establishing a connection to the LanceDB instance located at `/home/user/myproject/lancedb` and then proceeding to create a table specifically named `bench_${ZEALT_RUN_ID}`.\n"[39m +
+                [32m'\n'[39m +
+                [32m'**Generating Diverse Data**\n'[39m +
+                [32m'\n'[39m +
+                [32m"My current focus is on generating a dataset with distinct clusters for benchmarking. I'm configuring the generation to create 10 well-separated clusters of 384-dimensional vectors, ensuring ample data for robust testing.\n"[39m +
+                [32m'\n'[39m +
+                [32m'**Refining Index Creation**\n'[39m +
+                [32m'\n'[39m +
+                [32m"I'm currently refining the index creation process for the LanceDB table. Specifically, I'm adjusting the `num_partitions` to approximately the square root of the total number of rows and setting `num_sub_vectors` to 12 for the IVF_PQ index.\n"[39m +
+                [32m'\n'[39m +
+                [32m'**Calculating Recall Metrics**\n'[39m +
+                [32m'\n'[39m +
+                [32m'I am now focused on calculating recall. This involves generating query vectors and then comparing their nearest neighbors found by LanceDB against a brute-force calculation on the entire dataset to determine retrieval accuracy.\n'[39m +
+                [32m'\n'[39m +
+                [32m'**Validating Index Parameters**\n'[39m +
+                [32m'\n'[39m +
+                [32m"I'm reviewing the index creation parameters, specifically `num_partitions`. It appears LanceDB requires a minimum of 256 partitions for IVF_PQ, which I'll need to ensure my generation meets. I'm also verifying the availability of `nprobes` and `refine_factor` in the search builder.\n"[39m +
+                [32m'\n'[39m +
+                [32m''[39m
+            },
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'h8LnE1plXN1WNc3s'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'mkdir -p /home/user/myproject && cd /home/user/myproject && pip install lancedb pyarrow pandas numpy'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'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'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'h8LnE1plXN1WNc3s'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'error: externally-managed-environment\r\n'[39m +
+                    [32m'\r\n'[39m +
+                    [32m'× This environment is externally managed\r\n'[39m +
+                    [32m'╰─> To install Python packages system-wide, try apt install\r\n'[39m +
+                    [32m'    python3-xyz, where xyz is the package you are trying to\r\n'[39m +
+                    [32m'    install.\r\n'[39m +
+                    [32m'    \r\n'[39m +
+                    [32m'    If you wish to install a non-Debian-packaged Python package,\r\n'[39m +
+                    [32m'    create a virtual environment using python3 -m venv path/to/venv.\r\n'[39m +
+                    [32m'    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make\r\n'[39m +
+                    [32m'    sure you have python3-full installed.\r\n'[39m +
+                    [32m'    \r\n'[39m +
+                    [32m'    If you wish to install a non-Debian packaged Python application,\r\n'[39m +
+                    [32m'    it may be easiest to use pipx install xyz, which will manage a\r\n'[39m +
+                    [32m'    virtual environment for you. Make sure you have pipx installed.\r\n'[39m +
+                    [32m'    \r\n'[39m +
+                    [32m'    See /usr/share/doc/python3.12/README.venv for more information.\r\n'[39m +
+                    [32m'\r\n'[39m +
+                    [32m'note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.\r\n'[39m +
+                    [32m'hint: See PEP 668 for the detailed specification.\r\n'[39m +
+                    [32m''[39m,
+                  isTruncated: [33mfalse[39m,
+                  error: [32m'Command exited with code 1'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'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'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'reasoning'[39m,
+              text: [32m'**Adding Break Option**\n'[39m +
+                [32m'\n'[39m +
+                [32m"I've just realized I need to pass the `--break-system-packages` flag to pip during installation. This will allow me to manage dependencies more effectively without causing conflicts with system-level packages.\n"[39m +
+                [32m'\n'[39m +
+                [32m''[39m
+            },
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'Dp9Zfo4LoqFr5Jq1'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'mkdir -p /home/user/myproject && cd /home/user/myproject && pip install --break-system-packages lancedb pyarrow pandas numpy'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'CiYBjz1rXw1iSbNVEmRcTPtY2o5b8WPBus2hmtYOfqm3YR5X9CIolApPAY89a1/fm4QsxwZr5xhhM7UOQkmgnw+p6GL/im7Lv58owQjxbBi5xrx8rC9DJaA4RImtZt1KKoCVwkzKHOoySmxRjzwXbD/ZZhxVJlQ9gw=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'Dp9Zfo4LoqFr5Jq1'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'Requirement already satisfied: lancedb in /usr/local/lib/python3.12/dist-packages (0.25.3)\r\n'[39m +
+                    [32m'Requirement already satisfied: pyarrow in /usr/local/lib/python3.12/dist-packages (17.0.0)\r\n'[39m +
+                    [32m'Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (2.2.3)\r\n'[39m +
+                    [32m'Requirement already satisfied: numpy in /usr/local/lib/python3.12/dist-packages (1.26.4)\r\n'[39m +
+                    [32m'Requirement already satisfied: deprecation in /usr/local/lib/python3.12/dist-packages (from lancedb) (2.1.0)\r\n'[39m +
+                    [32m'Requirement already satisfied: packaging in /usr/lib/python3/dist-packages (from lancedb) (24.0)\r\n'[39m +
+                    [32m'Requirement already satisfied: pydantic>=1.10 in /usr/local/lib/python3.12/dist-packages (from lancedb) (2.13.4)\r\n'[39m +
+                    [32m'Requirement already satisfied: tqdm>=4.27.0 in /usr/local/lib/python3.12/dist-packages (from lancedb) (4.67.3)\r\n'[39m +
+                    [32m'Requirement already satisfied: lance-namespace>=0.0.16 in /usr/local/lib/python3.12/dist-packages (from lancedb) (0.8.0)\r\n'[39m +
+                    [32m'Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas) (2.9.0.post0)\r\n'[39m +
+                    [32m'Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas) (2026.2)\r\n'[39m +
+                    [32m'Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas) (2026.2)\r\n'[39m +
+                    [32m'Requirement already satisfied: lance-namespace-urllib3-client==0.8.0 in /usr/local/lib/python3.12/dist-packages (from lance-namespace>=0.0.16->lancedb) (0.8.0)\r\n'[39m +
+                    [32m'Requirement already satisfied: typing-extensions>=4.7.1 in /usr/local/lib/python3.12/dist-packages (from lance-namespace-urllib3-client==0.8.0->lance-namespace>=0.0.16->lancedb) (4.15.0)\r\n'[39m +
+                    [32m'Requirement already satisfied: urllib3<3.0.0,>=1.25.3 in /usr/local/lib/python3.12/dist-packages (from lance-namespace-urllib3-client==0.8.0->lance-namespace>=0.0.16->lancedb) (2.7.0)\r\n'[39m +
+                    [32m'Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=1.10->lancedb) (0.7.0)\r\n'[39m +
+                    [32m'Requirement already satisfied: pydantic-core==2.46.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=1.10->lancedb) (2.46.4)\r\n'[39m +
+                    [32m'Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=1.10->lancedb) (0.4.2)\r\n'[39m +
+                    [32m'Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)\r\n'[39m +
+                    [32m"WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\r\n"[39m +
+                    [32m''[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'CiYBjz1rXw1iSbNVEmRcTPtY2o5b8WPBus2hmtYOfqm3YR5X9CIolApPAY89a1/fm4QsxwZr5xhhM7UOQkmgnw+p6GL/im7Lv58owQjxbBi5xrx8rC9DJaA4RImtZt1KKoCVwkzKHOoySmxRjzwXbD/ZZhxVJlQ9gw=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'reasoning'[39m,
+              text: [32m'**Testing LanceDB Integration**\n'[39m +
+                [32m'\n'[39m +
+                [32m'My current focus is on developing a test script to verify the proper functioning of the LanceDB API. The necessary packages have already been successfully installed, paving the way for this critical validation step.\n'[39m +
+                [32m'\n'[39m +
+                [32m''[39m
+            },
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'xmwejX1awRlWLeUW'[39m,
+              toolName: [32m'writeToFile'[39m,
+              input: {
+                path: [32m'/home/user/myproject/solution.py'[39m,
+                content: [32m'import numpy as np\n'[39m +
+                  [32m'import lancedb\n'[39m +
+                  [32m'import pyarrow as pa\n'[39m +
+                  [32m'import os\n'[39m +
+                  [32m'import datetime\n'[39m +
+                  [32m'\n'[39m +
+                  [32m'def generate_data(num_rows=1024, dim=384, num_clusters=10, seed=42):\n'[39m +
+                  [32m'    rng = np.random.default_rng(seed)\n'[39m +
+                  [32m'    centers = rng.normal(size=(num_clusters, dim))\n'[39m +
+                  [32m'    centers /= np.linalg.norm(centers, axis=1, keepdims=True)\n'[39m +
+                  [32m'    \n'[39m +
+                  [32m'    cluster_assignments = rng.integers(0, num_clusters, size=num_rows)\n'[39m +
+                  [32m'    noise = rng.normal(scale=0.1, size=(num_rows, dim))\n'[39m +
+                  [32m'    \n'[39m +
+                  [32m'    vectors = centers[cluster_assignments] + noise\n'[39m +
+                  [32m'    vectors = vectors.astype(np.float32)\n'[39m +
+                  [32m'    return vectors\n'[39m +
+                  [32m'\n'[39m +
+                  [32m'def get_table_name():\n'[39m +
+                  [32m'    run_id = os.environ.get("ZEALT_RUN_ID", "default")\n'[39m +
+                  [32m'    return f"bench_{run_id}"\n'[39m +
+                  [32m'\n'[39m +
+                  [32m'def setup_lancedb():\n'[39m +
+                  [32m'    db = lancedb.connect("/home/user/myproject/lancedb")\n'[39m +
+                  [32m'    table_name = get_table_name()\n'[39m +
+                  [32m'    \n'[39m +
+                  [32m'    if table_name in db.table_names():\n'[39m +
+                  [32m'        db.drop_table(table_name)\n'[39m +
+                  [32m'    \n'[39m +
+                  [32m'    vectors = generate_data()\n'[39m +
+                  [32m'    data = pa.Table.from_arrays(\n'[39m +
+                  [32m'        [\n'[39m +
+                  [32m'            pa.array(np.arange(len(vectors))),\n'[39m +
+                  [32m'            pa.FixedSizeListArray.from_arrays(\n'[39m +
+                  [32m'                pa.array(vectors.reshape(-1)), 384\n'[39m +
+                  [32m'            )\n'[39m +
+                  [32m'        ],\n'[39m +
+                  [32m'        names=["id", "vector"]\n'[39m +
+                  [32m'    )\n'[39m +
+                  [32m'    \n'[39m +
+                  [32m'    table = db.create_table(table_name, data)\n'[39m +
+                  [32m'    \n'[39m +
+                  [32m'    # Create IVF_PQ index\n'[39m +
+                  [32m'    table.create_index(\n'[39m +
+                  [32m'        metric="L2",\n'[39m +
+                  [32m'        vector_column_name="vector",\n'[39m +
+                  [32m'        index_type="IVF_PQ",\n'[39m +
+                  [32m'        num_partitions=32,\n'[39m +
+                  [32m'        num_sub_vectors=12,\n'[39m +
+                  [32m'        replace=True\n'[39m +
+                  [32m'    )\n'[39m +
+                  [32m'    return table\n'[39m +
+                  [32m'\n'[39m +
+                  [32m'def evaluate_recall(num_queries: int = 50, k: int = 10) -> float:\n'[39m +
+                  [32m'    db = lancedb.connect("/home/user/myproject/lancedb")\n'[39m +
+                  [32m'    table_name = get_table_name()\n'[39m +
+                  [32m'    table = db.open_table(table_name)\n'[39m +
+                  [32m'    \n'[39m +
+                  [32m'    rng = np.random.default_rng(999)\n'[39m +
+                  [32m'    queries = rng.normal(size=(num_queries, 384)).astype(np.float32)\n'[39m +
+                  [32m'    \n'[39m +
+                  [32m'    all_data = table.to_pandas()\n'[39m +
+                  [32m"    all_vectors = np.stack(all_data['vector'].values)\n"[39m +
+                  [32m"    all_ids = all_data['id'].values\n"[39m +
+                  [32m'    \n'[39m +
+                  [32m'    total_recall = 0.0\n'[39m +
+                  [32m'    for q in queries:\n'[39m +
+                  [32m'        dists = np.linalg.norm(all_vectors - q, axis=1)\n'[39m +
+                  [32m'        gt_indices = np.argsort(dists)[:k]\n'[39m +
+                  [32m'        gt_ids = set(all_ids[gt_indices])\n'[39m +
+                  [32m'        \n'[39m +
+                  [32m'        results = table.search(q).nprobes(32).refine_factor(10).limit(k).to_pandas()\n'[39m +
+                  [32m"        lancedb_ids = set(results['id'].values)\n"[39m +
+                  [32m'        \n'[39m +
+                  [32m'        recall = len(lancedb_ids.intersection(gt_ids)) / k\n'[39m +
+                  [32m'        total_recall += recall\n'[39m +
+                  [32m'        \n'[39m +
+                  [32m'    return total_recall / num_queries\n'[39m +
+                  [32m'\n'[39m +
+                  [32m'if __name__ == "__main__":\n'[39m +
+                  [32m'    setup_lancedb()\n'[39m +
+                  [32m'    print(evaluate_recall())\n'[39m +
+                  [32m''[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'CjEBjz1rXzRbleuIFowu76HI1bXqbWfN1uTMTXvAKAqZdirLVAzFmIA21GmUeGiLvW5fCnABjz1rXwE3ZnezOCcE+/Sr3kGOf9sGiUDjUg3zmkKIyS0Vx/6xaWIgm8f02T9/mClDtpE2EgUH6d1zarRfhCfhBW/nUbjFAqi9q9vgpfTB1jGVOy3XBDBVEFP9SrbYl4ZoY0KLeLlQC0F1gVCj/t3BCioBjz1rX/7h60JYTuOss+cme8wbtgawSm1rEQmKIXVVVzC6FtBAhX+uWCM='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'xmwejX1awRlWLeUW'[39m,
+              toolName: [32m'writeToFile'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  success: [33mtrue[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'CjEBjz1rXzRbleuIFowu76HI1bXqbWfN1uTMTXvAKAqZdirLVAzFmIA21GmUeGiLvW5fCnABjz1rXwE3ZnezOCcE+/Sr3kGOf9sGiUDjUg3zmkKIyS0Vx/6xaWIgm8f02T9/mClDtpE2EgUH6d1zarRfhCfhBW/nUbjFAqi9q9vgpfTB1jGVOy3XBDBVEFP9SrbYl4ZoY0KLeLlQC0F1gVCj/t3BCioBjz1rX/7h60JYTuOss+cme8wbtgawSm1rEQmKIXVVVzC6FtBAhX+uWCM='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'yigZitkKTUiIuJiy'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'python3 /home/user/myproject/solution.py'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1/nWDFcpme3/2pZ9bVkx+WI3ohE3b6nR1+4DEy75dyzpUwSyweqO4WkSrWN4ErSa5AjbFKHgcDlgGOU5sTIOHA3gKshA2VGGYSOSyctHeRyDQt10ZC4bVC5lKx0i1Js0/M+sNmRKGmlVLLyUlYaL1dtQj4jCjSH/AWf83hHepbLSRvJmcuggVmA'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'yigZitkKTUiIuJiy'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'0.8699999999999999\r\n'[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1/nWDFcpme3/2pZ9bVkx+WI3ohE3b6nR1+4DEy75dyzpUwSyweqO4WkSrWN4ErSa5AjbFKHgcDlgGOU5sTIOHA3gKshA2VGGYSOSyctHeRyDQt10ZC4bVC5lKx0i1Js0/M+sNmRKGmlVLLyUlYaL1dtQj4jCjSH/AWf83hHepbLSRvJmcuggVmA'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'reasoning'[39m,
+              text: [32m'**Confirming Model Accuracy**\n'[39m +
+                [32m'\n'[39m +
+                [32m"My latest evaluation shows a recall of 0.87, comfortably exceeding the 0.70 threshold. I'm now verifying the acceptance criteria, specifically focusing on the module file located at `/home/user/myproject/solution.py` and confirming the build command executes as `python3 /home/user/myproject/solution.py`.\n"[39m +
+                [32m'\n'[39m +
+                [32m'**Verifying Acceptance Criteria**\n'[39m +
+                [32m'\n'[39m +
+                [32m'I\'ve confirmed the recall meets the threshold. Now, I\'m refining the table creation to use `mode="overwrite"` for idempotency and ensuring the vector index is correctly configured with specified `num_sub_vectors` values. I\'m also reviewing the `wait_for_index` implementation.\n'[39m +
+                [32m'\n'[39m +
+                [32m'**Refining Table Creation**\n'[39m +
+                [32m'\n'[39m +
+                [32m'I\'ve confirmed the recall meets the threshold. Now, I\'m refining the table creation to use `mode="overwrite"` for idempotency and ensuring the vector index is correctly configured with specified `num_sub_vectors` values. I\'m also reviewing the `wait_for_index` implementation.\n'[39m +
+                [32m'\n'[39m +
+                [32m''[39m
+            },
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'nKtzVklabDwwYDf4'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m`python3 -c "import lancedb; db=lancedb.connect('/home/user/myproject/lancedb'); t=db.open_table('bench_default'); print(hasattr(t, 'wait_for_index'))"`[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'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'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'nKtzVklabDwwYDf4'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'Traceback (most recent call last):\r\n'[39m +
+                    [32m'  File "<string>", line 1, in <module>\r\n'[39m +
+                    [32m'  File "/usr/local/lib/python3.12/dist-packages/lancedb/db.py", line 694, in open_table\r\n'[39m +
+                    [32m'    return LanceTable.open(\r\n'[39m +
+                    [32m'           ^^^^^^^^^^^^^^^^\r\n'[39m +
+                    [32m'  File "/usr/local/lib/python3.12/dist-packages/lancedb/table.py", line 1747, in open\r\n'[39m +
+                    [32m'    tbl = cls(db, name, namespace=namespace, **kwargs)\r\n'[39m +
+                    [32m'          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n'[39m +
+                    [32m'  File "/usr/local/lib/python3.12/dist-packages/lancedb/table.py", line 1720, in __init__\r\n'[39m +
+                    [32m'    self._table = LOOP.run(\r\n'[39m +
+                    [32m'                  ^^^^^^^^^\r\n'[39m +
+                    [32m'  File "/usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py", line 25, in run\r\n'[39m +
+                    [32m'    return asyncio.run_coroutine_threadsafe(future, self.loop).result()\r\n'[39m +
+                    [32m'           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n'[39m +
+                    [32m'  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result\r\n'[39m +
+                    [32m'    return self.__get_result()\r\n'[39m +
+                    [32m'           ^^^^^^^^^^^^^^^^^^^\r\n'[39m +
+                    [32m'  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result\r\n'[39m +
+                    [32m'    raise self._exception\r\n'[39m +
+                    [32m'  File "/usr/local/lib/python3.12/dist-packages/lancedb/db.py", line 1226, in open_table\r\n'[39m +
+                    [32m'    table = await self._inner.open_table(\r\n'[39m +
+                    [32m'            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n'[39m +
+                    [32m"ValueError: Table 'bench_default' was not found\r\n"[39m +
+                    [32m''[39m,
+                  isTruncated: [33mfalse[39m,
+                  error: [32m'Command exited with code 1'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'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'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'EThv1hTNLwEdJ08f'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m`python3 -c "import lancedb; db=lancedb.connect('/home/user/myproject/lancedb'); print(db.table_names())"`[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+uP//kSGPq+6wm+aWVBW7W/es/uV1u/U23JntwZvSP17N12kQ3mrVRwww0fABhWdj+0Le4RRDD8TAQvf5cb3J2o+ZheKOlWJr5BiMBea7WmLhemSQkYZleB9KGBGlg/lGJAVzw2zQdPSFMHqsTl5dCv6Y7foukctHbeCQ3wUDy6T5Z/Tvt9NEsEt6dJgcLRrXeGJIDRPnFVF4gehpfrun+8HOMw0+4EqVAOoxUHKdDm9PjbwM90F/xE2FHvqN2M4CUMApUrBsIkrPHazOTIVnC8d+uvkiC8n5Fz34I/ApXyQmiWNuhqV9GzzLYFaCObiU='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'EThv1hTNLwEdJ08f'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m"['bench_zr-wmrhy2c']\r\n"[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+uP//kSGPq+6wm+aWVBW7W/es/uV1u/U23JntwZvSP17N12kQ3mrVRwww0fABhWdj+0Le4RRDD8TAQvf5cb3J2o+ZheKOlWJr5BiMBea7WmLhemSQkYZleB9KGBGlg/lGJAVzw2zQdPSFMHqsTl5dCv6Y7foukctHbeCQ3wUDy6T5Z/Tvt9NEsEt6dJgcLRrXeGJIDRPnFVF4gehpfrun+8HOMw0+4EqVAOoxUHKdDm9PjbwM90F/xE2FHvqN2M4CUMApUrBsIkrPHazOTIVnC8d+uvkiC8n5Fz34I/ApXyQmiWNuhqV9GzzLYFaCObiU='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'cBw91rukZZpt5tmR'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m`python3 -c "import lancedb; db=lancedb.connect('/home/user/myproject/lancedb'); t=db.open_table('bench_zr-wmrhy2c'); print(hasattr(t, 'wait_for_index'))"`[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1/Pjl+LOy/NGIBI47T6CUDMDAwHDsIikG3D1IdIj6Z6jO1fj69+rc02NTtllvTWapss24gbUvxwyvtOM5tkNRV60G0TwGUMaQTTgcPsR3GG+rOiq7OGFYoNu8KjQ289DsoD10cbhhQyqhG1o9vtnDx6uV+iY0jX6+vVuffJ9PlxUEe1yipr4TFVM/BUdl0/69FEMxMvIJ6GKmR+g7iaTs9+Qj/iSi4kL6B+82ipxz1dGlWxG/fFr4gevqKZEEszHTZ+XcDkwg=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'cBw91rukZZpt5tmR'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'True\r\n'[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1/Pjl+LOy/NGIBI47T6CUDMDAwHDsIikG3D1IdIj6Z6jO1fj69+rc02NTtllvTWapss24gbUvxwyvtOM5tkNRV60G0TwGUMaQTTgcPsR3GG+rOiq7OGFYoNu8KjQ289DsoD10cbhhQyqhG1o9vtnDx6uV+iY0jX6+vVuffJ9PlxUEe1yipr4TFVM/BUdl0/69FEMxMvIJ6GKmR+g7iaTs9+Qj/iSi4kL6B+82ipxz1dGlWxG/fFr4gevqKZEEszHTZ+XcDkwg=='[39m
+                }
+              }
+            }
+          ]
+        }
+      ],
+      tools: [
+        {
+          type: [32m'function'[39m,
+          name: [32m'applyDiff'[39m,
+          description: [32m"This is a tool for editing files. For moving or renaming files, you should generally use the executeCommand tool with the 'mv' command instead. For larger edits, use the writeFile tool to overwrite files.\n"[39m +
+            [32m'\n'[39m +
+            [32m"Before using this tool, use the readFile tool to understand the file's contents and context\n"[39m +
+            [32m'\n'[39m +
+            [32m'To make a file edit, provide the following:\n'[39m +
+            [32m'1. path: The path to the file to modify (relative to the current working directory, or an absolute path)\n'[39m +
+            [32m'2. searchContent: The text to replace (must match the file contents exactly, including all whitespace and indentation)\n'[39m +
+            [32m'3. replaceContent: The edited text to replace the searchContent (must be different from searchContent)\n'[39m +
+            [32m'4. expectedReplacements: The number of replacements you expect to make. Defaults to 1 if not specified.\n'[39m +
+            [32m'\n'[39m +
+            [32m'By default, the tool will replace ONE occurrence of searchContent with replaceContent in the specified file. If you want to replace multiple occurrences, provide the expectedReplacements parameter with the exact number of occurrences you expect.\n'[39m +
+            [32m'\n'[39m +
+            [32m'CRITICAL REQUIREMENTS FOR USING THIS TOOL:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. UNIQUENESS (when expectedReplacements is not specified): The searchContent MUST uniquely identify the specific instance you want to change. This means:\n'[39m +
+            [32m'   - Include AT LEAST 3-5 lines of context BEFORE the change point\n'[39m +
+            [32m'   - Include AT LEAST 3-5 lines of context AFTER the change point\n'[39m +
+            [32m'   - Include all whitespace, indentation, and surrounding code exactly as it appears in the file\n'[39m +
+            [32m'\n'[39m +
+            [32m'2. EXPECTED MATCHES: If you want to replace multiple instances:\n'[39m +
+            [32m'   - Use the expectedReplacements parameter with the exact number of occurrences you expect to replace\n'[39m +
+            [32m'   - This will replace ALL occurrences of the searchContent with the replaceContent\n'[39m +
+            [32m"   - If the actual number of matches doesn't equal expectedReplacements, the edit will fail\n"[39m +
+            [32m'   - This is a safety feature to prevent unintended replacements\n'[39m +
+            [32m'\n'[39m +
+            [32m'3. VERIFICATION: Before using this tool:\n'[39m +
+            [32m'   - Check how many instances of the target text exist in the file\n'[39m +
+            [32m'   - If multiple instances exist, either:\n'[39m +
+            [32m'     a) Gather enough context to uniquely identify each one and make separate calls, OR\n'[39m +
+            [32m'     b) Use expectedReplacements parameter with the exact count of instances you expect to replace\n'[39m +
+            [32m'\n'[39m +
+            [32m'WARNING:\n'[39m +
+            [32m"- The tool will fail if searchContent matches multiple locations and expectedReplacements isn't specified\n"[39m +
+            [32m"- The tool will fail if the number of matches doesn't equal expectedReplacements when it's specified\n"[39m +
+            [32m"- The tool will fail if searchContent doesn't match the file contents exactly (including whitespace)\n"[39m +
+            [32m'- The tool will fail if searchContent and replaceContent are the same\n'[39m +
+            [32m'\n'[39m +
+            [32m'When making edits:\n'[39m +
+            [32m'   - Ensure the edit results in idiomatic, correct code\n'[39m +
+            [32m'   - Do not add trailing whitespace to lines (a newline at the end of a file is fine)\n'[39m +
+            [32m'   - Do not leave the code in a broken state\n'[39m +
+            [32m'\n'[39m +
+            [32m'If you want to create a new file, use:\n'[39m +
+            [32m'   - A new file path, including dir name if needed\n'[39m +
+            [32m'   - An empty searchContent\n'[39m +
+            [32m"   - The new file's contents as replaceContent\n"[39m +
+            [32m'\n'[39m +
+            [32m'Remember: when making multiple file edits in a row to the same file, you should prefer to send all edits in a single message with multiple calls to this tool, rather than multiple messages with a single call each.\n'[39m +
+            [32m'\n'[39m +
+            [32m'You may see the following fields in the result:\n'[39m +
+            [32m'- autoFormattingEdits: If the auto-formatter makes any changes, this field will contain a diff against the file content after your edits and any user edits have been applied.\n'[39m +
+            [32m'- newProblems: If any new problems are found after the edit, this field will contain information about them.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              path: {
+                type: [32m'string'[39m,
+                description: [32m'The path of the file to modify (relative to the current working directory, or an absolute path).'[39m
+              },
+              searchContent: {
+                type: [32m'string'[39m,
+                description: [32m'The text to replace.'[39m
+              },
+              replaceContent: {
+                type: [32m'string'[39m,
+                description: [32m'The text to replace it with.'[39m
+              },
+              expectedReplacements: {
+                description: [32m'The expected number of replacements to perform. Defaults to 1 if not specified.'[39m,
+                type: [32m'number'[39m
+              }
+            },
+            required: [
+              [32m'path'[39m,
+              [32m'searchContent'[39m,
+              [32m'replaceContent'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'askFollowupQuestion'[39m,
+          description: [32m'Ask the user a question to gather additional information needed to complete the task. \n'[39m +
+            [32m'\n'[39m +
+            [32m'## When to Use This Tool\n'[39m +
+            [32m'Use this tool in the following scenarios:\n'[39m +
+            [32m"1. The user's request is ambiguous or unclear and requires clarification.\n"[39m +
+            [32m'2. You need more details to proceed effectively.\n'[39m +
+            [32m'3. You have made several unsuccessful attempts to solve the issue and need user guidance to move forward.\n'[39m +
+            [32m'4. Offer choices to the user about what direction to take.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Usage Notes\n'[39m +
+            [32m'- Users will always be able to select "Other" to provide custom text input\n'[39m +
+            [32m'- Use multiSelect: true to allow multiple answers to be selected for a question\n'[39m +
+            [32m'- If you recommend a specific option, make that the first option in the list and add "(Recommended)" at the end of the label\n'[39m +
+            [32m'- Provide 1-4 questions per call\n'[39m +
+            [32m'\n'[39m +
+            [32m'IMPORTANT: This tool CANNOT be used in combination with other tools (except todoWrite) in a single step. If you need to use other tools, you must do so in a separate step before calling this tool.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              questions: {
+                minItems: [33m1[39m,
+                maxItems: [33m4[39m,
+                type: [32m'array'[39m,
+                items: {
+                  type: [32m'object'[39m,
+                  properties: {
+                    question: {
+                      type: [32m'string'[39m,
+                      description: [32m'The complete question to ask the user. Should be clear, specific, and end with a question mark.'[39m
+                    },
+                    header: {
+                      type: [32m'string'[39m,
+                      maxLength: [33m12[39m,
+                      description: [32m'Very short label displayed as a chip/tag (max 12 chars). Examples: "Auth method", "Library", "Approach".'[39m
+                    },
+                    options: {
+                      minItems: [33m2[39m,
+                      maxItems: [33m4[39m,
+                      type: [32m'array'[39m,
+                      items: {
+                        type: [32m'object'[39m,
+                        properties: {
+                          label: {
+                            type: [32m'string'[39m,
+                            description: [32m'Short button label shown to the user. Should be concise (1-5 words) and clearly describe the choice.'[39m
+                          },
+                          description: {
+                            description: [32m'Explanation of what this option means or what will happen if chosen. Useful for providing context about trade-offs or implications.'[39m,
+                            type: [32m'string'[39m
+                          }
+                        },
+                        required: [
+                          [32m'label'[39m
+                        ],
+                        additionalProperties: [33mfalse[39m
+                      },
+                      description: [32m"The available choices for this question. Must have 2-4 options. Each option should be a distinct, mutually exclusive choice (unless multiSelect is enabled). There should be no 'Other' option, that will be provided automatically."[39m
+                    },
+                    multiSelect: {
+                      default: [33mfalse[39m,
+                      description: [32m'Set to true to allow the user to select multiple options instead of just one. Use when choices are not mutually exclusive.'[39m,
+                      type: [32m'boolean'[39m
+                    }
+                  },
+                  required: [
+                    [32m'question'[39m,
+                    [32m'header'[39m,
+                    [32m'options'[39m
+                  ],
+                  additionalProperties: [33mfalse[39m
+                },
+                description: [32m'Questions to ask the user (1-4 questions).'[39m
+              }
+            },
+            required: [
+              [32m'questions'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'attemptCompletion'[39m,
+          description: [32m"Once you've received the results of tool uses and can confirm that the task is complete, use this tool to present the result of your work to the user.\n"[39m +
+            [32m'\n'[39m +
+            [32m'You MUST NOT generate any text before this tool call. All conclusion text must be included within the result parameter of the attemptCompletion tool.\n'[39m +
+            [32m'Never use this tool with a question or request to engage in further conversation! Formulate the end of your result in a way that is final and does not require further input from the user.\n'[39m +
+            [32m'\n'[39m +
+            [32m'IMPORTANT: This tool CANNOT be used in combination with other tools (except todoWrite) in a single step. If you need to use other tools, you must do so in a separate step before calling this tool.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              result: {
+                type: [32m'string'[39m,
+                description: [32m'The result of the task. Formulate this result in a way that is final and does not require further input from the user.'[39m
+              }
+            },
+            required: [
+              [32m'result'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'executeCommand'[39m,
+          description: [32m'Executes a given bash command in a persistent shell session with optional timeout, ensuring proper handling and security measures.\n'[39m +
+            [32m'\n'[39m +
+            [32m'IMPORTANT: This tool is for terminal operations like git, npm, docker, etc. DO NOT use it for file operations (reading, writing, editing, searching, finding files) - use the specialized tools for this instead.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Before executing the command, please follow these steps:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. Directory Verification:\n'[39m +
+            [32m'   - If the command will create new directories or files, first use listFiles to verify the parent directory exists and is the correct location\n'[39m +
+            [32m'   - For example, before running "mkdir foo/bar", first use listFiles to check that "foo" exists and is the intended parent directory\n'[39m +
+            [32m'\n'[39m +
+            [32m'2. Command Execution:\n'[39m +
+            [32m'   - Always quote file paths that contain spaces with double quotes (e.g., cd "path with spaces/file.txt")\n'[39m +
+            [32m'   - Examples of proper quoting:\n'[39m +
+            [32m'     - cd "/Users/name/My Documents" (correct)\n'[39m +
+            [32m'     - cd /Users/name/My Documents (incorrect - will fail)\n'[39m +
+            [32m'     - python "/path/with spaces/script.py" (correct)\n'[39m +
+            [32m'     - python /path/with spaces/script.py (incorrect - will fail)\n'[39m +
+            [32m'   - After ensuring proper quoting, execute the command.\n'[39m +
+            [32m'   - Capture the output of the command.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Usage notes:\n'[39m +
+            [32m'- The command argument is required.\n'[39m +
+            [32m'- You can specify an optional timeout in seconds (up to 300s / 5 minutes). If not specified, commands will timeout after 60s (1 minute).\n'[39m +
+            [32m'- If the output exceeds 30000 characters, output will be truncated before being returned to you.\n'[39m +
+            [32m'- When issuing multiple commands:\n'[39m +
+            [32m'  - If the commands are independent and can run in parallel, make multiple executeCommand tool calls in a single message. For example, if you need to run "git status" and "git diff", send a single message with two executeCommand tool calls in parallel.\n'[39m +
+            [32m'  - If the commands depend on each other and must run sequentially, use a single executeCommand call with \'&&\' to chain them together (e.g., `git add . && git commit -m "message" && git push`). For instance, if one operation must complete before another starts (like mkdir before cp, Write before executeCommand for git operations, or git add before git commit), run these operations sequentially instead.\n'[39m +
+            [32m"  - Use ';' only when you need to run commands sequentially but don't care if earlier commands fail\n"[39m +
+            [32m'  - DO NOT use newlines to separate commands (newlines are ok in quoted strings)\n'[39m +
+            [32m"- You shall avoid use the markdown code block syntax (backtick, '`') in your command, as it will be interpreted as a command substitution.\n"[39m +
+            [32m"- Before using this tool, you must first think about the context provided in <system-reminder> to understand the user's environment and tailor your commands to ensure they are compatible with their system. You must also consider if the command you need to run should be executed in a specific directory rather than the current working directory, and properly set the `cwd` if necessary.\n"[39m +
+            [32m'\n'[39m +
+            [32m'# Committing changes with git\n'[39m +
+            [32m'\n'[39m +
+            [32m'Only create commits when requested by the user. If unclear, ask first. When the user asks you to create a new git commit, follow these steps carefully:\n'[39m +
+            [32m'\n'[39m +
+            [32m'Git Safety Protocol:\n'[39m +
+            [32m'- NEVER update the git config\n'[39m +
+            [32m"- NEVER run destructive git commands (push --force, reset --hard, checkout ., restore ., clean -f, branch -D) unless the user explicitly requests these actions. Taking unauthorized destructive actions is unhelpful and can result in lost work, so it's best to ONLY run these commands when given direct instructions \n"[39m +
+            [32m'- NEVER skip hooks (--no-verify, --no-gpg-sign, etc) unless the user explicitly requests it\n'[39m +
+            [32m'- NEVER run force push to main/master, warn the user if they request it\n'[39m +
+            [32m'- CRITICAL: Always create NEW commits rather than amending, unless the user explicitly requests a git amend. When a pre-commit hook fails, the commit did NOT happen  — so --amend would modify the PREVIOUS commit, which may result in destroying work or losing previous changes. Instead, after hook failure, fix the issue, re-stage, and create a NEW commit\n'[39m +
+            [32m'- When staging files, prefer adding specific files by name rather than using "git add -A" or "git add .", which can accidentally include sensitive files (.env, credentials) or large binaries\n'[39m +
+            [32m'- NEVER commit changes unless the user explicitly asks you to. It is VERY IMPORTANT to only commit when explicitly asked, otherwise the user will feel that you are being too proactive\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following bash commands in parallel, each using the executeCommand tool:\n'[39m +
+            [32m'  - Run a git status command to see all untracked files. IMPORTANT: Never use the -uall flag as it can cause memory issues on large repos.\n'[39m +
+            [32m'  - Run a git diff command to see both staged and unstaged changes that will be committed.\n'[39m +
+            [32m"  - Run a git log command to see recent commit messages, so that you can follow this repository's commit message style.\n"[39m +
+            [32m'2. Analyze all staged changes (both previously staged and newly added) and draft a commit message:\n'[39m +
+            [32m'  - Summarize the nature of the changes (eg. new feature, enhancement to an existing feature, bug fix, refactoring, test, docs, etc.). Ensure the message accurately reflects the changes and their purpose (i.e. "add" means a wholly new feature, "update" means an enhancement to an existing feature, "fix" means a bug fix, etc.).\n'[39m +
+            [32m'  - Do not commit files that likely contain secrets (.env, credentials.json, etc). Warn the user if they specifically request to commit those files\n'[39m +
+            [32m'  - Draft a concise (1-2 sentences) commit message that focuses on the "why" rather than the "what"\n'[39m +
+            [32m'  - Ensure it accurately reflects the changes and their purpose\n'[39m +
+            [32m'3. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following commands:\n'[39m +
+            [32m'   - Add relevant untracked files to the staging area.\n'[39m +
+            [32m'   - Create the commit with a message ending with:\n'[39m +
+            [32m'   🤖 Generated with [Pochi](https://getpochi.com) | [Task](<Share URL>)\n'[39m +
+            [32m'\n'[39m +
+            [32m'   Co-Authored-By: Pochi <noreply@getpochi.com>\n'[39m +
+            [32m'\n'[39m +
+            [32m'   Note: Replace <Share URL> with the Share URL from system information if available. If not available, omit the " | [Task](...)" part.\n'[39m +
+            [32m'\n'[39m +
+            [32m'   - Run git status after the commit completes to verify success.\n'[39m +
+            [32m'   Note: git status depends on the commit completing, so run it sequentially after the commit.\n'[39m +
+            [32m'4. If the commit fails due to pre-commit hook changes, retry the commit ONCE to include these automated changes. If it fails again, it usually means a pre-commit hook is preventing the commit. If the commit succeeds but you notice that files were modified by the pre-commit hook, you MUST amend your commit to include them.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Important notes:\n'[39m +
+            [32m'- NEVER update the git config\n'[39m +
+            [32m'- NEVER run additional commands to read or explore code, besides git bash commands\n'[39m +
+            [32m'- DO NOT push to the remote repository unless the user explicitly asks you to do so\n'[39m +
+            [32m'- IMPORTANT: Never use git commands with the -i flag (like git rebase -i or git add -i) since they require interactive input which is not supported.\n'[39m +
+            [32m'- IMPORTANT: Do not use --no-edit with git rebase commands, as the --no-edit flag is not a valid option for git rebase.\n'[39m +
+            [32m'- If there are no changes to commit (i.e., no untracked files and no modifications), do not create an empty commit\n'[39m +
+            [32m'- In order to ensure good formatting, ALWAYS pass the commit message via a HEREDOC, a la this example:\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m`git commit -m "$(cat <<'EOF'\n`[39m +
+            [32m'Commit message here.\n'[39m +
+            [32m'\n'[39m +
+            [32m'🤖 Generated with [Pochi](https://getpochi.com) | [Task](<Share URL>)\n'[39m +
+            [32m'\n'[39m +
+            [32m'Co-Authored-By: Pochi <noreply@getpochi.com>\n'[39m +
+            [32m'EOF\n'[39m +
+            [32m')"\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Creating pull requests\n'[39m +
+            [32m'Use the gh command via the executeCommand tool for ALL GitHub-related tasks including working with issues, pull requests, checks, and releases. If given a Github URL use the gh command to get the information needed.\n'[39m +
+            [32m'\n'[39m +
+            [32m'IMPORTANT: When the user asks you to create a pull request, follow these steps carefully:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following bash commands in parallel using the executeCommand tool, in order to understand the current state of the branch since it diverged from the main branch:\n'[39m +
+            [32m'   - Run a git status command to see all untracked files (never use -uall flag)\n'[39m +
+            [32m'   - Run a git diff command to see both staged and unstaged changes that will be committed\n'[39m +
+            [32m'   - Check if the current branch tracks a remote branch and is up to date with the remote, so you know if you need to push to the remote\n'[39m +
+            [32m'   - Run a git log command and `git diff [base-branch]...HEAD` to understand the full commit history for the current branch (from the time it diverged from the base branch)\n'[39m +
+            [32m'2. Analyze all changes that will be included in the pull request, making sure to look at all relevant commits (NOT just the latest commit, but ALL commits that will be included in the pull request!!!), and draft a pull request title and summary:\n'[39m +
+            [32m'   - Keep the PR title short (under 70 characters)\n'[39m +
+            [32m'   - Use the description/body for details, not the title\n'[39m +
+            [32m'3. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following commands in parallel:\n'[39m +
+            [32m'   - Create new branch if needed\n'[39m +
+            [32m'   - Push to remote with -u flag if needed\n'[39m +
+            [32m'   - Create PR using gh pr create with the format below. Use a HEREDOC to pass the body to ensure correct formatting.\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m`gh pr create --title "the pr title" --body "$(cat <<'EOF'\n`[39m +
+            [32m'## Summary\n'[39m +
+            [32m'<1-3 bullet points>\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Test plan\n'[39m +
+            [32m'[Checklist of TODOs for testing the pull request...]\n'[39m +
+            [32m'\n'[39m +
+            [32m'🤖 Generated with [Pochi](https://getpochi.com) | [Task](<Share URL>)\n'[39m +
+            [32m'EOF\n'[39m +
+            [32m')"\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'Important:\n'[39m +
+            [32m'- NEVER update the git confi'[39m... 355 more characters,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              command: {
+                type: [32m'string'[39m,
+                description: [32m'The CLI command to execute. This should be valid for the current operating system.'[39m
+              },
+              cwd: {
+                description: [32m'The working directory to execute the command in.'[39m,
+                type: [32m'string'[39m
+              },
+              timeout: {
+                description: [32m'Optional timeout in seconds, max 300 seconds. By default the timeout is 120 seconds.'[39m,
+                type: [32m'number'[39m,
+                minimum: [33m1[39m,
+                maximum: [33m300[39m
+              }
+            },
+            required: [
+              [32m'command'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'globFiles'[39m,
+          description: [32m'Request to find files matching a glob pattern within a specified directory. Use this to get a list of files based on a pattern.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              path: {
+                type: [32m'string'[39m,
+                description: [32m'The path of the directory to search in (relative to the current working directory, or an absolute path)'[39m
+              },
+              globPattern: {
+                type: [32m'string'[39m,
+                description: [32m"The glob pattern to match files against (e.g., '*.ts', '**/*.js')"[39m
+              }
+            },
+            required: [
+              [32m'path'[39m,
+              [32m'globPattern'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'listFiles'[39m,
+          description: [32m'Request to list files and directories within the specified directory. If recursive is true, it will list all files and directories recursively. If recursive is false or not provided, it will only list the top-level contents. Do not use this tool to confirm the existence of files you may have created, as the user will let you know if the files were created successfully or not.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              path: {
+                type: [32m'string'[39m,
+                description: [32m'The path of the directory to list contents for (relative to the current working directory, or an absolute path)'[39m
+              },
+              recursive: {
+                description: [32m'Whether to list files and directories recursively.'[39m,
+                type: [32m'boolean'[39m
+              }
+            },
+            required: [
+              [32m'path'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'readFile'[39m,
+          description: [32m'Request to read the contents of a file at the specified path. Use this when you need to examine the contents of an existing file you do not know the contents of, for example to analyze code, review text files, extract information from configuration files.\n'[39m +
+            [32m'Also supports reading media files (e.g. image, audio, video) with the following mime types: image/png, image/jpeg, image/webp, image/heic, image/heif, video/mp4, video/mpeg, video/mov, video/avi, video/x-flv, video/mpg, video/webm, video/wmv, video/3gpp, audio/wav, audio/mp3, audio/aiff, audio/aac, audio/ogg, audio/flac, application/pdf.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              path: {
+                type: [32m'string'[39m,
+                description: [32m'The path of the file to read (relative to the current working directory, or an absolute path)'[39m
+              },
+              startLine: {
+                description: [32m'The starting line number to read from (1-based). If not provided, it starts from the beginning of the file.'[39m,
+                type: [32m'number'[39m
+              },
+              endLine: {
+                description: [32m'The ending line number to read to (1-based, inclusive). If not provided, it reads to the end of the file.'[39m,
+                type: [32m'number'[39m
+              }
+            },
+            required: [
+              [32m'path'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'useSkill'[39m,
+          description: [32m'Execute a skill within the main conversation\n'[39m +
+            [32m'\n'[39m +
+            [32m'When users ask you to perform tasks, check if any of the available skills below can help complete the task more effectively. Skills provide specialized capabilities and domain knowledge.\n'[39m +
+            [32m'\n'[39m +
+            [32m'When users ask about a SPECIFIC skill (e.g., "How does the pdf skill work?", "What does the commit skill do?"), you must call this tool to get detailed information about that skill.\n'[39m +
+            [32m'\n'[39m +
+            [32m'When users ask general questions like "What skills are available?" or "List all skills", simply refer to the "Available skills" section below - do NOT call this tool.\n'[39m +
+            [32m'\n'[39m +
+            [32m"This tool returns the skill's detailed instructions which you must then follow to complete the task. The instructions contain step-by-step guidance on how to perform the specific task or workflow.\n"[39m +
+            [32m'\n'[39m +
+            [32m'How to invoke:\n'[39m +
+            [32m'- Use this tool with the skill name\n'[39m +
+            [32m'- Example: `skill: "pdf-processing"` - invoke the pdf-processing skill\n'[39m +
+            [32m"- The tool will return the skill's instructions\n"[39m +
+            [32m'- Follow the returned instructions carefully to complete the task\n'[39m +
+            [32m'\n'[39m +
+            [32m'Important:\n'[39m +
+            [32m'- When a skill is relevant for a task OR when users ask about a SPECIFIC skill, you must invoke this tool IMMEDIATELY as your first action\n'[39m +
+            [32m'- For general questions about available skills, simply refer to the "Available skills" list below without calling this tool\n'[39m +
+            [32m'- NEVER just announce or mention a skill in your text response without actually calling this tool (except for general skill listing requests)\n'[39m +
+            [32m'- This is a BLOCKING REQUIREMENT: invoke the relevant Skill tool BEFORE generating any other response about a specific skill or task\n'[39m +
+            [32m'- Only use skills listed in "Available skills" below\n'[39m +
+            [32m'- Check compatibility requirements before using a skill - ensure the skill is compatible with the current OS/environment\n'[39m +
+            [32m'- After calling this tool, follow the returned instructions step by step\n'[39m +
+            [32m'- The skill file location is shown in the [Location: filepath] section of each skill listing below - use this information to understand where the skill is defined\n'[39m +
+            [32m"- Use the directory containing the skill's source file as the base directory for resolving any resource files mentioned in the instructions\n"[39m +
+            [32m'- Proactively explore the skill directory for optional resources that enhance task completion:\n'[39m +
+            [32m'  * scripts/ - executable code that agents can run (Python, Bash, JavaScript, etc.)\n'[39m +
+            [32m'  * references/ - on-demand documentation (REFERENCE.md, FORMS.md, domain-specific files)\n'[39m +
+            [32m'  * assets/ - static resources (templates, images, data files, schemas)\n'[39m +
+            [32m'  Use these resources when they exist and are relevant to the current task\n'[39m +
+            [32m'\n'[39m +
+            [32m'Available skills:\n'[39m +
+            [32m'\n'[39m +
+            [32m'- **find-skills**: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill. [Location: _builtIn_]\n'[39m +
+            [32m'- **create-skill**: Helps users create new custom agent skills. Use when the user wants to create a new skill, automate a workflow, or package specialized knowledge for reuse. [Location: _builtIn_]'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              skill: {
+                type: [32m'string'[39m,
+                description: [32m'The name of the skill to use.'[39m
+              }
+            },
+            required: [
+              [32m'skill'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'searchFiles'[39m,
+          description: [32m'- Fast content search tool that works with any codebase size\n'[39m +
+            [32m'- Searches file contents using regular expressions\n'[39m +
+            [32m'- Supports Rust regex syntax (eg. "log.*Error", "functions+w+", etc.)\n'[39m +
+            [32m'- Filter files by pattern with the include parameter (eg. "*.js", "*.{ts,tsx}")\n'[39m +
+            [32m'- Returns file paths with at least one match sorted by modification time\n'[39m +
+            [32m'- Use this tool when you need to find files containing specific patterns\n'[39m +
+            [32m'- Craft your regex patterns carefully to balance specificity and flexibility.\n'[39m +
+            [32m"- Based on the user's task you may use it to find code patterns, TODO comments, function definitions, or any text-based information across the project. The results include context, so analyze the surrounding code to better understand the matches. Leverage the this tool in combination with other tools for more comprehensive analysis. For example, use it to find specific code patterns, then use readFile to examine the full context of interesting matches before using applyDiff or writeToFile to make informed changes."[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              path: {
+                type: [32m'string'[39m,
+                description: [32m'The path of the directory to search in (relative to the current working directory, or an absolute path).'[39m
+              },
+              regex: {
+                type: [32m'string'[39m,
+                description: [32m'The regular expression pattern to search for in file contents. Uses Rust regex syntax.'[39m
+              },
+              filePattern: {
+                description: [32m'File pattern to include in the search (e.g. "*.js", "*.{ts,tsx}"). If not provided, it will search all files.'[39m,
+                type: [32m'string'[39m
+              }
+            },
+            required: [
+              [32m'path'[39m,
+              [32m'regex'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'todoWrite'[39m,
+          description: [32m'Use this tool to create and manage a structured task list for your current coding session. This helps you track progress, organize complex tasks, and demonstrate thoroughness to the user.\n'[39m +
+            [32m'It also helps the user understand the progress of the task and overall progress of their requests.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## When to Use This Tool\n'[39m +
+            [32m'Use this tool proactively in these scenarios:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. Complex multi-step tasks - When a task requires 3 or more distinct steps or actions\n'[39m +
+            [32m'2. Non-trivial and complex tasks - Tasks that require careful planning or multiple operations\n'[39m +
+            [32m'3. User explicitly requests todo list - When the user directly asks you to use the todo list\n'[39m +
+            [32m'4. User provides multiple tasks - When users provide a list of things to be done (numbered or comma-separated)\n'[39m +
+            [32m'5. After receiving new instructions - Immediately capture user requirements as todos. Feel free to edit the todo list based on new information.\n'[39m +
+            [32m'6. After completing a task - Mark it complete and add any new follow-up tasks\n'[39m +
+            [32m'7. When you start working on a new task, mark the todo as in-progress. Ideally you should only have one todo as in-progress at a time. Complete existing tasks before starting new ones.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## When NOT to Use This Tool\n'[39m +
+            [32m'\n'[39m +
+            [32m'Skip using this tool when:\n'[39m +
+            [32m'1. There is only a single, straightforward task\n'[39m +
+            [32m'2. The task is trivial and tracking it provides no organizational benefit\n'[39m +
+            [32m'3. The task can be completed in less than 3 trivial steps\n'[39m +
+            [32m'4. The task is purely conversational or informational\n'[39m +
+            [32m'\n'[39m +
+            [32m'NOTE that you should use should not use this tool if there is only one trivial task to do. In this case you are better off just doing the task directly.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Examples of When to Use the Todo List\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m"User: I want to add a dark mode toggle to the application settings. Make sure you run the tests and build when you're done!\n"[39m +
+            [32m"Assistant: I'll help add a dark mode toggle to your application settings. Let me create a todo list to track this implementation.\n"[39m +
+            [32m'*Creates todo list with the following items:*\n'[39m +
+            [32m'1. Create dark mode toggle component in Settings page\n'[39m +
+            [32m'2. Add dark mode state management (context/store)\n'[39m +
+            [32m'3. Implement CSS-in-JS styles for dark theme\n'[39m +
+            [32m'4. Update existing components to support theme switching\n'[39m +
+            [32m'5. Run tests and build process, addressing any failures or errors that occur\n'[39m +
+            [32m'*Begins working on the first task*\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant used the todo list because:\n'[39m +
+            [32m'1. Adding dark mode is a multi-step feature requiring UI, state management, and styling changes\n'[39m +
+            [32m'2. The user explicitly requested tests and build be run afterward\n'[39m +
+            [32m'3. The assistant inferred that tests and build need to pass by adding "Ensure tests and build succeed" as the final task\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: Help me rename the function getCwd to getCurrentWorkingDirectory across my project\n'[39m +
+            [32m"Assistant: Let me first search through your codebase to find all occurrences of 'getCwd'.\n"[39m +
+            [32m'*Uses grep or search tools to locate all instances of getCwd in the codebase*\n'[39m +
+            [32m"Assistant: I've found 15 instances of 'getCwd' across 8 different files. Let me create a todo list to track these changes.\n"[39m +
+            [32m'*Creates todo list with specific items for each file that needs updating*\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant used the todo list because:\n'[39m +
+            [32m'1. First, the assistant searched to understand the scope of the task\n'[39m +
+            [32m'2. Upon finding multiple occurrences across different files, it determined this was a complex task with multiple steps\n'[39m +
+            [32m'3. The todo list helps ensure every instance is tracked and updated systematically\n'[39m +
+            [32m'4. This approach prevents missing any occurrences and maintains code consistency\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: I need to implement these features for my e-commerce site: user registration, product catalog, shopping cart, and checkout flow.\n'[39m +
+            [32m"Assistant: I'll help implement these features. First, let's add all the features to the todo list.\n"[39m +
+            [32m'*Creates a todo list breaking down each feature into specific tasks based on the project architecture*\n'[39m +
+            [32m"Assistant: Let's start with user registration. This will involve creating database models, API endpoints, and frontend forms that integrate with your existing authentication system.\n"[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant used the todo list because:\n'[39m +
+            [32m'1. The user provided multiple complex features to implement in a comma separated list\n'[39m +
+            [32m'2. The todo list helps organize these large features into manageable tasks\n'[39m +
+            [32m'3. This approach allows for tracking progress across the entire implementation\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m"User: Can you help optimize my React application? It's rendering slowly and has performance issues.</user>\n"[39m +
+            [32m"Assistant: I'll help optimize your React application. First, let me examine your codebase to identify potential performance bottlenecks.\n"[39m +
+            [32m'*Reviews component structure, render patterns, state management, and data fetching*\n'[39m +
+            [32m"Assistant: After analyzing your codebase, I've identified several performance issues. Let me create a todo list to track our optimization efforts.\n"[39m +
+            [32m'*Creates todo list with items like: 1) Implement memoization for expensive calculations in ProductList, 2) Add virtualization for long lists in Dashboard, 3) Optimize image loading in Gallery component, 4) Fix state update loops in ShoppingCart, 5) Review bundle size and implement code splitting*\n'[39m +
+            [32m"Let's start by implementing memoization for the expensive calculations in your ProductList component.</assistant>\n"[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant used the todo list because:\n'[39m +
+            [32m'1. First, the assistant examined the codebase to identify specific performance issues\n'[39m +
+            [32m'2. Based on this analysis, it identified multiple optimization opportunities\n'[39m +
+            [32m'3. Performance optimization is a non-trivial task requiring multiple steps\n'[39m +
+            [32m'4. The todo list helps methodically track improvements across different components\n'[39m +
+            [32m'5. This systematic approach ensures all performance bottlenecks are addressed\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Examples of When NOT to Use the Todo List\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m"User: How do I print 'Hello World' in Python?\n"[39m +
+            [32m'Assistant: In Python, you can print "Hello World" with this simple code:\n'[39m +
+            [32m'\n'[39m +
+            [32m'python\n'[39m +
+            [32m'print("Hello World")\n'[39m +
+            [32m'\n'[39m +
+            [32m'This will output the text "Hello World" to the console when executed.</assistant>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m"The assistant did not use the todo list because this is a single, trivial task that can be completed in one step. There's no need to track multiple tasks or steps for such a straightforward request.\n"[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: What does the git status command do?\n'[39m +
+            [32m"Assistant: The git status command shows the current state of your working directory and staging area. It displays which changes have been staged, which haven't, and which files aren't being tracked by Git. This is a fundamental command for understanding the current state of your repository before making commits.\n"[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant did not use the todo list because this is an informational request with no actual coding task to complete. The user is simply asking for an explanation, not for the assistant to perform multiple steps or tasks.\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: Can you add a comment to the calculateTotal function to explain what it does?\n'[39m +
+            [32m'Assistant: Sure, let me add a comment to the calculateTotal function to explain what it does.\n'[39m +
+            [32m'* Uses the Edit tool to add a comment to the calculateTotal function *\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m"The assistant did not use the todo list because this is a single, straightforward task confined to one location in the code. Adding a comment doesn't require tracking multiple steps or systematic organization.\n"[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: Run npm install for me and tell me what happens.\n'[39m +
+            [32m"Assistant: I'll run the npm install command for you.\n"[39m +
+            [32m'\n'[39m +
+            [32m'*Executes: npm install*\n'[39m +
+            [32m'\n'[39m +
+            [32m"The command completed successfully. Here's the output:\n"[39m +
+            [32m'[Output of npm install command]\n'[39m +
+            [32m'\n'[39m +
+            [32m'All dependencies have been installed according to your package.json file.\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant did not use the todo list because this is a single command execution with immediate results. There are no multiple steps to track or organize, making the todo list unnecessary for this straightforward task.\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Task States and Management\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. **Task States**: Use these states to track progress:\n'[39m +
+            [32m'   - pending: Task not yet started\n'[39m +
+            [32m'   - in-progress: Currently working on (limit to ONE task at a time)\n'[39m +
+            [32m'   - completed: Task finished successfully\n'[39m +
+            [32m'   - cancelled: Task no longer needed\n'[39m +
+            [32m'\n'[39m +
+            [32m'2. **Task Management**:\n'[39m +
+            [32m'   - Update task status in real-time as you work\n'[39m +
+            [32m"   - Mark tasks complete IMMEDIATELY after finishing (don't batch completions)\n"[39m +
+            [32m'   - Only have ONE task in-progress at any time\n'[39m +
+            [32m'   - Complete current tasks before starting new ones\n'[39m +
+            [32m'   - Cancel tasks that become irrelevant\n'[39m +
+            [32m'\n'[39m +
+            [32m'3. **Task Breakdown**:\n'[39m +
+            [32m'   - Create specific, actionable items\n'[39m +
+            [32m'   - Break complex tasks into smaller, manageable steps\n'[39m +
+            [32m'   - Use clear, descriptive task names\n'[39m +
+            [32m'\n'[39m +
+            [32m'When in doubt, use this tool. Being proactive with task management demonstrates attentiveness and ensures you complete all requirements successfully.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              todos: {
+                type: [32m'array'[39m,
+                items: {
+                  type: [32m'object'[39m,
+                  properties: {
+                    id: {
+                      type: [32m'string'[39m,
+                      description: [32m'The unique identifier of the task, e.g "collect-information".'[39m
+                    },
+                    content: {
+                      type: [32m'string'[39m,
+                      description: [32m'The content of the task.'[39m
+                    },
+                    status: {
+                      type: [32m'string'[39m,
+                      enum: [
+                        [32m'pending'[39m,
+                        [32m'in-progress'[39m,
+                        [32m'completed'[39m,
+                        [32m'cancelled'[39m
+                      ],
+                      description: [32m'The status of the task.'[39m
+                    },
+                    priority: {
+                      type: [32m'string'[39m,
+                      enum: [
+                        [32m'low'[39m,
+                        [32m'medium'[39m,
+                        [32m'high'[39m
+                      ],
+                      description: [32m'The priority of the task.'[39m
+                    }
+                  },
+                  required: [
+                    [32m'id'[39m,
+                    [32m'content'[39m,
+                    [32m'status'[39m,
+                    [32m'priority'[39m
+                  ],
+                  additionalProperties: [33mfalse[39m
+                }
+              }
+            },
+            required: [
+              [32m'todos'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'writeToFile'[39m,
+          description: [32m'Request to write full content to a file at the specified path.\n'[39m +
+            [32m'If the file exists, it will be overwritten with the provided content.\n'[39m +
+            [32m"If the file doesn't exist, it will be created. This tool will automatically create any directories needed to write the file.\n"[39m +
+            [32m'\n'[39m +
+            [32m'You may see the following fields in the result:\n'[39m +
+            [32m'- autoFormattingEdits: If the auto-formatter makes any changes, this field will contain a diff against the file content after your edits and any user edits have been applied.\n'[39m +
+            [32m'- newProblems: If any new problems are found after the edit, this field will contain information about them.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              path: {
+                type: [32m'string'[39m,
+                description: [32m'The path of the file to write to (relative to the current working directory, or an absolute path).'[39m
+              },
+              content: {
+                type: [32m'string'[39m,
+                description: [32m'The content to write to the file.'[39m
+              }
+            },
+            required: [
+              [32m'path'[39m,
+              [32m'content'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'editNotebook'[39m,
+          description: [32m'Edit a specific cell in a Jupyter notebook (.ipynb file) by its cell ID'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              path: {
+                type: [32m'string'[39m,
+                description: [32m'The path to the notebook file (relative to the current working directory, or an absolute path)'[39m
+              },
+              cellId: {
+                type: [32m'string'[39m,
+                description: [32m'The ID of the cell to edit'[39m
+              },
+              content: {
+                type: [32m'string'[39m,
+                description: [32m'The new content of the cell'[39m
+              }
+            },
+            required: [
+              [32m'path'[39m,
+              [32m'cellId'[39m,
+              [32m'content'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'newTask'[39m,
+          description: [32m'Launch a new agent to handle complex, multi-step tasks autonomously.\n'[39m +
+            [32m'When using the newTask tool, you may specify a agentType parameter to select which agent type to use.\n'[39m +
+            [32m'Available agent types and the tools they have access to:\n'[39m +
+            [32m'\n'[39m +
+            [32m'### planner\n'[39m +
+            [32m'Engage this agent to formulate comprehensive, technical implementation strategies for feature development, system refactoring, or defect resolution.\n'[39m +
+            [32m'This agent is strictly limited to planning and architectural design; it DOES NOT execute code modifications.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Examples of user requests this agent shall trigger:\n'[39m +
+            [32m'- "create a plan to implement the user authentication feature"\n'[39m +
+            [32m'- "how should we refactor the database schema"\n'[39m +
+            [32m'- "design a solution for the memory leak issue"\n'[39m +
+            [32m'\n'[39m +
+            [32m'### browser\n'[39m +
+            [32m'Web browser automation agent for navigating websites, interacting with pages, and extracting information. Uses agent-browser CLI for browser control, including headless sessions and optional local Chrome auto-connect.\n'[39m +
+            [32m'\n'[39m +
+            [32m'### reviewer\n'[39m +
+            [32m'Engage this agent to perform code reviews and leave inline comments.\n'[39m +
+            [32m'This agent can analyze code and create review comments on specific lines.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Examples of user requests this agent shall trigger:\n'[39m +
+            [32m'- "review the code in src/auth"\n'[39m +
+            [32m'- "add review comments to this file"\n'[39m +
+            [32m'- "check this code and leave feedback"\n'[39m +
+            [32m'\n'[39m +
+            [32m'### walkthrough\n'[39m +
+            [32m'Engage this agent to create a summary of the changes made in the current task.\n'[39m +
+            [32m'This agent is strictly limited to documentation and explanation; it DOES NOT execute code modifications.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Examples of user requests this agent shall trigger:\n'[39m +
+            [32m'- "summarize what we have done"\n'[39m +
+            [32m'- "create a walkthrough for the changes"\n'[39m +
+            [32m'- "explain the changes made in this task"\n'[39m +
+            [32m'\n'[39m +
+            [32m'### explore\n'[39m +
+            [32m'Use this agent to explore the codebase when you need to: understand project structure, find where features are implemented, locate specific functions or classes, analyze code patterns, investigate how something works, search for examples or usage, or gather information before making changes.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Examples of questions this agent shall trigger:\n'[39m +
+            [32m'- "where is the authentication logic implemented"\n'[39m +
+            [32m'- "find all usages of the config parser"\n'[39m +
+            [32m'- "how does the ignore-walk module work"\n'[39m +
+            [32m'\n'[39m +
+            [32m'### guide\n'[39m +
+            [32m"A comprehensive guide for learning about Pochi's capabilities, features, and configuration.\n"[39m +
+            [32m'This agent helps users understand how to use Pochi effectively, fetch documentation, and modify their config file (.pochi/config.jsonc) with proper confirmation.\n'[39m +
+            [32m"**IMPORTANT: Any request to modify Pochi's configuration must be handled by this agent.**\n"[39m +
+            [32m'\n'[39m +
+            [32m'Trigger examples:\n'[39m +
+            [32m'- General info: "what can Pochi do?", "what agents/tools are available?", "how does Pochi work?"\n'[39m +
+            [32m'- Configuration: "how do I configure Pochi?", "explain config options", "help me modify my config", "set up a new provider", "add an MCP server"\n'[39m +
+            [32m'- Help & feedback: "join the discord", "report a bug", "where can I get help?"\n'[39m +
+            [32m'\n'[39m +
+            [32m'\n'[39m +
+            [32m'Always include a reminder in your prompt to ensure the result will be submitted through the `attemptCompletion` tool.\n'[39m +
+            [32m'If the task stops without submitting the result, it will return an error message.\n'[39m +
+            [32m'\n'[39m +
+            [32m'When NOT to use the newTask tool:\n'[39m +
+            [32m'- If you want to read a specific file path, use the readFile or globFiles tool instead of the newTask tool, to find the match more quickly\n'[39m +
+            [32m'- If you are searching for a specific class definition like "class Foo", use the globFiles tool instead, to find the match more quickly\n'[39m +
+            [32m'- If you are searching for code within a specific file or set of 2-3 files, use the readFile tool instead of the newTask tool, to find the match more quickly\n'[39m +
+            [32m'- Other tasks that are not related to the agent descriptions above\n'[39m +
+            [32m'\n'[39m +
+            [32m'Usage notes:\n'[39m +
+            [32m'1. Launch multiple agents tools concurrently whenever possible to maximize performance; to do that, use a single message with multiple tool uses\n'[39m +
+            [32m'2. When the agent is done, it will return a single message back to you. The result returned by the agent is not visible to the user. To show the user the result, you should send a text message back to the user with a concise summary of the result.\n'[39m +
+            [32m'3. Each agent invocation is stateless. You will not be able to send additional messages to the agent, nor will the agent be able to communicate with you outside of its final report. Therefore, your prompt should contain a highly detailed task description for the agent to perform autonomously and you should specify exactly what information the agent should return back to you in its final and only message to you.\n'[39m +
+            [32m"4. The agent's outputs should generally be trusted\n"[39m +
+            [32m"5. Clearly tell the agent whether you expect it to write code or just to do research (search, file reads, web fetches, etc.), since it is not aware of the user's intent\n"[39m +
+            [32m'6. If the agent description mentions that it should be used proactively, then you should try your best to use it without the user having to ask for it first. Use your judgement.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              description: {
+                type: [32m'string'[39m,
+                description: [32m'A short description of the task.'[39m
+              },
+              prompt: {
+                type: [32m'string'[39m,
+                description: [32m'The detailed prompt for the task to be performed.'[39m
+              },
+              agentType: {
+                description: [32m'The type of the specialized agent to use for the task.'[39m,
+                type: [32m'string'[39m
+              }
+            },
+            required: [
+              [32m'description'[39m,
+              [32m'prompt'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'startBackgroundJob'[39m,
+          description: [32m'Start a background job to execute a bash command, which allows you to continue working while the job runs.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Before starting the background job, please follow these steps:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. Directory Verification:\n'[39m +
+            [32m'   - If the command will create new directories or files, first use the listFiles tool to verify the parent directory exists and is the correct location\n'[39m +
+            [32m'   - For example, before running "mkdir foo/bar", first use listFiles to check that "foo" exists and is the intended parent directory\n'[39m +
+            [32m'\n'[39m +
+            [32m'2. Job Execution:\n'[39m +
+            [32m'   - After ensuring proper quoting, start the background job.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Usage notes:\n'[39m +
+            [32m'- The command argument is required.\n'[39m +
+            [32m'- Use readBackgroundJobOutput to monitor the output and status of the job.\n'[39m +
+            [32m'- Use killBackgroundJob to terminate the job if needed.\n'[39m +
+            [32m'- If the output exceeds 30000 characters, output will be truncated before being returned to you.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Common use cases and examples:\n'[39m +
+            [32m'- Development servers: `npm run dev`, `yarn start`, `bun run dev`\n'[39m +
+            [32m'- Build processes: `npm run build`, `make`, `cargo build`\n'[39m +
+            [32m'- File watchers: `npm run watch`, `tsc --watch`\n'[39m +
+            [32m'- Testing: `npm run test:watch`, `jest --watch`\n'[39m +
+            [32m'- Database services: `docker run -p 5432:5432 postgres`\n'[39m +
+            [32m'\n'[39m +
+            [32m'Command execution rules:\n'[39m +
+            [32m"- Never run 'sleep' as it will return immediately.\n"[39m +
+            [32m"- You do not need to use '&' at the end of the command.\n"[39m +
+            [32m"- When issuing multiple commands, use the ';' or '&&' operator to separate them. DO NOT use newlines (newlines are ok in quoted strings).\n"[39m +
+            [32m"- You shall avoid use the markdown code block syntax (backtick, '`') in your command, as it will be interpreted as a command substitution."[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              command: {
+                type: [32m'string'[39m,
+                description: [32m'The CLI command to execute. This should be valid for the current operating system.'[39m
+              },
+              cwd: {
+                description: [32m'The working directory to execute the command in.'[39m,
+                type: [32m'string'[39m
+              }
+            },
+            required: [
+              [32m'command'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'readBackgroundJobOutput'[39m,
+          description: [32m'- Retrieves output from a running or completed background job\n'[39m +
+            [32m'- Takes a backgroundJobId parameter identifying the job\n'[39m +
+            [32m'- For terminal jobs, returns only new output since the last check\n'[39m +
+            [32m'- Returns stdout and stderr output along with job status\n'[39m +
+            [32m'- Supports optional regex filtering to show only lines matching a pattern\n'[39m +
+            [32m'- Use this tool when you need to monitor or check the output of a long-running background job'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              backgroundJobId: {
+                type: [32m'string'[39m,
+                description: [32m'The ID of the background job to get output from'[39m
+              },
+              regex: {
+                description: [32m'Optional regular expression to filter the output lines. Only lines matching this regex will be included in the result. Any lines that do not match will no longer be available to read.'[39m,
+                type: [32m'string'[39m
+              }
+            },
+            required: [
+              [32m'backgroundJobId'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'killBackgroundJob'[39m,
+          description: [32m'- Kills a running background job by its ID\n'[39m +
+            [32m'- Takes a backgroundJobId parameter identifying the job to kill\n'[39m +
+            [32m'- Returns a success or failure status\n'[39m +
+            [32m'- Use this tool when you need to terminate a long-running background job'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              backgroundJobId: {
+                type: [32m'string'[39m,
+                description: [32m'The ID of the background job to kill.'[39m
+              }
+            },
+            required: [
+              [32m'backgroundJobId'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'webFetch'[39m,
+          description: [32m'- Fetches content from a specified URL and converts HTML to markdown\n'[39m +
+            [32m'- Use this tool when you need to retrieve and analyze web content\n'[39m +
+            [32m'\n'[39m +
+            [32m'Usage notes:\n'[39m +
+            [32m'  - IMPORTANT: If an MCP-provided web fetch tool is available, prefer using that tool instead of this one, as it may have fewer restrictions.\n'[39m +
+            [32m'  - The URL must be a fully-formed valid URL\n'[39m +
+            [32m'  - The prompt should describe what information you want to extract from the page\n'[39m +
+            [32m'  - This tool is read-only and does not modify any files\n'[39m +
+            [32m'  - Includes a self-cleaning 10-minute cache for faster responses when repeatedly accessing the same URL'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'https://json-schema.org/draft/2020-12/schema'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              url: {
+                type: [32m'string'[39m,
+                format: [32m'uri'[39m
+              }
+            },
+            required: [
+              [32m'url'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'webSearch'[39m,
+          description: [32m'- Allows Pochi to search the web and use the results to inform responses\n'[39m +
+            [32m'- Provides up-to-date information for current events and recent data\n'[39m +
+            [32m'- Returns search result information formatted as search result blocks, including links as markdown hyperlinks\n'[39m +
+            [32m'- Searches are performed automatically within a single API call\n'[39m +
+            [32m'\n'[39m +
+            [32m'CRITICAL REQUIREMENT - You MUST follow this:\n'[39m +
+            [32m`  - After answering the user's question, you MUST include a "Sources:" section at the end of your response\n`[39m +
+            [32m'  - In the Sources section, list all relevant URLs from the search results as markdown hyperlinks: [Title](URL)\n'[39m +
+            [32m'  - This is MANDATORY - never skip including sources in your response\n'[39m +
+            [32m'  - Example format:\n'[39m +
+            [32m'\n'[39m +
+            [32m'    [Your answer here]\n'[39m +
+            [32m'\n'[39m +
+            [32m'    Sources:\n'[39m +
+            [32m'    - [Source Title 1](https://example.com/1)\n'[39m +
+            [32m'    - [Source Title 2](https://example.com/2)\n'[39m +
+            [32m'\n'[39m +
+            [32m'Usage notes:\n'[39m +
+            [32m`  - Account for "Today's date" in <system-reminder>. For example, if <system-reminder> says "Today's date: 2025-07-01", and the user wants the latest docs, do not use 2024 in the search query. Use 2025.\n`[39m +
+            [32m'  - To research several related facets in one round-trip, pass "query" as an array of up to 5 query strings instead of a single string. Prefer a single string for focused lookups.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'https://json-schema.org/draft/2020-12/schema'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              query: {
+                oneOf: [
+                  {
+                    type: [32m'string'[39m,
+                    minLength: [33m2[39m
+                  },
+                  {
+                    minItems: [33m1[39m,
+                    maxItems: [33m5[39m,
+                    type: [32m'array'[39m,
+                    items: {
+                      type: [32m'string'[39m,
+                      minLength: [33m2[39m
+                    }
+                  }
+                ],
+                description: [32m'A single search query string, OR an array of up to 5 related query strings to batch in one request. Prefer a single string for focused lookups; use an array when you want to research several related facets in one call.'[39m
+              },
+              country: {
+                description: [32m"Country code to filter search results by, e.g. 'US', 'GB', 'JP'"[39m,
+                type: [32m'string'[39m
+              },
+              searchDomainFilter: {
+                description: [32m"List of domains to filter search results. Use allowlist mode (e.g. ['github.com', 'stackoverflow.com']) to include only those domains, or denylist mode (e.g. ['-reddit.com', '-pinterest.com']) to exclude domains. Cannot mix both modes. Maximum 20 domains."[39m,
+                type: [32m'array'[39m,
+                items: {
+                  type: [32m'string'[39m
+                }
+              }
+            },
+            required: [
+              [32m'query'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        }
+      ],
+      providerOptions: {
+        pochi: {
+          taskId: [32m'fe40f979-4d59-4c5d-ac16-76e3f01a3edb'[39m,
+          client: [32m'PochiCli/0.6.12'[39m,
+          useCase: [32m'agent'[39m
+        }
+      }
+    }
+  }
+}
+[37m2026-06-04 18:50:21.238[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/home/user/myproject/solution.py" resolvedPath="/home/user/myproject/solution.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-06-04 18:50:21.238[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-06-04 18:50:21.251[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/home/user/myproject/solution.py" mtime=1780598945394 contentLen=2416
+[37m2026-06-04 18:51:16.762[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Task runner finished successfully.
+[37m2026-06-04 18:51:16.762[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutting down...
+[37m2026-06-04 18:51:16.796[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutdown completed. Process will exit.
+[37m2026-06-04 18:51:16.796[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 0

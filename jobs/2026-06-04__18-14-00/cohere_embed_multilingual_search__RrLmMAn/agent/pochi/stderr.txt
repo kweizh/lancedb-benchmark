@@ -1,0 +1,59 @@
+[37m2026-06-04 18:23:48.467[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.12
+[37m2026-06-04 18:23:48.905[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521107[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-06-04 18:23:48.907[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521108[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-06-04 18:23:48.979[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:448506[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+66493 |   UnknownError2 = class UnknownError2 extends exports_Schema2.TaggedError()("LiveStore.UnknownError", {
+66494 |     cause: exports_Schema2.Defect,
+66495 |     note: exports_Schema2.optional(exports_Schema2.String),
+66496 |     payload: exports_Schema2.optional(exports_Schema2.Any)
+66497 |   }) {
+66498 |     static mapToUnknownError = (effect4) => effect4.pipe(exports_Effect2.mapError((cause3) => exports_Schema2.is(UnknownError2)(cause3) ? cause3 : new UnknownError2({ cause: cause3 })), exports_Effect2.catchAllDefect((cause3) => new UnknownError2({ cause: cause3 })));
+                                                                                                                                                                            ^
+(FiberFailure) LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined } (cause: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)'))), "note": undefined, "payload": undefined }
+ effect/Runtime/FiberFailure: Symbol(effect/Runtime/FiberFailure),
+ effect/Runtime/FiberFailure/Cause: {
+  _tag: "Fail",
+  error: LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined } (cause: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)'))), "note": undefined, "payload": undefined }
+    at <anonymous> (/$bunfs/root/pochi:66498:165) {
+  [cause]: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined }
+      at catch (/$bunfs/root/pochi:481515:39)
+      at @livestore/common:execSql (/$bunfs/root/pochi:481516:59)
+      at @livestore/common:leader-thread:boot (/$bunfs/root/pochi:482849:33)
+      at @livestore/common:leader-thread (/$bunfs/root/pochi:482849:105)
+      at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+      at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+      at createStore (/$bunfs/root/pochi:464523:35)
+      at createStore (/$bunfs/root/pochi:464454:33) {
+    [cause]: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined }
+        at prepare (/$bunfs/root/pochi:488398:30)
+        at <anonymous> (/$bunfs/root/pochi:488407:36) {
+      [cause]: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')
+          at unknown
+          at unknown
+          at unknown
+          at unknown
+          at unknown
+          at ccall (/$bunfs/root/pochi:486091:19)
+          at <anonymous> (/$bunfs/root/pochi:487368:25)
+          at prepare (/$bunfs/root/pochi:488328:41)
+          at <anonymous> (/$bunfs/root/pochi:488407:36)
+    }
+  }
+},
+  [Symbol(effect/Cause)]: [Object ...],
+  [Symbol(effect/Hash)]: [Function],
+  [Symbol(effect/Equal)]: [Function],
+  pipe: [Function: pipe],
+  toJSON: [Function: toJSON],
+  toString: [Function: toString],
+  [Symbol(nodejs.util.inspect.custom)]: [Function],
+},
+
+      at /$bunfs/root/pochi:66498:165
+      at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+      at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+      at createStore (/$bunfs/root/pochi:464523:35)
+      at createStore (/$bunfs/root/pochi:464454:33)
+[37m2026-06-04 18:23:50.159[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 0
+
+Bun v1.3.4 (Linux x64)

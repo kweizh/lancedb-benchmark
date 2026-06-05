@@ -1,0 +1,215 @@
+- Initializing MCP connections...
+You
+# LanceDB Autocomplete Service: SQL Prefix Matching with Semantic Fallback ## Background You are building an autocomplete service for a movie discovery product. The catalog is stored in LanceDB and contains 500 movie titles, each with a precomputed 32-dimensional embedding and a popularity score. A secondary table (`prefix_vectors`) maps 50 anchor prefix strings to their own precomputed 32-dimensional embeddings. Both tables have already been seeded at container build time and are read-only at runtime. The goal is to ship a Python module that returns autocomplete suggestions by combining two strategies: a fast SQL prefix match for typed-prefix exactness, and a vector-search fallback (using the prefix's precomputed embedding) when too few prefix matches exist. ## Requirements Implement a Python module `solution.py` at `/home/user/myproject/solution.py` that exposes: ```python def autocomplete(prefix: str, k: int = 10) -> list[dict]: ... ``` The function MUST: 1. Open the LanceDB instance at the URI given by the `LANCE_DB_URI` environment variable. Read the movies table whose name is in the `MOVIES_TABLE` environment variable and the anchor-prefix table whose name is in the `PREFIX_TABLE` environment variable. 2. Perform a **case-insensitive** SQL prefix match (i.e., match every row whose `lower(title)` starts with `lower(prefix)`). 3. If the SQL prefix match yields **at least `k`** rows, return the top `k` rows ordered by `popularity` **descending**. Each row's `source` field MUST be the string `"prefix"`. 4. If the SQL prefix match yields **fewer than `k`** rows (M < k), return: * All M prefix matches first, ordered by `popularity` descending (each with `source == "prefix"`), followed by * The top `(k - M)` results of a vector search where the query vector is looked up from the `prefix_vectors` table for the lowercased `prefix`, executed against the movies table, **excluding** any movie `id` already returned in the prefix portion. Each of these rows' `source` field MUST be the string `"semantic"`. 5. Each element of the returned list MUST be a dict with at minimum these keys: * `id` (int): movie row id * `title` (str): original title (preserving case) * `popularity` (float): popularity score * `source` (str): either `"prefix"` or `"semantic"` The verifier will only call `autocomplete` with prefixes that are present in the `prefix_vectors` table (lowercased keys). ## Implementation Hints * Connect with `lancedb.connect(...)` and open both tables via `db.open_table(...)`. * The titles table has been seeded with a `title_lower` column to make the SQL prefix predicate trivial; you may use it or compute `lower(...)` yourself. * Use `table.search(...).where("...", prefilter=True)` to combine the vector query with an SQL exclusion of already-returned ids. * Look up a prefix's vector by filtering `prefix_vectors` on the lowercased prefix string. Convert the returned arrow/pandas vector cell into a Python list / numpy array before passing it to `search()`. * Be defensive about empty results: a prefix with zero SQL matches must still produce `k` semantic results (assuming the prefix is in `prefix_vectors`). ## Acceptance Criteria * Project path: /home/user/myproject * Module: `solution.py` exposing `autocomplete(prefix: str, k: int = 10) -> list[dict]` * Configuration is read from the environment: * `LANCE_DB_URI`: filesystem URI of the LanceDB instance * `MOVIES_TABLE`: name of the seeded movies table * `PREFIX_TABLE`: name of the seeded prefix-vectors table * For any call `autocomplete(prefix, k)`: * The returned object is a Python `list` of length **exactly** `k` (assuming sufficient data exists, which is guaranteed for verifier-chosen prefixes). * Each element is a `dict` containing at least the keys `id`, `title`, `popularity`, `source`. * When the SQL prefix predicate `lower(title) LIKE 'lower(prefix)%'` yields M ≥ k movies, every returned element has `source == "prefix"` and the elements are ordered by `popularity` strictly non-increasing. * When M < k, the first M elements have `source == "prefix"` (ordered by `popularity` non-increasing) and the remaining (k − M) elements have `source == "semantic"`. None of the semantic elements may have an `id` that appears in the prefix portion. * For every element with `source == "prefix"`, the lowercased `title` MUST start with the lowercased `prefix`. * The set of `id`s returned in the semantic portion MUST equal the set of top `(k − M)` movie ids when the precomputed `prefix_vectors[lower(prefix)]` vector is used as the LanceDB query vector (default L2 distance), excluding any id in the prefix portion.   
+
+Pochi
+💭 Thinking for 264 characters   
+📂 Listing files in /home/user/myproject ✔ 
+📂 Listing files in /home/user ✔ 
+💫 Executing pip show lancedb 2>/dev/null | head -5; python3 -c "import lancedb; print(lancedb.__version__)" 2>/dev/null || echo "lancedb not found" ✔ 
+💫 Executing printenv | grep -E 'LANCE|MOVIES|PREFIX' 2>/dev/null; echo "---"; cat /etc/environment 2>/dev/null || true; cat /home/user/.env 2>/dev/null || true; cat /home/user/myproject/.env 2>/dev/null || true ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lance_db')
+print('Tables:', db.table_names())
+movies = db.open_table('movies')
+print('Movies schema:', movies.schema)
+print('Movies count:', movies.count_rows())
+print('Sample movies:', movies.search().limit(3).to_list())
+" ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lance_db')
+pv = db.open_table('prefix_vectors')
+print('Prefix vectors schema:', pv.schema)
+print('Prefix vectors count:', pv.count_rows())
+print('Sample prefixes:', pv.search().limit(3).to_list())
+" ✔ 
+Now I have a clear picture of the data schema. Let me implement the solution:   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+Now let's verify the implementation works correctly with a few test cases:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import os
+os.environ['LANCE_DB_URI'] = '/app/lance_db'
+os.environ['MOVIES_TABLE'] = 'movies'
+os.environ['PREFIX_TABLE'] = 'prefix_vectors'
+
+from solution import autocomplete
+
+# Test 1: prefix 'crystal' - check basic output structure
+results = autocomplete('crystal', 10)
+print('=== Test 1: prefix=crystal, k=10 ===')
+print(f'Length: {len(results)}')
+print(f'Keys: {list(results[0].keys())}')
+print('Results:')
+for r in results:
+    print(f'  id={r[\"id\"]}, title={r[\"title\"]!r}, pop={r[\"popularity\"]:.3f}, source={r[\"source\"]}')
+
+# Check ordering by popularity for prefix items
+prefix_items = [r for r in results if r['source'] == 'prefix']
+pops = [r['popularity'] for r in prefix_items]
+print(f'Prefix pops non-increasing: {pops == sorted(pops, reverse=True)}')
+# Check all prefix titles start with 'crystal'
+ok = all(r['title'].lower().startswith('crystal') for r in prefix_items)
+print(f'All prefix titles start with crystal: {ok}')
+# Check no semantic id in prefix ids
+prefix_ids = {r['id'] for r in prefix_items}
+semantic_ids = {r['id'] for r in results if r['source'] == 'semantic'}
+print(f'No overlap: {prefix_ids.isdisjoint(semantic_ids)}')
+"
+ ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import os
+os.environ['LANCE_DB_URI'] = '/app/lance_db'
+os.environ['MOVIES_TABLE'] = 'movies'
+os.environ['PREFIX_TABLE'] = 'prefix_vectors'
+
+from solution import autocomplete
+import lancedb
+
+# Find a prefix that has fewer than k=10 matches to test mixed mode
+db = lancedb.connect('/app/lance_db')
+pv = db.open_table('prefix_vectors')
+all_prefixes = [r['prefix'] for r in pv.search().limit(50).to_list()]
+print('Available prefixes:', all_prefixes[:10], '...')
+
+movies = db.open_table('movies')
+# Check counts for each prefix
+for p in all_prefixes[:15]:
+    count = len(movies.search().where(f\"title_lower LIKE '{p}%'\", prefilter=True).limit(500).to_list())
+    print(f'  prefix={p!r:20s}  matches={count}')
+"
+ ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import os
+os.environ['LANCE_DB_URI'] = '/app/lance_db'
+os.environ['MOVIES_TABLE'] = 'movies'
+os.environ['PREFIX_TABLE'] = 'prefix_vectors'
+
+from solution import autocomplete
+
+# Test with k=20 (17 prefix matches + 3 semantic)
+results = autocomplete('crystal', 20)
+print('=== Test 2: prefix=crystal, k=20 (17 prefix + 3 semantic) ===')
+print(f'Length: {len(results)} (expected 20)')
+prefix_items = [r for r in results if r['source'] == 'prefix']
+semantic_items = [r for r in results if r['source'] == 'semantic']
+print(f'Prefix items: {len(prefix_items)} (expected 17)')
+print(f'Semantic items: {len(semantic_items)} (expected 3)')
+# Check ordering of prefix items
+pops = [r['popularity'] for r in prefix_items]
+print(f'Prefix pops non-increasing: {pops == sorted(pops, reverse=True)}')
+# Check prefix items come first
+first_M = results[:17]
+last_part = results[17:]
+ok_order = all(r['source'] == 'prefix' for r in first_M) and all(r['source'] == 'semantic' for r in last_part)
+print(f'Order correct (prefix first, then semantic): {ok_order}')
+# Check no overlap in ids
+prefix_ids = {r['id'] for r in prefix_items}
+semantic_ids = {r['id'] for r in semantic_items}
+print(f'No id overlap: {prefix_ids.isdisjoint(semantic_ids)}')
+print('Semantic results:')
+for r in semantic_items:
+    print(f'  id={r[\"id\"]}, title={r[\"title\"]!r}, source={r[\"source\"]}')
+"
+ ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import os
+os.environ['LANCE_DB_URI'] = '/app/lance_db'
+os.environ['MOVIES_TABLE'] = 'movies'
+os.environ['PREFIX_TABLE'] = 'prefix_vectors'
+
+from solution import autocomplete
+
+# Test case-insensitivity: prefix with uppercase
+results = autocomplete('Crystal', 10)
+print('=== Test 3: prefix=Crystal (uppercase C), k=10 ===')
+print(f'Length: {len(results)} (expected 10)')
+ok = all(r['title'].lower().startswith('crystal') for r in results if r['source'] == 'prefix')
+print(f'All prefix titles start with crystal (case-insensitive): {ok}')
+print('Sources:', [r['source'] for r in results])
+
+# Test with exactly k=17 (boundary - all prefix)
+results17 = autocomplete('crystal', 17)
+print()
+print('=== Test 4: prefix=crystal, k=17 (exactly M matches) ===')
+print(f'Length: {len(results17)} (expected 17)')
+all_prefix = all(r['source'] == 'prefix' for r in results17)
+print(f'All sources are prefix: {all_prefix}')
+pops = [r['popularity'] for r in results17]
+print(f'Pops non-increasing: {pops == sorted(pops, reverse=True)}')
+"
+ ✔ 
+All tests pass. Let me do one final check to make sure the semantic vector search matches what LanceDB would return independently (acceptance criterion validation):   
+💫 Executing cd /home/user/myproject && python3 -c "
+import os
+os.environ['LANCE_DB_URI'] = '/app/lance_db'
+os.environ['MOVIES_TABLE'] = 'movies'
+os.environ['PREFIX_TABLE'] = 'prefix_vectors'
+
+import lancedb
+import numpy as np
+
+# Validate semantic results match raw vector search (excluding prefix ids)
+db = lancedb.connect('/app/lance_db')
+movies = db.open_table('movies')
+pv = db.open_table('prefix_vectors')
+
+prefix_lower = 'crystal'
+
+# Get all prefix matches
+prefix_rows = movies.search().where(f\"title_lower LIKE '{prefix_lower}%'\", prefilter=True).limit(500).to_list()
+prefix_rows.sort(key=lambda r: r['popularity'], reverse=True)
+prefix_ids = {int(r['id']) for r in prefix_rows}
+print(f'Prefix IDs ({len(prefix_ids)}): {sorted(prefix_ids)[:5]}...')
+
+# Get query vector
+pv_row = pv.search().where(f\"prefix = '{prefix_lower}'\", prefilter=True).limit(1).to_list()[0]
+qv = np.array(pv_row['vector'], dtype=np.float32)
+
+# Direct vector search excluding prefix ids
+ids_str = ', '.join(str(i) for i in prefix_ids)
+raw_semantic = movies.search(qv).where(f'id NOT IN ({ids_str})', prefilter=True).limit(3).to_list()
+print('Raw semantic top-3:', [(r['id'], r['title']) for r in raw_semantic])
+
+# Our autocomplete semantic part
+from solution import autocomplete
+results = autocomplete('crystal', 20)
+our_semantic = [r for r in results if r['source'] == 'semantic']
+print('Our semantic top-3:', [(r['id'], r['title']) for r in our_semantic])
+
+match = [r['id'] for r in raw_semantic] == [r['id'] for r in our_semantic]
+print(f'Semantic results match: {match}')
+"
+ ✔ 
+The semantic results exactly match the raw LanceDB vector search results.   
+🎉 Task Completed
+The `solution.py` module has been created at `/home/user/myproject/solution.py`. Here's a summary of the implementation:
+
+## What it does
+
+```python
+def autocomplete(prefix: str, k: int = 10) -> list[dict]
+```
+
+**Step 1 — SQL prefix match:**
+- Connects to LanceDB using `LANCE_DB_URI`, opens `MOVIES_TABLE` and `PREFIX_TABLE` from env vars.
+- Filters movies with `title_lower LIKE '{prefix_lower}%'` (case-insensitive via the pre-seeded `title_lower` column).
+- Sorts all M matches by `popularity` descending.
+
+**Step 2a — M ≥ k:** Returns top-k rows, each with `source="prefix"`.
+
+**Step 2b — M < k (mixed mode):**
+- Includes all M prefix rows (`source="prefix"`) ordered by popularity.
+- Looks up `lower(prefix)` in `prefix_vectors` to get the precomputed 32-dim query vector.
+- Runs a vector search (L2) on the movies table with a `prefilter` excluding already-returned ids, fetching exactly `(k − M)` more results with `source="semantic"`.
+
+## Verified behaviours
+- Returns exactly `k` elements ✅
+- Each element contains `id` (int), `title` (str), `popularity` (float), `source` (str) ✅
+- Case-insensitive prefix matching (`Crystal` == `crystal`) ✅
+- Prefix results sorted by popularity non-increasing ✅
+- Semantic results match raw LanceDB vector search (same ordering) ✅
+- No id overlap between prefix and semantic portions ✅
+- Boundary condition M == k returns all-prefix correctly ✅   
+  

@@ -1,0 +1,110 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py ....FF                                         [100%]
+
+=================================== FAILURES ===================================
+___________________ test_table_persisted_with_correct_shape ____________________
+
+build_and_summary = {'books': {'avg_price': 529.8424602924024, 'count': 197, 'in_stock_rate': 0.6700507614213198}, 'clothing': {'avg_price... 0.7075471698113207}, 'food': {'avg_price': 559.0665526027082, 'count': 190, 'in_stock_rate': 0.6526315789473685}, ...}
+
+    def test_table_persisted_with_correct_shape(build_and_summary):
+        db = lancedb.connect(DATA_DIR)
+        name = _table_name()
+>       assert name in db.table_names(), (
+            f"Expected LanceDB table '{name}' under {DATA_DIR}, got tables: {db.table_names()}"
+        )
+E       AssertionError: Expected LanceDB table 'products_zr-x6dakeo' under /home/user/myproject/data, got tables: []
+E       assert 'products_zr-x6dakeo' in []
+E        +  where [] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/data')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/home/user/myproject/data')> = LanceDBConnection(uri='/home/user/myproject/data').table_names
+
+tests/test_final_state.py:140: AssertionError
+________________ test_duckdb_over_lance_dataset_matches_counts _________________
+
+build_and_summary = {'books': {'avg_price': 529.8424602924024, 'count': 197, 'in_stock_rate': 0.6700507614213198}, 'clothing': {'avg_price... 0.7075471698113207}, 'food': {'avg_price': 559.0665526027082, 'count': 190, 'in_stock_rate': 0.6526315789473685}, ...}
+
+    def test_duckdb_over_lance_dataset_matches_counts(build_and_summary):
+        db = lancedb.connect(DATA_DIR)
+>       tbl = db.open_table(_table_name())
+
+tests/test_final_state.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:694: in open_table
+    return LanceTable.open(
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1747: in open
+    tbl = cls(db, name, namespace=namespace, **kwargs)
+usr/local/lib/python3.12/dist-packages/lancedb/table.py:1720: in __init__
+    self._table = LOOP.run(
+usr/local/lib/python3.12/dist-packages/lancedb/background_loop.py:25: in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+usr/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ListingDatabase(uri=/home/user/myproject/data, read_consistency_interval=None)
+name = 'products_zr-x6dakeo'
+
+    async def open_table(
+        self,
+        name: str,
+        *,
+        namespace: List[str] = [],
+        storage_options: Optional[Dict[str, str]] = None,
+        index_cache_size: Optional[int] = None,
+    ) -> AsyncTable:
+        """Open a Lance Table in the database.
+    
+        Parameters
+        ----------
+        name: str
+            The name of the table.
+        namespace: List[str], optional
+            The namespace to open the table from.
+            None or empty list represents root namespace.
+        storage_options: dict, optional
+            Additional options for the storage backend. Options already set on the
+            connection will be inherited by the table, but can be overridden here.
+            See available options at
+            <https://lancedb.github.io/lancedb/guides/storage/>
+        index_cache_size: int, default 256
+            **Deprecated**: Use session-level cache configuration instead.
+            Create a Session with custom cache sizes and pass it to lancedb.connect().
+    
+            Set the size of the index cache, specified as a number of entries
+    
+            The exact meaning of an "entry" will depend on the type of index:
+            * IVF - there is one entry for each IVF partition
+            * BTREE - there is one entry for the entire index
+    
+            This cache applies to the entire opened table, across all indices.
+            Setting this value higher will increase performance on larger datasets
+            at the expense of more RAM
+    
+        Returns
+        -------
+        A LanceTable object representing the table.
+        """
+>       table = await self._inner.open_table(
+            name,
+            namespace=namespace,
+            storage_options=storage_options,
+            index_cache_size=index_cache_size,
+        )
+E       ValueError: Table 'products_zr-x6dakeo' was not found
+
+usr/local/lib/python3.12/dist-packages/lancedb/db.py:1226: ValueError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_summary_has_exactly_five_known_categories
+PASSED tests/test_final_state.py::test_summary_entry_shapes_and_ranges
+PASSED tests/test_final_state.py::test_counts_sum_to_1000
+PASSED tests/test_final_state.py::test_summary_matches_regenerated_ground_truth
+FAILED tests/test_final_state.py::test_table_persisted_with_correct_shape - A...
+FAILED tests/test_final_state.py::test_duckdb_over_lance_dataset_matches_counts
+========================= 2 failed, 4 passed in 11.20s =========================

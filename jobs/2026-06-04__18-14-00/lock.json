@@ -1,0 +1,1277 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-06-04T18:14:02.390148Z",
+    "harbor": {
+        "version": "0.8.0",
+        "is_editable": false
+    },
+    "invocation": [
+        "/home/kweizh/.local/bin/harbor",
+        "run",
+        "--yes",
+        "--agent-import-path",
+        "agents.pochi:Pochi",
+        "--artifact",
+        "/home/user",
+        "--mounts",
+        "[{\"type\": \"bind\",\"source\":\"test_initial_state.py\",\"target\":\"/bootstrap/test_initial_state.py\"}]",
+        "--model",
+        "anthropic/claude-4-6-sonnet",
+        "-p",
+        "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks",
+        "--n-attempts",
+        "1",
+        "--max-retries",
+        "0",
+        "--job-name",
+        "2026-06-04__18-14-00",
+        "-n",
+        "5"
+    ],
+    "n_concurrent_trials": 5,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileEmptyError",
+            "VerifierOutputParseError",
+            "AgentTimeoutError",
+            "VerifierTimeoutError",
+            "RewardFileNotFoundError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "outlier_detection_isolation_forest_py",
+                "type": "local",
+                "digest": "sha256:e83e7d9a5edc724bfa16566eca67b55f40fe1bff5944faed0793ac5561911ba2",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/outlier_detection_isolation_forest_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "jina_embedding_api_search_py",
+                "type": "local",
+                "digest": "sha256:142430190797c3d8b50a7adb2542e4e256024576cc4917fcf0164af00f72fb1a",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/jina_embedding_api_search_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "ivf_hnsw_sq_index_py",
+                "type": "local",
+                "digest": "sha256:c15d85766e416832e8eb71c3b699941e6285221db34e9d1a0db9310bd583e61e",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/ivf_hnsw_sq_index_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "multi_vector_late_interaction_py",
+                "type": "local",
+                "digest": "sha256:1f69a35574b4f29fe5d20fe6c9c943289c752e4b3c3ec61f4a7966f6d230e817",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/multi_vector_late_interaction_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "binary_quantization_search_py",
+                "type": "local",
+                "digest": "sha256:a336baf76bd8d92478308efe817ad6e60b863ed7438934c0fd01fce66654a5bd",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/binary_quantization_search_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "grpc_search_microservice_py",
+                "type": "local",
+                "digest": "sha256:38323ec2a6a973881de935d5660d87f3de397d179a6d94ac287c879f41d5c32e",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/grpc_search_microservice_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "duckdb_lance_query_py",
+                "type": "local",
+                "digest": "sha256:cac8163a5837a451a9cecd27ec295ce077f29d035981951ad4f762c122697da4",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/duckdb_lance_query_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "kmeans_clustering_embeddings_py",
+                "type": "local",
+                "digest": "sha256:d23425b46f89708232d4e6d4a784451f97f837725f05ec68b2eff0dcfece5f26",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/kmeans_clustering_embeddings_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "cross_lingual_translate_search_py",
+                "type": "local",
+                "digest": "sha256:f5ed6032dd57f408c86f9f6e8b3f75c0c8fbc8afd4188c4c586037c1c84469f1",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/cross_lingual_translate_search_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "voyage_embedding_api_search_py",
+                "type": "local",
+                "digest": "sha256:99fcd351c84b0bc51cb193ddc302122595c64b01bbbb2fce9aef2b8d9c870bbc",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/voyage_embedding_api_search_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "tantivy_phrase_proximity_py",
+                "type": "local",
+                "digest": "sha256:eaaeb72128bbd23dc3eeac9af01c8e17ea04a02382fdd5346909b8a8d272a161",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/tantivy_phrase_proximity_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "polars_dataframe_ingest_py",
+                "type": "local",
+                "digest": "sha256:91d8724bc04639c65de99442ced7ab3631778119287f68de93e029f8d12e3d3b",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/polars_dataframe_ingest_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "mmr_diversity_reranking_py",
+                "type": "local",
+                "digest": "sha256:bec0ff05f6fc73b94bc72cff6b9e5f08d031bcaf3d215edd9dab0aeb9b05ee76",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/mmr_diversity_reranking_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "snapshot_tag_compare_py",
+                "type": "local",
+                "digest": "sha256:f716991a3ff7187bf1b4d8bb240f41955b3c8980bfce43b535984af903f117d3",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/snapshot_tag_compare_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "semantic_dedup_minhash_py",
+                "type": "local",
+                "digest": "sha256:4991e29a3730f8647d8599afcc3a9d8809825f1aa175423f5397a55156664a2c",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/semantic_dedup_minhash_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "autocomplete_prefix_search_py",
+                "type": "local",
+                "digest": "sha256:0d6887bd36b67d14a050b9ab3805b0a3e18258a33b4caca36c3f0a4db35bca30",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/autocomplete_prefix_search_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "hf_inference_cross_encoder_rerank_py",
+                "type": "local",
+                "digest": "sha256:abc8eb6cd242aacaacb5ff805527992e535fb453c6054b62acce93f7f44c2980",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/hf_inference_cross_encoder_rerank_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "hyde_hypothetical_doc_search_py",
+                "type": "local",
+                "digest": "sha256:9a270cfd170e00c10d925b368f044e2e018d8a28d12b14a193a58f86d6a5e7bf",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/hyde_hypothetical_doc_search_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "multilingual_fts_per_language_py",
+                "type": "local",
+                "digest": "sha256:dc5d36f75edc4858d4974e82dc3df1ea94dc5362cba8e82d38fa39aa8b1b3623",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/multilingual_fts_per_language_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "relevance_feedback_rocchio_py",
+                "type": "local",
+                "digest": "sha256:e4fed00aa23fdb1d21149b04b0130a2f13c60fd618462c5b935c9129d5303571",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/relevance_feedback_rocchio_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "arrow_flight_lance_proxy_py",
+                "type": "local",
+                "digest": "sha256:b4cff96ab2651676274a6e7f956f15edc9c666f9aab74cf2f15411f296a5fb0e",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/arrow_flight_lance_proxy_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "query_decomposition_rag_py",
+                "type": "local",
+                "digest": "sha256:1134d076f06152e5c4a8b0b4193920f6b7e6c9662190dafb022184fb23efb854",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/query_decomposition_rag_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "pq_recall_quality_sweep_py",
+                "type": "local",
+                "digest": "sha256:743e2dd09ee536b2db765e4cc4f62376e4216e55096cbd05f942b474b2718db0",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/pq_recall_quality_sweep_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "zstd_storage_options_py",
+                "type": "local",
+                "digest": "sha256:82c3ef9eddc1d1e905091df238689ebbcd7096b81948a7c192d255e4f242d029",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/zstd_storage_options_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "negative_filter_not_in_py",
+                "type": "local",
+                "digest": "sha256:eeb714f49bdc144431805506662c7993d7e212d8c9aa4502539d85acfaf708de",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/negative_filter_not_in_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "query_expansion_wordnet_py",
+                "type": "local",
+                "digest": "sha256:9319d5d7dca2e28a57bad0bf77db54e213901699ac78eea52e6d6dca19d06d01",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/query_expansion_wordnet_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "nearest_centroid_classifier_py",
+                "type": "local",
+                "digest": "sha256:1cd1875eb3ab9d1002643e1456a7054c98176f3814ef2939350dd815c0d18b78",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/nearest_centroid_classifier_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "cohere_embed_multilingual_search_py",
+                "type": "local",
+                "digest": "sha256:f2fbeddc811cce7157026aff3f3d7f5e95a00d581fe3d73352219214930cc498",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/cohere_embed_multilingual_search_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "cosine_similarity_matrix_py",
+                "type": "local",
+                "digest": "sha256:fbecf1f12ffb9ad42e0abadf13c33b26a92aa231aa04476a0fd00509acfa72d8",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/cosine_similarity_matrix_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "parquet_partitioned_to_lance_py",
+                "type": "local",
+                "digest": "sha256:d93862304ca6651befcee7b65c57a9aace15b833bd102530b99b2e607f969fbb",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/parquet_partitioned_to_lance_py"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "anthropic/claude-4-6-sonnet",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

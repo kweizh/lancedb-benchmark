@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py .........                                      [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_solution_file_exists
+PASSED tests/test_final_state.py::test_expanded_search_is_callable
+PASSED tests/test_final_state.py::test_expanded_search_return_contract
+PASSED tests/test_final_state.py::test_native_fts_index_on_content
+PASSED tests/test_final_state.py::test_fixture_invariant_synonym_only_docs_exist
+PASSED tests/test_final_state.py::test_baseline_isolation
+PASSED tests/test_final_state.py::test_synonym_recall_via_expansion
+PASSED tests/test_final_state.py::test_expansion_differs_from_baseline
+PASSED tests/test_final_state.py::test_expanded_search_is_idempotent
+============================== 9 passed in 7.10s ===============================

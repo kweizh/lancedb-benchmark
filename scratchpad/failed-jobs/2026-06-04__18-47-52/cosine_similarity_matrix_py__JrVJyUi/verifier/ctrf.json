@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780599660935,
+            "stop": 1780599675873
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_matrix_shape_and_dtype",
+                "status": "passed",
+                "duration": 13683,
+                "start": 1780599661330,
+                "stop": 1780599675013,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_matrix_is_symmetric",
+                "status": "passed",
+                "duration": 12,
+                "start": 1780599675015,
+                "stop": 1780599675027,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_matrix_diagonal_is_one",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780599675028,
+                "stop": 1780599675031,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_matrix_value_range",
+                "status": "passed",
+                "duration": 6,
+                "start": 1780599675031,
+                "stop": 1780599675037,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_intra_class_mean_matches_numpy",
+                "status": "passed",
+                "duration": 30,
+                "start": 1780599675038,
+                "stop": 1780599675068,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_structure_preserved",
+                "status": "passed",
+                "duration": 4,
+                "start": 1780599675069,
+                "stop": 1780599675073,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_matrix_matches_direct_lancedb_cosine",
+                "status": "passed",
+                "duration": 798,
+                "start": 1780599675074,
+                "stop": 1780599675872,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

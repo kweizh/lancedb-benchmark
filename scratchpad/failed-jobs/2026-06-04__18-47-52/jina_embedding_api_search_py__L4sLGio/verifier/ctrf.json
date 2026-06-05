@@ -1,0 +1,115 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780599048552,
+            "stop": 1780599059459
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_lancedb_data_directory_exists",
+                "status": "passed",
+                "duration": 4294,
+                "start": 1780599048600,
+                "stop": 1780599052894,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_table_exists_and_row_count",
+                "status": "passed",
+                "duration": 10,
+                "start": 1780599052895,
+                "stop": 1780599052905,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_embedding_dim_matches_jina",
+                "status": "passed",
+                "duration": 629,
+                "start": 1780599052905,
+                "stop": 1780599053534,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_anchor_query_rank1",
+                "status": "passed",
+                "duration": 437,
+                "start": 1780599053534,
+                "stop": 1780599053971,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::anchor::[{'query': 'central bank interest rate hike', 'expected_id': 1, 'expected_topic': 'finance', 'expected_headline': 'Federal Reserve Raises Benchmark Interest Rate by 25 Basis Points'}, {'query': 'Olympics gold medal swimming', 'expected_id': 11, 'expected_topic': 'sports', 'expected_headline': 'American Swimmer Wins Olympic Gold Medal in 200m Freestyle'}, {'query': 'spacecraft Mars landing', 'expected_id': 21, 'expected_topic': 'space', 'expected_headline': 'NASA Spacecraft Successfully Lands on Surface of Mars'}]::ids_['finance', 'sports', 'space']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_anchor_query_rank1",
+                "status": "passed",
+                "duration": 350,
+                "start": 1780599053972,
+                "stop": 1780599054322,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::anchor::[{'query': 'central bank interest rate hike', 'expected_id': 1, 'expected_topic': 'finance', 'expected_headline': 'Federal Reserve Raises Benchmark Interest Rate by 25 Basis Points'}, {'query': 'Olympics gold medal swimming', 'expected_id': 11, 'expected_topic': 'sports', 'expected_headline': 'American Swimmer Wins Olympic Gold Medal in 200m Freestyle'}, {'query': 'spacecraft Mars landing', 'expected_id': 21, 'expected_topic': 'space', 'expected_headline': 'NASA Spacecraft Successfully Lands on Surface of Mars'}]::ids_['finance', 'sports', 'space']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_anchor_query_rank1",
+                "status": "passed",
+                "duration": 355,
+                "start": 1780599054323,
+                "stop": 1780599054678,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::anchor::[{'query': 'central bank interest rate hike', 'expected_id': 1, 'expected_topic': 'finance', 'expected_headline': 'Federal Reserve Raises Benchmark Interest Rate by 25 Basis Points'}, {'query': 'Olympics gold medal swimming', 'expected_id': 11, 'expected_topic': 'sports', 'expected_headline': 'American Swimmer Wins Olympic Gold Medal in 200m Freestyle'}, {'query': 'spacecraft Mars landing', 'expected_id': 21, 'expected_topic': 'space', 'expected_headline': 'NASA Spacecraft Successfully Lands on Surface of Mars'}]::ids_['finance', 'sports', 'space']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_search_k_truncation",
+                "status": "passed",
+                "duration": 348,
+                "start": 1780599054678,
+                "stop": 1780599055026,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cli_run_py",
+                "status": "passed",
+                "duration": 3632,
+                "start": 1780599055027,
+                "stop": 1780599058659,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_asymmetric_task_parameter_agrees",
+                "status": "passed",
+                "duration": 798,
+                "start": 1780599058660,
+                "stop": 1780599059458,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

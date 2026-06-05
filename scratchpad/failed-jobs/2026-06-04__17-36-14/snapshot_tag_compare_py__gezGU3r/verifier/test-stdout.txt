@@ -1,0 +1,165 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py FFFFF..F                                       [100%]
+
+=================================== FAILURES ===================================
+______________________ test_table_exists_and_has_65_rows _______________________
+
+    def test_table_exists_and_has_65_rows():
+>       table = _open_table()
+
+tests/test_final_state.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "list_tables", None) or db.table_names
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'documents_zr-gezgu3r' not found in /app/db. Found tables: [('tables', ['documents_zr-gezgu3r']), ('page_token', None)].
+E       assert 'documents_zr-gezgu3r' in [('tables', ['documents_zr-gezgu3r']), ('page_token', None)]
+
+tests/test_final_state.py:28: AssertionError
+_______________ test_three_tags_present_with_monotonic_versions ________________
+
+    def test_three_tags_present_with_monotonic_versions():
+>       table = _open_table()
+
+tests/test_final_state.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "list_tables", None) or db.table_names
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'documents_zr-gezgu3r' not found in /app/db. Found tables: [('tables', ['documents_zr-gezgu3r']), ('page_token', None)].
+E       assert 'documents_zr-gezgu3r' in [('tables', ['documents_zr-gezgu3r']), ('page_token', None)]
+
+tests/test_final_state.py:28: AssertionError
+________________________ test_v1_baseline_snapshot_ids _________________________
+
+    def test_v1_baseline_snapshot_ids():
+>       ids = _ids_at_tag("v1_baseline")
+
+tests/test_final_state.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:48: in _ids_at_tag
+    table = _open_table()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "list_tables", None) or db.table_names
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'documents_zr-gezgu3r' not found in /app/db. Found tables: [('tables', ['documents_zr-gezgu3r']), ('page_token', None)].
+E       assert 'documents_zr-gezgu3r' in [('tables', ['documents_zr-gezgu3r']), ('page_token', None)]
+
+tests/test_final_state.py:28: AssertionError
+________________________ test_v2_extended_snapshot_ids _________________________
+
+    def test_v2_extended_snapshot_ids():
+>       ids = _ids_at_tag("v2_extended")
+
+tests/test_final_state.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:48: in _ids_at_tag
+    table = _open_table()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "list_tables", None) or db.table_names
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'documents_zr-gezgu3r' not found in /app/db. Found tables: [('tables', ['documents_zr-gezgu3r']), ('page_token', None)].
+E       assert 'documents_zr-gezgu3r' in [('tables', ['documents_zr-gezgu3r']), ('page_token', None)]
+
+tests/test_final_state.py:28: AssertionError
+_________________________ test_v3_pruned_snapshot_ids __________________________
+
+    def test_v3_pruned_snapshot_ids():
+>       ids = _ids_at_tag("v3_pruned")
+
+tests/test_final_state.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:48: in _ids_at_tag
+    table = _open_table()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "list_tables", None) or db.table_names
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'documents_zr-gezgu3r' not found in /app/db. Found tables: [('tables', ['documents_zr-gezgu3r']), ('page_token', None)].
+E       assert 'documents_zr-gezgu3r' in [('tables', ['documents_zr-gezgu3r']), ('page_token', None)]
+
+tests/test_final_state.py:28: AssertionError
+______________________ test_diff_restores_latest_version _______________________
+
+    def test_diff_restores_latest_version():
+        # After calling diff, the candidate must have called table.checkout_latest() so the
+        # live table is observable to subsequent callers.
+        solution = _load_solution_module()
+        solution.diff(DB_DIR, _table_name(), "v1_baseline", "v3_pruned")
+>       table = _open_table()
+
+tests/test_final_state.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "list_tables", None) or db.table_names
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'documents_zr-gezgu3r' not found in /app/db. Found tables: [('tables', ['documents_zr-gezgu3r']), ('page_token', None)].
+E       assert 'documents_zr-gezgu3r' in [('tables', ['documents_zr-gezgu3r']), ('page_token', None)]
+
+tests/test_final_state.py:28: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_diff_v1_to_v2_returns_twenty_added
+PASSED tests/test_final_state.py::test_diff_v2_to_v3_returns_five_removed
+FAILED tests/test_final_state.py::test_table_exists_and_has_65_rows - Asserti...
+FAILED tests/test_final_state.py::test_three_tags_present_with_monotonic_versions
+FAILED tests/test_final_state.py::test_v1_baseline_snapshot_ids - AssertionEr...
+FAILED tests/test_final_state.py::test_v2_extended_snapshot_ids - AssertionEr...
+FAILED tests/test_final_state.py::test_v3_pruned_snapshot_ids - AssertionErro...
+FAILED tests/test_final_state.py::test_diff_restores_latest_version - Asserti...
+========================= 6 failed, 2 passed in 3.78s ==========================

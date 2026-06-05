@@ -1,0 +1,68 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_sklearn_importable PASSED
+bootstrap/test_initial_state.py::test_pyarrow_importable PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_zealt_run_id_env_set PASSED
+bootstrap/test_initial_state.py::test_lancedb_data_dir_exists FAILED
+bootstrap/test_initial_state.py::test_events_table_exists_with_expected_schema FAILED
+bootstrap/test_initial_state.py::test_ground_truth_outliers_file_present FAILED
+
+=================================== FAILURES ===================================
+_________________________ test_lancedb_data_dir_exists _________________________
+
+    def test_lancedb_data_dir_exists():
+>       assert os.path.isdir(LANCEDB_DIR), f"LanceDB data dir {LANCEDB_DIR} must be pre-seeded."
+E       AssertionError: LanceDB data dir /home/user/myproject/lancedb_data must be pre-seeded.
+E       assert False
+E        +  where False = <function isdir at 0x7ff8f05282c0>('/home/user/myproject/lancedb_data')
+E        +    where <function isdir at 0x7ff8f05282c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:38: AssertionError
+________________ test_events_table_exists_with_expected_schema _________________
+
+    def test_events_table_exists_with_expected_schema():
+        import lancedb
+        import pyarrow as pa
+    
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID env var required to locate the events table."
+        table_name = f"events_{run_id}"
+    
+        db = lancedb.connect(LANCEDB_DIR)
+        names = db.table_names()
+>       assert table_name in names, (
+            f"Expected pre-seeded table '{table_name}' in LanceDB; got {names!r}."
+        )
+E       AssertionError: Expected pre-seeded table 'events_zr-mjvdiky' in LanceDB; got [].
+E       assert 'events_zr-mjvdiky' in []
+
+bootstrap/test_initial_state.py:51: AssertionError
+___________________ test_ground_truth_outliers_file_present ____________________
+
+    def test_ground_truth_outliers_file_present():
+>       assert os.path.isfile(GROUND_TRUTH_PATH), (
+            f"Ground-truth outliers file {GROUND_TRUTH_PATH} must be pre-seeded for the verifier."
+        )
+E       AssertionError: Ground-truth outliers file /home/user/myproject/.ground_truth_outliers.json must be pre-seeded for the verifier.
+E       assert False
+E        +  where False = <function isfile at 0x7ff8f0528220>('/home/user/myproject/.ground_truth_outliers.json')
+E        +    where <function isfile at 0x7ff8f0528220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:83: AssertionError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_lancedb_data_dir_exists - Assert...
+FAILED bootstrap/test_initial_state.py::test_events_table_exists_with_expected_schema
+FAILED bootstrap/test_initial_state.py::test_ground_truth_outliers_file_present
+========================= 3 failed, 6 passed in 10.24s =========================

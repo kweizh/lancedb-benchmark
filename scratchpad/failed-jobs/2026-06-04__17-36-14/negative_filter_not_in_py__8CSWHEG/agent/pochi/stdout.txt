@@ -1,0 +1,77 @@
+- Initializing MCP connections...
+You
+# LanceDB Negation Filters: NOT IN, !=, NOT LIKE, and Complex NOT (...) ## Background LanceDB supports DataFusion SQL syntax in its `where(...)` clause, including negation operators such as `NOT IN`, `!=`, `NOT LIKE`, and arbitrary boolean negation with `NOT (...)`. Combining vector search with negation filters is a common pattern in product search (exclude blocked brands, exclude on-sale categories, hide certain SKUs by name prefix, etc.). Your job is to build a small product-catalog search module on top of a 300-row LanceDB table and expose four search functions that each combine an L2 vector search with a specific kind of negation filter. ## Requirements * Build a Python module at `/home/user/myproject/solution.py` that, when executed as `python3 solution.py`, deterministically (re)creates a LanceDB table named `products_${ZEALT_RUN_ID}` and (re)populates it with exactly 300 rows. * The LanceDB database directory must live at `/home/user/myproject/lancedb`. * Seed every random value with `numpy.random.default_rng(2026)` so the fixture is byte-identical between candidate and verifier runs. * The Arrow schema must be exactly: * `id`: `Int64` * `name`: `Utf8` * `brand`: `Utf8` (drawn from 10 distinct brand strings) * `category`: `Utf8` (drawn from 6 distinct category strings) * `price`: `Float64` * `banned_country`: `Utf8` * `vector`: `fixed_size_list<float32, 16>` (16-dimensional float32 embedding) * The candidate code must expose a top-level `build_table()` function and the following four search functions with these exact signatures and behaviors: ```python def exclude_brands(query_vec: list[float], banned_brands: list[str], k: int = 10) -> list[dict]: ... def exclude_categories_and_price(query_vec: list[float], cat: str, max_price: float, k: int = 10) -> list[dict]: ... def not_like_search(query_vec: list[float], prefix: str, k: int = 10) -> list[dict]: ... def complex_negation(query_vec: list[float], k: int = 10) -> list[dict]: ... ``` * Each function must run an L2 vector search against the `vector` column with the supplied `query_vec`, apply the correct LanceDB SQL `where` clause, and return up to `k` rows as a list of dicts ordered by ascending L2 distance. * Each returned dict must contain exactly these keys: `id` (int), `name` (str), `brand` (str), `category` (str), `price` (float). * The `where` clause for each function must be the negation listed below (use single-quoted SQL string literals): * `exclude_brands`: `brand NOT IN ('<b1>','<b2>',...)` built from the `banned_brands` list. * `exclude_categories_and_price`: `category != '<cat>' AND price <= `. * `not_like_search`: `name NOT LIKE '<prefix>%'`. * `complex_negation`: `NOT (brand = 'BrandA' OR (category = 'Cat3' AND price > 100.0))`. Hard-code the literals `'BrandA'`, `'Cat3'`, and `100.0` in the SQL string. ## Implementation Hints * Use `lancedb.connect("/home/user/myproject/lancedb")` and create the table with `mode="overwrite"` so re-running the script is idempotent. * Construct the Arrow schema explicitly with `pyarrow` types (`pa.int64()`, `pa.utf8()`, `pa.float64()`, `pa.list_(pa.float32(), 16)`) and pass it via the `schema=` keyword when creating the table. * The 10 brands should be `BrandA`..`BrandJ`; the 6 categories should be `Cat1`..`Cat6`. The 5 `banned_country` values should be drawn from `{"", "US", "EU", "ASIA", "AFRICA"}`. Use the deterministic numpy RNG to pick brand, category, and banned\_country per row. * The `name` column should be `f"{prefix}-{i:03d}"` where `prefix` is sampled per-row from `["premium", "budget", "classic", "deluxe", "smart", "eco"]`. This makes the `NOT LIKE 'premium%'`-style filters meaningful. * Use `numpy.random.default_rng(2026).standard_normal((300, 16)).astype("float32")` for the embedding column. The first call to `default_rng(2026)` must produce the vectors; if you draw additional values from the same RNG for brand/category/price/etc. afterwards, do so in a fixed, documented order so the verifier can match it. * Inside each search function, call `tbl.search(query_vec).where(<sql>).limit(k).to_list()` (or equivalent `to_pandas()` plus iteration) and project to the required dict shape. Do **not** prefilter manually in Python — the `where` clause must be pushed down to LanceDB. * The functions are read-only; they must not mutate the table. ## Acceptance Criteria * Project path: `/home/user/myproject` * Module file: `/home/user/myproject/solution.py` * Build command: `python3 /home/user/myproject/solution.py` — must be idempotent and recreate the table from scratch each time it is invoked. * LanceDB directory: `/home/user/myproject/lancedb` * Table name: `products_${ZEALT_RUN_ID}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable. * Row count of the table is exactly 300. * Schema fields exactly: `id` Int64, `name` Utf8, `brand` Utf8, `category` Utf8, `price` Float64, `banned_country` Utf8, `vector` fixed\_size\_list\<float32, 16>. * Public API: `from solution import exclude_brands, exclude_categories_and_price, not_like_search, complex_negation` returns four callable functions matching the signatures above. * Each search function returns a list of dicts with exactly the keys `id`, `name`, `brand`, `category`, `price`, ordered by ascending L2 distance to the query, and respects its declared negation predicate (zero leakage). * Calling the same function twice with the same arguments must return the same result (deterministic).   
+
+Pochi
+💭 Thinking for 1698 characters   
+I will create a todo list to track the development of this product catalog search module and LanceDB table setup.   
+📋 Updating todo list (4 items) ✔ 
+I will check the files and directories inside `/home/user/myproject` to see if there are any existing files or structure.   
+📂 Listing files in /home/user/myproject recursively ✔ 
+I will mark the first task (Explore project directory) as completed and set the second task (Design and write the deterministic dataset generation) to in-progress.   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 1626 characters   
+I will verify if the required packages (`lancedb`, `pyarrow`, `numpy`) are installed in the environment.   
+💫 Executing python3 -c "import lancedb, pyarrow, numpy; print('All packages are installed successfully!')" ✔ 
+I will run a quick Python command to test creating a PyArrow schema and a LanceDB connection to ensure the types and schema definitions are correct.   
+💫 Executing python3 -c "import pyarrow as pa; schema = pa.schema([('id', pa.int64()), ('name', pa.string()), ('brand', pa.string()), ('category', pa.string()), ('price', pa.float64()), ('banned_country', pa.string()), ('vector', pa.list_(pa.float32(), 16))]); print(schema)" ✔ 
+💭 Thinking for 1620 characters   
+I will mark the second task (Design and write deterministic dataset generation) as completed and start the third task (Create the solution.py file).   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 1021 characters   
+I will write a small script to test the deterministic generation and ensure that it is byte-identical and has no errors.   
+✏️  Writing /home/user/myproject/test_gen.py ✔ 
+I will execute the test generation script to inspect the deterministic outputs.   
+💫 Executing python3 /home/user/myproject/test_gen.py ✔ 
+💭 Thinking for 475 characters   
+I will write and run a test script to verify that creating a LanceDB table using a PyArrow table preserves the schema exactly.   
+✏️  Writing /home/user/myproject/test_lancedb.py ✔ 
+I will run the test script to verify LanceDB table creation.   
+💫 Executing python3 /home/user/myproject/test_lancedb.py ✔ 
+💭 Thinking for 293 characters   
+I will write a search test script to verify that the negation SQL syntax works correctly with LanceDB's vector search pushdown.   
+✏️  Writing /home/user/myproject/test_queries.py ✔ 
+I will run the query test script to verify LanceDB's execution of negation filters.   
+💫 Executing python3 /home/user/myproject/test_queries.py ✔ 
+💭 Thinking for 1205 characters   
+I will write the complete implementation of `/home/user/myproject/solution.py` including the table builder and search functions.   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+I will remove the temporary test files to keep the workspace clean.   
+💫 Executing rm -f /home/user/myproject/test_gen.py /home/user/myproject/test_lancedb.py /home/user/myproject/test_queries.py ✔ 
+I will run the build command to verify that `solution.py` can be executed directly to build the table.   
+💫 Executing ZEALT_RUN_ID=12345 python3 /home/user/myproject/solution.py ✔ 
+I will list the files in the lancedb directory to verify the table directory was created.   
+📂 Listing files in /home/user/myproject/lancedb recursively ✔ 
+I will remove the test table directory to keep the lancedb directory clean.   
+💫 Executing rm -rf /home/user/myproject/lancedb/products_test.lance ✔ 
+💭 Thinking for 501 characters   
+I will write a local verification script to verify all four search functions and run assertions on their outputs.   
+✏️  Writing /home/user/myproject/verify_solution.py ✔ 
+I will execute the verification script to run all the tests and verify that the output meets the requirements.   
+💫 Executing python3 /home/user/myproject/verify_solution.py ✔ 
+I will delete the verification script to leave only `/home/user/myproject/solution.py` and the database directory.   
+💫 Executing rm -f /home/user/myproject/verify_solution.py ✔ 
+I will update the todo list to mark all tasks as completed.   
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+I have successfully built and verified the product catalog search module based on LanceDB and deterministic PyArrow datasets.
+
+### What Was Done
+1. **Deterministic Dataset Generation**:
+   - Seeded with `numpy.random.default_rng(2026)`.
+   - Populated exactly 300 rows with byte-identical vectors first, followed by row-by-row sampling of other features (prefix, name, brand, category, price, banned country) in a fixed, documented order.
+   - Designed the explicit PyArrow schema matching: `id` (Int64), `name` (Utf8), `brand` (Utf8), `category` (Utf8), `price` (Float64), `banned_country` (Utf8), and `vector` (fixed_size_list<float32, 16>).
+
+2. **Idempotent Table Creation**:
+   - Implemented `build_table()`, connecting to `lancedb` under `/home/user/myproject/lancedb` and writing the table `products_${ZEALT_RUN_ID}` (retrieved from the `ZEALT_RUN_ID` environment variable) in `mode="overwrite"`.
+
+3. **Search Functions with Negation Filters**:
+   - Exposes four search functions (`exclude_brands`, `exclude_categories_and_price`, `not_like_search`, `complex_negation`) with pushdown SQL `where` clauses using single-quoted literals:
+     - `exclude_brands`: `brand NOT IN ('<b1>','<b2>',...)`
+     - `exclude_categories_and_price`: `category != '<cat>' AND price <= <max_price>`
+     - `not_like_search`: `name NOT LIKE '<prefix>%'`
+     - `complex_negation`: `NOT (brand = 'BrandA' OR (category = 'Cat3' AND price > 100.0))`
+   - Performs vector search and returns a maximum of `k` results as lists of dicts containing exactly `id`, `name`, `brand`, `category`, and `price` keys, ordered by ascending L2 distance.
+
+The module is fully self-contained and located at `/home/user/myproject/solution.py`.   
+  

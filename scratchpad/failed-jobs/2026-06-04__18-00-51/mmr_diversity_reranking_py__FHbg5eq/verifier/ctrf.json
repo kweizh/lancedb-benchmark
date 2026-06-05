@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780596542419,
+            "stop": 1780596546170
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_table_exists_with_120_rows",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3435,
+                "start": 1780596542659,
+                "stop": 1780596546094,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_table_exists_with_120_rows():\n>       table = _open_table()\n\ntests/test_final_state.py:91: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"table_names\", None) or db.list_tables\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'mmr_docs_zr-fhbg5eq' not found in /app/db. Found tables: ['mmr_docs_test001', 'mmr_docs_verifier_test'].\nE       assert 'mmr_docs_zr-fhbg5eq' in ['mmr_docs_test001', 'mmr_docs_verifier_test']\n\ntests/test_final_state.py:27: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_table_schema_id_cluster_and_fixed_size_vector",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1780596546095,
+                "stop": 1780596546107,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_table_schema_id_cluster_and_fixed_size_vector():\n        import pyarrow as pa\n    \n>       table = _open_table()\n\ntests/test_final_state.py:100: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"table_names\", None) or db.list_tables\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'mmr_docs_zr-fhbg5eq' not found in /app/db. Found tables: ['mmr_docs_test001', 'mmr_docs_verifier_test'].\nE       assert 'mmr_docs_zr-fhbg5eq' in ['mmr_docs_test001', 'mmr_docs_verifier_test']\n\ntests/test_final_state.py:27: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_ids_and_cluster_counts",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 14,
+                "start": 1780596546108,
+                "stop": 1780596546122,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_ids_and_cluster_counts():\n>       ids, cluster_ids, _ = _load_rows()\n\ntests/test_final_state.py:126: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:48: in _load_rows\n    table = _open_table()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"table_names\", None) or db.list_tables\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'mmr_docs_zr-fhbg5eq' not found in /app/db. Found tables: ['mmr_docs_test001', 'mmr_docs_verifier_test'].\nE       assert 'mmr_docs_zr-fhbg5eq' in ['mmr_docs_test001', 'mmr_docs_verifier_test']\n\ntests/test_final_state.py:27: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_lambda_one_matches_pure_vector_search",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 16,
+                "start": 1780596546122,
+                "stop": 1780596546138,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_lambda_one_matches_pure_vector_search():\n>       ids, cluster_ids, vectors = _load_rows()\n\ntests/test_final_state.py:164: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:48: in _load_rows\n    table = _open_table()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"table_names\", None) or db.list_tables\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'mmr_docs_zr-fhbg5eq' not found in /app/db. Found tables: ['mmr_docs_test001', 'mmr_docs_verifier_test'].\nE       assert 'mmr_docs_zr-fhbg5eq' in ['mmr_docs_test001', 'mmr_docs_verifier_test']\n\ntests/test_final_state.py:27: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_lambda_low_drives_high_diversity",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 15,
+                "start": 1780596546138,
+                "stop": 1780596546153,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_lambda_low_drives_high_diversity():\n>       ids, cluster_ids, vectors = _load_rows()\n\ntests/test_final_state.py:181: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:48: in _load_rows\n    table = _open_table()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"table_names\", None) or db.list_tables\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'mmr_docs_zr-fhbg5eq' not found in /app/db. Found tables: ['mmr_docs_test001', 'mmr_docs_verifier_test'].\nE       assert 'mmr_docs_zr-fhbg5eq' in ['mmr_docs_test001', 'mmr_docs_verifier_test']\n\ntests/test_final_state.py:27: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_lambda_balanced_preserves_top1_and_some_diversity",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 16,
+                "start": 1780596546154,
+                "stop": 1780596546170,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_lambda_balanced_preserves_top1_and_some_diversity():\n>       ids, cluster_ids, vectors = _load_rows()\n\ntests/test_final_state.py:193: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:48: in _load_rows\n    table = _open_table()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"table_names\", None) or db.list_tables\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'mmr_docs_zr-fhbg5eq' not found in /app/db. Found tables: ['mmr_docs_test001', 'mmr_docs_verifier_test'].\nE       assert 'mmr_docs_zr-fhbg5eq' in ['mmr_docs_test001', 'mmr_docs_verifier_test']\n\ntests/test_final_state.py:27: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,160 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 15,
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780597143747,
+            "stop": 1780597159995
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_clusters_table_exists",
+                "status": "passed",
+                "duration": 8022,
+                "start": 1780597144040,
+                "stop": 1780597152062,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_clusters_table_row_count",
+                "status": "passed",
+                "duration": 5,
+                "start": 1780597152062,
+                "stop": 1780597152067,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_clusters_table_schema",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780597152068,
+                "stop": 1780597152071,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_clusters_ids_match_embeddings",
+                "status": "passed",
+                "duration": 23,
+                "start": 1780597152072,
+                "stop": 1780597152095,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_clusters_distinct_cluster_ids",
+                "status": "passed",
+                "duration": 7,
+                "start": 1780597152095,
+                "stop": 1780597152102,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_clusters_balance",
+                "status": "passed",
+                "duration": 9,
+                "start": 1780597152102,
+                "stop": 1780597152111,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_centroids_table_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780597152111,
+                "stop": 1780597152113,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_centroids_table_row_count",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780597152114,
+                "stop": 1780597152117,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_centroids_table_schema",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780597152118,
+                "stop": 1780597152120,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_centroids_cluster_ids",
+                "status": "passed",
+                "duration": 7,
+                "start": 1780597152121,
+                "stop": 1780597152128,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_solution_module_exposes_callables",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780597152128,
+                "stop": 1780597152130,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_centroids_shape_and_values",
+                "status": "passed",
+                "duration": 2418,
+                "start": 1780597152131,
+                "stop": 1780597154549,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_adjusted_rand_index",
+                "status": "passed",
+                "duration": 66,
+                "start": 1780597154550,
+                "stop": 1780597154616,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_nearest_cluster_matches_kmeans",
+                "status": "passed",
+                "duration": 50,
+                "start": 1780597154617,
+                "stop": 1780597154667,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rerun_pipeline_is_idempotent",
+                "status": "passed",
+                "duration": 5327,
+                "start": 1780597154667,
+                "stop": 1780597159994,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

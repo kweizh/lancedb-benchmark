@@ -1,0 +1,411 @@
+- Initializing MCP connections...
+You
+# Query Expansion with WordNet and LanceDB Native FTS ## Background Lexical search (BM25 / full-text search) is brittle: a query for `car` will not find documents that mention `automobile` or `motorcar` instead, even though they describe the same concept. A classic, well-understood remedy is **query expansion**: each query term is enriched with its synonyms before the lexical engine runs. In this task you will combine two off-the-shelf components: - **WordNet** (the static lexical database shipped with `nltk`) as the synonym source. - **LanceDB native FTS** (`use_tantivy=False`) as the lexical search engine. The corpus is a fixed set of 100 short English documents that has been seeded into a LanceDB table for you at container build time. The corpus is hand-crafted so that several documents use words like `automobile`, `motorcar`, or `vehicle` but never mention `car`, while a smaller set uses `car` explicitly. A plain FTS search for `car` therefore misses the synonym-only documents — your expanded pipeline must recover them. ## Requirements - Implement a Python module at `/home/user/myproject/solution.py` that exposes a callable `expanded_search(query: str, k: int = 10) -> list[int]`. - Open the pre-seeded LanceDB database at the path provided in the `LANCEDB_URI` environment variable (a directory under `/app/lancedb_data`) and use the table whose name is provided in the `LANCEDB_TABLE` environment variable. - Build a **native** LanceDB FTS index on the `content` column (`use_tantivy=False`). The index must be created if it does not yet exist; calling `expanded_search` more than once must not error. - For each whitespace-separated token in `query`, look up WordNet synonyms (lowercased), keep at most **3** synonyms per token, and only keep synonyms that are a single token (i.e. no `_` or whitespace in the WordNet lemma name). The original query term must also remain in the expansion. - Construct an `OR`/`SHOULD` boolean FTS query over the expansion (you may use a space-separated terms query, `MatchQuery(...) | MatchQuery(...)`, or `BooleanQuery([(Occur.SHOULD, ...), ...])`). - Return the **top-k document IDs**, ordered by FTS score descending, as a list of Python `int`. ## Implementation Hints - Install the WordNet and OMW-1.4 corpora at build time with `python3 -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4')"`. WordNet is a lexical database, **not** a model — no inference is required and no network access is needed at runtime. - Useful entrypoints: `from nltk.corpus import wordnet as wn`; `wn.synonyms(token)` returns synonyms grouped by sense, `wn.synsets(token)` returns the synsets directly. Either is acceptable. - For LanceDB native FTS use `table.create_fts_index("content", use_tantivy=False, replace=False)` once, then `table.search(<query>, query_type="fts").limit(k).to_list()` (or the `MatchQuery`/`BooleanQuery` builders) for retrieval. - The schema of the seeded table is `{ id: int64, content: string }`. Document IDs are integers `0..99`. - Lowercase the query before expansion. Do **not** add or remove any other words; the verifier compares behaviour against the plain `table.search(query, query_type="fts")` baseline. ## Acceptance Criteria - Project path: `/home/user/myproject` - Module: `/home/user/myproject/solution.py` exports `expanded_search(query: str, k: int = 10) -> list[int]`. - The function must read the LanceDB URI from `LANCEDB_URI` and the table name from `LANCEDB_TABLE` (both are set in the container environment). - A native FTS index (`use_tantivy=False`) must exist on the `content` column of the seeded table after the first invocation of `expanded_search`. - Return contract: a `list[int]` of length at most `k`, sorted by FTS score descending, containing document IDs drawn from the seeded table. - The function must materially expand the query: for the seeded corpus, the unexpanded baseline (`table.search(query, query_type="fts").limit(k).to_list()`) and `expanded_search(query, k)` must produce different result sets for at least one synonym-rich query (`car`). - No outbound network calls are needed at runtime; WordNet is fully available offline after the build-time download.   
+
+Pochi
+💭 Thinking for 240 characters   
+📂 Listing files in /home/user/myproject ✔ 
+💫 Executing env | grep LANCEDB ✔ 
+💫 Executing python3 -c "import lancedb; import nltk; print(lancedb.__version__, nltk.__version__)" ✔ 
+💫 Executing python3 -c "from nltk.corpus import wordnet as wn; print(wn.synsets('car'))" ✔ 
+💭 Thinking for 263 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 528 characters   
+💫 Executing python3 -c "
+from nltk.corpus import wordnet as wn
+print('synsets for car:', wn.synsets('car'))
+print('lemmas for car:', [l.name() for s in wn.synsets('car') for l in s.lemmas()])
+" ✔ 
+💭 Thinking for 587 characters   
+💫 Executing python3 -c "
+from nltk.corpus import wordnet as wn
+try:
+    print(wn.synonyms('car'))
+except Exception as e:
+    print(e)
+" ✔ 
+💭 Thinking for 497 characters   
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+print(db.table_names())
+tbl = db.open_table('docs')
+print(tbl.schema)
+print(tbl.head(10).to_pandas())
+" ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+df = tbl.to_pandas()
+for idx, row in df.iterrows():
+    content = row['content'].lower()
+    if 'car' not in content:
+        print(f'{row[\"id\"]}: {row[\"content\"]}')
+" ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+df = tbl.to_pandas()
+for idx, row in df.iterrows():
+    content = row['content'].lower()
+    for w in ['motorcar', 'vehicle', 'auto', 'machine']:
+        if w in content:
+            print(f'{row[\"id\"]} ({w}): {row[\"content\"]}')
+" ✔ 
+💭 Thinking for 277 characters   
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+try:
+    tbl.create_fts_index('content', use_tantivy=False, replace=True)
+except Exception as e:
+    print('Failed to create index:', e)
+
+res = tbl.search('car', query_type='fts').limit(10).to_list()
+print('car:', [r['id'] for r in res])
+" ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+res = tbl.search('car automobile', query_type='fts').limit(15).to_list()
+print('car automobile:', [r['id'] for r in res])
+" ✔ 
+💭 Thinking for 322 characters   
+💫 Executing python3 -c "
+import lancedb
+# print(dir(lancedb))
+try:
+    import lancedb.fts as fts
+    print(dir(fts))
+except Exception as e:
+    print(e)
+" ✔ 
+💭 Thinking for 268 characters   
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+res_or = tbl.search('car OR automobile', query_type='fts').limit(15).to_list()
+print('car OR automobile:', [r['id'] for r in res_or])
+" ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+res_and = tbl.search('car AND automobile', query_type='fts').limit(15).to_list()
+print('car AND automobile:', [r['id'] for r in res_and])
+" ✔ 
+💭 Thinking for 363 characters   
+💫 Executing python3 -c "
+import lancedb
+# Let's search inside lancedb module
+for name in dir(lancedb):
+    if 'query' in name.lower() or 'match' in name.lower():
+        print(name)
+" ✔ 
+💫 Executing python3 -c "
+import lancedb.query as q
+print(dir(q))
+" ✔ 
+💭 Thinking for 234 characters   
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery, BooleanQuery, Occur
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+# Let's try space-separated string first
+print('String query:', [r['id'] for r in tbl.search('car automobile', query_type='fts').limit(5).to_list()])
+
+# Let's try MatchQuery
+try:
+    mq = MatchQuery(field='content', query='car')
+    print('MatchQuery:', [r['id'] for r in tbl.search(mq, query_type='fts').limit(5).to_list()])
+except Exception as e:
+    print('MatchQuery failed:', e)
+" ✔ 
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery
+import inspect
+print(inspect.signature(MatchQuery))
+print(MatchQuery.model_fields.keys() if hasattr(MatchQuery, 'model_fields') else MatchQuery.__fields__.keys())
+" ✖ "Command exited with code 1"
+💭 Thinking for 280 characters   
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+mq = MatchQuery(query='car', column='content')
+print('MatchQuery:', [r['id'] for r in tbl.search(mq, query_type='fts').limit(5).to_list()])
+" ✔ 
+💫 Executing python3 -c "
+from lancedb.query import BooleanQuery
+import inspect
+print(inspect.signature(BooleanQuery))
+" ✔ 
+💫 Executing python3 -c "
+from lancedb.query import Occur
+print(list(Occur))
+" ✔ 
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery, BooleanQuery, Occur
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+bq = BooleanQuery(queries=[
+    (Occur.SHOULD, MatchQuery(query='car', column='content')),
+    (Occur.SHOULD, MatchQuery(query='automobile', column='content'))
+])
+print('BooleanQuery:', [r['id'] for r in tbl.search(bq, query_type='fts').limit(15).to_list()])
+" ✔ 
+💭 Thinking for 371 characters   
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+mq1 = MatchQuery(query='car', column='content')
+mq2 = MatchQuery(query='automobile', column='content')
+try:
+    combined = mq1 | mq2
+    print('Combined:', [r['id'] for r in tbl.search(combined, query_type='fts').limit(15).to_list()])
+except Exception as e:
+    print('Failed:', e)
+" ✔ 
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery
+mq1 = MatchQuery(query='car', column='content')
+mq2 = MatchQuery(query='automobile', column='content')
+print(type(mq1 | mq2))
+" ✔ 
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery
+mq1 = MatchQuery(query='car', column='content')
+mq2 = MatchQuery(query='automobile', column='content')
+print(repr(mq1 | mq2))
+" ✔ 
+💭 Thinking for 309 characters   
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery, BooleanQuery, Occur
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+bq = BooleanQuery(queries=[(Occur.SHOULD, MatchQuery(query='car', column='content'))])
+print([r['id'] for r in tbl.search(bq, query_type='fts').limit(5).to_list()])
+" ✔ 
+💭 Thinking for 666 characters   
+💫 Executing python3 -c "
+from nltk.corpus import wordnet as wn
+synsets = wn.synsets('engine')
+synonyms = []
+seen = {'engine'}
+for s in synsets:
+    for l in s.lemmas():
+        name = l.name().lower()
+        if '_' not in name and ' ' not in name:
+            if name not in seen:
+                seen.add(name)
+                synonyms.append(name)
+print('engine synonyms:', synonyms)
+" ✔ 
+💫 Executing python3 -c "
+from nltk.corpus import wordnet as wn
+for s in wn.synsets('engine'):
+    print(s, [l.name() for l in s.lemmas()])
+" ✔ 
+💭 Thinking for 2519 characters   
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+try:
+    tbl.create_fts_index('content', use_tantivy=False, replace=False)
+    print('Index created or already exists without error')
+except Exception as e:
+    print('Error:', e)
+" ✔ 
+💭 Thinking for 252 characters   
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+print(dir(tbl))
+" ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+print(tbl.list_indices())
+" ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+indices = tbl.list_indices()
+if indices:
+    idx = indices[0]
+    print(dir(idx))
+    print(idx.index_type, idx.columns, idx.index_name)
+" ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+indices = tbl.list_indices()
+if indices:
+    idx = indices[0]
+    print(idx.index_type, idx.columns, idx.name)
+" ✔ 
+💭 Thinking for 275 characters   
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+idx = tbl.list_indices()[0]
+print(type(idx.index_type), repr(idx.index_type))
+" ✔ 
+💭 Thinking for 2303 characters   
+💫 Executing python3 -c "
+from lancedb.query import MatchQuery, BooleanQuery, Occur
+import lancedb
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+bq = BooleanQuery(queries=[
+    (Occur.SHOULD, MatchQuery(query='car', column='content')),
+    (Occur.SHOULD, MatchQuery(query='auto', column='content')),
+    (Occur.SHOULD, MatchQuery(query='automobile', column='content')),
+    (Occur.SHOULD, MatchQuery(query='machine', column='content'))
+])
+res = tbl.search(bq, query_type='fts').limit(15).to_list()
+print('Expanded search for car:', [r['id'] for r in res])
+" ✔ 
+💭 Thinking for 280 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 1998 characters   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 337 characters   
+💫 Executing python3 -c "
+import sys
+sys.path.append('/home/user/myproject')
+from solution import expanded_search, expand_query
+import lancedb
+
+print('Testing expand_query(\"car\"):', expand_query('car'))
+print('Testing expand_query(\"engine\"):', expand_query('engine'))
+print('Testing expand_query(\"car engine\"):', expand_query('car engine'))
+
+res_k10 = expanded_search('car', k=10)
+print('expanded_search(\"car\", k=10):', res_k10)
+print('Type check:', [type(x) for x in res_k10])
+
+res_k5 = expanded_search('car', k=5)
+print('expanded_search(\"car\", k=5):', res_k5)
+
+# Baseline unexpanded search
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+baseline = [r['id'] for r in tbl.search('car', query_type='fts').limit(10).to_list()]
+print('Baseline(\"car\"):', baseline)
+
+assert len(res_k10) <= 10, 'k=10 limit failed'
+assert len(res_k5) <= 5, 'k=5 limit failed'
+assert all(isinstance(x, int) for x in res_k10), 'Type is not int'
+assert set(res_k10) != set(baseline), 'Expanded search must differ from baseline'
+print('All assertions passed!')
+" ✖ "Command exited with code 1"
+💭 Thinking for 290 characters   
+💫 Executing python3 -c "
+import sys
+sys.path.append('/home/user/myproject')
+from solution import expanded_search
+import lancedb
+
+res_k10 = expanded_search('car', k=10)
+print('expanded_search(\"car\", k=10):', res_k10)
+print('Type check:', [type(x) for x in res_k10])
+
+res_k5 = expanded_search('car', k=5)
+print('expanded_search(\"car\", k=5):', res_k5)
+
+# Baseline unexpanded search
+db = lancedb.connect('/app/lancedb_data')
+tbl = db.open_table('docs')
+baseline = [r['id'] for r in tbl.search('car', query_type='fts').limit(10).to_list()]
+print('Baseline(\"car\"):', baseline)
+
+assert len(res_k10) <= 10, 'k=10 limit failed'
+assert len(res_k5) <= 5, 'k=5 limit failed'
+assert all(isinstance(x, int) for x in res_k10), 'Type is not int'
+assert set(res_k10) != set(baseline), 'Expanded search must differ from baseline'
+print('All assertions passed!')
+" ✔ 
+💭 Thinking for 363 characters   
+💫 Executing python3 -c "
+import sys
+sys.path.append('/home/user/myproject')
+from solution import expanded_search
+print('automobile k=10:', expanded_search('automobile', k=10))
+" ✔ 
+💫 Executing python3 -c "
+import sys
+sys.path.append('/home/user/myproject')
+from solution import expanded_search
+print('car engine k=10:', expanded_search('car engine', k=10))
+" ✔ 
+💫 Executing python3 -c "
+import sys
+sys.path.append('/home/user/myproject')
+from solution import expanded_search
+print('car. k=10:', expanded_search('car.', k=10))
+" ✔ 
+💫 Executing python3 -c "
+import sys
+sys.path.append('/home/user/myproject')
+from solution import expanded_search
+print('sourdough k=5:', expanded_search('sourdough', k=5))
+" ✔ 
+💫 Executing python3 -c "
+import sys
+sys.path.append('/home/user/myproject')
+from solution import expanded_search
+print('empty query:', expanded_search('', k=5))
+print('spaces query:', expanded_search('   ', k=5))
+" ✔ 
+💫 Executing python3 -c "
+import sys
+sys.path.append('/home/user/myproject')
+from solution import expanded_search
+for i in range(5):
+    res = expanded_search('car', k=3)
+    print(f'Call {i}: {res}')
+" ✔ 
+💭 Thinking for 549 characters   
+📋 Updating todo list (4 items) ✔ 
+📖 Reading /home/user/myproject/solution.py ✔ 
+📖 Reading /home/user/myproject/solution.py ✔ 
+💭 Thinking for 330 characters   
+🎉 Task Completed
+I have successfully implemented the query expansion search pipeline combining WordNet synonyms and LanceDB native FTS.
+
+### Summary of Implementation
+1. **WordNet Query Expansion**:
+   - The query is first lowercased and split into whitespace-separated tokens.
+   - For each token, we look up its synonyms from the pre-downloaded offline WordNet corpus.
+   - We filter out synonyms that are not single-token (containing `_` or whitespace) or are duplicates of already collected terms.
+   - We keep at most **3** synonyms per token, while ensuring the original token itself remains in the expansion.
+
+2. **LanceDB Native FTS**:
+   - The database is opened from the path specified in the `LANCEDB_URI` environment variable, using the table name from `LANCEDB_TABLE`.
+   - A native LanceDB FTS index (`use_tantivy=False`) is built on the `content` column if it does not yet exist. We check for its existence dynamically using `table.list_indices()` to prevent errors on subsequent calls.
+
+3. **Boolean Query Construction**:
+   - We construct a structured `BooleanQuery` using `MatchQuery` and `Occur.SHOULD` for each of the expanded terms, representing an `OR` query.
+   - We execute the search, limit the results to `k`, and return the document IDs as a list of Python `int` sorted by FTS score descending.
+
+The solution is located at `/home/user/myproject/solution.py` and has been thoroughly tested. It successfully expands queries such as `car` to include `auto`, `automobile`, and `machine`, recovering synonym-only documents from the seeded corpus.   
+  

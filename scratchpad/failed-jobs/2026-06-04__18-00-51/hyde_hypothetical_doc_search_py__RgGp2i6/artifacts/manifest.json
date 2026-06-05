@@ -1,0 +1,14 @@
+[
+  {
+    "source": "/logs/artifacts",
+    "destination": "artifacts",
+    "type": "directory",
+    "status": "empty"
+  },
+  {
+    "source": "/home/user",
+    "destination": "artifacts/user",
+    "type": "file",
+    "status": "failed"
+  }
+]

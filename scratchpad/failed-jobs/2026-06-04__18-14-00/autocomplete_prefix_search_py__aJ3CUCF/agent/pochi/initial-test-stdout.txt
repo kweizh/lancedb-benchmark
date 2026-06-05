@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 10 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_pyarrow_importable PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_project_directory_exists PASSED
+bootstrap/test_initial_state.py::test_env_lance_db_uri_set PASSED
+bootstrap/test_initial_state.py::test_env_movies_table_set PASSED
+bootstrap/test_initial_state.py::test_env_prefix_table_set PASSED
+bootstrap/test_initial_state.py::test_lance_db_uri_exists_on_disk PASSED
+bootstrap/test_initial_state.py::test_seed_tables_present PASSED
+bootstrap/test_initial_state.py::test_seed_tables_row_counts PASSED
+
+============================== 10 passed in 4.33s ==============================

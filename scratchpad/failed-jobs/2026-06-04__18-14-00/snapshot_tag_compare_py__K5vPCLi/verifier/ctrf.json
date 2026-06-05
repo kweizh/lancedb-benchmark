@@ -1,0 +1,115 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 2,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780597254022,
+            "stop": 1780597257684
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_table_exists_and_has_65_rows",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3491,
+                "start": 1780597254074,
+                "stop": 1780597257565,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_table_exists_and_has_65_rows():\n>       table = _open_table()\n\ntests/test_final_state.py:60: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"list_tables\", None) or db.table_names\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'documents_zr-k5vpcli' not found in /app/db. Found tables: [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)].\nE       assert 'documents_zr-k5vpcli' in [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)]\n\ntests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_three_tags_present_with_monotonic_versions",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1780597257566,
+                "stop": 1780597257577,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_three_tags_present_with_monotonic_versions():\n>       table = _open_table()\n\ntests/test_final_state.py:66: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"list_tables\", None) or db.table_names\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'documents_zr-k5vpcli' not found in /app/db. Found tables: [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)].\nE       assert 'documents_zr-k5vpcli' in [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)]\n\ntests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_v1_baseline_snapshot_ids",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1780597257577,
+                "stop": 1780597257590,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_v1_baseline_snapshot_ids():\n>       ids = _ids_at_tag(\"v1_baseline\")\n\ntests/test_final_state.py:93: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:48: in _ids_at_tag\n    table = _open_table()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"list_tables\", None) or db.table_names\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'documents_zr-k5vpcli' not found in /app/db. Found tables: [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)].\nE       assert 'documents_zr-k5vpcli' in [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)]\n\ntests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_v2_extended_snapshot_ids",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1780597257590,
+                "stop": 1780597257603,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_v2_extended_snapshot_ids():\n>       ids = _ids_at_tag(\"v2_extended\")\n\ntests/test_final_state.py:100: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:48: in _ids_at_tag\n    table = _open_table()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"list_tables\", None) or db.table_names\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'documents_zr-k5vpcli' not found in /app/db. Found tables: [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)].\nE       assert 'documents_zr-k5vpcli' in [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)]\n\ntests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_v3_pruned_snapshot_ids",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1780597257603,
+                "stop": 1780597257616,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_v3_pruned_snapshot_ids():\n>       ids = _ids_at_tag(\"v3_pruned\")\n\ntests/test_final_state.py:107: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:48: in _ids_at_tag\n    table = _open_table()\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"list_tables\", None) or db.table_names\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'documents_zr-k5vpcli' not found in /app/db. Found tables: [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)].\nE       assert 'documents_zr-k5vpcli' in [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)]\n\ntests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_diff_v1_to_v2_returns_twenty_added",
+                "status": "passed",
+                "duration": 22,
+                "start": 1780597257617,
+                "stop": 1780597257639,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_diff_v2_to_v3_returns_five_removed",
+                "status": "passed",
+                "duration": 16,
+                "start": 1780597257639,
+                "stop": 1780597257655,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_diff_restores_latest_version",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 28,
+                "start": 1780597257656,
+                "stop": 1780597257684,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_diff_restores_latest_version():\n        # After calling diff, the candidate must have called table.checkout_latest() so the\n        # live table is observable to subsequent callers.\n        solution = _load_solution_module()\n        solution.diff(DB_DIR, _table_name(), \"v1_baseline\", \"v3_pruned\")\n>       table = _open_table()\n\ntests/test_final_state.py:156: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _open_table():\n        import lancedb\n    \n        db = lancedb.connect(DB_DIR)\n        name = _table_name()\n        list_fn = getattr(db, \"list_tables\", None) or db.table_names\n        names = list(list_fn())\n>       assert name in names, (\n            f\"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}.\"\n        )\nE       AssertionError: LanceDB table 'documents_zr-k5vpcli' not found in /app/db. Found tables: [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)].\nE       assert 'documents_zr-k5vpcli' in [('tables', ['documents_test123', 'documents_zr-k5vpcli']), ('page_token', None)]\n\ntests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

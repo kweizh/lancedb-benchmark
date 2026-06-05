@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 15 items
+
+tests/test_final_state.py ...............                                [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_clusters_table_exists
+PASSED tests/test_final_state.py::test_clusters_table_row_count
+PASSED tests/test_final_state.py::test_clusters_table_schema
+PASSED tests/test_final_state.py::test_clusters_ids_match_embeddings
+PASSED tests/test_final_state.py::test_clusters_distinct_cluster_ids
+PASSED tests/test_final_state.py::test_clusters_balance
+PASSED tests/test_final_state.py::test_centroids_table_exists
+PASSED tests/test_final_state.py::test_centroids_table_row_count
+PASSED tests/test_final_state.py::test_centroids_table_schema
+PASSED tests/test_final_state.py::test_centroids_cluster_ids
+PASSED tests/test_final_state.py::test_solution_module_exposes_callables
+PASSED tests/test_final_state.py::test_cluster_centroids_shape_and_values
+PASSED tests/test_final_state.py::test_adjusted_rand_index
+PASSED tests/test_final_state.py::test_nearest_cluster_matches_kmeans
+PASSED tests/test_final_state.py::test_rerun_pipeline_is_idempotent
+============================= 15 passed in 17.63s ==============================

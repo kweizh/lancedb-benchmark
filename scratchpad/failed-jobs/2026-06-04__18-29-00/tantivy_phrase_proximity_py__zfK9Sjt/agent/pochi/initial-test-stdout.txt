@@ -1,0 +1,54 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_data_dir_exists PASSED
+bootstrap/test_initial_state.py::test_zealt_run_id_env_set PASSED
+bootstrap/test_initial_state.py::test_seed_table_present_with_50_rows FAILED
+bootstrap/test_initial_state.py::test_ground_truth_fixture_file_exists FAILED
+
+=================================== FAILURES ===================================
+_____________________ test_seed_table_present_with_50_rows _____________________
+
+    def test_seed_table_present_with_50_rows():
+        import lancedb
+    
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID is required"
+        db = lancedb.connect(LANCEDB_DIR)
+        table_name = f"phrase_docs_{run_id}"
+>       assert table_name in db.table_names(), (
+            f"Pre-seeded table {table_name} not found in {LANCEDB_DIR}; tables: {db.table_names()}"
+        )
+E       AssertionError: Pre-seeded table phrase_docs_zr-zfk9sjt not found in /app/lancedb_data; tables: []
+E       assert 'phrase_docs_zr-zfk9sjt' in []
+E        +  where [] = <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/app/lancedb_data')>()
+E        +    where <bound method LanceDBConnection.table_names of LanceDBConnection(uri='/app/lancedb_data')> = LanceDBConnection(uri='/app/lancedb_data').table_names
+
+bootstrap/test_initial_state.py:33: AssertionError
+____________________ test_ground_truth_fixture_file_exists _____________________
+
+    def test_ground_truth_fixture_file_exists():
+        # The seed step also persists the verifier-facing ground-truth id sets.
+        gt_path = "/app/ground_truth.json"
+>       assert os.path.isfile(gt_path), (
+            f"Ground-truth fixture {gt_path} (written by the seed step) is missing."
+        )
+E       AssertionError: Ground-truth fixture /app/ground_truth.json (written by the seed step) is missing.
+E       assert False
+E        +  where False = <function isfile at 0x7fb0bc590220>('/app/ground_truth.json')
+E        +    where <function isfile at 0x7fb0bc590220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:45: AssertionError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_seed_table_present_with_50_rows
+FAILED bootstrap/test_initial_state.py::test_ground_truth_fixture_file_exists
+========================= 2 failed, 4 passed in 3.01s ==========================

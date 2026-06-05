@@ -1,0 +1,109 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 8,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780596732575,
+            "stop": 1780596740315
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780596732605,
+                "stop": 1780596732606,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expanded_search_is_callable",
+                "status": "passed",
+                "duration": 3134,
+                "start": 1780596732606,
+                "stop": 1780596735740,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expanded_search_return_contract",
+                "status": "passed",
+                "duration": 4294,
+                "start": 1780596735741,
+                "stop": 1780596740035,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_native_fts_index_on_content",
+                "status": "passed",
+                "duration": 14,
+                "start": 1780596740036,
+                "stop": 1780596740050,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixture_invariant_synonym_only_docs_exist",
+                "status": "passed",
+                "duration": 20,
+                "start": 1780596740051,
+                "stop": 1780596740071,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_baseline_isolation",
+                "status": "passed",
+                "duration": 34,
+                "start": 1780596740071,
+                "stop": 1780596740105,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_synonym_recall_via_expansion",
+                "status": "passed",
+                "duration": 20,
+                "start": 1780596740105,
+                "stop": 1780596740125,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expansion_differs_from_baseline",
+                "status": "passed",
+                "duration": 19,
+                "start": 1780596740126,
+                "stop": 1780596740145,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expanded_search_is_idempotent",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 170,
+                "start": 1780596740145,
+                "stop": 1780596740315,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "solution_module = <module 'solution' from '/home/user/myproject/solution.py'>\n\n    def test_expanded_search_is_idempotent(solution_module):\n        \"\"\"Calling expanded_search twice must return the same ordered list.\"\"\"\n        r1 = solution_module.expanded_search(\"car\", 10)\n        r2 = solution_module.expanded_search(\"car\", 10)\n>       assert r1 == r2, (\n            f\"expanded_search is not deterministic across calls; first={r1}, second={r2}\"\n        )\nE       AssertionError: expanded_search is not deterministic across calls; first=[5, 2, 0, 4, 3, 8, 1, 7, 13, 12], second=[0, 5, 2, 4, 3, 8, 1, 6, 7, 13]\nE       assert [5, 2, 0, 4, 3, 8, ...] == [0, 5, 2, 4, 3, 8, ...]\nE         At index 0 diff: 5 != 0\nE         Use -v to get more diff\n\ntests/test_final_state.py:154: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

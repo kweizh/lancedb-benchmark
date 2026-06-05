@@ -1,0 +1,163 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py FFFFFF                                         [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_table_exists_with_120_rows ________________________
+
+    def test_table_exists_with_120_rows():
+>       table = _open_table()
+
+tests/test_final_state.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "table_names", None) or db.list_tables
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'mmr_docs_zr-ukvxkea' not found in /app/db. Found tables: ['mmr_docs_test123'].
+E       assert 'mmr_docs_zr-ukvxkea' in ['mmr_docs_test123']
+
+tests/test_final_state.py:27: AssertionError
+______________ test_table_schema_id_cluster_and_fixed_size_vector ______________
+
+    def test_table_schema_id_cluster_and_fixed_size_vector():
+        import pyarrow as pa
+    
+>       table = _open_table()
+
+tests/test_final_state.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "table_names", None) or db.list_tables
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'mmr_docs_zr-ukvxkea' not found in /app/db. Found tables: ['mmr_docs_test123'].
+E       assert 'mmr_docs_zr-ukvxkea' in ['mmr_docs_test123']
+
+tests/test_final_state.py:27: AssertionError
+_________________________ test_ids_and_cluster_counts __________________________
+
+    def test_ids_and_cluster_counts():
+>       ids, cluster_ids, _ = _load_rows()
+
+tests/test_final_state.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:48: in _load_rows
+    table = _open_table()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "table_names", None) or db.list_tables
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'mmr_docs_zr-ukvxkea' not found in /app/db. Found tables: ['mmr_docs_test123'].
+E       assert 'mmr_docs_zr-ukvxkea' in ['mmr_docs_test123']
+
+tests/test_final_state.py:27: AssertionError
+__________________ test_lambda_one_matches_pure_vector_search __________________
+
+    def test_lambda_one_matches_pure_vector_search():
+>       ids, cluster_ids, vectors = _load_rows()
+
+tests/test_final_state.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:48: in _load_rows
+    table = _open_table()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "table_names", None) or db.list_tables
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'mmr_docs_zr-ukvxkea' not found in /app/db. Found tables: ['mmr_docs_test123'].
+E       assert 'mmr_docs_zr-ukvxkea' in ['mmr_docs_test123']
+
+tests/test_final_state.py:27: AssertionError
+____________________ test_lambda_low_drives_high_diversity _____________________
+
+    def test_lambda_low_drives_high_diversity():
+>       ids, cluster_ids, vectors = _load_rows()
+
+tests/test_final_state.py:181: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:48: in _load_rows
+    table = _open_table()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "table_names", None) or db.list_tables
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'mmr_docs_zr-ukvxkea' not found in /app/db. Found tables: ['mmr_docs_test123'].
+E       assert 'mmr_docs_zr-ukvxkea' in ['mmr_docs_test123']
+
+tests/test_final_state.py:27: AssertionError
+____________ test_lambda_balanced_preserves_top1_and_some_diversity ____________
+
+    def test_lambda_balanced_preserves_top1_and_some_diversity():
+>       ids, cluster_ids, vectors = _load_rows()
+
+tests/test_final_state.py:193: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:48: in _load_rows
+    table = _open_table()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _open_table():
+        import lancedb
+    
+        db = lancedb.connect(DB_DIR)
+        name = _table_name()
+        list_fn = getattr(db, "table_names", None) or db.list_tables
+        names = list(list_fn())
+>       assert name in names, (
+            f"LanceDB table {name!r} not found in {DB_DIR}. Found tables: {names}."
+        )
+E       AssertionError: LanceDB table 'mmr_docs_zr-ukvxkea' not found in /app/db. Found tables: ['mmr_docs_test123'].
+E       assert 'mmr_docs_zr-ukvxkea' in ['mmr_docs_test123']
+
+tests/test_final_state.py:27: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_table_exists_with_120_rows - Assertion...
+FAILED tests/test_final_state.py::test_table_schema_id_cluster_and_fixed_size_vector
+FAILED tests/test_final_state.py::test_ids_and_cluster_counts - AssertionErro...
+FAILED tests/test_final_state.py::test_lambda_one_matches_pure_vector_search
+FAILED tests/test_final_state.py::test_lambda_low_drives_high_diversity - Ass...
+FAILED tests/test_final_state.py::test_lambda_balanced_preserves_top1_and_some_diversity
+============================== 6 failed in 3.56s ===============================

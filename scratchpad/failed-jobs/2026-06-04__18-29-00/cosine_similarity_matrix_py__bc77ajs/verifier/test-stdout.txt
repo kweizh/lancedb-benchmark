@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_matrix_shape_and_dtype
+PASSED tests/test_final_state.py::test_matrix_is_symmetric
+PASSED tests/test_final_state.py::test_matrix_diagonal_is_one
+PASSED tests/test_final_state.py::test_matrix_value_range
+PASSED tests/test_final_state.py::test_intra_class_mean_matches_numpy
+PASSED tests/test_final_state.py::test_cluster_structure_preserved
+PASSED tests/test_final_state.py::test_matrix_matches_direct_lancedb_cosine
+============================== 7 passed in 6.90s ===============================

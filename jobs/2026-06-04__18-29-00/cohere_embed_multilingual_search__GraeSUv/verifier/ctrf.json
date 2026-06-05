@@ -1,0 +1,64 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780598846029,
+            "stop": 1780598855455
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_table_row_count_and_schema",
+                "status": "passed",
+                "duration": 4698,
+                "start": 1780598849600,
+                "stop": 1780598854298,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_english_anchor_query_eiffel",
+                "status": "passed",
+                "duration": 898,
+                "start": 1780598854299,
+                "stop": 1780598855197,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spanish_anchor_query_everest",
+                "status": "passed",
+                "duration": 131,
+                "start": 1780598855199,
+                "stop": 1780598855330,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_hardcoded_cohere_key",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 125,
+                "start": 1780598855330,
+                "stop": 1780598855455,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_no_hardcoded_cohere_key():\n        \"\"\"The candidate must read COHERE_API_KEY from the environment, not hardcode it.\"\"\"\n        leak_pattern = re.compile(\n            r\"\"\"(?ix)\n            cohere[^\\n]{0,40}=\\s*['\"][A-Za-z0-9_\\-]{20,}['\"]\n            |\n            (?<![A-Za-z0-9_])(co_)?[A-Za-z0-9]{40}(?![A-Za-z0-9_])\n            \"\"\",\n            re.VERBOSE,\n        )\n        for root, _dirs, files in os.walk(PROJECT_DIR):\n            # Skip the lancedb store directory.\n            if os.path.commonpath([root, LANCEDB_DIR]) == LANCEDB_DIR:\n                continue\n            for fname in files:\n                if not fname.endswith(\".py\"):\n                    continue\n                fpath = os.path.join(root, fname)\n                with open(fpath, \"r\", encoding=\"utf-8\", errors=\"ignore\") as f:\n                    content = f.read()\n                # Ensure env-var access pattern is used somewhere in the project\n                # \u2014 but at minimum solution.py is grep'd for hardcoded strings.\n                assert \"COHERE_API_KEY\" in content or \"cohere\" not in content.lower() or fname != \"solution.py\", (\n                    f\"solution.py should reference COHERE_API_KEY env var.\"\n                )\n                for match in leak_pattern.finditer(content):\n                    # If the match coincides with a clear placeholder name, allow it.\n                    snippet = match.group(0)\n                    if \"COHERE_API_KEY\" in snippet or \"os.environ\" in snippet:\n                        continue\n>                   raise AssertionError(\n                        f\"Possible hardcoded Cohere credential in {fpath}: {snippet!r}\"\n                    )\nE                   AssertionError: Possible hardcoded Cohere credential in /home/user/myproject/.venv/lib/python3.12/site-packages/typing_extensions.py: '986a4e1b6fcae7fe7a1d0a26aea446107dd58dd2'\n\ntests/test_final_state.py:202: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

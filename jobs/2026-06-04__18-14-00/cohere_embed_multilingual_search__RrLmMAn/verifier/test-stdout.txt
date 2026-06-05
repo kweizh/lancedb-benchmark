@@ -1,0 +1,75 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py EEEE                                           [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_table_row_count_and_schema _______________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _ensure_index_built():
+        """Run candidate's setup logic before any other test."""
+>       assert os.path.isfile(SOLUTION_PATH), (
+            f"Expected candidate solution module at {SOLUTION_PATH}."
+        )
+E       AssertionError: Expected candidate solution module at /home/user/myproject/solution.py.
+E       assert False
+E        +  where False = <function isfile at 0x7f09defa8220>('/home/user/myproject/solution.py')
+E        +    where <function isfile at 0x7f09defa8220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:27: AssertionError
+______________ ERROR at setup of test_english_anchor_query_eiffel ______________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _ensure_index_built():
+        """Run candidate's setup logic before any other test."""
+>       assert os.path.isfile(SOLUTION_PATH), (
+            f"Expected candidate solution module at {SOLUTION_PATH}."
+        )
+E       AssertionError: Expected candidate solution module at /home/user/myproject/solution.py.
+E       assert False
+E        +  where False = <function isfile at 0x7f09defa8220>('/home/user/myproject/solution.py')
+E        +    where <function isfile at 0x7f09defa8220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:27: AssertionError
+_____________ ERROR at setup of test_spanish_anchor_query_everest ______________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _ensure_index_built():
+        """Run candidate's setup logic before any other test."""
+>       assert os.path.isfile(SOLUTION_PATH), (
+            f"Expected candidate solution module at {SOLUTION_PATH}."
+        )
+E       AssertionError: Expected candidate solution module at /home/user/myproject/solution.py.
+E       assert False
+E        +  where False = <function isfile at 0x7f09defa8220>('/home/user/myproject/solution.py')
+E        +    where <function isfile at 0x7f09defa8220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:27: AssertionError
+________________ ERROR at setup of test_no_hardcoded_cohere_key ________________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def _ensure_index_built():
+        """Run candidate's setup logic before any other test."""
+>       assert os.path.isfile(SOLUTION_PATH), (
+            f"Expected candidate solution module at {SOLUTION_PATH}."
+        )
+E       AssertionError: Expected candidate solution module at /home/user/myproject/solution.py.
+E       assert False
+E        +  where False = <function isfile at 0x7f09defa8220>('/home/user/myproject/solution.py')
+E        +    where <function isfile at 0x7f09defa8220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:27: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_table_row_count_and_schema - AssertionE...
+ERROR tests/test_final_state.py::test_english_anchor_query_eiffel - Assertion...
+ERROR tests/test_final_state.py::test_spanish_anchor_query_everest - Assertio...
+ERROR tests/test_final_state.py::test_no_hardcoded_cohere_key - AssertionErro...
+============================== 4 errors in 4.33s ===============================

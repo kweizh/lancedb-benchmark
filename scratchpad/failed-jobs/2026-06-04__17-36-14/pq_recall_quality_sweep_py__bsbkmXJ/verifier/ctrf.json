@@ -1,0 +1,82 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780595518043,
+            "stop": 1780595527883
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_sweep_returns_dict",
+                "status": "passed",
+                "duration": 5769,
+                "start": 1780595522031,
+                "stop": 1780595527800,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sweep_keys_exactly_4_8_16",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780595527800,
+                "stop": 1780595527801,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sweep_values_in_unit_interval",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780595527802,
+                "stop": 1780595527803,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sweep_monotonic_in_num_sub_vectors",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780595527803,
+                "stop": 1780595527804,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_matches_sweep",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 74,
+                "start": 1780595527804,
+                "stop": 1780595527878,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "sweep_result = {4: 0.48000000000000004, 8: 0.5566666666666666, 16: 0.7633333333333333}\n\n    def test_result_json_matches_sweep(sweep_result):\n        assert os.path.isfile(RESULT_PATH), f\"Missing artifact {RESULT_PATH}.\"\n        with open(RESULT_PATH) as f:\n            on_disk = json.load(f)\n        assert isinstance(on_disk, dict), \"result.json must be a JSON object.\"\n        disk_keys = {str(k) for k in on_disk.keys()}\n        assert disk_keys == {\"4\", \"8\", \"16\"}, (\n            f\"result.json keys must be exactly {{'4','8','16'}}, got {disk_keys}.\"\n        )\n        for k, v in sweep_result.items():\n            sk = str(int(k))\n            assert sk in on_disk, f\"result.json missing key '{sk}'.\"\n>           assert abs(float(on_disk[sk]) - float(v)) <= 1e-6, (\n                f\"result.json[{sk}]={on_disk[sk]} disagrees with in-process sweep()={v}.\"\n            )\nE           AssertionError: result.json[4]=0.44 disagrees with in-process sweep()=0.48000000000000004.\nE           assert 0.040000000000000036 <= 1e-06\nE            +  where 0.040000000000000036 = abs((0.44 - 0.48000000000000004))\nE            +    where 0.44 = float(0.44)\nE            +    and   0.48000000000000004 = float(0.48000000000000004)\n\ntests/test_final_state.py:109: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_tables_use_run_id",
+                "status": "passed",
+                "duration": 4,
+                "start": 1780595527879,
+                "stop": 1780595527883,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780598980056,
+            "stop": 1780598982931
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_module_loads_and_callable",
+                "status": "passed",
+                "duration": 2302,
+                "start": 1780598980351,
+                "stop": 1780598982653,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_colbert_search_top1_for_q1",
+                "status": "passed",
+                "duration": 53,
+                "start": 1780598982653,
+                "stop": 1780598982706,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_colbert_search_top1_for_q2",
+                "status": "passed",
+                "duration": 35,
+                "start": 1780598982707,
+                "stop": 1780598982742,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sum_pool_baseline_strictly_worse_than_late_interaction_on_q1",
+                "status": "passed",
+                "duration": 24,
+                "start": 1780598982742,
+                "stop": 1780598982766,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reference_late_interaction_matches_candidate",
+                "status": "passed",
+                "duration": 94,
+                "start": 1780598982766,
+                "stop": 1780598982860,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_colbert_search_respects_k_parameter",
+                "status": "passed",
+                "duration": 69,
+                "start": 1780598982861,
+                "stop": 1780598982930,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

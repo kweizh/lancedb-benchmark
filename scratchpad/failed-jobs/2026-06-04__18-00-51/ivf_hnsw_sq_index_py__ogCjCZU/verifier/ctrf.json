@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780596207610,
+            "stop": 1780596214260
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_search_callable",
+                "status": "passed",
+                "duration": 2674,
+                "start": 1780596207861,
+                "stop": 1780596210535,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_index_exists_with_correct_type_and_column",
+                "status": "passed",
+                "duration": 11,
+                "start": 1780596210535,
+                "stop": 1780596210546,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_nprobes_1_truncates",
+                "status": "passed",
+                "duration": 11,
+                "start": 1780596210547,
+                "stop": 1780596210558,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_nprobes_8_returns_full_k",
+                "status": "passed",
+                "duration": 23,
+                "start": 1780596210559,
+                "stop": 1780596210582,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_recall_at_10_nprobes_8",
+                "status": "passed",
+                "duration": 184,
+                "start": 1780596210583,
+                "stop": 1780596210767,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_higher_nprobes_improves_recall",
+                "status": "passed",
+                "duration": 480,
+                "start": 1780596210768,
+                "stop": 1780596211248,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cli_smoke",
+                "status": "passed",
+                "duration": 3011,
+                "start": 1780596211249,
+                "stop": 1780596214260,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

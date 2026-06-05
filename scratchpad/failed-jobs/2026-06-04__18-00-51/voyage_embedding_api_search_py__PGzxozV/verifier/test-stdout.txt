@@ -1,0 +1,433 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: langsmith-0.8.9, anyio-4.13.0, json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py ..FFF..F                                       [100%]
+
+=================================== FAILURES ===================================
+_ test_cli_top1_matches_anchor[noise cancelling over-ear bluetooth headphones for travel-prod-electronics-headphones-anc-5] _
+
+query = 'noise cancelling over-ear bluetooth headphones for travel'
+expected_id = 'prod-electronics-headphones-anc', k = 5
+
+    @pytest.mark.parametrize(
+        "query,expected_id,k",
+        [
+            (
+                "noise cancelling over-ear bluetooth headphones for travel",
+                "prod-electronics-headphones-anc",
+                5,
+            ),
+            (
+                "high pressure espresso machine for home baristas",
+                "prod-kitchen-espresso-machine",
+                5,
+            ),
+            (
+                "lightweight running shoes with carbon plate for marathon racing",
+                "prod-fitness-carbon-marathon-shoes",
+                3,
+            ),
+            (
+                "bestselling fantasy novel about a young wizard and dragons",
+                "prod-books-dragon-wizard-fantasy",
+                3,
+            ),
+        ],
+    )
+    def test_cli_top1_matches_anchor(query, expected_id, k):
+>       results = _run_cli(query, k)
+
+tests/test_final_state.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'noise cancelling over-ear bluetooth headphones for travel', k = 5
+
+    def _run_cli(query: str, k: int) -> list:
+        """Invoke the candidate's run_search.py and parse stdout as JSON."""
+        result = subprocess.run(
+            ["python3", "run_search.py", "--query", query, "--k", str(k)],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=180,
+        )
+>       assert result.returncode == 0, (
+            f"run_search.py exited with code {result.returncode}.\n"
+            f"stdout=\n{result.stdout}\nstderr=\n{result.stderr}"
+        )
+E       AssertionError: run_search.py exited with code 1.
+E         stdout=
+E         
+E         stderr=
+E         Traceback (most recent call last):
+E           File "/home/user/myproject/run_search.py", line 28, in <module>
+E             main()
+E           File "/home/user/myproject/run_search.py", line 23, in main
+E             results = search(args.query, args.k)
+E                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/solution.py", line 124, in search
+E             query_vec = _embed_query(query)
+E                         ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/solution.py", line 53, in _embed_query
+E             result = client.embed([text], model=VOYAGE_MODEL, input_type="query")
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/client.py", line 76, in embed
+E             for attempt in self._make_retry_controller():
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 438, in __iter__
+E             do = self.iter(retry_state=retry_state)
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 371, in iter
+E             result = action(retry_state)
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 413, in exc_check
+E             raise retry_exc.reraise()
+E                   ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 184, in reraise
+E             raise self.last_attempt.result()
+E                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+E             return self.__get_result()
+E                    ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+E             raise self._exception
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/client.py", line 78, in embed
+E             response = voyageai.Embedding.create(
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/embedding.py", line 19, in create
+E             response = super().create(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_resource.py", line 45, in create
+E             response = requestor.request(
+E                        ^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 146, in request
+E             resp = self._interpret_response(result)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 394, in _interpret_response
+E             return self._interpret_response_line(
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 445, in _interpret_response_line
+E             raise self.handle_error_response(rbody, rcode, resp.data, rheaders)
+E         voyageai.error.RateLimitError: You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM and 10K TPM. To unlock our standard rate limits, please add a payment method in the billing page for the appropriate organization in the user dashboard (https://dashboard.voyageai.com/). Even with payment methods entered, the free tokens (200M tokens for Voyage series 3) will still apply. After adding a payment method, you should see your rate limits increase after several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'run_search.py', '--query', 'noise cancelling over-ear bluetooth headphones for trav... several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.\n').returncode
+
+tests/test_final_state.py:24: AssertionError
+_ test_cli_top1_matches_anchor[high pressure espresso machine for home baristas-prod-kitchen-espresso-machine-5] _
+
+query = 'high pressure espresso machine for home baristas'
+expected_id = 'prod-kitchen-espresso-machine', k = 5
+
+    @pytest.mark.parametrize(
+        "query,expected_id,k",
+        [
+            (
+                "noise cancelling over-ear bluetooth headphones for travel",
+                "prod-electronics-headphones-anc",
+                5,
+            ),
+            (
+                "high pressure espresso machine for home baristas",
+                "prod-kitchen-espresso-machine",
+                5,
+            ),
+            (
+                "lightweight running shoes with carbon plate for marathon racing",
+                "prod-fitness-carbon-marathon-shoes",
+                3,
+            ),
+            (
+                "bestselling fantasy novel about a young wizard and dragons",
+                "prod-books-dragon-wizard-fantasy",
+                3,
+            ),
+        ],
+    )
+    def test_cli_top1_matches_anchor(query, expected_id, k):
+>       results = _run_cli(query, k)
+
+tests/test_final_state.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'high pressure espresso machine for home baristas', k = 5
+
+    def _run_cli(query: str, k: int) -> list:
+        """Invoke the candidate's run_search.py and parse stdout as JSON."""
+        result = subprocess.run(
+            ["python3", "run_search.py", "--query", query, "--k", str(k)],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=180,
+        )
+>       assert result.returncode == 0, (
+            f"run_search.py exited with code {result.returncode}.\n"
+            f"stdout=\n{result.stdout}\nstderr=\n{result.stderr}"
+        )
+E       AssertionError: run_search.py exited with code 1.
+E         stdout=
+E         
+E         stderr=
+E         Traceback (most recent call last):
+E           File "/home/user/myproject/run_search.py", line 28, in <module>
+E             main()
+E           File "/home/user/myproject/run_search.py", line 23, in main
+E             results = search(args.query, args.k)
+E                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/solution.py", line 124, in search
+E             query_vec = _embed_query(query)
+E                         ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/solution.py", line 53, in _embed_query
+E             result = client.embed([text], model=VOYAGE_MODEL, input_type="query")
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/client.py", line 76, in embed
+E             for attempt in self._make_retry_controller():
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 438, in __iter__
+E             do = self.iter(retry_state=retry_state)
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 371, in iter
+E             result = action(retry_state)
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 413, in exc_check
+E             raise retry_exc.reraise()
+E                   ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 184, in reraise
+E             raise self.last_attempt.result()
+E                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+E             return self.__get_result()
+E                    ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+E             raise self._exception
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/client.py", line 78, in embed
+E             response = voyageai.Embedding.create(
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/embedding.py", line 19, in create
+E             response = super().create(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_resource.py", line 45, in create
+E             response = requestor.request(
+E                        ^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 146, in request
+E             resp = self._interpret_response(result)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 394, in _interpret_response
+E             return self._interpret_response_line(
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 445, in _interpret_response_line
+E             raise self.handle_error_response(rbody, rcode, resp.data, rheaders)
+E         voyageai.error.RateLimitError: You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM and 10K TPM. To unlock our standard rate limits, please add a payment method in the billing page for the appropriate organization in the user dashboard (https://dashboard.voyageai.com/). Even with payment methods entered, the free tokens (200M tokens for Voyage series 3) will still apply. After adding a payment method, you should see your rate limits increase after several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'run_search.py', '--query', 'high pressure espresso machine for home baristas', '--k... several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.\n').returncode
+
+tests/test_final_state.py:24: AssertionError
+_ test_cli_top1_matches_anchor[lightweight running shoes with carbon plate for marathon racing-prod-fitness-carbon-marathon-shoes-3] _
+
+query = 'lightweight running shoes with carbon plate for marathon racing'
+expected_id = 'prod-fitness-carbon-marathon-shoes', k = 3
+
+    @pytest.mark.parametrize(
+        "query,expected_id,k",
+        [
+            (
+                "noise cancelling over-ear bluetooth headphones for travel",
+                "prod-electronics-headphones-anc",
+                5,
+            ),
+            (
+                "high pressure espresso machine for home baristas",
+                "prod-kitchen-espresso-machine",
+                5,
+            ),
+            (
+                "lightweight running shoes with carbon plate for marathon racing",
+                "prod-fitness-carbon-marathon-shoes",
+                3,
+            ),
+            (
+                "bestselling fantasy novel about a young wizard and dragons",
+                "prod-books-dragon-wizard-fantasy",
+                3,
+            ),
+        ],
+    )
+    def test_cli_top1_matches_anchor(query, expected_id, k):
+>       results = _run_cli(query, k)
+
+tests/test_final_state.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'lightweight running shoes with carbon plate for marathon racing', k = 3
+
+    def _run_cli(query: str, k: int) -> list:
+        """Invoke the candidate's run_search.py and parse stdout as JSON."""
+        result = subprocess.run(
+            ["python3", "run_search.py", "--query", query, "--k", str(k)],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            timeout=180,
+        )
+>       assert result.returncode == 0, (
+            f"run_search.py exited with code {result.returncode}.\n"
+            f"stdout=\n{result.stdout}\nstderr=\n{result.stderr}"
+        )
+E       AssertionError: run_search.py exited with code 1.
+E         stdout=
+E         
+E         stderr=
+E         Traceback (most recent call last):
+E           File "/home/user/myproject/run_search.py", line 28, in <module>
+E             main()
+E           File "/home/user/myproject/run_search.py", line 23, in main
+E             results = search(args.query, args.k)
+E                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/solution.py", line 124, in search
+E             query_vec = _embed_query(query)
+E                         ^^^^^^^^^^^^^^^^^^^
+E           File "/home/user/myproject/solution.py", line 53, in _embed_query
+E             result = client.embed([text], model=VOYAGE_MODEL, input_type="query")
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/client.py", line 76, in embed
+E             for attempt in self._make_retry_controller():
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 438, in __iter__
+E             do = self.iter(retry_state=retry_state)
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 371, in iter
+E             result = action(retry_state)
+E                      ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 413, in exc_check
+E             raise retry_exc.reraise()
+E                   ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/tenacity/__init__.py", line 184, in reraise
+E             raise self.last_attempt.result()
+E                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+E             return self.__get_result()
+E                    ^^^^^^^^^^^^^^^^^^^
+E           File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+E             raise self._exception
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/client.py", line 78, in embed
+E             response = voyageai.Embedding.create(
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/embedding.py", line 19, in create
+E             response = super().create(*args, **kwargs)
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_resource.py", line 45, in create
+E             response = requestor.request(
+E                        ^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 146, in request
+E             resp = self._interpret_response(result)
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 394, in _interpret_response
+E             return self._interpret_response_line(
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py", line 445, in _interpret_response_line
+E             raise self.handle_error_response(rbody, rcode, resp.data, rheaders)
+E         voyageai.error.RateLimitError: You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM and 10K TPM. To unlock our standard rate limits, please add a payment method in the billing page for the appropriate organization in the user dashboard (https://dashboard.voyageai.com/). Even with payment methods entered, the free tokens (200M tokens for Voyage series 3) will still apply. After adding a payment method, you should see your rate limits increase after several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'run_search.py', '--query', 'lightweight running shoes with carbon plate for maratho... several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.\n').returncode
+
+tests/test_final_state.py:24: AssertionError
+______________ test_verifier_direct_voyage_search_matches_anchor _______________
+
+    def test_verifier_direct_voyage_search_matches_anchor():
+        """Independent end-to-end check: the verifier embeds the query with voyageai
+        using `input_type='query'`, runs a direct LanceDB vector search against the
+        candidate's table, and confirms the rigged anchor wins. This proves the
+        table holds genuine Voyage embeddings rather than random or precomputed data.
+        """
+        import lancedb
+        import voyageai
+    
+        api_key = os.environ.get("VOYAGE_API_KEY")
+        assert api_key, "VOYAGE_API_KEY must be set in the verifier env."
+    
+        client = voyageai.Client(api_key=api_key)
+        query = "noise cancelling over-ear bluetooth headphones for travel"
+>       resp = client.embed([query], model="voyage-3", input_type="query")
+
+tests/test_final_state.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/voyageai/client.py:76: in embed
+    for attempt in self._make_retry_controller():
+usr/local/lib/python3.12/dist-packages/tenacity/__init__.py:438: in __iter__
+    do = self.iter(retry_state=retry_state)
+usr/local/lib/python3.12/dist-packages/tenacity/__init__.py:371: in iter
+    result = action(retry_state)
+usr/local/lib/python3.12/dist-packages/tenacity/__init__.py:413: in exc_check
+    raise retry_exc.reraise()
+usr/local/lib/python3.12/dist-packages/tenacity/__init__.py:184: in reraise
+    raise self.last_attempt.result()
+usr/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+usr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+usr/local/lib/python3.12/dist-packages/voyageai/client.py:78: in embed
+    response = voyageai.Embedding.create(
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/embedding.py:19: in create
+    response = super().create(*args, **kwargs)
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_resource.py:45: in create
+    response = requestor.request(
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:146: in request
+    resp = self._interpret_response(result)
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:394: in _interpret_response
+    return self._interpret_response_line(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <voyageai.api_resources.api_requestor.APIRequestor object at 0x7fa242d2fd10>
+rbody = '{"detail":"You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM ...r several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model."}'
+rcode = 429
+rheaders = {'date': 'Thu, 04 Jun 2026 18:06:21 GMT', 'server': 'uvicorn', 'Content-Length': '601', 'content-type': 'application/json', 'x-request-id': '7d6bd8305474718db3a2ad244616d7cd', 'Via': '1.1 google', 'Alt-Svc': 'h3=":443"; ma=2592000'}
+
+    def _interpret_response_line(self, rbody: str, rcode: int, rheaders) -> VoyageHttpResponse:
+        # HTTP 204 response code does not have any content in the body.
+        if rcode == 204:
+            return VoyageHttpResponse(None, rheaders)
+    
+        if rcode == 500:
+            raise error.ServerError(
+                "The server failed to process the request.",
+                rbody,
+                rcode,
+                headers=rheaders,
+            )
+        elif rcode in [502, 503, 504]:
+            raise error.ServiceUnavailableError(
+                "The server is overloaded or not ready yet.",
+                rbody,
+                rcode,
+                headers=rheaders,
+            )
+        try:
+            if "text/plain" in rheaders.get("Content-Type", ""):
+                data = rbody
+            else:
+                data = json.loads(rbody)
+        except (JSONDecodeError, UnicodeDecodeError) as e:
+            raise error.APIError(
+                f"HTTP code {rcode} from API ({rbody})", rbody, rcode, headers=rheaders
+            ) from e
+    
+        resp = VoyageHttpResponse(data, rheaders)
+        if 400 <= rcode < 500:
+>           raise self.handle_error_response(rbody, rcode, resp.data, rheaders)
+E           voyageai.error.RateLimitError: You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM and 10K TPM. To unlock our standard rate limits, please add a payment method in the billing page for the appropriate organization in the user dashboard (https://dashboard.voyageai.com/). Even with payment methods entered, the free tokens (200M tokens for Voyage series 3) will still apply. After adding a payment method, you should see your rate limits increase after several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.
+
+usr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:445: RateLimitError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_candidate_files_exist
+PASSED tests/test_final_state.py::test_lancedb_table_exists_with_correct_shape
+PASSED tests/test_final_state.py::test_cli_top1_matches_anchor[bestselling fantasy novel about a young wizard and dragons-prod-books-dragon-wizard-fantasy-3]
+PASSED tests/test_final_state.py::test_solution_search_matches_cli_top1
+FAILED tests/test_final_state.py::test_cli_top1_matches_anchor[noise cancelling over-ear bluetooth headphones for travel-prod-electronics-headphones-anc-5]
+FAILED tests/test_final_state.py::test_cli_top1_matches_anchor[high pressure espresso machine for home baristas-prod-kitchen-espresso-machine-5]
+FAILED tests/test_final_state.py::test_cli_top1_matches_anchor[lightweight running shoes with carbon plate for marathon racing-prod-fitness-carbon-marathon-shoes-3]
+FAILED tests/test_final_state.py::test_verifier_direct_voyage_search_matches_anchor
+========================= 4 failed, 4 passed in 18.85s =========================

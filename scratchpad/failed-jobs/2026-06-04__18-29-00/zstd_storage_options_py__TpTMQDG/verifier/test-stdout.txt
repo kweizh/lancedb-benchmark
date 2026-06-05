@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_stdout_format
+PASSED tests/test_final_state.py::test_size_report_exists_and_parses
+PASSED tests/test_final_state.py::test_both_tables_exist
+PASSED tests/test_final_state.py::test_table_schemas_and_row_counts
+PASSED tests/test_final_state.py::test_compression_is_effective
+PASSED tests/test_final_state.py::test_compare_sizes_function
+PASSED tests/test_final_state.py::test_search_parity
+============================== 7 passed in 6.64s ===============================

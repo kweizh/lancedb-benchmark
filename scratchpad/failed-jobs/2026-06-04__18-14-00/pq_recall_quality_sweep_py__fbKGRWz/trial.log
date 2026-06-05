@@ -1,0 +1,84 @@
+Skipping image OS validation for hb__pq_recall_quality_sweep_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-fbkgrwz > /logs/artifacts/run-id && echo pq_recall_quality_sweep_py__fbKGRWz > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# IVF_PQ Recall-Quality Sweep with LanceDB
+
+## Background
+Product Quantization (PQ) is a lossy compression scheme used by LanceDB's `IVF_PQ` vector index. The `num_sub_vectors` (`m`) parameter controls how finely the original vector is split before quantization: higher `m` keeps more information per code and therefore produces higher recall at the cost of memory and index size. LanceDB only allows **one vector index per column per table**, so to study the recall-quality trade-off you must either build the same data into multiple tables or drop and recreate the index between sweeps.
+
+You are given a deterministic 1024-row, 64-dim numpy dataset and 30 fixed query vectors. Build a sweep that quantifies how `num_sub_vectors` affects recall@10 against brute-force ground truth.
+
+## Requirements
+- Connect to a local LanceDB database at `/home/user/myproject/lancedb_data/`.
+- Load the fixed dataset and query vectors from `/app/fixtures/data.npy` and `/app/fixtures/queries.npy`.
+- Implement `sweep()` in `/home/user/myproject/solution.py` that returns a Python `dict[int, float]` mapping `num_sub_vectors` → `recall@10`, evaluated for the three configurations `m = 4`, `m = 8`, and `m = 16`.
+- Use `IVF_PQ` with `num_partitions = 16` and `nprobes = 16` (full scan over partitions) so the only quality knob that differs across runs is `num_sub_vectors`.
+- Use L2 distance (the LanceDB default) consistently across ground truth and search.
+- Compute brute-force ground truth in NumPy over the same 1024 × 64 dataset and the same 30 queries. For each query, recall@10 is `|candidate_top10 ∩ brute_force_top10| / 10`. Report the mean over the 30 queries.
+- Provide a CLI entrypoint at `/home/user/myproject/run_sweep.py` that calls `sweep()` and writes the result to `/home/user/myproject/result.json` as a JSON object with string keys (e.g. `{"4": 0.78, "8": 0.91, "16": 0.97}`).
+- Append `${ZEALT_RUN_ID}` (read from the `ZEALT_RUN_ID` environment variable) to every LanceDB table name you create, so concurrent runs don't collide.
+
+## Implementation Hints
+- LanceDB enforces a single vector index per column per table. Either (a) write the data into three separate tables, one per `m`, or (b) reuse one table and call `table.drop_index(<name>)` before re-creating the index with a different `num_sub_vectors`.
+- IVF_PQ training needs ≥ 256 rows; 1024 satisfies this.
+- After `create_index(...)`, call `table.wait_for_index([<index_name>], timeout=...)` and pass a `datetime.timedelta` for the timeout (an `int` raises a PyDelta error).
+- For deterministic top-10 retrieval, query with `table.search(qvec).limit(10).nprobes(16).to_list()` and collect the row's stable `id` field.
+- Brute-force ground truth can be computed with `numpy.argsort` on pairwise squared L2 distances.
+- Use the `id` column (`int64`, range `0..1023`) as the stable row identifier in both the brute-force list and the LanceDB results.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Solution module: /home/user/myproject/solution.py exposing a callable `sweep() -> dict[int, float]`.
+- Output artifact: /home/user/myproject/result.json with shape `{"4": <float>, "8": <float>, "16": <float>}` after running `python3 /home/user/myproject/run_sweep.py`.
+- `sweep()` returns a dict with exactly the integer keys `{4, 8, 16}`.
+- Every recall value in the dict is a finite float in the closed interval `[0.0, 1.0]`.
+- Recall is non-decreasing across `m` and the gap between `m=16` and `m=4` is strictly positive (`recall[16] > recall[4]`), reflecting the expected quality improvement from finer product quantization.
+- All LanceDB table names created by the solution are suffixed with `_${ZEALT_RUN_ID}` (or otherwise include the run id) for parallel-run safety.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

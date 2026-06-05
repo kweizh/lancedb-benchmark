@@ -1,0 +1,188 @@
+- Initializing MCP connections...
+You
+# Hive-Partitioned Parquet → LanceDB With Year-Filtered Search ## Background A Hive-style partitioned Parquet dataset has been pre-generated at `/home/user/myproject/parquet_dataset/` with one directory per `year` partition (`year=2022/`, `year=2023/`, `year=2024/`). Each partition contains 200 rows. Every row has the columns: * `id` (`int64`): row identifier, unique within the whole dataset. * `title` (`string`): short document title. * `embedding` (`fixed_size_list<float, 24>`): a 24-dimensional vector, generated deterministically at build time. The `year` column is **encoded only as the Hive partition directory name** and is NOT a physical column in the per-partition Parquet files. Your job is to ingest this partitioned dataset into a fresh LanceDB table while preserving the `year` column, and to expose a vector search function that filters on `year` server-side. ## Requirements * Implement a Python module `solution.py` (importable as `solution`) at `/home/user/myproject/solution.py` that, when imported, does **all** of the following in `/home/user/myproject/lancedb`: 1. Opens the partitioned Parquet dataset with `pyarrow.dataset` and `partitioning="hive"` so that the `year` partition column is materialized as a real column in the produced batches. 2. Streams batches from that dataset into a new LanceDB table named `articles_${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment). The destination table MUST contain the `year` column (typed as a 32-bit or 64-bit integer) alongside `id`, `title`, and `embedding`. 3. The ingest must be idempotent: re-importing `solution` (or constructing a fresh connection) MUST NOT duplicate rows. If the destination table already exists with the expected 600-row content, leave it as is; otherwise (re)create it. * Expose a top-level callable `search_year(vec, year, k=5) -> list[dict]` in `solution.py` that: * Accepts a Python list / numpy array `vec` of length 24, an integer `year`, and an integer `k`. * Runs a single LanceDB query that combines a vector search on `embedding` with a SQL `where` clause restricting the result to the requested `year`. The year filter MUST be applied server-side via LanceDB's `where` clause (no Python post-filtering of an unfiltered result). * Returns a list of up to `k` plain Python dicts, ordered by ascending vector distance. Each dict MUST contain at least the keys `id` (int), `title` (str), and `year` (int). ## Implementation Hints * `pyarrow.dataset.write_dataset` writes Hive-partitioned datasets where the partition column is encoded only in the directory name. To get the `year` column back as a real Arrow column, you MUST open the dataset with `pyarrow.dataset.dataset(path, partitioning="hive")` and then iterate `to_batches()` (or call `to_table()`). * Use `db.create_table(name, schema=..., mode="overwrite")` and then `table.add(batch)` per batch, or pass an iterator/reader directly to `create_table` — pick whichever you prefer, as long as every row from every partition lands in the destination table exactly once. * For the year-filtered vector search, the LanceDB query builder accepts `.where("year = <int>")` and `.limit(k)`; convert the result to a list of dicts (e.g. via `.to_list()` and trimming columns). * Build the destination table name at runtime from `os.environ["ZEALT_RUN_ID"]` so that parallel runs do not clash. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 -c "import solution; print(len(solution.search_year([0.0]*24, 2023, 5)))"` * Destination LanceDB database: `/home/user/myproject/lancedb` * Destination table name: `articles_${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment). * The destination table MUST contain exactly 600 rows: 200 rows for each of `year ∈ {2022, 2023, 2024}` (`SELECT year, COUNT(*) GROUP BY year`). * The destination table schema MUST include columns `id`, `title`, `embedding`, and `year`. The `embedding` column MUST be a 24-dimensional fixed-size list of float32. The `year` column MUST be an integer type. * `solution.search_year(vec, year, k)` MUST: * Return a `list` of at most `k` dicts. * Every returned row MUST satisfy `row["year"] == year` (verifier will fail if any other year appears). * The returned rows MUST be ordered by ascending vector distance against `vec` within the requested year partition (i.e. equivalent to a pure vector search restricted to that year). * The year filter MUST be enforced server-side by LanceDB (the SQL `where` clause), not by Python post-processing of an unfiltered result. * Importing `solution` multiple times MUST NOT duplicate rows in the destination table.   
+
+Pochi
+💭 Thinking for 575 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 42 characters   
+📂 Listing files in /home/user/myproject recursively ✔ 
+💭 Thinking for 143 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import pyarrow.dataset as ds
+dataset = ds.dataset('parquet_dataset', partitioning='hive', format='parquet')
+table = dataset.to_table()
+print('Schema:', table.schema)
+print('Num rows:', table.num_rows)
+print('Columns:', table.column_names)
+print('First 3 rows:')
+print(table.to_pandas().head(3))
+print('Year values:', table.column('year').to_pylist()[:5])
+print('Year types:', table.schema.field('year').type)
+print('Embedding type:', table.schema.field('embedding').type)
+" ✔ 
+💭 Thinking for 221 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import lancedb
+print('LanceDB version:', lancedb.__version__)
+" ✔ 
+💭 Thinking for 647 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import lancedb
+# Check available methods
+db = lancedb.connect('/tmp/test_lancedb')
+print(dir(db))
+print()
+# Check create_table signature
+import inspect
+print(inspect.signature(db.create_table))
+" ✔ 
+💭 Thinking for 91 characters   
+💫 Executing cd /home/user/myproject && python3 -c "
+import lancedb
+import pyarrow as pa
+import numpy as np
+
+# Quick test of search API
+db = lancedb.connect('/tmp/test_lancedb2')
+schema = pa.schema([pa.field('id', pa.int64()), pa.field('title', pa.string()), pa.field('embedding', pa.list_(pa.float32(), 24)), pa.field('year', pa.int32())])
+table = db.create_table('test_tbl', schema=schema, mode='overwrite')
+
+# Check search method
+print(dir(table))
+print()
+import inspect
+print('search signature:', inspect.signature(table.search))
+" ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import lancedb
+import pyarrow as pa
+import numpy as np
+
+# Quick test of search with where clause
+db = lancedb.connect('/tmp/test_lancedb3')
+schema = pa.schema([pa.field('id', pa.int64()), pa.field('title', pa.string()), pa.field('embedding', pa.list_(pa.float32(), 24)), pa.field('year', pa.int32())])
+table = db.create_table('test_tbl2', schema=schema, mode='overwrite')
+
+# Add some data
+ids = pa.array([1, 2, 3], type=pa.int64())
+titles = pa.array(['a', 'b', 'c'], type=pa.string())
+embeddings = pa.array([[float(i)]*24 for i in range(3)], type=pa.list_(pa.float32(), 24))
+years = pa.array([2022, 2023, 2024], type=pa.int32())
+batch = pa.table({'id': ids, 'title': titles, 'embedding': embeddings, 'year': years})
+table.add(batch)
+print('Rows:', table.count_rows())
+
+# Test search with where
+results = table.search([0.0]*24).where('year = 2022').limit(5).to_list()
+print('Search results:', results)
+" ✔ 
+💭 Thinking for 331 characters   
+Now I have a clear understanding of the data and the LanceDB API. Let me implement thesolution.   
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/solution.py ✔ 
+💭 Thinking for 28 characters   
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test1 python3 -c "
+import solution
+print('Table rows:', solution._table.count_rows())
+print('Table schema:', solution._table.schema)
+print()
+
+# Test search_year
+results = solution.search_year([0.0]*24, 2023, 5)
+print('Search results (year=2023, k=5):')
+for r in results:
+    print(r)
+print('Number of results:', len(results))
+print()
+
+# Verify all results have year=2023
+assert all(r['year'] == 2023 for r in results), 'Year filter failed!'
+print('Year filter verified: all results have year=2023')
+" ✖ "Command exited with code 1"
+💭 Thinking for 141 characters   
+🔧 Applying diff to /home/user/myproject/solution.py ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test1 python3 -c "
+import solution
+print('Table rows:', solution._table.count_rows())
+print('Table schema:', solution._table.schema)
+print()
+
+# Test search_year
+results = solution.search_year([0.0]*24, 2023, 5)
+print('Search results (year=2023, k=5):')
+for r in results:
+    print(r)
+print('Number of results:', len(results))
+print()
+
+# Verify all results have year=2023
+assert all(r['year'] == 2023 for r in results), 'Year filter failed!'
+print('Year filter verified: all results have year=2023')
+
+# Verify idempotency - import again
+import importlib
+importlib.reload(solution)
+print('After reload, table rows:', solution._table.count_rows())
+" ✔ 
+💭 Thinking for 84 characters   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test1 python3 -c "import solution; print(len(solution.search_year([0.0]*24, 2023, 5)))" ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test1 python3 -c "
+import solution
+
+# Test with different years
+for y in [2022, 2023, 2024]:
+    results = solution.search_year([0.0]*24, y, 3)
+    print(f'Year {y}: {len(results)} results, years: {[r[\"year\"] for r in results]}')
+
+# Test with numpy array
+import numpy as np
+results = solution.search_year(np.zeros(24, dtype=np.float32), 2022, 2)
+print(f'Numpy array test: {len(results)} results')
+
+# Verify all 600 rows are present
+print(f'Total rows: {solution._table.count_rows()}')
+
+# Verify year distribution
+import lancedb
+db = lancedb.connect(str(solution.LANCEDB_PATH))
+tbl = db.open_table(solution.TABLE_NAME)
+import pyarrow.compute as pc
+for y in [2022, 2023, 2024]:
+    count = len(tbl.search().where(f'year = {y}').limit(300).to_list())
+    print(f'Year {y}: {count} rows found')
+" ✔ 
+All acceptance criteria are met. Let me verify idempotency one more time with a clean re-import:   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=idempotent python3 -c "
+# First import - creates table
+import solution
+print(f'First import: {solution._table.count_rows()} rows')
+
+# Simulate re-import by re-running _ingest
+rows_before = solution._table.count_rows()
+solution._ingest()
+rows_after = solution._table.count_rows()
+print(f'After re-ingest: {rows_after} rows (was {rows_before})')
+assert rows_after == 600, f'Expected 600 rows but got {rows_after}'
+print('Idempotency verified!')
+" ✔ 
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+Created `/home/user/myproject/solution.py` that:
+
+1. **Ingests the Hive-partitioned Parquet dataset** using `pyarrow.dataset.dataset(path, partitioning="hive")` to materialize the `year` column from directory names into a real Arrow column.
+
+2. **Creates a LanceDB table** named `articles_${ZEALT_RUN_ID}` at `/home/user/myproject/lancedb` containing all 600 rows with columns `id` (int64), `title` (string), `embedding` (fixed_size_list<float, 24>), and `year` (int32).
+
+3. **Is idempotent**: on import, it checks if the table already exists with 600 rows; if so, it skips ingestion, preventing duplicate rows on re-import.
+
+4. **Exposes `search_year(vec, year, k=5)`**: performs a vector search on `embedding` with a server-side `where` clause (`year = <int>`) to filter results, returning a list of dicts with `id`, `title`, and `year` keys ordered by ascending vector distance.
+
+All acceptance criteria verified:
+- `python3 -c "import solution; print(len(solution.search_year([0.0]*24, 2023, 5)))"` → outputs `5`
+- Table contains exactly 600 rows (200 per year for 2022, 2023, 2024)
+- Schema includes `id`, `title`, `embedding` (24-dim float32), `year` (int32)
+- Year filter is enforced server-side via LanceDB's `.where()` clause
+- Re-importing does not duplicate rows   
+  

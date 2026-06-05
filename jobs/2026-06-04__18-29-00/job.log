@@ -1,0 +1,2596 @@
+Skipping image OS validation for hb__outlier_detection_isolation_forest_py: docker inspect returned 1
+Skipping image OS validation for hb__jina_embedding_api_search_py: docker inspect returned 1
+Skipping image OS validation for hb__ivf_hnsw_sq_index_py: docker inspect returned 1
+Skipping image OS validation for hb__multi_vector_late_interaction_py: docker inspect returned 1
+Skipping image OS validation for hb__binary_quantization_search_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: echo zr-whe98mk > /logs/artifacts/run-id && echo outlier_detection_isolation_fore__WHe98mK > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: echo zr-wyzirj5 > /logs/artifacts/run-id && echo ivf_hnsw_sq_index_py__WyzirJ5 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-rd36ed3 > /logs/artifacts/run-id && echo multi_vector_late_interaction_py__Rd36Ed3 > /logs/artifacts/trial_id
+Running command: echo zr-s9uvntl > /logs/artifacts/run-id && echo jina_embedding_api_search_py__s9UvntL > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-a7ynv4l > /logs/artifacts/run-id && echo binary_quantization_search_py__a7YNV4L > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Build an IVF_HNSW_SQ Vector Index with LanceDB
+
+## Background
+LanceDB supports several ANN index variants for vector search. The `IVF_HNSW_SQ` variant combines IVF partitioning with HNSW graph search using scalar quantization, offering a strong recall/latency trade-off. Your job is to seed a deterministic dataset of 128-dimensional vectors into a LanceDB table, build an `IVF_HNSW_SQ` index over the vector column with cosine distance, and expose a Python `search(query_vec, k, nprobes)` helper that lets the caller vary the `nprobes` parameter at query time.
+
+## Requirements
+- Create (or open) a LanceDB table at the database path provided in the `LANCE_DB_PATH` environment variable, using the table name `vectors_${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment).
+- The table schema must contain at least an integer `id` column and a 128-dimensional float32 vector column named `vector`.
+- Seed the table with the **exact same 1024 deterministic vectors** produced by `numpy.random.default_rng(2026).standard_normal((1024, 128)).astype("float32")`, in row order, with `id = 0..1023`.
+- After seeding, call `table.create_index(...)` to build an `IVF_HNSW_SQ` index on the `vector` column with `metric="cosine"` and `num_partitions=8`.
+- Block until the index is ready with `table.wait_for_index([...], timeout=timedelta(seconds=120))` — `timeout` must be a `datetime.timedelta`, not an integer.
+- Expose a top-level Python function `search(query_vec, k, nprobes)` in `/home/user/myproject/solution.py` that runs a cosine vector search on the indexed table and varies `nprobes` per call via the query builder's `.nprobes(...)` method. The return value must be a Python `list` of `dict` rows in distance-ascending order; each row must contain at least the integer `id` field.
+
+## Implementation Hints
+- Use `lancedb.connect(...)` to open the database at `LANCE_DB_PATH`.
+- Use a PyArrow schema with `pa.list_(pa.float32(), 128)` for the vector column.
+- Pass `replace=True` to `create_index` so re-runs are idempotent.
+- Wait for the index by passing the index name returned by `list_indices()` (default is `vector_idx`) inside a list to `wait_for_index`, together with `timeout=timedelta(seconds=120)`.
+- Inside `search`, build the query with `.search(query_vec).nprobes(nprobes).limit(k).to_list()` so the candidate parameter actually flows into the LanceDB search builder.
+- Make the module side-effect-safe: seeding and index building should happen on import (or via a `main()` invoked at the bottom of the file) so the verifier can simply import `solution` and call `search(...)`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 -c "import solution; print(len(solution.search([0.0]*128, 10, 8)))"`
+- The command must print `10` to stdout (a healthy `IVF_HNSW_SQ` index with `nprobes=8` returns the full top-k).
+- `solution.search(query_vec, k, nprobes)` must be importable from `/home/user/myproject/solution.py` and return a `list[dict]` with at least the `id` field per row, sorted ascending by distance.
+- After importing the module:
+  - `table.list_indices()` for the table `vectors_${ZEALT_RUN_ID}` must contain exactly one index whose `index_type` (normalized, ignoring case and underscores) corresponds to `IVF_HNSW_SQ` and whose `columns` equals `["vector"]`. Equivalently, `table.index_stats(name).index_type == "IVF_HNSW_SQ"`.
+  - Calling `search(q, 10, 1)` must return at most 10 results.
+  - Calling `search(q, 10, 8)` must return exactly 10 results.
+  - Across a battery of held-out queries, the average recall@10 of `search(q, 10, 8)` versus a brute-force cosine top-10 ground truth must be at least 0.90.
+  - On the same held-out queries, the average recall@10 with `nprobes=8` must be strictly greater than the average recall@10 with `nprobes=1`.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# ColBERT-Style Multi-Vector Late-Interaction Retrieval on LanceDB
+
+## Background
+Modern retrievers such as ColBERT represent each document as a *bag of token-level vectors* rather than a single pooled embedding. At query time a multi-vector query is scored against each candidate document via the **MaxSim** late-interaction operator: for every query token vector, take the maximum cosine similarity against any of the document's token vectors, then sum those per-token maxima.
+
+You are given a pre-seeded LanceDB table containing 60 documents, each represented by 4 token-level vectors of dimension 32 (240 rows total). Your job is to implement the retrieval logic.
+
+## Requirements
+- Connect to the LanceDB database at `/home/user/myproject/lancedb_data/` and open the table named `colbert_tokens`.
+- The table schema is `doc_id: int64`, `token_idx: int32`, `embedding: fixed_size_list<float32, 32>`. Every `(doc_id, token_idx)` pair is unique. `doc_id` ranges over `0..59` and `token_idx` over `0..3`.
+- Implement a function `colbert_search(query_token_vecs: np.ndarray, k: int = 5) -> list[int]` in `/home/user/myproject/solution.py` that:
+  1. Accepts an `(M, 32)` float numpy array (typically `M = 3`).
+  2. Runs **one LanceDB vector search per query token** using the `cosine` distance metric, retrieving the top-50 `(doc_id, token_idx, _distance)` rows for that query token.
+  3. Converts each `_distance` to a cosine similarity (`sim = 1 - distance`) and, for every candidate document that appears in any of the M result sets, computes `MaxSim(q_i, doc) = max over the doc's retrieved token rows of cosine(q_i, t)`. Documents whose token did not appear in a particular query's top-50 contribute `0` for that `q_i`. The **late-interaction score** for a doc is the sum of MaxSim values across the M query tokens.
+  4. Returns the **top-k `doc_id` values** as a Python `list[int]`, ordered by descending late-interaction score. Ties may be broken by ascending `doc_id`.
+
+## Implementation Hints
+- Use `lancedb.connect(...)` and `tbl.search(query_vec).distance_type("cosine").limit(50).to_pandas()` (or `.to_list()`) to issue each per-token search.
+- The aggregation step is plain pandas/numpy — group by `doc_id`, take the max similarity per group, sum across the M searches, sort descending.
+- The `embedding` column is a `fixed_size_list<float32, 32>`. Make sure your query vectors are 1-D `np.float32` arrays of length 32.
+- Cosine similarity in LanceDB is `1 - distance`, where `distance` is what the search returns.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Solution file: /home/user/myproject/solution.py
+- The module must expose a callable `colbert_search(query_token_vecs: np.ndarray, k: int = 5) -> list[int]` with the signature and contract described above.
+- Calling `colbert_search` must not raise for valid `(M, 32)` float arrays and must return at most `k` distinct `doc_id` integers in descending late-interaction score order.
+- The function must perform exactly **M** independent LanceDB vector searches (one per query token) — it must not rely on average-pooling or sum-pooling the query into a single vector.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Recall Benchmark: FP32 Brute-Force vs Aggressively Quantized IVF_PQ
+
+## Background
+LanceDB supports an IVF_PQ vector index that combines coarse Inverted-File partitioning with Product Quantization for memory-efficient ANN search. When `num_sub_vectors` is set very low relative to the embedding dimension, each PQ codeword represents many original components, producing an extremely compressed ("binary-ish") representation that trades recall for footprint and latency.
+
+Your job is to build a self-contained recall benchmark that quantifies how much recall is lost when an aggressive IVF_PQ index replaces brute-force FP32 search on a synthetic but realistically clustered embedding set.
+
+## Requirements
+- Build a Python module at `/home/user/myproject/solution.py` that, when executed as `python3 solution.py`, (re)creates the LanceDB table and index from scratch and prints a recall number.
+- Seed a LanceDB table at `/home/user/myproject/lancedb` (database directory) with at least **1024 rows** of **384-dimensional float32** vectors generated deterministically via `numpy.random.default_rng(<seed>)`.
+- The vectors must be organized into **approximately 10 well-separated clusters** (e.g. 10 random unit-norm centers plus per-row Gaussian noise) so that nearest-neighbor queries have a clear correct answer.
+- Build an **IVF_PQ** vector index on the embedding column with **`num_sub_vectors` ∈ {8, 12}** to force aggressive quantization (384 dims into 8 or 12 sub-vectors means each PQ codeword encodes 32–48 floats).
+- Expose a top-level function with this exact signature:
+  ```python
+  def evaluate_recall(num_queries: int = 50, k: int = 10) -> float:
+      ...
+  ```
+  It must (1) deterministically draw `num_queries` query vectors from the same seeded RNG family (so verification is reproducible), (2) compute brute-force top-`k` ground truth on the FP32 vectors stored in the table, (3) run the same queries through the LanceDB IVF_PQ index (`table.search(qv).limit(k)`), and (4) return the **average recall@k** across all queries as a float in `[0.0, 1.0]`.
+
+## Implementation Hints
+- Use `lancedb.connect("/home/user/myproject/lancedb")` plus an Arrow schema that stores the embedding as a fixed-size list of 384 float32 values.
+- Append `${ZEALT_RUN_ID}` (read from the `ZEALT_RUN_ID` environment variable) to the LanceDB table name so concurrent runs don't collide; the verifier will derive the same name from the same env var.
+- IVF_PQ training requires ≥ 256 rows, so seed comfortably above that minimum.
+- Use `table.create_index(metric="L2", vector_column_name="vector", index_type="IVF_PQ", num_partitions=..., num_sub_vectors=..., replace=True)` and `table.wait_for_index([...], timeout=datetime.timedelta(seconds=60))` to make sure the index is ready before measuring recall.
+- Aggressive PQ destroys fine-grained ranking inside dense clusters. Reading the LanceDB ANN tuning docs about `nprobes(...)` (how many IVF partitions to probe) and `refine_factor(...)` (re-rank the top `k * refine_factor` PQ candidates by exact distance) is the standard way to recover recall while keeping the small index footprint. Use them on the query side rather than weakening the PQ configuration.
+- Recall@k for a single query is `len(returned_ids ∩ ground_truth_ids) / k`; average across all queries.
+- Make the brute-force ground truth deterministic: read every vector back from the table, compute distances in numpy, and rank by ascending L2 distance.
+- If the index name in your `create_index` call is not the LanceDB default (`vector_idx`), make sure `table.list_indices()` still reports it.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Module file: `/home/user/myproject/solution.py`
+- Build command: `python3 /home/user/myproject/solution.py` — must be idempotent (running it twice from scratch leaves a valid table + index).
+- LanceDB directory: `/home/user/myproject/lancedb`
+- Table name: `bench_${ZEALT_RUN_ID}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- Schema: an `id` column (integer) and a `vector` column typed as a fixed-size list of **384 float32** values.
+- Row count: at least **1024**.
+- Vector index: at least one IVF_PQ index is present on the `vector` column as reported by `table.list_indices()`, built with `num_sub_vectors` in `{8, 12}`.
+- Public API: `from solution import evaluate_recall; evaluate_recall(num_queries=50, k=10)` returns a `float` between 0.0 and 1.0 representing average recall@10 against brute-force ground truth.
+- Quality bar: the returned recall must be **≥ 0.70**.
+
+
+EOF
+Command failed
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# News Headline Semantic Search with Jina Embeddings v3 + LanceDB
+
+## Background
+Build a multilingual-quality semantic search system over a fixed corpus of news headlines. Embeddings are produced by the hosted Jina AI Embeddings API (`jina-embeddings-v3` model) which exposes asymmetric retrieval via the `task` parameter — passages should be embedded with `retrieval.passage`, queries with `retrieval.query`. Embeddings are stored and searched in a local LanceDB table.
+
+## Requirements
+- A deterministic fixture of 50 news headlines (5 topics × 10 each) is baked into the image at `/home/user/myproject/headlines.json`. Each entry has fields `id` (int), `topic` (str), and `headline` (str). Do not modify this file.
+- Implement a Python module `/home/user/myproject/solution.py` that:
+  - Reads `JINA_API_KEY` from the environment.
+  - Provides `build_index() -> None` which:
+    - Embeds every headline in `headlines.json` using the Jina API with `task="retrieval.passage"`.
+    - Creates / overwrites a LanceDB table named `headlines_${ZEALT_RUN_ID}` under `/home/user/myproject/lancedb_data/` whose schema includes at least `id` (int64), `headline` (str), `topic` (str), and a fixed-size float vector column matching the API's embedding dimension.
+  - Provides `search(query: str, k: int = 5, task: str = "retrieval.query") -> list[dict]` which:
+    - Embeds `query` via Jina with the supplied `task` parameter (defaulting to `retrieval.query`).
+    - Runs a vector search over the LanceDB table and returns a Python list with **exactly `k`** dicts, ordered best-first. Each dict must contain at least the keys `id`, `headline`, `topic`.
+- Provide a CLI entrypoint `/home/user/myproject/run.py` such that running `python3 run.py "<query>" --k <int>` prints the list returned by `search(...)` as a single JSON array on stdout. Running `python3 run.py --build` rebuilds the index.
+- The LanceDB table name MUST be suffixed with the current `run-id` read from the `ZEALT_RUN_ID` environment variable so concurrent runs don't collide.
+
+## Implementation Hints
+- The Jina embeddings endpoint is `POST https://api.jina.ai/v1/embeddings`. Authenticate with `Authorization: Bearer ${JINA_API_KEY}` and `Content-Type: application/json`. The request body shape is `{"model": "jina-embeddings-v3", "task": <task>, "input": [<strings>]}` — verify the response shape and embedding dimension at runtime against the docs at `docs.jina.ai`. Use `httpx.post(...)` rather than `requests`.
+- The Jina API accepts a list of input strings in one call. Batch all 50 headlines in a small number of calls (or a single call) to keep latency low.
+- LanceDB tables prefer a `pyarrow.fixed_size_list(pa.float32(), <dim>)` column for embeddings. The vector dimension MUST match the dimension returned by the API.
+- Use `tbl.search(query_embedding).limit(k).to_list()` to retrieve top-k results.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 run.py "<query>" --k <int>`
+- Stdout: a single JSON array of length `k`. Each element MUST have keys `id` (int), `headline` (str), `topic` (str).
+- Module API: `solution.build_index()` and `solution.search(query, k, task)` are importable from `/home/user/myproject`.
+- The LanceDB directory `/home/user/myproject/lancedb_data/` exists after building and contains a table named `headlines_${ZEALT_RUN_ID}` where `${ZEALT_RUN_ID}` is read from the `ZEALT_RUN_ID` environment variable.
+- Headline corpus comes from `/home/user/myproject/headlines.json` (50 entries, 5 topics × 10) and MUST NOT be modified.
+- Queries are embedded with `task="retrieval.query"` (Jina asymmetric retrieval) by default; passages with `task="retrieval.passage"`.
+
+
+EOF
+Trial outlier_detection_isolation_fore__WHe98mK failed: Initial state test failed
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__grpc_search_microservice_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-hg4gmrr > /logs/artifacts/run-id && echo grpc_search_microservice_py__hG4GmrR > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# gRPC Vector Search Microservice over LanceDB
+
+## Background
+You are building a gRPC microservice that wraps a LanceDB vector index so that other services can run nearest-neighbour search remotely. The container already has LanceDB, `grpcio`, `grpcio-tools`, and `pytest-xprocess` installed. A 500-row, 24-dimensional `documents` table has been seeded at `/home/user/myproject/data/lancedb` at build time. Each row has fields `id` (int64), `title` (string), `category` (string), and `vector` (24-dim float32). The expected fixture for verification lives at `/home/user/myproject/.expected.json` and is read-only.
+
+Your job is to design the gRPC service contract, generate the Python stubs, and implement a server that serves search-with-optional-where requests against the pre-seeded table.
+
+## Requirements
+- Author a Protocol Buffers definition at `/home/user/myproject/proto/search.proto` declaring:
+  - `package search;`
+  - A `SearchService` with one unary RPC: `Search(SearchRequest) returns (SearchResponse)`.
+  - `SearchRequest`:
+    - `repeated float vector = 1;`
+    - `int32 k = 2;`
+    - `string where_clause = 3;`
+  - `SearchResponse`:
+    - `repeated Hit hits = 1;`
+  - `Hit`:
+    - `int64 id = 1;`
+    - `float score = 2;`
+    - `string title = 3;`
+- Generate Python stubs from the proto using `grpcio-tools` so that `import search_pb2` and `import search_pb2_grpc` both succeed from the project root. The generated files MUST live in `/home/user/myproject/` (i.e., the project root must contain `search_pb2.py` and `search_pb2_grpc.py`).
+- Implement the server in `/home/user/myproject/server.py`:
+  - Opens the pre-seeded LanceDB table at `/home/user/myproject/data/lancedb` (table name `documents`). Do NOT recreate or overwrite the table.
+  - Implements `SearchServiceServicer.Search` so it:
+    - Runs a LanceDB vector search using `request.vector` as the query.
+    - Applies `request.where_clause` as a LanceDB SQL filter when the string is non-empty. When it is empty, no filter is applied.
+    - Uses `request.k` as the result limit.
+    - Returns a `SearchResponse` whose `hits` list is in LanceDB retrieval order. Each `Hit.id` is the row's `id`, `Hit.title` is the row's `title`, and `Hit.score` is a non-negative number derived from the LanceDB distance (lower distance => smaller score is fine; the verifier only checks that the IDs and titles match ground truth).
+  - Binds a `grpc.server(...)` to `0.0.0.0:50051` and serves until terminated (keep the process alive with `server.wait_for_termination()`).
+- The server MUST be startable with `python3 server.py` from `/home/user/myproject`.
+
+## Implementation Hints
+- Run the stub generation with `python3 -m grpc_tools.protoc -I proto --python_out=. --grpc_python_out=. proto/search.proto` from the project root so that the import paths in `search_pb2_grpc.py` resolve correctly.
+- Open the table once at server startup with `lancedb.connect("/home/user/myproject/data/lancedb").open_table("documents")` and reuse the handle inside the RPC.
+- LanceDB's query builder accepts an SQL filter via `.where("<expr>")` and a list/array vector via `.search(vec).limit(k)`. Combine these to honour `where_clause` when it is non-empty.
+- A simple `concurrent.futures.ThreadPoolExecutor(max_workers=4)` is sufficient for the `grpc.server` thread pool argument.
+- Be careful: the proto field for the filter is `where_clause`. After stub generation, Python attribute access is `request.where_clause`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: python3 server.py
+- Port: 50051 (plain gRPC, no TLS)
+- gRPC service contract:
+  - Package: `search`
+  - Service: `SearchService`
+  - Unary RPC: `Search(SearchRequest) returns (SearchResponse)`
+  - Message fields (numbers and types are part of the contract):
+    - `SearchRequest { repeated float vector = 1; int32 k = 2; string where_clause = 3; }`
+    - `SearchResponse { repeated Hit hits = 1; }`
+    - `Hit { int64 id = 1; float score = 2; string title = 3; }`
+- The Python stubs `search_pb2.py` and `search_pb2_grpc.py` MUST be importable from the project root.
+- The server MUST connect to the pre-seeded LanceDB table at `/home/user/myproject/data/lancedb` (table name `documents`) and serve real LanceDB search results (no in-memory mocks, no hard-coded hit lists).
+- The server MUST honour both branches of the request:
+  - When `where_clause` is empty, return the top-k nearest neighbours of `vector` from the full table.
+  - When `where_clause` is non-empty, the returned hits MUST all satisfy the filter (e.g., `category = 'alpha'`), and the order MUST match LanceDB's filtered search order.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__duckdb_lance_query_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-l9kpsqw > /logs/artifacts/run-id && echo duckdb_lance_query_py__L9KPSqW > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# DuckDB SQL Aggregation Over a LanceDB-backed Lance Dataset
+
+## Background
+[LanceDB](https://docs.lancedb.com/) is built on top of the [Lance](https://github.com/lancedb/lance) columnar format. A useful interop trick is to expose the underlying `lance.Dataset` (via `LanceTable.to_lance()`) and let an analytical engine such as [DuckDB](https://duckdb.org/) run rich SQL aggregations over it without copying data.
+
+In this task you will seed a deterministic LanceDB table of 1,000 products, expose its underlying Lance dataset, and use DuckDB to compute per-category statistics.
+
+## Requirements
+- Implement a deterministic fixture builder that creates a LanceDB table containing exactly 1,000 product rows. The schema must be:
+  - `id`: `Int64`
+  - `name`: `Utf8`
+  - `category`: `Utf8`, drawn from exactly five categories: `books`, `electronics`, `clothing`, `food`, `toys`
+  - `price`: `Float64`, strictly positive
+  - `in_stock`: `Bool`
+  - `embedding`: 16-dimensional fixed-size list of `Float32` (a LanceDB `Vector(16)`)
+- Implement a `summary` function/CLI that:
+  1. Opens the LanceDB table.
+  2. Obtains the underlying `lance.Dataset` via `LanceTable.to_lance()`.
+  3. Uses DuckDB to run SQL aggregations over the Lance dataset (e.g. by registering an Arrow scanner / `RecordBatchReader` with `duckdb.from_arrow(...)` or `con.register("products", reader)`).
+  4. Returns / prints a dict keyed by category, where each value is `{"count": int, "avg_price": float, "in_stock_rate": float}`.
+- The aggregations themselves (group-by, COUNT, AVG, AVG-of-bool) MUST be executed by DuckDB SQL — not by pandas, PyArrow compute, or plain Python loops.
+
+## Implementation Hints
+- Use `lancedb.connect(...)` to open a local database directory and `db.create_table(...)` / `db.open_table(...)` for table lifecycle.
+- For deterministic data generation use `numpy.random.default_rng(2026)`. The verifier will independently regenerate the fixture with the same seed and the same call order, so be careful to keep the generation steps identical to the spec below.
+- Deterministic generation order (call exactly these methods in this order on one `rng = numpy.random.default_rng(2026)`):
+  1. `category_indices = rng.integers(0, 5, size=1000)` → values in `[0, 5)`.
+  2. `prices = rng.uniform(1.0, 1000.0, size=1000)` → 1,000 positive floats.
+  3. `in_stock_mask = rng.random(1000) < 0.7` → 1,000 booleans.
+  4. `embeddings = rng.standard_normal((1000, 16)).astype(numpy.float32)`.
+  Use the category list `["books", "electronics", "clothing", "food", "toys"]` and map each row's category by index. Set `id = i` and `name = f"product_{i}"` for `i` in `range(1000)`.
+- To run DuckDB over the Lance dataset:
+  ```python
+  ds = tbl.to_lance()
+  reader = ds.scanner(columns=["category", "price", "in_stock"]).to_reader()
+  con = duckdb.connect()
+  con.register("products", reader)
+  rows = con.execute("SELECT category, COUNT(*) AS n, AVG(price) AS avg_price, AVG(CAST(in_stock AS DOUBLE)) AS in_stock_rate FROM products GROUP BY category").fetchall()
+  ```
+  (Equivalent forms using `duckdb.from_arrow(reader)` are also acceptable.)
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and use the run-id-scoped table name `products_${ZEALT_RUN_ID}` for parallel-run safety.
+- Pin `lancedb==0.25.3`, `pylance==0.21.0`, `pyarrow==17.0.0`, `numpy==1.26.4` and a `duckdb>=1.0,<2.0` release.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- The project must expose two CLI subcommands via `python3 run.py`:
+  - `python3 run.py build` — creates / overwrites the `products_${ZEALT_RUN_ID}` LanceDB table with exactly 1,000 rows following the deterministic recipe above. Exit code `0` on success.
+  - `python3 run.py summary` — opens the table, runs DuckDB SQL aggregations over the underlying Lance dataset, and writes a single JSON object to stdout with the following shape:
+    ```json
+    {
+      "books":       {"count": 0, "avg_price": 0.0, "in_stock_rate": 0.0},
+      "electronics": {"count": 0, "avg_price": 0.0, "in_stock_rate": 0.0},
+      "clothing":    {"count": 0, "avg_price": 0.0, "in_stock_rate": 0.0},
+      "food":        {"count": 0, "avg_price": 0.0, "in_stock_rate": 0.0},
+      "toys":        {"count": 0, "avg_price": 0.0, "in_stock_rate": 0.0}
+    }
+    ```
+    where `count` is an integer, `avg_price` is a float, and `in_stock_rate` is a float in `[0.0, 1.0]`.
+  - Both subcommands must read `run-id` from `ZEALT_RUN_ID`.
+- The summary output must contain exactly the five category keys listed above and the `count` values must sum to 1,000.
+- Every `avg_price` must be strictly positive.
+- The aggregation must be executed by DuckDB SQL over the Lance dataset obtained via `LanceTable.to_lance()`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__kmeans_clustering_embeddings_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Trial cross_lingual_translate_search_p__mYcNtuD failed: Docker compose command failed for environment cross_lingual_translate_search_py. Command: docker compose --project-name cross_lingual_translate_search_p__mycntud --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/cross_lingual_translate_search_py/environment -f /tmp/tmp7d4agail/cross_lingual_translate_search_p__mYcNtuD-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmprpjnfq3h/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main internal] load build definition from Dockerfile
+#1 transferring dockerfile: 15.26kB done
+#1 DONE 0.0s
+
+#2 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#2 DONE 0.0s
+
+#3 [main internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [main 1/8] FROM docker.io/library/ubuntu:24.04
+#4 DONE 0.0s
+
+#5 [main 2/8] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep &&     pip3 install --break-system-packages         pytest-json-ctrf         lancedb==0.25.3         pyarrow==17.0.0         numpy==1.26.4         pandas==2.2.3         openai==1.54.5         httpx==0.27.2         tiktoken &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [main 4/8] RUN mkdir -p /home/user/myproject
+#6 CACHED
+
+#7 [main 3/8] RUN mkdir -p /home/user && chmod 0755 /home/user
+#7 CACHED
+
+#8 [main 5/8] RUN mkdir -p /opt/seed &&     cat >/opt/seed/build_seed.py <<'PYEOF'
+#8 CACHED
+
+#9 [main 6/8] RUN OPENAI_API_KEY="${OPENAI_API_KEY}" python3 /opt/seed/build_seed.py
+#9 1.837 Traceback (most recent call last):
+#9 1.837   File "/opt/seed/build_seed.py", line 72, in <module>
+#9 1.837     assert api_key, "OPENAI_API_KEY must be passed as --build-arg during docker build."
+#9 1.837            ^^^^^^^
+#9 1.837 AssertionError: OPENAI_API_KEY must be passed as --build-arg during docker build.
+#9 ERROR: process "/bin/sh -c OPENAI_API_KEY=\"${OPENAI_API_KEY}\" python3 /opt/seed/build_seed.py" did not complete successfully: exit code: 1
+------
+ > [main 6/8] RUN OPENAI_API_KEY="${OPENAI_API_KEY}" python3 /opt/seed/build_seed.py:
+1.837 Traceback (most recent call last):
+1.837   File "/opt/seed/build_seed.py", line 72, in <module>
+1.837     assert api_key, "OPENAI_API_KEY must be passed as --build-arg during docker build."
+1.837            ^^^^^^^
+1.837 AssertionError: OPENAI_API_KEY must be passed as --build-arg during docker build.
+------
+failed to solve: process "/bin/sh -c OPENAI_API_KEY=\"${OPENAI_API_KEY}\" python3 /opt/seed/build_seed.py" did not complete successfully: exit code: 1
+. Stderr: None. 
+Failed to download artifact '/home/user' (best-effort)
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 160, in run
+    await self._prepare()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 187, in _prepare
+    await self._setup_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 612, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 618, in _start_agent_environment
+    await asyncio.wait_for(
+    ...<4 lines>...
+    )
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 517, in start
+    await self._run_docker_compose_command(["build"])
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment cross_lingual_translate_search_py. Command: docker compose --project-name cross_lingual_translate_search_p__mycntud --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/cross_lingual_translate_search_py/environment -f /tmp/tmp7d4agail/cross_lingual_translate_search_p__mYcNtuD-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmprpjnfq3h/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main internal] load build definition from Dockerfile
+#1 transferring dockerfile: 15.26kB done
+#1 DONE 0.0s
+
+#2 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#2 DONE 0.0s
+
+#3 [main internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [main 1/8] FROM docker.io/library/ubuntu:24.04
+#4 DONE 0.0s
+
+#5 [main 2/8] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep &&     pip3 install --break-system-packages         pytest-json-ctrf         lancedb==0.25.3         pyarrow==17.0.0         numpy==1.26.4         pandas==2.2.3         openai==1.54.5         httpx==0.27.2         tiktoken &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [main 4/8] RUN mkdir -p /home/user/myproject
+#6 CACHED
+
+#7 [main 3/8] RUN mkdir -p /home/user && chmod 0755 /home/user
+#7 CACHED
+
+#8 [main 5/8] RUN mkdir -p /opt/seed &&     cat >/opt/seed/build_seed.py <<'PYEOF'
+#8 CACHED
+
+#9 [main 6/8] RUN OPENAI_API_KEY="${OPENAI_API_KEY}" python3 /opt/seed/build_seed.py
+#9 1.837 Traceback (most recent call last):
+#9 1.837   File "/opt/seed/build_seed.py", line 72, in <module>
+#9 1.837     assert api_key, "OPENAI_API_KEY must be passed as --build-arg during docker build."
+#9 1.837            ^^^^^^^
+#9 1.837 AssertionError: OPENAI_API_KEY must be passed as --build-arg during docker build.
+#9 ERROR: process "/bin/sh -c OPENAI_API_KEY=\"${OPENAI_API_KEY}\" python3 /opt/seed/build_seed.py" did not complete successfully: exit code: 1
+------
+ > [main 6/8] RUN OPENAI_API_KEY="${OPENAI_API_KEY}" python3 /opt/seed/build_seed.py:
+1.837 Traceback (most recent call last):
+1.837   File "/opt/seed/build_seed.py", line 72, in <module>
+1.837     assert api_key, "OPENAI_API_KEY must be passed as --build-arg during docker build."
+1.837            ^^^^^^^
+1.837 AssertionError: OPENAI_API_KEY must be passed as --build-arg during docker build.
+------
+failed to solve: process "/bin/sh -c OPENAI_API_KEY=\"${OPENAI_API_KEY}\" python3 /opt/seed/build_seed.py" did not complete successfully: exit code: 1
+. Stderr: None. 
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/artifact_handler.py", line 195, in _download_artifact
+    await source_env.download_file(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 609, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker_unix.py", line 48, in download_file
+    await self._env._run_docker_compose_command(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment cross_lingual_translate_search_py. Command: docker compose --project-name cross_lingual_translate_search_p__mycntud --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/cross_lingual_translate_search_py/environment -f /tmp/tmp7d4agail/cross_lingual_translate_search_p__mYcNtuD-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmprpjnfq3h/docker-compose-mounts.json cp main:/home/user jobs/2026-06-04__18-29-00/cross_lingual_translate_search_p__mYcNtuD/artifacts/user. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__voyage_embedding_api_search_py: docker inspect returned 1
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-pgg3cem > /logs/artifacts/run-id && echo kmeans_clustering_embeddings_py__PGG3CEm > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# K-means Clustering of LanceDB Embeddings
+
+## Background
+You are given a pre-seeded LanceDB table named `embeddings` that holds 800 rows of 32-dimensional float vectors. Your task is to cluster these embeddings with K-means, persist the resulting labels back into a NEW LanceDB table, and expose a small Python API that lets callers query the centroids and look up the nearest cluster for an arbitrary vector. The clustering must be fully deterministic so the verifier can reproduce results.
+
+## Requirements
+- Load all rows of the `embeddings` table into memory as a pandas DataFrame.
+- Fit a `sklearn.cluster.KMeans` model with exactly 8 clusters, `random_state=2026`, and `n_init=10`.
+- Persist the cluster assignment for every row of `embeddings` into a NEW LanceDB table called `clusters` containing two columns only: `id` (Int64, matching the `id` column of `embeddings`) and `cluster_id` (Int32, in the range 0..7).
+- Persist the 8 centroids into a NEW LanceDB table called `centroids` containing two columns: `cluster_id` (Int32) and `vector` (fixed-size list of float32, dimension 32). The centroids in this table must equal `kmeans.cluster_centers_` in the order produced by sklearn (row i = centroid for cluster_id i).
+- Expose a Python module that the verifier can import and call.
+
+## Implementation Hints
+- Use `table.to_pandas()` to materialize the embeddings table; `pandas==2.2.3` is pre-installed.
+- The vector column comes back as a numpy array per row; stack them with `numpy.vstack` before fitting.
+- For the `nearest_cluster` API, run a cosine vector search on the `centroids` table and return the `cluster_id` of the top-1 result.
+- All three tables (`embeddings`, `clusters`, `centroids`) live in the same LanceDB directory `/home/user/myproject/lancedb_data`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 run.py`
+  - When invoked with no arguments, `run.py` must read `embeddings` from `/home/user/myproject/lancedb_data`, fit the K-means model, and (over)write the `clusters` and `centroids` LanceDB tables. It must be idempotent (safe to re-run).
+- After `run.py` exits successfully, a module named `solution` in `/home/user/myproject/solution.py` must be importable from `/home/user/myproject` and expose the following top-level callables:
+  - `cluster_centroids() -> numpy.ndarray` returning an array of shape `(8, 32)` and dtype `float32` containing the centroids in cluster-id order (row i = cluster i). The values must equal `kmeans.cluster_centers_` to within `atol=1e-4`.
+  - `nearest_cluster(query_vec) -> int` accepting a length-32 1-D vector (Python list or numpy array) and returning the cluster id (0..7) of the nearest centroid, computed via a LanceDB cosine vector search against the `centroids` table.
+- LanceDB tables after `run.py` runs:
+  - `clusters`: exactly 800 rows; schema `{id: int64, cluster_id: int32}`; the set of `id` values equals the set of `id` values in `embeddings`.
+  - `centroids`: exactly 8 rows; schema includes `cluster_id: int32` and a 32-d float32 vector column.
+- Cluster quality (verifier asserts against the ground-truth labels baked into the fixture):
+  - The 8 distinct cluster ids `{0..7}` must all be present in the `clusters` table.
+  - sklearn Adjusted Rand Index (`sklearn.metrics.adjusted_rand_score`) between the predicted labels and the ground-truth labels must be >= 0.90.
+  - Cluster balance: each of the 8 predicted clusters must contain between 80 and 120 rows (inclusive).
+  - For 5 deterministic query vectors, `nearest_cluster(query)` must equal `KMeans(n_clusters=8, random_state=2026, n_init=10).fit(X).predict([query])[0]` where `X` is the verifier-reloaded embeddings matrix.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-dlbkvfj > /logs/artifacts/run-id && echo voyage_embedding_api_search_py__dLBkVFJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Voyage AI Embeddings + LanceDB Semantic Product Search
+
+## Background
+Build a semantic product-search backend that uses the **Voyage AI** embedding API (model `voyage-3`) to embed a small product catalogue and stores the embeddings in a LanceDB table. The verifier hits the real Voyage AI API (using the `VOYAGE_API_KEY` already exported in the container) and compares your search results to a pre-rigged ground truth.
+
+## Requirements
+- Read `VOYAGE_API_KEY` and `ZEALT_RUN_ID` from environment variables. Do **NOT** hard-code or guess them.
+- Read the catalogue from `/home/user/myproject/products.json` (60 product entries, fields `id` and `description`). The file is seeded by the environment at build time.
+- Embed every product `description` with the official `voyageai` Python SDK using model `voyage-3` and `input_type="document"`.
+- Store the products in a LanceDB table named `products_${ZEALT_RUN_ID}` under `/home/user/myproject/lancedb_data/` with at least the columns `id` (string), `description` (string), and a fixed-size-list float32 vector column of dimension **1024** matching the `voyage-3` output dimension.
+- Expose a Python module `solution.py` in `/home/user/myproject/` that defines `search(query: str, k: int) -> list[dict]`. Each result dict must contain at least the keys `id` and `description`, and the list must be ordered from most-relevant (rank 1) to least-relevant. The query MUST be embedded via the Voyage API with `input_type="query"` and the result MUST come from a real LanceDB vector search (no re-ranking shortcuts allowed).
+- Also expose a CLI entrypoint `run_search.py` so the verifier can spawn it: `python3 run_search.py --query "<text>" --k 5` must print a single JSON array (the same shape returned by `search`) to stdout.
+
+## Implementation Hints
+- Install/use the `voyageai` Python SDK and instantiate `voyageai.Client(api_key=...)`. The `client.embed(texts, model="voyage-3", input_type=...)` call returns an object whose `.embeddings` attribute is a list of float lists.
+- Pass `input_type="document"` when embedding the catalogue and `input_type="query"` when embedding the user query — this is how Voyage tunes the embedding for retrieval.
+- Connect to LanceDB with `lancedb.connect("/home/user/myproject/lancedb_data")`.
+- Use a pyarrow schema with a `pa.list_(pa.float32(), 1024)` (or `fixed_size_list`) vector column so LanceDB knows the dimension up-front.
+- Use `table.search(query_vec).limit(k).to_list()` (or `to_pandas()`) to obtain ranked results.
+- Build the catalogue table once (idempotently); subsequent runs of `run_search.py` should reuse the existing table instead of re-embedding the entire catalogue every call.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Required files (created by the candidate): `/home/user/myproject/solution.py`, `/home/user/myproject/run_search.py`.
+- Required LanceDB artifacts: a LanceDB database under `/home/user/myproject/lancedb_data/` containing a table named `products_${ZEALT_RUN_ID}` whose vector column has dimension exactly 1024.
+- Command: `python3 run_search.py --query "<text>" --k <int>`
+- The command MUST print a JSON array to stdout where each element is an object with at least the keys `id` (string) and `description` (string), ordered by relevance (rank 1 first).
+- `solution.search(query, k)` from `solution.py` MUST return the same ranking as the CLI for the same inputs.
+- The implementation MUST call the Voyage AI HTTPS endpoint at query time (no precomputed query embeddings, no local model inference).
+- `VOYAGE_API_KEY` is read from the environment; the same key is available to the verifier.
+
+
+EOF
+Skipping image OS validation for hb__tantivy_phrase_proximity_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-zfk9sjt > /logs/artifacts/run-id && echo tantivy_phrase_proximity_py__zfK9Sjt > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command failed
+Trial tantivy_phrase_proximity_py__zfK9Sjt failed: Initial state test failed
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__polars_dataframe_ingest_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-lenmfw3 > /logs/artifacts/run-id && echo polars_dataframe_ingest_py__LeNMFW3 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Ingest a Polars DataFrame into LanceDB via Arrow
+
+## Background
+You are building a small ingestion utility on top of LanceDB. The source dataset is held in memory as a [polars](https://docs.pola.rs/) `DataFrame` and must be persisted into a LanceDB table by going through Arrow (no per-row Python loops, no `pandas`). After ingestion, you expose a hybrid `search` function that combines a vector query with SQL `where` predicates.
+
+## Requirements
+In `/home/user/myproject/solution.py` implement the following:
+
+1. `build_dataframe() -> polars.DataFrame`
+   - Returns a polars DataFrame with **exactly 500 rows** generated deterministically with `numpy.random.default_rng(2026)`.
+   - Columns and dtypes (in this exact order):
+     - `id`: `pl.Int64`, values `0..499`.
+     - `title`: `pl.Utf8`, values like `"item-<id>"`.
+     - `score`: `pl.Float64`, drawn from `rng.uniform(0.0, 1.0, size=500)`.
+     - `tag`: `pl.Utf8`, drawn from the closed list `["alpha", "beta", "gamma", "delta"]` using `rng.choice(...)` (in that order, after the score column was sampled).
+     - `vector`: `pl.List(pl.Float32)`, one 32-dimensional list per row drawn from `rng.standard_normal((500, 32)).astype(np.float32)`.
+
+2. `ingest(df: polars.DataFrame, db_uri: str, table_name: str) -> lancedb.table.Table`
+   - Convert the polars DataFrame to a `pyarrow.Table` using `df.to_arrow()`.
+   - Open a LanceDB connection at `db_uri` and create the table from that Arrow table (overwrite any pre-existing table).
+   - The resulting Arrow schema must keep the original column order and the vector column must be a 32-wide list of float32.
+   - Return the created `lancedb.table.Table`.
+
+3. `search(table, vec, top_k=10, min_score=0.5, tag="alpha") -> list[dict]`
+   - `vec` is a 32-dim `list[float]` / `numpy.ndarray`.
+   - Run a vector search on the LanceDB table that also applies the SQL `where` clause `score >= <min_score> AND tag = '<tag>'`.
+   - Return at most `top_k` matches as a list of dicts with the keys `id`, `title`, `score`, `tag`, and `_distance`, ordered by ascending `_distance`.
+   - Every returned row MUST satisfy both filter predicates.
+
+4. CLI entrypoint: `python3 solution.py` must:
+   - Read `run_id = os.environ["ZEALT_RUN_ID"]`.
+   - Use the LanceDB URI `/home/user/myproject/lancedb` and the table name `polars_ingest_${run_id}`.
+   - Build the DataFrame, ingest it, then run a single demo search using `vec = numpy.zeros(32, dtype=numpy.float32)`, `top_k=10`, `min_score=0.5`, `tag="alpha"`.
+   - Print the demo result as a single JSON line to stdout and append the same JSON line to `/home/user/myproject/output.log`.
+
+## Implementation Hints
+- Use `polars.DataFrame.to_arrow()` to obtain a `pyarrow.Table`. Do NOT round-trip through pandas. Do NOT iterate the rows in Python.
+- LanceDB will accept the resulting `pa.Table` directly via `db.create_table(name, data=arrow_table, mode="overwrite")`. The polars `list[float32]` column becomes an Arrow `list<float32>` field — LanceDB treats it as a vector column for 32-d search.
+- The vector dimensionality is fixed at 32. The `score` filter is a real-valued cutoff and the `tag` filter is an exact-match string.
+- Combine vector search and SQL filtering with `table.search(vec).where("score >= ... AND tag = '...'").limit(top_k).to_list()`.
+- Read the `run-id` from `ZEALT_RUN_ID` and append it to the table name so concurrent runs do not collide.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 solution.py
+- The script must read `ZEALT_RUN_ID` from the environment and use it as part of the LanceDB table name (`polars_ingest_${ZEALT_RUN_ID}`).
+- The LanceDB database lives at `/home/user/myproject/lancedb`.
+- After `python3 solution.py` finishes:
+  - The LanceDB table `polars_ingest_${ZEALT_RUN_ID}` exists with 500 rows.
+  - The Arrow schema preserves the column order `id, title, score, tag, vector` and the vector column is `list<float32>` with 32 elements per row.
+  - `solution.search(...)` is importable as a Python function and returns rows that all satisfy `score >= min_score AND tag == tag`, ordered by ascending `_distance`, with at most `top_k` entries.
+- `solution.py` prints the demo search result as a single JSON line to stdout and appends it to `/home/user/myproject/output.log`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__mmr_diversity_reranking_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-fpzahju > /logs/artifacts/run-id && echo mmr_diversity_reranking_py__fpZaHJU > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB MMR Diversity Re-ranking
+
+## Background
+Pure top-k vector search often returns near-duplicates clustered around the query. Maximal Marginal Relevance (MMR) is a classic post-retrieval re-ranking technique that trades off relevance against diversity: starting from a candidate pool, it iteratively picks the document that maximises
+
+```
+score(d) = lambda * sim(q, d) - (1 - lambda) * max_{d' in selected} sim(d, d')
+```
+
+where `sim` is cosine similarity. In this task you will build an MMR re-ranker on top of a real LanceDB cosine-vector index.
+
+## Requirements
+- Implement everything in `/home/user/myproject/solution.py` using the real LanceDB Python SDK (no mocking, no fake data sources).
+- Read the run identifier from the `ZEALT_RUN_ID` environment variable. The LanceDB table name MUST be `mmr_docs_${ZEALT_RUN_ID}` and the database directory MUST be `/app/db` so concurrent trials do not collide.
+- Expose two callables in `solution.py`:
+  - `build_dataset() -> None` — builds the deterministic fixture table described below at `/app/db`.
+  - `mmr_search(query_vec, k=10, lambda_=0.5) -> list[int]` — runs MMR re-ranking against the same table and returns the selected document `id` values as a Python `list[int]` of length `k`, in the order they were picked by MMR (most-relevant first).
+- Also provide a CLI entry point so that running `python3 /home/user/myproject/solution.py` (no arguments) calls `build_dataset()` once. The candidate is responsible for executing this command before the verifier runs so the table exists.
+
+## Dataset Specification
+- 120 rows total, organised as 10 well-separated clusters of 12 rows each.
+- Schema (must match exactly so the verifier can read it):
+  - `id`: `int64` — globally unique, values `0..119` inclusive.
+  - `cluster_id`: `int64` — values `0..9` inclusive, exactly 12 rows per `cluster_id`.
+  - `vector`: `fixed_size_list<float32, 32>` — 32-dimensional embedding.
+- Deterministic generation using `numpy.random.default_rng(seed=2026)`:
+  1. Draw a `(32, 32)` standard-normal matrix `A` from the seeded RNG and compute `Q, _ = np.linalg.qr(A)`. Use `Q[:, c]` as the centroid of cluster `c` for `c in range(10)`. Each centroid is a unit vector and the centroids are mutually orthogonal.
+  2. For each cluster `c in range(10)` and slot `j in range(12)`, draw one fresh `(32,)` standard-normal noise vector from the same RNG and form `row_vec = Q[:, c] + 0.05 * noise`. Cast to `float32`.
+  3. Assign `id = c * 12 + j` and `cluster_id = c`.
+- Insert rows in `cluster_id`-major then `j`-major order (cluster 0 ids 0..11, cluster 1 ids 12..23, ...). Do not shuffle.
+
+## MMR Specification
+- Candidate pool: top-30 rows from a single cosine vector search against the query (`distance_type("cosine").limit(30)`). The remaining 90 rows MUST NOT influence the result.
+- Similarity throughout MMR is **cosine similarity** `sim(a, b) = (a . b) / (||a|| * ||b||)` computed on the stored float32 vectors. The same metric is used for both the relevance term `sim(q, d)` and the redundancy term `sim(d, d')`.
+- Iterative selection: while `|selected| < k`, pick the candidate `d` (not yet selected) that maximises `lambda_ * sim(q, d) - (1 - lambda_) * max_{d' in selected} sim(d, d')`. For the very first pick (`selected` empty) the redundancy term is `0`, so the first pick maximises `lambda_ * sim(q, d)`.
+- Return the IDs in selection order. Length must be exactly `k`. Each id must come from the candidate pool and must not repeat.
+- Hyperparameter: `lambda_ in [0.0, 1.0]`. Default is `0.5`. The query vector is a 1-D iterable of length 32 (numpy array or list of floats).
+
+## Implementation Hints
+- Use `lancedb.connect("/app/db")`, `db.create_table(name, schema=..., mode="overwrite")`, and Arrow schemas. `pyarrow.list_(pa.float32(), 32)` is the fixed-size list type LanceDB expects for the vector column.
+- For the candidate pool, the documented vector-search API is `table.search(query_vec).distance_type("cosine").limit(30).to_list()` (see https://docs.lancedb.com/search/vector-search and https://docs.lancedb.com/quickstart). The returned dicts include the vector, `id`, `cluster_id`, and a `_distance` column where `_distance = 1 - cosine_similarity`.
+- Use NumPy to compute all subsequent cosine similarities for the MMR loop — do **not** issue extra LanceDB searches per candidate.
+- Numerical care: normalise vectors once before computing dot products, or divide by `||a|| * ||b||` each time. Use `float64` for the dot products to avoid accumulation noise.
+- Reading the run id: `os.environ["ZEALT_RUN_ID"]`. Construct the table name from it.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 /home/user/myproject/solution.py`
+- Database path: `/app/db`
+- Table name: `mmr_docs_${run-id}` (read `run-id` from `ZEALT_RUN_ID`)
+- After running the command, opening the table from `/app/db` MUST report exactly 120 rows with `id` values `{0, 1, ..., 119}` and `cluster_id` values `{0..9}` with 12 rows each.
+- The table vector column MUST be `fixed_size_list<float32, 32>`.
+- `solution.mmr_search(query_vec, k=10, lambda_=1.0)` MUST equal the top-10 pure cosine vector search ids for the same `query_vec` (no diversity term, so MMR reduces to pure relevance ranking).
+- `solution.mmr_search(query_vec, k=10, lambda_=0.3)` MUST return ids spanning at least 7 distinct `cluster_id` values (diversity dominates).
+- `solution.mmr_search(query_vec, k=10, lambda_=0.7)` MUST (a) return ids spanning at least 5 distinct `cluster_id` values and (b) include the pure-vector-search top-1 id for the same `query_vec`.
+- Returned lists MUST have length 10, contain no duplicate ids, and every id MUST exist in the table.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Skipping image OS validation for hb__snapshot_tag_compare_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-dvziu4j > /logs/artifacts/run-id && echo snapshot_tag_compare_py__Dvziu4j > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Snapshot Tags & Diff Tool
+
+## Background
+LanceDB uses immutable manifests so every write (insert, update, delete) creates a new numeric version. The `table.tags` API lets you attach human-readable labels (similar to git tags) to specific versions, and the tagged versions are protected from `cleanup_old_versions()` pruning. In this task you will build a small tool that captures three named snapshots of an evolving `documents` table and provides a diff utility that compares two snapshots by their tag names using time-travel (`table.checkout(...)`).
+
+## Requirements
+- Build a Python module at `/home/user/myproject/solution.py` that uses the **real** LanceDB Python API (no mocking) and exposes two callables:
+  - `build_snapshots(db_path: str, table_name: str) -> None` — creates the table, performs the three mutations, and writes three named tags.
+  - `diff(db_path: str, table_name: str, tag_a: str, tag_b: str) -> dict` — returns the difference between two snapshots.
+- Connect to a local LanceDB database at `/app/db`. The table name MUST be `documents_${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable so concurrent trials do not collide.
+- The table schema is `id: int64`, `text: string`, `vector: fixed_size_list<float32, 16>`.
+- Seed phase (write version v1):
+  - Insert 50 rows with `id` in `[0, 50)`. Use `numpy.random.default_rng(seed=2026)` to generate the 16-d float32 vectors deterministically; set `text = f"doc-{id}"`.
+  - Attach the tag `v1_baseline` to the resulting version.
+- Extend phase (write version v2):
+  - Append 20 more rows with `id` in `[50, 70)`, vectors drawn from the same RNG sequence (so the seed is reproducible), and `text = f"doc-{id}"`.
+  - Attach the tag `v2_extended` to the resulting version.
+- Prune phase (write version v3):
+  - Delete the rows whose `id < 5` via a SQL predicate (this removes exactly 5 rows).
+  - Attach the tag `v3_pruned` to the resulting version.
+- The `diff(tag_a, tag_b)` function MUST use `table.checkout(...)` (or equivalent tag-based time-travel) to read the `id` column from each snapshot and return a dict shaped exactly as:
+  ```python
+  {
+      "added_ids":   sorted list of ints present in B but not in A,
+      "removed_ids": sorted list of ints present in A but not in B,
+      "common_count": int (number of ids in both snapshots)
+  }
+  ```
+  After running, the function MUST call `table.checkout_latest()` so subsequent callers see the live version.
+- Provide a CLI entry point so running `python3 /home/user/myproject/solution.py` executes `build_snapshots(...)` end-to-end against `/app/db` and the `documents_${run-id}` table.
+
+## Implementation Hints
+- The tags API lives on the table object: `table.tags.create(name, version)`, `table.tags.list()`, `table.checkout(tag_name)`. Verify by browsing https://docs.lancedb.com/tables/versioning.
+- `table.version` returns the current numeric version after each write; use it when calling `table.tags.create`.
+- LanceDB pins the schema's `vector` column with `pyarrow.list_(pa.float32(), 16)` (fixed-size list of length 16) — use this to avoid Arrow type-mismatch errors.
+- `table.delete("id < 5")` accepts a SQL predicate string.
+- The candidate is responsible for executing `python3 /home/user/myproject/solution.py` once before the verifier runs so that the three tags and the persisted data exist at `/app/db`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 /home/user/myproject/solution.py`
+- Database path: `/app/db`
+- Table name: `documents_${run-id}` (read `run-id` from `ZEALT_RUN_ID`)
+- After running the command, opening the table from `/app/db` MUST report the three tags `v1_baseline`, `v2_extended`, and `v3_pruned` via `table.tags.list()`.
+- The live (latest) table version MUST contain exactly 65 rows.
+- `solution.diff("/app/db", "documents_${run-id}", "v1_baseline", "v2_extended")` MUST return `{"added_ids": [50, 51, ..., 69], "removed_ids": [], "common_count": 50}`.
+- `solution.diff("/app/db", "documents_${run-id}", "v2_extended", "v3_pruned")` MUST return `{"added_ids": [], "removed_ids": [0, 1, 2, 3, 4], "common_count": 65}`.
+
+
+EOF
+Skipping image OS validation for hb__semantic_dedup_minhash_py: docker inspect returned 1
+Skipping image OS validation for hb__autocomplete_prefix_search_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: echo zr-wjpx5le > /logs/artifacts/run-id && echo autocomplete_prefix_search_py__wjPX5LE > /logs/artifacts/trial_id
+Running command: echo zr-zsmps6o > /logs/artifacts/run-id && echo semantic_dedup_minhash_py__zsMps6o > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Autocomplete Service: SQL Prefix Matching with Semantic Fallback
+
+## Background
+You are building an autocomplete service for a movie discovery product. The catalog is stored in LanceDB and contains 500 movie titles, each with a precomputed 32-dimensional embedding and a popularity score. A secondary table (`prefix_vectors`) maps 50 anchor prefix strings to their own precomputed 32-dimensional embeddings. Both tables have already been seeded at container build time and are read-only at runtime.
+
+The goal is to ship a Python module that returns autocomplete suggestions by combining two strategies: a fast SQL prefix match for typed-prefix exactness, and a vector-search fallback (using the prefix's precomputed embedding) when too few prefix matches exist.
+
+## Requirements
+Implement a Python module `solution.py` at `/home/user/myproject/solution.py` that exposes:
+
+```python
+def autocomplete(prefix: str, k: int = 10) -> list[dict]: ...
+```
+
+The function MUST:
+1. Open the LanceDB instance at the URI given by the `LANCE_DB_URI` environment variable. Read the movies table whose name is in the `MOVIES_TABLE` environment variable and the anchor-prefix table whose name is in the `PREFIX_TABLE` environment variable.
+2. Perform a **case-insensitive** SQL prefix match (i.e., match every row whose `lower(title)` starts with `lower(prefix)`).
+3. If the SQL prefix match yields **at least `k`** rows, return the top `k` rows ordered by `popularity` **descending**. Each row's `source` field MUST be the string `"prefix"`.
+4. If the SQL prefix match yields **fewer than `k`** rows (M < k), return:
+   - All M prefix matches first, ordered by `popularity` descending (each with `source == "prefix"`), followed by
+   - The top `(k - M)` results of a vector search where the query vector is looked up from the `prefix_vectors` table for the lowercased `prefix`, executed against the movies table, **excluding** any movie `id` already returned in the prefix portion. Each of these rows' `source` field MUST be the string `"semantic"`.
+5. Each element of the returned list MUST be a dict with at minimum these keys:
+   - `id` (int): movie row id
+   - `title` (str): original title (preserving case)
+   - `popularity` (float): popularity score
+   - `source` (str): either `"prefix"` or `"semantic"`
+
+The verifier will only call `autocomplete` with prefixes that are present in the `prefix_vectors` table (lowercased keys).
+
+## Implementation Hints
+- Connect with `lancedb.connect(...)` and open both tables via `db.open_table(...)`.
+- The titles table has been seeded with a `title_lower` column to make the SQL prefix predicate trivial; you may use it or compute `lower(...)` yourself.
+- Use `table.search(...).where("...", prefilter=True)` to combine the vector query with an SQL exclusion of already-returned ids.
+- Look up a prefix's vector by filtering `prefix_vectors` on the lowercased prefix string. Convert the returned arrow/pandas vector cell into a Python list / numpy array before passing it to `search()`.
+- Be defensive about empty results: a prefix with zero SQL matches must still produce `k` semantic results (assuming the prefix is in `prefix_vectors`).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Module: `solution.py` exposing `autocomplete(prefix: str, k: int = 10) -> list[dict]`
+- Configuration is read from the environment:
+  - `LANCE_DB_URI`: filesystem URI of the LanceDB instance
+  - `MOVIES_TABLE`: name of the seeded movies table
+  - `PREFIX_TABLE`: name of the seeded prefix-vectors table
+- For any call `autocomplete(prefix, k)`:
+  - The returned object is a Python `list` of length **exactly** `k` (assuming sufficient data exists, which is guaranteed for verifier-chosen prefixes).
+  - Each element is a `dict` containing at least the keys `id`, `title`, `popularity`, `source`.
+  - When the SQL prefix predicate `lower(title) LIKE 'lower(prefix)%'` yields M ≥ k movies, every returned element has `source == "prefix"` and the elements are ordered by `popularity` strictly non-increasing.
+  - When M < k, the first M elements have `source == "prefix"` (ordered by `popularity` non-increasing) and the remaining (k − M) elements have `source == "semantic"`. None of the semantic elements may have an `id` that appears in the prefix portion.
+  - For every element with `source == "prefix"`, the lowercased `title` MUST start with the lowercased `prefix`.
+  - The set of `id`s returned in the semantic portion MUST equal the set of top `(k − M)` movie ids when the precomputed `prefix_vectors[lower(prefix)]` vector is used as the LanceDB query vector (default L2 distance), excluding any id in the prefix portion.
+
+
+EOF
+Command failed
+Trial semantic_dedup_minhash_py__zsMps6o failed: Initial state test failed
+Not retrying trial because the maximum number of retries has been reached
+Trial hf_inference_cross_encoder_reran__5z5CmNW failed: Docker compose command failed for environment hf_inference_cross_encoder_rerank_py. Command: docker compose --project-name hf_inference_cross_encoder_reran__5z5cmnw --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/hf_inference_cross_encoder_rerank_py/environment -f /tmp/tmpp7ji9rzq/hf_inference_cross_encoder_reran__5z5CmNW-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpx1cexpp3/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main internal] load build definition from Dockerfile
+#1 transferring dockerfile: 14.05kB done
+#1 DONE 0.0s
+
+#2 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#2 DONE 0.0s
+
+#3 [main internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [main 1/6] FROM docker.io/library/ubuntu:24.04
+#4 DONE 0.0s
+
+#5 [main 3/6] RUN mkdir -p /home/user && chmod 0755 /home/user
+#5 CACHED
+
+#6 [main 2/6] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep &&     pip3 install --break-system-packages         pytest-json-ctrf         lancedb==0.25.3         pyarrow==17.0.0         numpy==1.26.4         pandas==2.2.3         openai==1.54.5         httpx==0.27.2 &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [main 4/6] RUN mkdir -p /home/user/myproject
+#7 CACHED
+
+#8 [main 5/6] RUN cat >/home/user/myproject/_seed.py <<'PYEOF'
+#8 CACHED
+
+#9 [main 6/6] RUN test -n "" &&     python3 /home/user/myproject/_seed.py
+#9 ERROR: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /home/user/myproject/_seed.py" did not complete successfully: exit code: 1
+------
+ > [main 6/6] RUN test -n "" &&     python3 /home/user/myproject/_seed.py:
+------
+failed to solve: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /home/user/myproject/_seed.py" did not complete successfully: exit code: 1
+. Stderr: None. 
+Trial hyde_hypothetical_doc_search_py__Kcsn9TD failed: Docker compose command failed for environment hyde_hypothetical_doc_search_py. Command: docker compose --project-name hyde_hypothetical_doc_search_py__kcsn9td --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/hyde_hypothetical_doc_search_py/environment -f /tmp/tmpk2lct2qt/hyde_hypothetical_doc_search_py__Kcsn9TD-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpgfcfgmyk/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main 1/6] FROM docker.io/library/ubuntu:24.04
+#1 DONE 0.0s
+
+#2 [main internal] load build definition from Dockerfile
+#2 transferring dockerfile: 28.72kB done
+#2 DONE 0.0s
+
+#3 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#3 DONE 0.0s
+
+#4 [main internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [main 2/7] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep &&     pip3 install --break-system-packages         pytest-json-ctrf         lancedb==0.25.3         pyarrow==17.0.0         numpy==1.26.4         pandas==2.2.3         openai==1.54.5         httpx==0.27.2         tiktoken &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [main 4/7] RUN mkdir -p /home/user/myproject
+#6 CACHED
+
+#7 [main 3/7] RUN mkdir -p /home/user && chmod 0755 /home/user
+#7 CACHED
+
+#8 [main 5/7] RUN mkdir -p /app
+#8 CACHED
+
+#9 [main 6/7] RUN cat >/app/_seed.py <<'PYEOF'
+#9 CACHED
+
+#10 [main 7/7] RUN test -n "" &&     python3 /app/_seed.py
+#10 ERROR: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /app/_seed.py" did not complete successfully: exit code: 1
+------
+ > [main 7/7] RUN test -n "" &&     python3 /app/_seed.py:
+------
+failed to solve: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /app/_seed.py" did not complete successfully: exit code: 1
+. Stderr: None. 
+Failed to download artifact '/home/user' (best-effort)
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 160, in run
+    await self._prepare()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 187, in _prepare
+    await self._setup_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 612, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 618, in _start_agent_environment
+    await asyncio.wait_for(
+    ...<4 lines>...
+    )
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 517, in start
+    await self._run_docker_compose_command(["build"])
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment hf_inference_cross_encoder_rerank_py. Command: docker compose --project-name hf_inference_cross_encoder_reran__5z5cmnw --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/hf_inference_cross_encoder_rerank_py/environment -f /tmp/tmpp7ji9rzq/hf_inference_cross_encoder_reran__5z5CmNW-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpx1cexpp3/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main internal] load build definition from Dockerfile
+#1 transferring dockerfile: 14.05kB done
+#1 DONE 0.0s
+
+#2 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#2 DONE 0.0s
+
+#3 [main internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [main 1/6] FROM docker.io/library/ubuntu:24.04
+#4 DONE 0.0s
+
+#5 [main 3/6] RUN mkdir -p /home/user && chmod 0755 /home/user
+#5 CACHED
+
+#6 [main 2/6] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep &&     pip3 install --break-system-packages         pytest-json-ctrf         lancedb==0.25.3         pyarrow==17.0.0         numpy==1.26.4         pandas==2.2.3         openai==1.54.5         httpx==0.27.2 &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [main 4/6] RUN mkdir -p /home/user/myproject
+#7 CACHED
+
+#8 [main 5/6] RUN cat >/home/user/myproject/_seed.py <<'PYEOF'
+#8 CACHED
+
+#9 [main 6/6] RUN test -n "" &&     python3 /home/user/myproject/_seed.py
+#9 ERROR: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /home/user/myproject/_seed.py" did not complete successfully: exit code: 1
+------
+ > [main 6/6] RUN test -n "" &&     python3 /home/user/myproject/_seed.py:
+------
+failed to solve: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /home/user/myproject/_seed.py" did not complete successfully: exit code: 1
+. Stderr: None. 
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/artifact_handler.py", line 195, in _download_artifact
+    await source_env.download_file(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 609, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker_unix.py", line 48, in download_file
+    await self._env._run_docker_compose_command(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment hf_inference_cross_encoder_rerank_py. Command: docker compose --project-name hf_inference_cross_encoder_reran__5z5cmnw --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/hf_inference_cross_encoder_rerank_py/environment -f /tmp/tmpp7ji9rzq/hf_inference_cross_encoder_reran__5z5CmNW-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpx1cexpp3/docker-compose-mounts.json cp main:/home/user jobs/2026-06-04__18-29-00/hf_inference_cross_encoder_reran__5z5CmNW/artifacts/user. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Failed to download artifact '/home/user' (best-effort)
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 160, in run
+    await self._prepare()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 187, in _prepare
+    await self._setup_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 612, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 618, in _start_agent_environment
+    await asyncio.wait_for(
+    ...<4 lines>...
+    )
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 517, in start
+    await self._run_docker_compose_command(["build"])
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment hyde_hypothetical_doc_search_py. Command: docker compose --project-name hyde_hypothetical_doc_search_py__kcsn9td --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/hyde_hypothetical_doc_search_py/environment -f /tmp/tmpk2lct2qt/hyde_hypothetical_doc_search_py__Kcsn9TD-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpgfcfgmyk/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main 1/6] FROM docker.io/library/ubuntu:24.04
+#1 DONE 0.0s
+
+#2 [main internal] load build definition from Dockerfile
+#2 transferring dockerfile: 28.72kB done
+#2 DONE 0.0s
+
+#3 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#3 DONE 0.0s
+
+#4 [main internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [main 2/7] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep &&     pip3 install --break-system-packages         pytest-json-ctrf         lancedb==0.25.3         pyarrow==17.0.0         numpy==1.26.4         pandas==2.2.3         openai==1.54.5         httpx==0.27.2         tiktoken &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [main 4/7] RUN mkdir -p /home/user/myproject
+#6 CACHED
+
+#7 [main 3/7] RUN mkdir -p /home/user && chmod 0755 /home/user
+#7 CACHED
+
+#8 [main 5/7] RUN mkdir -p /app
+#8 CACHED
+
+#9 [main 6/7] RUN cat >/app/_seed.py <<'PYEOF'
+#9 CACHED
+
+#10 [main 7/7] RUN test -n "" &&     python3 /app/_seed.py
+#10 ERROR: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /app/_seed.py" did not complete successfully: exit code: 1
+------
+ > [main 7/7] RUN test -n "" &&     python3 /app/_seed.py:
+------
+failed to solve: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /app/_seed.py" did not complete successfully: exit code: 1
+. Stderr: None. 
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/artifact_handler.py", line 195, in _download_artifact
+    await source_env.download_file(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 609, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker_unix.py", line 48, in download_file
+    await self._env._run_docker_compose_command(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment hyde_hypothetical_doc_search_py. Command: docker compose --project-name hyde_hypothetical_doc_search_py__kcsn9td --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/hyde_hypothetical_doc_search_py/environment -f /tmp/tmpk2lct2qt/hyde_hypothetical_doc_search_py__Kcsn9TD-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpgfcfgmyk/docker-compose-mounts.json cp main:/home/user jobs/2026-06-04__18-29-00/hyde_hypothetical_doc_search_py__Kcsn9TD/artifacts/user. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Not retrying trial because the maximum number of retries has been reached
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__multilingual_fts_per_language_py: docker inspect returned 1
+Skipping image OS validation for hb__relevance_feedback_rocchio_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-syjyk9r > /logs/artifacts/run-id && echo multilingual_fts_per_language_py__syjyK9r > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Running command: echo zr-47kfjrp > /logs/artifacts/run-id && echo relevance_feedback_rocchio_py__47kFjrp > /logs/artifacts/trial_id
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command failed
+Trial relevance_feedback_rocchio_py__47kFjrp failed: Initial state test failed
+Command failed
+Trial multilingual_fts_per_language_py__syjyK9r failed: Initial state test failed
+Not retrying trial because the maximum number of retries has been reached
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__arrow_flight_lance_proxy_py: docker inspect returned 1
+Trial query_decomposition_rag_py__mJ93V9K failed: Docker compose command failed for environment query_decomposition_rag_py. Command: docker compose --project-name query_decomposition_rag_py__mj93v9k --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/query_decomposition_rag_py/environment -f /tmp/tmper7au2v6/query_decomposition_rag_py__mJ93V9K-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpeebpaig2/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main internal] load build definition from Dockerfile
+#1 transferring dockerfile: 13.12kB done
+#1 DONE 0.0s
+
+#2 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#2 DONE 0.0s
+
+#3 [main internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [main 1/6] FROM docker.io/library/ubuntu:24.04
+#4 DONE 0.0s
+
+#5 [main 2/6] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep &&     pip3 install --break-system-packages         pytest-json-ctrf         lancedb==0.25.3         pyarrow==17.0.0         numpy==1.26.4         pandas==2.2.3         openai==1.54.5         httpx==0.27.2         tiktoken &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [main 3/6] RUN mkdir -p /home/user && chmod 0755 /home/user
+#6 CACHED
+
+#7 [main 4/6] RUN mkdir -p /home/user/myproject
+#7 CACHED
+
+#8 [main 5/6] RUN cat >/home/user/myproject/_seed.py <<'PYEOF'
+#8 CACHED
+
+#9 [main 6/6] RUN test -n "" &&     python3 /home/user/myproject/_seed.py
+#9 ERROR: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /home/user/myproject/_seed.py" did not complete successfully: exit code: 1
+------
+ > [main 6/6] RUN test -n "" &&     python3 /home/user/myproject/_seed.py:
+------
+failed to solve: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /home/user/myproject/_seed.py" did not complete successfully: exit code: 1
+. Stderr: None. 
+Failed to download artifact '/home/user' (best-effort)
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 160, in run
+    await self._prepare()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 187, in _prepare
+    await self._setup_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 612, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 618, in _start_agent_environment
+    await asyncio.wait_for(
+    ...<4 lines>...
+    )
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 517, in start
+    await self._run_docker_compose_command(["build"])
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment query_decomposition_rag_py. Command: docker compose --project-name query_decomposition_rag_py__mj93v9k --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/query_decomposition_rag_py/environment -f /tmp/tmper7au2v6/query_decomposition_rag_py__mJ93V9K-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpeebpaig2/docker-compose-mounts.json build. Return code: 17. Stdout: #0 building with "default" instance using docker driver
+
+#1 [main internal] load build definition from Dockerfile
+#1 transferring dockerfile: 13.12kB done
+#1 DONE 0.0s
+
+#2 [main internal] load metadata for docker.io/library/ubuntu:24.04
+#2 DONE 0.0s
+
+#3 [main internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [main 1/6] FROM docker.io/library/ubuntu:24.04
+#4 DONE 0.0s
+
+#5 [main 2/6] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep &&     pip3 install --break-system-packages         pytest-json-ctrf         lancedb==0.25.3         pyarrow==17.0.0         numpy==1.26.4         pandas==2.2.3         openai==1.54.5         httpx==0.27.2         tiktoken &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [main 3/6] RUN mkdir -p /home/user && chmod 0755 /home/user
+#6 CACHED
+
+#7 [main 4/6] RUN mkdir -p /home/user/myproject
+#7 CACHED
+
+#8 [main 5/6] RUN cat >/home/user/myproject/_seed.py <<'PYEOF'
+#8 CACHED
+
+#9 [main 6/6] RUN test -n "" &&     python3 /home/user/myproject/_seed.py
+#9 ERROR: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /home/user/myproject/_seed.py" did not complete successfully: exit code: 1
+------
+ > [main 6/6] RUN test -n "" &&     python3 /home/user/myproject/_seed.py:
+------
+failed to solve: process "/bin/sh -c test -n \"$OPENAI_API_KEY\" &&     python3 /home/user/myproject/_seed.py" did not complete successfully: exit code: 1
+. Stderr: None. 
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/artifact_handler.py", line 195, in _download_artifact
+    await source_env.download_file(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 609, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker_unix.py", line 48, in download_file
+    await self._env._run_docker_compose_command(
+    ...<2 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 418, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment query_decomposition_rag_py. Command: docker compose --project-name query_decomposition_rag_py__mj93v9k --project-directory /home/kweizh/zealt/lancedb-benchmark/scratchpad/pending-tasks/query_decomposition_rag_py/environment -f /tmp/tmper7au2v6/query_decomposition_rag_py__mJ93V9K-docker-compose-resources.json -f /home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpeebpaig2/docker-compose-mounts.json cp main:/home/user jobs/2026-06-04__18-29-00/query_decomposition_rag_py__mJ93V9K/artifacts/user. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Not retrying trial because the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__pq_recall_quality_sweep_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-j4wjrus > /logs/artifacts/run-id && echo arrow_flight_lance_proxy_py__j4WJRuS > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-mjguuam > /logs/artifacts/run-id && echo pq_recall_quality_sweep_py__mjGUUAM > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Arrow Flight Proxy in Front of a LanceDB Vector Table
+
+## Background
+A local LanceDB database at `/home/user/flight_proxy/lancedb` already contains a table named `documents` with **200 rows**. Each row has the following columns:
+
+- `id` (`string`): unique document identifier (e.g. `doc_000`, `doc_001`, ...).
+- `text` (`string`): a short description of the document.
+- `embedding` (`fixed_size_list<float, 32>`): a deterministic precomputed 32-dimensional `float32` vector (no model inference at runtime — vectors were seeded with a fixed `numpy` RNG when the container was built).
+
+Your job is to expose that table through a minimal **Apache Arrow Flight** server so that remote clients can run vector top-k searches over gRPC without ever speaking the LanceDB API directly.
+
+## Requirements
+- Implement a Python script `server.py` that:
+  1. Opens the existing LanceDB database at `/home/user/flight_proxy/lancedb` and the existing `documents` table (do NOT recreate or re-seed it — it is already populated).
+  2. Defines a subclass of `pyarrow.flight.FlightServerBase`.
+  3. Implements `do_get(self, context, ticket)` where the ticket bytes are a JSON object of the form `{"vector": [<32 floats>], "k": <int>}`. The handler MUST:
+     - Parse the JSON payload from `ticket.ticket`.
+     - Run a LanceDB vector search using the supplied `vector` and `k` against the `documents` table.
+     - Return the top-`k` results to the client as an Arrow stream (`pyarrow.flight.RecordBatchStream`) preserving the columns `id` (string), `text` (string), `embedding` (`fixed_size_list<float, 32>`), and `_distance` (float32 — the LanceDB-reported distance).
+  4. Binds to `grpc://0.0.0.0:8815` and starts serving (via `serve()` on the server instance) when run as `python3 server.py`.
+
+## Implementation Hints
+- Use `pyarrow.flight.FlightServerBase` and `pyarrow.flight.RecordBatchStream` (see the Apache Arrow Python cookbook: <https://arrow.apache.org/cookbook/py/flight.html>).
+- The ticket payload is a UTF-8-encoded JSON blob — decode `ticket.ticket` and parse it.
+- LanceDB's `Table.search(query_vector).limit(k)` returns a query builder you can materialize with `.to_arrow()` to get a `pyarrow.Table` ready for `RecordBatchStream`.
+- Do not introduce additional authentication, TLS, or middleware — plain unencrypted gRPC on `0.0.0.0:8815` is expected.
+
+## Acceptance Criteria
+- Project path: /home/user/flight_proxy
+- Start command: python3 server.py
+- Port: 8815 (plain gRPC, no TLS)
+- Wire protocol: Apache Arrow Flight (`grpc://0.0.0.0:8815`).
+- Endpoint:
+  - `do_get(ticket)`:
+    - Ticket body: a UTF-8 JSON object with the shape `{"vector": [float, ... (length 32)], "k": int}`.
+    - Response: an Arrow stream whose schema contains the fields `id` (string), `text` (string), `embedding` (`fixed_size_list<float, 32>`), and `_distance` (float32), in any order.
+    - Response row count: equal to `min(k, 200)` rows, ordered by ascending `_distance` (i.e. nearest neighbors first), matching what a direct `table.search(vector).limit(k)` call against the `documents` table would return.
+- The server MUST query the real LanceDB table at `/home/user/flight_proxy/lancedb` on every `do_get` call. No precomputed result caches, no mocked search.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# IVF_PQ Recall-Quality Sweep with LanceDB
+
+## Background
+Product Quantization (PQ) is a lossy compression scheme used by LanceDB's `IVF_PQ` vector index. The `num_sub_vectors` (`m`) parameter controls how finely the original vector is split before quantization: higher `m` keeps more information per code and therefore produces higher recall at the cost of memory and index size. LanceDB only allows **one vector index per column per table**, so to study the recall-quality trade-off you must either build the same data into multiple tables or drop and recreate the index between sweeps.
+
+You are given a deterministic 1024-row, 64-dim numpy dataset and 30 fixed query vectors. Build a sweep that quantifies how `num_sub_vectors` affects recall@10 against brute-force ground truth.
+
+## Requirements
+- Connect to a local LanceDB database at `/home/user/myproject/lancedb_data/`.
+- Load the fixed dataset and query vectors from `/app/fixtures/data.npy` and `/app/fixtures/queries.npy`.
+- Implement `sweep()` in `/home/user/myproject/solution.py` that returns a Python `dict[int, float]` mapping `num_sub_vectors` → `recall@10`, evaluated for the three configurations `m = 4`, `m = 8`, and `m = 16`.
+- Use `IVF_PQ` with `num_partitions = 16` and `nprobes = 16` (full scan over partitions) so the only quality knob that differs across runs is `num_sub_vectors`.
+- Use L2 distance (the LanceDB default) consistently across ground truth and search.
+- Compute brute-force ground truth in NumPy over the same 1024 × 64 dataset and the same 30 queries. For each query, recall@10 is `|candidate_top10 ∩ brute_force_top10| / 10`. Report the mean over the 30 queries.
+- Provide a CLI entrypoint at `/home/user/myproject/run_sweep.py` that calls `sweep()` and writes the result to `/home/user/myproject/result.json` as a JSON object with string keys (e.g. `{"4": 0.78, "8": 0.91, "16": 0.97}`).
+- Append `${ZEALT_RUN_ID}` (read from the `ZEALT_RUN_ID` environment variable) to every LanceDB table name you create, so concurrent runs don't collide.
+
+## Implementation Hints
+- LanceDB enforces a single vector index per column per table. Either (a) write the data into three separate tables, one per `m`, or (b) reuse one table and call `table.drop_index(<name>)` before re-creating the index with a different `num_sub_vectors`.
+- IVF_PQ training needs ≥ 256 rows; 1024 satisfies this.
+- After `create_index(...)`, call `table.wait_for_index([<index_name>], timeout=...)` and pass a `datetime.timedelta` for the timeout (an `int` raises a PyDelta error).
+- For deterministic top-10 retrieval, query with `table.search(qvec).limit(10).nprobes(16).to_list()` and collect the row's stable `id` field.
+- Brute-force ground truth can be computed with `numpy.argsort` on pairwise squared L2 distances.
+- Use the `id` column (`int64`, range `0..1023`) as the stable row identifier in both the brute-force list and the LanceDB results.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Solution module: /home/user/myproject/solution.py exposing a callable `sweep() -> dict[int, float]`.
+- Output artifact: /home/user/myproject/result.json with shape `{"4": <float>, "8": <float>, "16": <float>}` after running `python3 /home/user/myproject/run_sweep.py`.
+- `sweep()` returns a dict with exactly the integer keys `{4, 8, 16}`.
+- Every recall value in the dict is a finite float in the closed interval `[0.0, 1.0]`.
+- Recall is non-decreasing across `m` and the gap between `m=16` and `m=4` is strictly positive (`recall[16] > recall[4]`), reflecting the expected quality improvement from finer product quantization.
+- All LanceDB table names created by the solution are suffixed with `_${ZEALT_RUN_ID}` (or otherwise include the run id) for parallel-run safety.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__zstd_storage_options_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__negative_filter_not_in_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: echo zr-tptmqdg > /logs/artifacts/run-id && echo zstd_storage_options_py__TpTMQDG > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Zstd Column Compression Sizing
+
+## Background
+LanceDB tables can opt into per-column general compression by attaching `lance-encoding:*` metadata to PyArrow field definitions before creating the table. You will compare the on-disk footprint of two LanceDB tables that hold identical 5,000-row content but differ only in whether the textual payload column is compressed with `zstd`.
+
+## Requirements
+- Build a CLI at `/home/user/myproject/solution.py` that writes the same 5,000-row dataset into two LanceDB tables under `/home/user/myproject/lancedb_data`:
+  - `default_${run_id}` — created with no compression metadata on any column.
+  - `zstd_${run_id}` — created with field-metadata `lance-encoding:compression` = `zstd` on the textual payload column (and `lance-encoding:compression-level` of your choice).
+- Each table must share the same logical schema with the following columns:
+  - `id` (int64) — row index 0..4999.
+  - `payload` (string) — compressible text, identical between both tables for every id.
+  - `embedding` (fixed_size_list<float32, 32>) — deterministic vectors generated with `numpy.random.default_rng(2026)`.
+- Expose a top-level function `compare_sizes()` in `solution.py` that returns a Python `dict` of the shape `{"default_bytes": int, "zstd_bytes": int, "ratio": float}` where `ratio = zstd_bytes / default_bytes`. The byte counts must be computed by walking the per-table on-disk directories (e.g. with `pathlib`/`os.walk`) and summing file sizes of every file under each table directory.
+- Running `python3 solution.py` must (1) (re)create both tables, (2) call `compare_sizes()`, (3) write the returned dict to `/home/user/myproject/size_report.json` as JSON, and (4) print a one-line summary to stdout in the form `default_bytes=<int> zstd_bytes=<int> ratio=<float:.4f>`.
+
+## Implementation Hints
+- Read the run id from the `ZEALT_RUN_ID` environment variable and append it to both table names to keep parallel runs isolated.
+- The text payload should be compressible (e.g. a short repeating template per row, hundreds of characters long) so the zstd-compressed table will be measurably smaller than the default one. Random unstructured strings will not work.
+- Per-column compression in LanceDB is configured through PyArrow field metadata (the `lance-encoding:compression` and `lance-encoding:compression-level` keys). See https://lancedb.github.io/lance/format/table/.
+- Vectors should be generated once with `numpy.random.default_rng(2026)` and shared by both tables so search results are byte-identical.
+- Use `lancedb.connect("/home/user/myproject/lancedb_data")` and `db.create_table(name, schema=..., data=..., mode="overwrite")`.
+- Compute on-disk sizes by walking each `lancedb_data/<table>.lance/` directory recursively and summing `Path(...).stat().st_size`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 /home/user/myproject/solution.py`
+- The command must finish successfully (exit code 0).
+- After the command runs, `/home/user/myproject/lancedb_data` must contain both `default_${run_id}.lance` and `zstd_${run_id}.lance` directories where `run_id` comes from the `ZEALT_RUN_ID` environment variable.
+- After the command runs, `/home/user/myproject/size_report.json` must exist and parse as a JSON object with integer fields `default_bytes` and `zstd_bytes`, and a numeric field `ratio` equal to `zstd_bytes / default_bytes`.
+- The stdout must contain a single line of the form `default_bytes=<int> zstd_bytes=<int> ratio=<float>`.
+- Importing `solution` exposes a callable `compare_sizes()` that returns the same dict shape and re-computes from disk on each call.
+- Both tables must hold exactly 5,000 rows and the same `fixed_size_list<float32, 32>` `embedding` column. A fixed vector query (verifier-defined) must return identical top-5 `id`s from both tables.
+- The zstd table on-disk size must be at most 95% of the default table size (i.e. `ratio <= 0.95`).
+
+
+EOF
+Running command: echo zr-yu5nbv7 > /logs/artifacts/run-id && echo negative_filter_not_in_py__Yu5NBv7 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Negation Filters: NOT IN, !=, NOT LIKE, and Complex NOT (...)
+
+## Background
+LanceDB supports DataFusion SQL syntax in its `where(...)` clause, including negation operators such as `NOT IN`, `!=`, `NOT LIKE`, and arbitrary boolean negation with `NOT (...)`. Combining vector search with negation filters is a common pattern in product search (exclude blocked brands, exclude on-sale categories, hide certain SKUs by name prefix, etc.).
+
+Your job is to build a small product-catalog search module on top of a 300-row LanceDB table and expose four search functions that each combine an L2 vector search with a specific kind of negation filter.
+
+## Requirements
+- Build a Python module at `/home/user/myproject/solution.py` that, when executed as `python3 solution.py`, deterministically (re)creates a LanceDB table named `products_${ZEALT_RUN_ID}` and (re)populates it with exactly 300 rows.
+- The LanceDB database directory must live at `/home/user/myproject/lancedb`.
+- Seed every random value with `numpy.random.default_rng(2026)` so the fixture is byte-identical between candidate and verifier runs.
+- The Arrow schema must be exactly:
+  - `id`: `Int64`
+  - `name`: `Utf8`
+  - `brand`: `Utf8` (drawn from 10 distinct brand strings)
+  - `category`: `Utf8` (drawn from 6 distinct category strings)
+  - `price`: `Float64`
+  - `banned_country`: `Utf8`
+  - `vector`: `fixed_size_list<float32, 16>` (16-dimensional float32 embedding)
+- The candidate code must expose a top-level `build_table()` function and the following four search functions with these exact signatures and behaviors:
+  ```python
+  def exclude_brands(query_vec: list[float], banned_brands: list[str], k: int = 10) -> list[dict]: ...
+  def exclude_categories_and_price(query_vec: list[float], cat: str, max_price: float, k: int = 10) -> list[dict]: ...
+  def not_like_search(query_vec: list[float], prefix: str, k: int = 10) -> list[dict]: ...
+  def complex_negation(query_vec: list[float], k: int = 10) -> list[dict]: ...
+  ```
+- Each function must run an L2 vector search against the `vector` column with the supplied `query_vec`, apply the correct LanceDB SQL `where` clause, and return up to `k` rows as a list of dicts ordered by ascending L2 distance.
+- Each returned dict must contain exactly these keys: `id` (int), `name` (str), `brand` (str), `category` (str), `price` (float).
+- The `where` clause for each function must be the negation listed below (use single-quoted SQL string literals):
+  - `exclude_brands`: `brand NOT IN ('<b1>','<b2>',...)` built from the `banned_brands` list.
+  - `exclude_categories_and_price`: `category != '<cat>' AND price <= <max_price>`.
+  - `not_like_search`: `name NOT LIKE '<prefix>%'`.
+  - `complex_negation`: `NOT (brand = 'BrandA' OR (category = 'Cat3' AND price > 100.0))`. Hard-code the literals `'BrandA'`, `'Cat3'`, and `100.0` in the SQL string.
+
+## Implementation Hints
+- Use `lancedb.connect("/home/user/myproject/lancedb")` and create the table with `mode="overwrite"` so re-running the script is idempotent.
+- Construct the Arrow schema explicitly with `pyarrow` types (`pa.int64()`, `pa.utf8()`, `pa.float64()`, `pa.list_(pa.float32(), 16)`) and pass it via the `schema=` keyword when creating the table.
+- The 10 brands should be `BrandA`..`BrandJ`; the 6 categories should be `Cat1`..`Cat6`. The 5 `banned_country` values should be drawn from `{"", "US", "EU", "ASIA", "AFRICA"}`. Use the deterministic numpy RNG to pick brand, category, and banned_country per row.
+- The `name` column should be `f"{prefix}-{i:03d}"` where `prefix` is sampled per-row from `["premium", "budget", "classic", "deluxe", "smart", "eco"]`. This makes the `NOT LIKE 'premium%'`-style filters meaningful.
+- Use `numpy.random.default_rng(2026).standard_normal((300, 16)).astype("float32")` for the embedding column. The first call to `default_rng(2026)` must produce the vectors; if you draw additional values from the same RNG for brand/category/price/etc. afterwards, do so in a fixed, documented order so the verifier can match it.
+- Inside each search function, call `tbl.search(query_vec).where(<sql>).limit(k).to_list()` (or equivalent `to_pandas()` plus iteration) and project to the required dict shape. Do **not** prefilter manually in Python — the `where` clause must be pushed down to LanceDB.
+- The functions are read-only; they must not mutate the table.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Module file: `/home/user/myproject/solution.py`
+- Build command: `python3 /home/user/myproject/solution.py` — must be idempotent and recreate the table from scratch each time it is invoked.
+- LanceDB directory: `/home/user/myproject/lancedb`
+- Table name: `products_${ZEALT_RUN_ID}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- Row count of the table is exactly 300.
+- Schema fields exactly: `id` Int64, `name` Utf8, `brand` Utf8, `category` Utf8, `price` Float64, `banned_country` Utf8, `vector` fixed_size_list<float32, 16>.
+- Public API: `from solution import exclude_brands, exclude_categories_and_price, not_like_search, complex_negation` returns four callable functions matching the signatures above.
+- Each search function returns a list of dicts with exactly the keys `id`, `name`, `brand`, `category`, `price`, ordered by ascending L2 distance to the query, and respects its declared negation predicate (zero leakage).
+- Calling the same function twice with the same arguments must return the same result (deterministic).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__query_expansion_wordnet_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-s7olnwd > /logs/artifacts/run-id && echo query_expansion_wordnet_py__s7oLNwD > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Query Expansion with WordNet and LanceDB Native FTS
+
+## Background
+Lexical search (BM25 / full-text search) is brittle: a query for `car` will not find documents that mention `automobile` or `motorcar` instead, even though they describe the same concept. A classic, well-understood remedy is **query expansion**: each query term is enriched with its synonyms before the lexical engine runs. In this task you will combine two off-the-shelf components:
+
+- **WordNet** (the static lexical database shipped with `nltk`) as the synonym source.
+- **LanceDB native FTS** (`use_tantivy=False`) as the lexical search engine.
+
+The corpus is a fixed set of 100 short English documents that has been seeded into a LanceDB table for you at container build time. The corpus is hand-crafted so that several documents use words like `automobile`, `motorcar`, or `vehicle` but never mention `car`, while a smaller set uses `car` explicitly. A plain FTS search for `car` therefore misses the synonym-only documents — your expanded pipeline must recover them.
+
+## Requirements
+- Implement a Python module at `/home/user/myproject/solution.py` that exposes a callable `expanded_search(query: str, k: int = 10) -> list[int]`.
+- Open the pre-seeded LanceDB database at the path provided in the `LANCEDB_URI` environment variable (a directory under `/app/lancedb_data`) and use the table whose name is provided in the `LANCEDB_TABLE` environment variable.
+- Build a **native** LanceDB FTS index on the `content` column (`use_tantivy=False`). The index must be created if it does not yet exist; calling `expanded_search` more than once must not error.
+- For each whitespace-separated token in `query`, look up WordNet synonyms (lowercased), keep at most **3** synonyms per token, and only keep synonyms that are a single token (i.e. no `_` or whitespace in the WordNet lemma name). The original query term must also remain in the expansion.
+- Construct an `OR`/`SHOULD` boolean FTS query over the expansion (you may use a space-separated terms query, `MatchQuery(...) | MatchQuery(...)`, or `BooleanQuery([(Occur.SHOULD, ...), ...])`).
+- Return the **top-k document IDs**, ordered by FTS score descending, as a list of Python `int`.
+
+## Implementation Hints
+- Install the WordNet and OMW-1.4 corpora at build time with `python3 -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4')"`. WordNet is a lexical database, **not** a model — no inference is required and no network access is needed at runtime.
+- Useful entrypoints: `from nltk.corpus import wordnet as wn`; `wn.synonyms(token)` returns synonyms grouped by sense, `wn.synsets(token)` returns the synsets directly. Either is acceptable.
+- For LanceDB native FTS use `table.create_fts_index("content", use_tantivy=False, replace=False)` once, then `table.search(<query>, query_type="fts").limit(k).to_list()` (or the `MatchQuery`/`BooleanQuery` builders) for retrieval.
+- The schema of the seeded table is `{ id: int64, content: string }`. Document IDs are integers `0..99`.
+- Lowercase the query before expansion. Do **not** add or remove any other words; the verifier compares behaviour against the plain `table.search(query, query_type="fts")` baseline.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Module: `/home/user/myproject/solution.py` exports `expanded_search(query: str, k: int = 10) -> list[int]`.
+- The function must read the LanceDB URI from `LANCEDB_URI` and the table name from `LANCEDB_TABLE` (both are set in the container environment).
+- A native FTS index (`use_tantivy=False`) must exist on the `content` column of the seeded table after the first invocation of `expanded_search`.
+- Return contract: a `list[int]` of length at most `k`, sorted by FTS score descending, containing document IDs drawn from the seeded table.
+- The function must materially expand the query: for the seeded corpus, the unexpanded baseline (`table.search(query, query_type="fts").limit(k).to_list()`) and `expanded_search(query, k)` must produce different result sets for at least one synonym-rich query (`car`).
+- No outbound network calls are needed at runtime; WordNet is fully available offline after the build-time download.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__nearest_centroid_classifier_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Skipping image OS validation for hb__cohere_embed_multilingual_search_py: docker inspect returned 1
+Running command: echo zr-ffhnwrl > /logs/artifacts/run-id && echo nearest_centroid_classifier_py__FFhnWRL > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command failed
+Trial nearest_centroid_classifier_py__FFhnWRL failed: Initial state test failed
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-graesuv > /logs/artifacts/run-id && echo cohere_embed_multilingual_search__GraeSUv > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Not retrying trial because the maximum number of retries has been reached
+Skipping image OS validation for hb__cosine_similarity_matrix_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Cross-Lingual Semantic Search with Cohere Multilingual Embeddings and LanceDB
+
+## Background
+
+LanceDB is a multimodal REDACTED built on the Lance columnar format. In this task you must build a small **cross-lingual** retrieval pipeline that can answer a query in one language with documents written in any of three languages (English, Spanish, French) using **Cohere's `embed-multilingual-v3.0`** embedding model.
+
+A fixed corpus is provided at build time at `/home/user/myproject/corpus.json`. It contains exactly **90 rows**: 30 matched triples, one English / one Spanish / one French sentence per real-world concept (e.g. "The Eiffel Tower is in Paris" plus its Spanish and French translations). Each row has the following fields:
+
+```
+{"concept_id": <int 0..29>, "language": "en"|"es"|"fr", "text": "<sentence>"}
+```
+
+The three sentences sharing the same `concept_id` are translations of the same concept.
+
+## Requirements
+
+Implement a Python module that:
+
+1. Reads `corpus.json` and uses the official `cohere` Python SDK with the real key in the `COHERE_API_KEY` environment variable to embed every text via `co.embed(texts=..., model="embed-multilingual-v3.0", input_type="search_document")`. The model produces **1024-dimensional** vectors.
+2. Persists all 90 rows into a single LanceDB table (under `lancedb_data/`) with at minimum the columns `concept_id` (int), `language` (string), `text` (string), and a 1024-d `vector` (or `embedding`) column of `float32`. Use the run-scoped table name `multilingual_${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment) so concurrent runs do not collide.
+3. Exposes a function `cross_lingual_search(query: str, k: int = 3) -> list[dict]` that embeds the query with `input_type="search_query"` and returns the top-`k` results across **all three languages** (no language filter), sorted by ascending distance. Each result dict must include the keys `concept_id`, `language`, and `text`.
+
+## Implementation Hints
+
+- Install both `lancedb` and the official `cohere` Python SDK (latest 5.x).
+- `co.embed(...)` may return embeddings either as `response.embeddings` (legacy list-of-lists) or `response.embeddings.float_` / `.float` (when `embedding_types=["float"]` is set). Pick whichever form your installed SDK supports and convert to a Python list of `float32`-castable lists before storing.
+- LanceDB needs a fixed-size list type for the vector column; declare it explicitly (e.g. via `pyarrow.list_(pa.float32(), 1024)`) or use a Pydantic `LanceModel` with `Vector(1024)`.
+- The function may build the index lazily on first call OR you may also expose a `build_index()` helper that does the embedding+ingestion once. The verifier will call `build_index()` first if it exists, then `cross_lingual_search`.
+- The query must use `input_type="search_query"`; the documents must use `input_type="search_document"`. Mixing them up will silently degrade cross-lingual accuracy.
+- Cohere's `embed-multilingual-v3.0` returns vectors that are already L2-normalized — cosine and L2 produce the same ordering, but use `metric="cosine"` or LanceDB's default for safety.
+
+## Acceptance Criteria
+
+- Project path: `/home/user/myproject`
+- A Python module `solution.py` exists at `/home/user/myproject/solution.py` exposing `cross_lingual_search(query: str, k: int = 3) -> list[dict]`. The module may optionally expose a no-argument `build_index()` helper.
+- After invoking the candidate's setup logic (either `build_index()` or implicitly on first `cross_lingual_search` call), the LanceDB table named `multilingual_${ZEALT_RUN_ID}` under `/home/user/myproject/lancedb_data/` contains exactly 90 rows with the schema described above and a 1024-dimensional vector column.
+- Each entry returned by `cross_lingual_search` is a dict containing at least the keys `concept_id` (int), `language` (one of `"en"`, `"es"`, `"fr"`), and `text` (str). Results are sorted from closest to farthest.
+- For an English query about a single concept, the top-3 must (a) contain the corresponding `concept_id` and (b) collectively span **at least two different languages**.
+- For a Spanish query about a single concept, the same two conditions must hold.
+- No language filter is applied: results from all three languages are eligible.
+- The candidate's code must read `COHERE_API_KEY` from the environment and must not hardcode credentials.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-bc77ajs > /logs/artifacts/run-id && echo cosine_similarity_matrix_py__bc77ajs > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Cosine Similarity Matrix from LanceDB Self-Search
+
+## Background
+You are profiling the cluster structure of a small embedding dataset that lives inside a LanceDB table. Instead of computing pairwise cosine similarities directly with `numpy`, you must derive the full (N, N) similarity matrix purely from the results of LanceDB cosine searches. This validates that LanceDB's cosine ranking faithfully reflects the geometry of the stored vectors.
+
+A pre-seeded LanceDB table is provisioned by the environment entrypoint at container start. The table has exactly 200 rows organized as 5 well-separated clusters of 40 rows each, with a 48-dimensional `vector` column. The table location and name are exposed through environment variables.
+
+## Requirements
+- Implement `/home/user/myproject/solution.py` exposing the following module-level functions:
+  - `similarity_matrix() -> numpy.ndarray`: returns a `(200, 200)` float matrix `S` such that `S[i, j]` is the cosine similarity between the stored vectors of the rows with `id == i` and `id == j`.
+  - `intra_class_mean(label: int) -> float`: returns the mean off-diagonal cosine similarity restricted to the rows whose `label` column equals `label`.
+- The similarity values **MUST** be derived from LanceDB cosine search results. For every row `i`, issue a LanceDB query of the form `table.search(stored_vector_i).distance_type("cosine").limit(200)` (or equivalent through the search API) and use `similarity = 1 - distance` to populate row `i` of the matrix.
+- The matrix indexing **MUST** be by the row's `id` column (the table is seeded so that ids are exactly `0..199`).
+
+## Implementation Hints
+- Connect to the LanceDB directory and open the seeded table using the environment variables `LANCEDB_URI` and `LANCEDB_TABLE` set by the entrypoint.
+- For each row, read its stored vector back from the table and run a single cosine self-search with `limit` equal to the table size; map the returned `_distance` to similarity with `1 - distance`.
+- Diagonal entries should be exactly `1.0` because each row is its own nearest neighbour under cosine distance.
+- `intra_class_mean` should average the entries of the submatrix indexed by the ids of the given label, excluding the diagonal.
+- `similarity_matrix()` may be called many times by the verifier; cache the result if you want to avoid re-querying LanceDB.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 -c "import solution, numpy as np; S=solution.similarity_matrix(); print(S.shape, S.dtype)"`
+- The module `solution` exposes `similarity_matrix()` returning a `numpy.ndarray` with shape `(200, 200)`.
+- The module `solution` exposes `intra_class_mean(label)` accepting an integer label in `[0, 4]` and returning a `float`.
+- The returned matrix must satisfy:
+  - `np.allclose(S, S.T, atol=1e-3)` (symmetric within tolerance).
+  - All diagonal entries equal `1.0` within `atol=1e-3`.
+  - All entries lie in `[-1.0, 1.0]` within `atol=1e-3`.
+- For at least 4 of the 5 labels, `intra_class_mean(label) > global_off_diagonal_mean(S)`, demonstrating that LanceDB's cosine ranking preserves the cluster structure of the seeded data.
+- The solution must NOT compute cosine similarity directly with `numpy` on the raw vector matrix; the values must come from LanceDB cosine search results (the verifier inspects the call into LanceDB by replacing the seeded vectors with a permutation and re-running the candidate, expecting the matrix to follow the permutation).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__parquet_partitioned_to_lance_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-b8ru4sr > /logs/artifacts/run-id && echo parquet_partitioned_to_lance_py__b8ru4sr > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Hive-Partitioned Parquet → LanceDB With Year-Filtered Search
+
+## Background
+A Hive-style partitioned Parquet dataset has been pre-generated at `/home/user/myproject/parquet_dataset/` with one directory per `year` partition (`year=2022/`, `year=2023/`, `year=2024/`). Each partition contains 200 rows. Every row has the columns:
+
+- `id` (`int64`): row identifier, unique within the whole dataset.
+- `title` (`string`): short document title.
+- `embedding` (`fixed_size_list<float, 24>`): a 24-dimensional vector, generated deterministically at build time.
+
+The `year` column is **encoded only as the Hive partition directory name** and is NOT a physical column in the per-partition Parquet files. Your job is to ingest this partitioned dataset into a fresh LanceDB table while preserving the `year` column, and to expose a vector search function that filters on `year` server-side.
+
+## Requirements
+- Implement a Python module `solution.py` (importable as `solution`) at `/home/user/myproject/solution.py` that, when imported, does **all** of the following in `/home/user/myproject/lancedb`:
+  1. Opens the partitioned Parquet dataset with `pyarrow.dataset` and `partitioning="hive"` so that the `year` partition column is materialized as a real column in the produced batches.
+  2. Streams batches from that dataset into a new LanceDB table named `articles_${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment). The destination table MUST contain the `year` column (typed as a 32-bit or 64-bit integer) alongside `id`, `title`, and `embedding`.
+  3. The ingest must be idempotent: re-importing `solution` (or constructing a fresh connection) MUST NOT duplicate rows. If the destination table already exists with the expected 600-row content, leave it as is; otherwise (re)create it.
+- Expose a top-level callable `search_year(vec, year, k=5) -> list[dict]` in `solution.py` that:
+  - Accepts a Python list / numpy array `vec` of length 24, an integer `year`, and an integer `k`.
+  - Runs a single LanceDB query that combines a vector search on `embedding` with a SQL `where` clause restricting the result to the requested `year`. The year filter MUST be applied server-side via LanceDB's `where` clause (no Python post-filtering of an unfiltered result).
+  - Returns a list of up to `k` plain Python dicts, ordered by ascending vector distance. Each dict MUST contain at least the keys `id` (int), `title` (str), and `year` (int).
+
+## Implementation Hints
+- `pyarrow.dataset.write_dataset` writes Hive-partitioned datasets where the partition column is encoded only in the directory name. To get the `year` column back as a real Arrow column, you MUST open the dataset with `pyarrow.dataset.dataset(path, partitioning="hive")` and then iterate `to_batches()` (or call `to_table()`).
+- Use `db.create_table(name, schema=..., mode="overwrite")` and then `table.add(batch)` per batch, or pass an iterator/reader directly to `create_table` — pick whichever you prefer, as long as every row from every partition lands in the destination table exactly once.
+- For the year-filtered vector search, the LanceDB query builder accepts `.where("year = <int>")` and `.limit(k)`; convert the result to a list of dicts (e.g. via `.to_list()` and trimming columns).
+- Build the destination table name at runtime from `os.environ["ZEALT_RUN_ID"]` so that parallel runs do not clash.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 -c "import solution; print(len(solution.search_year([0.0]*24, 2023, 5)))"`
+- Destination LanceDB database: `/home/user/myproject/lancedb`
+- Destination table name: `articles_${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment).
+- The destination table MUST contain exactly 600 rows: 200 rows for each of `year ∈ {2022, 2023, 2024}` (`SELECT year, COUNT(*) GROUP BY year`).
+- The destination table schema MUST include columns `id`, `title`, `embedding`, and `year`. The `embedding` column MUST be a 24-dimensional fixed-size list of float32. The `year` column MUST be an integer type.
+- `solution.search_year(vec, year, k)` MUST:
+  - Return a `list` of at most `k` dicts.
+  - Every returned row MUST satisfy `row["year"] == year` (verifier will fail if any other year appears).
+  - The returned rows MUST be ordered by ascending vector distance against `vec` within the requested year partition (i.e. equivalent to a pure vector search restricted to that year).
+  - The year filter MUST be enforced server-side by LanceDB (the SQL `where` clause), not by Python post-processing of an unfiltered result.
+- Importing `solution` multiple times MUST NOT duplicate rows in the destination table.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

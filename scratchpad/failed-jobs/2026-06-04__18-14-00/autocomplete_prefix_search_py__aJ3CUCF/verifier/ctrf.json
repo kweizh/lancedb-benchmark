@@ -1,0 +1,70 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780597311859,
+            "stop": 1780597316713
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_prefix_only_path_many_matches",
+                "status": "passed",
+                "duration": 54,
+                "start": 1780597316422,
+                "stop": 1780597316476,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fallback_path_partial_matches",
+                "status": "passed",
+                "duration": 92,
+                "start": 1780597316477,
+                "stop": 1780597316569,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pure_semantic_path_zero_prefix_matches",
+                "status": "passed",
+                "duration": 68,
+                "start": 1780597316569,
+                "stop": 1780597316637,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_case_insensitive_prefix",
+                "status": "passed",
+                "duration": 59,
+                "start": 1780597316638,
+                "stop": 1780597316697,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_prefix_table_schema_and_count",
+                "status": "passed",
+                "duration": 14,
+                "start": 1780597316698,
+                "stop": 1780597316712,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,90 @@
+FROM ubuntu:24.04
+
+RUN apt-get update -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep && \
+    pip3 install --break-system-packages \
+        pytest-json-ctrf \
+        lancedb==0.25.3 \
+        pyarrow==17.0.0 \
+        numpy==1.26.4 \
+        pandas==2.2.3 \
+        "httpx>=0.27,<0.28" && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /home/user && chmod 0755 /home/user
+
+# Bake the deterministic news-headline corpus into the image (5 topics × 10).
+RUN mkdir -p /home/user/myproject && \
+    cat > /home/user/myproject/headlines.json <<'EOF'
+[
+  {"id": 1,  "topic": "finance",    "headline": "Federal Reserve Raises Benchmark Interest Rate by 25 Basis Points"},
+  {"id": 2,  "topic": "finance",    "headline": "Stock Market Closes Higher on Strong Quarterly Earnings Reports"},
+  {"id": 3,  "topic": "finance",    "headline": "Inflation Eases as Consumer Prices Drop in October"},
+  {"id": 4,  "topic": "finance",    "headline": "Banking Sector Faces Pressure From Rising Bond Yields"},
+  {"id": 5,  "topic": "finance",    "headline": "Treasury Yields Climb Following Hawkish Fed Statement"},
+  {"id": 6,  "topic": "finance",    "headline": "Consumer Confidence Index Falls to Six Month Low"},
+  {"id": 7,  "topic": "finance",    "headline": "Tech Stocks Lead Gains on Wall Street After Rate Pause"},
+  {"id": 8,  "topic": "finance",    "headline": "Mortgage Rates Hit Two Decade High Squeezing Homebuyers"},
+  {"id": 9,  "topic": "finance",    "headline": "Eurozone Inflation Cooled to Lowest Level Since 2021"},
+  {"id": 10, "topic": "finance",    "headline": "Cryptocurrency Bitcoin Surges Past Seventy Thousand Dollar Mark"},
+
+  {"id": 11, "topic": "sports",     "headline": "American Swimmer Wins Olympic Gold Medal in 200m Freestyle"},
+  {"id": 12, "topic": "sports",     "headline": "Liverpool Defeat Manchester United in Premier League Clash"},
+  {"id": 13, "topic": "sports",     "headline": "Tennis Star Claims Wimbledon Title in Straight Sets"},
+  {"id": 14, "topic": "sports",     "headline": "Lakers Sign Veteran Forward in Off Season Trade"},
+  {"id": 15, "topic": "sports",     "headline": "Tour de France Cyclist Breaks Sprint Stage Record"},
+  {"id": 16, "topic": "sports",     "headline": "NBA Finals Game Seven Draws Record Television Audience"},
+  {"id": 17, "topic": "sports",     "headline": "Brazil National Team Advances to World Cup Semifinal"},
+  {"id": 18, "topic": "sports",     "headline": "Marathon World Record Set in Berlin by Kenyan Runner"},
+  {"id": 19, "topic": "sports",     "headline": "Heavyweight Boxing Champion Defends Title in Las Vegas"},
+  {"id": 20, "topic": "sports",     "headline": "Formula One Driver Secures Pole Position in Monaco Grand Prix"},
+
+  {"id": 21, "topic": "space",      "headline": "NASA Spacecraft Successfully Lands on Surface of Mars"},
+  {"id": 22, "topic": "space",      "headline": "SpaceX Launches Starlink Satellites Into Low Earth Orbit"},
+  {"id": 23, "topic": "space",      "headline": "James Webb Telescope Captures Image of Distant Galaxy"},
+  {"id": 24, "topic": "space",      "headline": "European Space Agency Tests Reusable Rocket Booster"},
+  {"id": 25, "topic": "space",      "headline": "International Space Station Crew Returns Safely to Earth"},
+  {"id": 26, "topic": "space",      "headline": "Lunar Sample Return Mission Brings First Moon Soil Since 1972"},
+  {"id": 27, "topic": "space",      "headline": "Astronomers Detect Water Vapor in Distant Exoplanet Atmosphere"},
+  {"id": 28, "topic": "space",      "headline": "Private Space Tourism Flight Reaches Suborbital Altitude"},
+  {"id": 29, "topic": "space",      "headline": "Solar Probe Survives Closest Approach to the Sun on Record"},
+  {"id": 30, "topic": "space",      "headline": "Asteroid Defense Test Successfully Deflects Target Body"},
+
+  {"id": 31, "topic": "technology", "headline": "Major Tech Company Unveils New AI Chatbot Assistant"},
+  {"id": 32, "topic": "technology", "headline": "Quantum Computer Achieves Milestone in Error Correction"},
+  {"id": 33, "topic": "technology", "headline": "Smartphone Manufacturer Announces Foldable Screen Device"},
+  {"id": 34, "topic": "technology", "headline": "Self Driving Vehicle Completes Cross Country Test Drive"},
+  {"id": 35, "topic": "technology", "headline": "Cloud Provider Reports Outage Affecting Millions of Users"},
+  {"id": 36, "topic": "technology", "headline": "Open Source Database Project Crosses Ten Thousand Stars on GitHub"},
+  {"id": 37, "topic": "technology", "headline": "Cybersecurity Firm Discovers Critical Zero Day Exploit in Browser"},
+  {"id": 38, "topic": "technology", "headline": "Augmented Reality Glasses Enter Consumer Market This Holiday"},
+  {"id": 39, "topic": "technology", "headline": "Chip Shortage Eases as Foundries Boost Production Capacity"},
+  {"id": 40, "topic": "technology", "headline": "Streaming Platform Adds Generative Music Recommendation Engine"},
+
+  {"id": 41, "topic": "politics",   "headline": "Prime Minister Announces Snap General Election for November"},
+  {"id": 42, "topic": "politics",   "headline": "United Nations Holds Emergency Climate Summit in Geneva"},
+  {"id": 43, "topic": "politics",   "headline": "Trade Agreement Signed Between Pacific Rim Nations"},
+  {"id": 44, "topic": "politics",   "headline": "Senate Passes Sweeping Infrastructure Spending Bill"},
+  {"id": 45, "topic": "politics",   "headline": "European Parliament Approves Renewable Energy Directive"},
+  {"id": 46, "topic": "politics",   "headline": "Border Dispute Resolved Through Diplomatic Negotiations"},
+  {"id": 47, "topic": "politics",   "headline": "Cabinet Reshuffle Brings New Finance Minister to Office"},
+  {"id": 48, "topic": "politics",   "headline": "Presidential Debate Draws Highest Ratings in a Decade"},
+  {"id": 49, "topic": "politics",   "headline": "Coalition Government Formed After Three Weeks of Talks"},
+  {"id": 50, "topic": "politics",   "headline": "Supreme Court Upholds Voting Rights Legislation Nationwide"}
+]
+EOF
+
+LABEL Author="generate-harbor-tasks"
+LABEL Description="Ubuntu 24.04 environment with lancedb 0.25.3 + httpx for a Jina embeddings v3 semantic search task; corpus baked at build time."
+
+CMD ["/bin/bash", "-c", "trap : TERM INT; sleep infinity & wait"]
+
+# Container contents:
+#   - always required apt packages: curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep
+#   - always required pip3 packages: pytest-json-ctrf
+#   - lancedb 0.25.3 + pyarrow 17.0.0 + numpy 1.26.4 + pandas 2.2.3 for the vector store
+#   - httpx (0.27.x) for calling the Jina embeddings REST endpoint
+#   - /home/user/myproject: project root for the candidate
+#   - /home/user/myproject/headlines.json: 50-headline deterministic fixture (5 topics x 10)

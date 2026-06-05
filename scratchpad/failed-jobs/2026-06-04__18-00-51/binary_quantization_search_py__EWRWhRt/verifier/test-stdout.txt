@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py .F..                                           [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_ivf_pq_index_registered _________________________
+
+    def test_ivf_pq_index_registered():
+        tbl = _open_table()
+        indices = list(tbl.list_indices())
+        assert len(indices) >= 1, (
+            f"No indices reported by table.list_indices() for '{_table_name()}'."
+        )
+        matched = []
+        for idx in indices:
+            # IndexConfig has .columns (list[str]) and .index_type (str)
+            cols = getattr(idx, "columns", None) or []
+            itype = getattr(idx, "index_type", "") or ""
+            if "vector" in cols and "ivf_pq" in str(itype).lower().replace("-", "_"):
+                matched.append(idx)
+>       assert matched, (
+            "Expected at least one IVF_PQ index on the 'vector' column. "
+            f"list_indices() returned: {[ (getattr(i, 'name', None), getattr(i, 'columns', None), getattr(i, 'index_type', None)) for i in indices ]}"
+        )
+E       AssertionError: Expected at least one IVF_PQ index on the 'vector' column. list_indices() returned: [('vector_idx', ['vector'], 'IvfPq')]
+E       assert []
+
+tests/test_final_state.py:105: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_schema_and_row_count
+PASSED tests/test_final_state.py::test_evaluate_recall_returns_float_in_range_and_meets_threshold
+PASSED tests/test_final_state.py::test_evaluate_recall_stable_on_repeat_call
+FAILED tests/test_final_state.py::test_ivf_pq_index_registered - AssertionErr...
+========================= 1 failed, 3 passed in 11.47s =========================

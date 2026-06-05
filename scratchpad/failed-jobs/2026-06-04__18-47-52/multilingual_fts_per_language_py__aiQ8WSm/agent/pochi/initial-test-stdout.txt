@@ -1,0 +1,60 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_tantivy_importable PASSED
+bootstrap/test_initial_state.py::test_jieba_importable PASSED
+bootstrap/test_initial_state.py::test_project_directory_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_data_directory_exists FAILED
+bootstrap/test_initial_state.py::test_zealt_run_id_present PASSED
+bootstrap/test_initial_state.py::test_three_seed_tables_present FAILED
+bootstrap/test_initial_state.py::test_solution_module_not_yet_present PASSED
+
+=================================== FAILURES ===================================
+______________________ test_lancedb_data_directory_exists ______________________
+
+    def test_lancedb_data_directory_exists():
+>       assert os.path.isdir(DB_DIR), (
+            f"LanceDB data directory {DB_DIR} is missing; the seed step did not run."
+        )
+E       AssertionError: LanceDB data directory /home/user/myproject/lancedb_data is missing; the seed step did not run.
+E       assert False
+E        +  where False = <function isdir at 0x7fdeb18d02c0>('/home/user/myproject/lancedb_data')
+E        +    where <function isdir at 0x7fdeb18d02c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:34: AssertionError
+________________________ test_three_seed_tables_present ________________________
+
+    def test_three_seed_tables_present():
+        """All three multilingual tables must already be seeded with 40 rows each."""
+        import lancedb
+    
+        run_id = os.environ["ZEALT_RUN_ID"]
+        db = lancedb.connect(DB_DIR)
+        names = set(db.table_names())
+        for lang in ("en", "de", "zh"):
+            expected = f"docs_{lang}_{run_id}"
+>           assert expected in names, (
+                f"Seed table {expected!r} is missing. Available tables: {sorted(names)}"
+            )
+E           AssertionError: Seed table 'docs_en_zr-aiq8wsm' is missing. Available tables: []
+E           assert 'docs_en_zr-aiq8wsm' in set()
+
+bootstrap/test_initial_state.py:54: AssertionError
+=============================== warnings summary ===============================
+test_initial_state.py::test_jieba_importable
+  /usr/local/lib/python3.12/dist-packages/jieba/_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_lancedb_data_directory_exists - ...
+FAILED bootstrap/test_initial_state.py::test_three_seed_tables_present - Asse...
+==================== 2 failed, 6 passed, 1 warning in 5.32s ====================

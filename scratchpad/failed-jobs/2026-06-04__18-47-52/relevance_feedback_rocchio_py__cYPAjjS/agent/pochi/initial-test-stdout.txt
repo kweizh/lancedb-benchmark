@@ -1,0 +1,72 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_pyarrow_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_data_dir_exists FAILED
+bootstrap/test_initial_state.py::test_query_json_exists FAILED
+bootstrap/test_initial_state.py::test_query_json_shape FAILED
+bootstrap/test_initial_state.py::test_zealt_run_id_set PASSED
+bootstrap/test_initial_state.py::test_seeded_table_exists_with_400_rows FAILED
+
+=================================== FAILURES ===================================
+_________________________ test_lancedb_data_dir_exists _________________________
+
+    def test_lancedb_data_dir_exists():
+>       assert os.path.isdir(DB_DIR), f"LanceDB data directory {DB_DIR} does not exist."
+E       AssertionError: LanceDB data directory /home/user/myproject/lancedb_data does not exist.
+E       assert False
+E        +  where False = <function isdir at 0x7fb6674042c0>('/home/user/myproject/lancedb_data')
+E        +    where <function isdir at 0x7fb6674042c0> = <module 'posixpath' (frozen)>.isdir
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:28: AssertionError
+____________________________ test_query_json_exists ____________________________
+
+    def test_query_json_exists():
+>       assert os.path.isfile(QUERY_PATH), f"Query fixture {QUERY_PATH} does not exist."
+E       AssertionError: Query fixture /home/user/myproject/query.json does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7fb667404220>('/home/user/myproject/query.json')
+E        +    where <function isfile at 0x7fb667404220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:32: AssertionError
+____________________________ test_query_json_shape _____________________________
+
+    def test_query_json_shape():
+>       with open(QUERY_PATH) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/query.json'
+
+bootstrap/test_initial_state.py:36: FileNotFoundError
+____________________ test_seeded_table_exists_with_400_rows ____________________
+
+    def test_seeded_table_exists_with_400_rows():
+        import lancedb
+    
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        assert run_id, "ZEALT_RUN_ID must be set."
+        db = lancedb.connect(DB_DIR)
+        table_name = f"documents_{run_id}"
+        names = db.table_names()
+>       assert table_name in names, (
+            f"Pre-seeded table '{table_name}' not found in {DB_DIR}. Available: {names}"
+        )
+E       AssertionError: Pre-seeded table 'documents_zr-cypajjs' not found in /home/user/myproject/lancedb_data. Available: []
+E       assert 'documents_zr-cypajjs' in []
+
+bootstrap/test_initial_state.py:63: AssertionError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_lancedb_data_dir_exists - Assert...
+FAILED bootstrap/test_initial_state.py::test_query_json_exists - AssertionErr...
+FAILED bootstrap/test_initial_state.py::test_query_json_shape - FileNotFoundE...
+FAILED bootstrap/test_initial_state.py::test_seeded_table_exists_with_400_rows
+========================= 4 failed, 5 passed in 3.50s ==========================

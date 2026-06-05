@@ -1,0 +1,4 @@
+{
+    "task": ["JINA_API_KEY"],
+    "verifier": ["JINA_API_KEY"]
+}

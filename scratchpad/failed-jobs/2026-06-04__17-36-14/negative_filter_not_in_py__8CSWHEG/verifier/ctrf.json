@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780595562226,
+            "stop": 1780595572004
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_schema_and_row_count",
+                "status": "passed",
+                "duration": 6253,
+                "start": 1780595562492,
+                "stop": 1780595568745,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_brand_and_category_cardinality",
+                "status": "passed",
+                "duration": 42,
+                "start": 1780595568745,
+                "stop": 1780595568787,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixture_is_deterministic_across_reruns",
+                "status": "passed",
+                "duration": 2987,
+                "start": 1780595568787,
+                "stop": 1780595571774,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exclude_brands_correctness",
+                "status": "passed",
+                "duration": 49,
+                "start": 1780595571774,
+                "stop": 1780595571823,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exclude_categories_and_price_correctness",
+                "status": "passed",
+                "duration": 47,
+                "start": 1780595571823,
+                "stop": 1780595571870,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_not_like_search_correctness",
+                "status": "passed",
+                "duration": 52,
+                "start": 1780595571871,
+                "stop": 1780595571923,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_complex_negation_correctness",
+                "status": "passed",
+                "duration": 47,
+                "start": 1780595571923,
+                "stop": 1780595571970,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exclude_brands_repeat_call_is_stable",
+                "status": "passed",
+                "duration": 33,
+                "start": 1780595571971,
+                "stop": 1780595572004,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

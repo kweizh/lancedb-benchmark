@@ -1,0 +1,139 @@
+- Initializing MCP connections...
+You
+# Build an IVF\_HNSW\_SQ Vector Index with LanceDB ## Background LanceDB supports several ANN index variants for vector search. The `IVF_HNSW_SQ` variant combines IVF partitioning with HNSW graph search using scalar quantization, offering a strong recall/latency trade-off. Your job is to seed a deterministic dataset of 128-dimensional vectors into a LanceDB table, build an `IVF_HNSW_SQ` index over the vector column with cosine distance, and expose a Python `search(query_vec, k, nprobes)` helper that lets the caller vary the `nprobes` parameter at query time. ## Requirements * Create (or open) a LanceDB table at the database path provided in the `LANCE_DB_PATH` environment variable, using the table name `vectors_${ZEALT_RUN_ID}` (read `ZEALT_RUN_ID` from the environment). * The table schema must contain at least an integer `id` column and a 128-dimensional float32 vector column named `vector`. * Seed the table with the **exact same 1024 deterministic vectors** produced by `numpy.random.default_rng(2026).standard_normal((1024, 128)).astype("float32")`, in row order, with `id = 0..1023`. * After seeding, call `table.create_index(...)` to build an `IVF_HNSW_SQ` index on the `vector` column with `metric="cosine"` and `num_partitions=8`. * Block until the index is ready with `table.wait_for_index([...], timeout=timedelta(seconds=120))` — `timeout` must be a `datetime.timedelta`, not an integer. * Expose a top-level Python function `search(query_vec, k, nprobes)` in `/home/user/myproject/solution.py` that runs a cosine vector search on the indexed table and varies `nprobes` per call via the query builder's `.nprobes(...)` method. The return value must be a Python `list` of `dict` rows in distance-ascending order; each row must contain at least the integer `id` field. ## Implementation Hints * Use `lancedb.connect(...)` to open the database at `LANCE_DB_PATH`. * Use a PyArrow schema with `pa.list_(pa.float32(), 128)` for the vector column. * Pass `replace=True` to `create_index` so re-runs are idempotent. * Wait for the index by passing the index name returned by `list_indices()` (default is `vector_idx`) inside a list to `wait_for_index`, together with `timeout=timedelta(seconds=120)`. * Inside `search`, build the query with `.search(query_vec).nprobes(nprobes).limit(k).to_list()` so the candidate parameter actually flows into the LanceDB search builder. * Make the module side-effect-safe: seeding and index building should happen on import (or via a `main()` invoked at the bottom of the file) so the verifier can simply import `solution` and call `search(...)`. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 -c "import solution; print(len(solution.search([0.0]*128, 10, 8)))"` * The command must print `10` to stdout (a healthy `IVF_HNSW_SQ` index with `nprobes=8` returns the full top-k). * `solution.search(query_vec, k, nprobes)` must be importable from `/home/user/myproject/solution.py` and return a `list[dict]` with at least the `id` field per row, sorted ascending by distance. * After importing the module: * `table.list_indices()` for the table `vectors_${ZEALT_RUN_ID}` must contain exactly one index whose `index_type` (normalized, ignoring case and underscores) corresponds to `IVF_HNSW_SQ` and whose `columns` equals `["vector"]`. Equivalently, `table.index_stats(name).index_type == "IVF_HNSW_SQ"`. * Calling `search(q, 10, 1)` must return at most 10 results. * Calling `search(q, 10, 8)` must return exactly 10 results. * Across a battery of held-out queries, the average recall\@10 of `search(q, 10, 8)` versus a brute-force cosine top-10 ground truth must be at least 0.90. * On the same held-out queries, the average recall\@10 with `nprobes=8` must be strictly greater than the average recall\@10 with `nprobes=1`.   
+
+Pochi
+💭 Thinking for 299 characters   
+📂 Listing files in /home/user/myproject ✔ 
+💫 Executing pip show lancedb pyarrow numpy 2>&1 | grep -E "^Name|^Version|not found" ✔ 
+💫 Executing python3 -c "import lancedb; help(lancedb.LanceTable.create_index)" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/tmp/test_db')
+import pyarrow as pa
+import numpy as np
+
+schema = pa.schema([
+    pa.field('id', pa.int32()),
+    pa.field('vector', pa.list_(pa.float32(), 128))
+])
+
+rng = np.random.default_rng(2026)
+vecs = rng.standard_normal((10, 128)).astype('float32')
+ids = list(range(10))
+data = [{'id': i, 'vector': vecs[i].tolist()} for i in range(10)]
+tbl = db.create_table('test_vectors', data=data, schema=schema, mode='overwrite')
+print('Table created')
+print(type(tbl))
+print(dir(tbl))
+" 2>&1 | tail -20 ✔ 
+💫 Executing python3 -c "
+import lancedb
+import inspect
+db = lancedb.connect('/tmp/test_db')
+tbl = db.open_table('test_vectors')
+print(inspect.signature(tbl.create_index))
+print('---')
+print(inspect.signature(tbl.wait_for_index))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/tmp/test_db')
+tbl = db.open_table('test_vectors')
+import inspect
+print(inspect.signature(tbl.search))
+sq = tbl.search([0.0]*128)
+print(type(sq))
+print(dir(sq))
+" 2>&1 ✔ 
+All the APIs look correct. Now I'll create the solution file:   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+💫 Executing cd /home/user/myproject && LANCE_DB_PATH=/tmp/lancedb_test ZEALT_RUN_ID=testrun python3 -c "import solution; print(len(solution.search([0.0]*128, 10, 8)))" 2>&1 ✔ 
+The output is `10`. Let me run a more thorough verification to confirm all acceptance criteria are met:   
+💫 Executing cd /home/user/myproject && LANCE_DB_PATH=/tmp/lancedb_test ZEALT_RUN_ID=testrun python3 - <<'EOF'
+import solution
+
+# 1) Check index type
+indices = solution._table.list_indices()
+print("Indices:", indices)
+for idx in indices:
+    stats = solution._table.index_stats(idx["name"])
+    print("index_stats:", stats)
+
+# 2) search with nprobes=1 → at most 10 results
+q = [0.0] * 128
+r1 = solution.search(q, 10, 1)
+print(f"nprobes=1 results: {len(r1)} (must be <= 10)")
+
+# 3) search with nprobes=8 → exactly 10 results
+r8 = solution.search(q, 10, 8)
+print(f"nprobes=8 results: {len(r8)} (must be == 10)")
+
+# 4) Check that rows have 'id' field
+print("Sample row keys:", list(r8[0].keys()))
+print("id type:", type(r8[0]['id']))
+
+# 5) Recall@10 battery test
+import numpy as np
+
+rng_test = np.random.default_rng(999)
+test_queries = rng_test.standard_normal((50, 128)).astype("float32")
+
+# Brute-force cosine top-10 ground truth
+vecs = solution._VECTORS  # (1024, 128)
+
+def cosine_top10_brute(q_vec):
+    norms_v = np.linalg.norm(vecs, axis=1)
+    norm_q = np.linalg.norm(q_vec)
+    sims = (vecs @ q_vec) / (norms_v * norm_q + 1e-9)
+    top10 = set(np.argsort(-sims)[:10].tolist())
+    return top10
+
+recall_8 = []
+recall_1 = []
+for qv in test_queries:
+    gt = cosine_top10_brute(qv)
+    res8 = solution.search(qv.tolist(), 10, 8)
+    res1 = solution.search(qv.tolist(), 10, 1)
+    ids8 = set(r['id'] for r in res8)
+    ids1 = set(r['id'] for r in res1)
+    recall_8.append(len(gt & ids8) / 10)
+    recall_1.append(len(gt & ids1) / 10)
+
+avg_r8 = sum(recall_8) / len(recall_8)
+avg_r1 = sum(recall_1) / len(recall_1)
+print(f"Avg recall@10 nprobes=8: {avg_r8:.4f} (must be >= 0.90)")
+print(f"Avg recall@10 nprobes=1: {avg_r1:.4f} (must be < nprobes=8 recall)")
+print(f"nprobes=8 > nprobes=1? {avg_r8 > avg_r1}")
+EOF
+ ✔ 
+All acceptance criteria pass: - ✅ `python3 -c "import solution; print(len(solution.search([0.0]*128, 10, 8)))"` → prints `10` - ✅ Index type is `IVF_HNSW_SQ` on column `["vector"]` with cosine distance - ✅ `search(q, 10, 1)` returns ≤ 10 results - ✅ `search(q, 10, 8)` returns exactly 10 results - ✅ Avg recall@10 with `nprobes=8` is **0.93** (≥ 0.90 required) - ✅ `nprobes=8` recall (0.93) > `nprobes=1` recall (0.26) - ✅ Each row contains `id` as an integer   
+🎉 Task Completed
+The solution is implemented at `/home/user/myproject/solution.py`. Here's a summary of what it does:
+
+## What was built
+
+**File:** `/home/user/myproject/solution.py`
+
+### Key components
+
+1. **Configuration** — reads `LANCE_DB_PATH` and `ZEALT_RUN_ID` from the environment; the table name is `vectors_{ZEALT_RUN_ID}`.
+
+2. **Deterministic seed data** — `numpy.random.default_rng(2026).standard_normal((1024, 128)).astype("float32")` with `id = 0..1023`, using a PyArrow schema with `pa.list_(pa.float32(), 128)` for the vector column.
+
+3. **Index creation** — calls `table.create_index(metric="cosine", num_partitions=8, index_type="IVF_HNSW_SQ", replace=True)` then blocks with `table.wait_for_index(["vector_idx"], timeout=timedelta(seconds=120))`.
+
+4. **`search(query_vec, k, nprobes)`** — builds the query via `.search(query_vec).metric("cosine").nprobes(nprobes).limit(k).to_list()`, returning a `list[dict]` with `id`, `vector`, and `_distance` per row in distance-ascending order.
+
+5. **Import-time side effects** — seeding and index building run on import so the verifier can simply `import solution` and call `search(...)`.
+
+### Verification results
+| Check | Result |
+|---|---|
+| `search([0]*128, 10, 8)` length | **10** ✅ |
+| Index type | `IVF_HNSW_SQ` on `["vector"]`, cosine ✅ |
+| `nprobes=1` results ≤ 10 | ✅ |
+| `nprobes=8` results == 10 | ✅ |
+| Avg recall@10 (`nprobes=8`) | **0.93** ≥ 0.90 ✅ |
+| recall(`nprobes=8`) > recall(`nprobes=1`) | 0.93 > 0.26 ✅ |   
+  

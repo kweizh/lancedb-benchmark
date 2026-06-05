@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_solution_search_callable
+PASSED tests/test_final_state.py::test_index_exists_with_correct_type_and_column
+PASSED tests/test_final_state.py::test_search_nprobes_1_truncates
+PASSED tests/test_final_state.py::test_search_nprobes_8_returns_full_k
+PASSED tests/test_final_state.py::test_recall_at_10_nprobes_8
+PASSED tests/test_final_state.py::test_higher_nprobes_improves_recall
+PASSED tests/test_final_state.py::test_cli_smoke
+============================== 7 passed in 6.68s ===============================

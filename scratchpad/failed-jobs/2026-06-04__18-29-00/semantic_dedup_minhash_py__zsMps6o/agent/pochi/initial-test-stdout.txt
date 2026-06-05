@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 7 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_datasketch_importable PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_lancedb_data_dir_exists PASSED
+bootstrap/test_initial_state.py::test_seeded_table_present FAILED
+bootstrap/test_initial_state.py::test_ground_truth_artifact_present PASSED
+
+=================================== FAILURES ===================================
+__________________________ test_seeded_table_present ___________________________
+
+    def test_seeded_table_present():
+        import lancedb
+    
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable must be set in the initial state."
+    
+        db = lancedb.connect(LANCEDB_DIR)
+        table_name = f"documents_{run_id}"
+        names = db.table_names()
+>       assert table_name in names, (
+            f"Expected seeded table '{table_name}' to exist in {LANCEDB_DIR}; found tables: {names!r}."
+        )
+E       AssertionError: Expected seeded table 'documents_zr-zsmps6o' to exist in /app/lancedb_data; found tables: ['documents_build'].
+E       assert 'documents_zr-zsmps6o' in ['documents_build']
+
+bootstrap/test_initial_state.py:43: AssertionError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_seeded_table_present - Assertion...
+========================= 1 failed, 6 passed in 6.59s ==========================

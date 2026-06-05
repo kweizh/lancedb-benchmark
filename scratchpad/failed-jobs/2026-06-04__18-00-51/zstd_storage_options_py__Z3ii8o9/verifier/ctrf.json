@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780596650700,
+            "stop": 1780596657176
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_stdout_format",
+                "status": "passed",
+                "duration": 2788,
+                "start": 1780596650964,
+                "stop": 1780596653752,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_size_report_exists_and_parses",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780596653753,
+                "stop": 1780596653754,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_both_tables_exist",
+                "status": "passed",
+                "duration": 3371,
+                "start": 1780596653754,
+                "stop": 1780596657125,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_schemas_and_row_counts",
+                "status": "passed",
+                "duration": 10,
+                "start": 1780596657126,
+                "stop": 1780596657136,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compression_is_effective",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780596657136,
+                "stop": 1780596657137,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compare_sizes_function",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780596657137,
+                "stop": 1780596657140,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_parity",
+                "status": "passed",
+                "duration": 36,
+                "start": 1780596657140,
+                "stop": 1780596657176,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

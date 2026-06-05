@@ -1,0 +1,82 @@
+- Initializing MCP connections...
+You
+# LanceDB MMR Diversity Re-ranking ## Background Pure top-k vector search often returns near-duplicates clustered around the query. Maximal Marginal Relevance (MMR) is a classic post-retrieval re-ranking technique that trades off relevance against diversity: starting from a candidate pool, it iteratively picks the document that maximises ``` score(d) = lambda * sim(q, d) - (1 - lambda) * max_{d' in selected} sim(d, d') ``` where `sim` is cosine similarity. In this task you will build an MMR re-ranker on top of a real LanceDB cosine-vector index. ## Requirements * Implement everything in `/home/user/myproject/solution.py` using the real LanceDB Python SDK (no mocking, no fake data sources). * Read the run identifier from the `ZEALT_RUN_ID` environment variable. The LanceDB table name MUST be `mmr_docs_${ZEALT_RUN_ID}` and the database directory MUST be `/app/db` so concurrent trials do not collide. * Expose two callables in `solution.py`: * `build_dataset() -> None` — builds the deterministic fixture table described below at `/app/db`. * `mmr_search(query_vec, k=10, lambda_=0.5) -> list[int]` — runs MMR re-ranking against the same table and returns the selected document `id` values as a Python `list[int]` of length `k`, in the order they were picked by MMR (most-relevant first). * Also provide a CLI entry point so that running `python3 /home/user/myproject/solution.py` (no arguments) calls `build_dataset()` once. The candidate is responsible for executing this command before the verifier runs so the table exists. ## Dataset Specification * 120 rows total, organised as 10 well-separated clusters of 12 rows each. * Schema (must match exactly so the verifier can read it): * `id`: `int64` — globally unique, values `0..119` inclusive. * `cluster_id`: `int64` — values `0..9` inclusive, exactly 12 rows per `cluster_id`. * `vector`: `fixed_size_list<float32, 32>` — 32-dimensional embedding. * Deterministic generation using `numpy.random.default_rng(seed=2026)`: 1. Draw a `(32, 32)` standard-normal matrix `A` from the seeded RNG and compute `Q, _ = np.linalg.qr(A)`. Use `Q[:, c]` as the centroid of cluster `c` for `c in range(10)`. Each centroid is a unit vector and the centroids are mutually orthogonal. 2. For each cluster `c in range(10)` and slot `j in range(12)`, draw one fresh `(32,)` standard-normal noise vector from the same RNG and form `row_vec = Q[:, c] + 0.05 * noise`. Cast to `float32`. 3. Assign `id = c * 12 + j` and `cluster_id = c`. * Insert rows in `cluster_id`-major then `j`-major order (cluster 0 ids 0..11, cluster 1 ids 12..23, ...). Do not shuffle. ## MMR Specification * Candidate pool: top-30 rows from a single cosine vector search against the query (`distance_type("cosine").limit(30)`). The remaining 90 rows MUST NOT influence the result. * Similarity throughout MMR is **cosine similarity** `sim(a, b) = (a . b) / (||a|| * ||b||)` computed on the stored float32 vectors. The same metric is used for both the relevance term `sim(q, d)` and the redundancy term `sim(d, d')`. * Iterative selection: while `|selected| < k`, pick the candidate `d` (not yet selected) that maximises `lambda_ * sim(q, d) - (1 - lambda_) * max_{d' in selected} sim(d, d')`. For the very first pick (`selected` empty) the redundancy term is `0`, so the first pick maximises `lambda_ * sim(q, d)`. * Return the IDs in selection order. Length must be exactly `k`. Each id must come from the candidate pool and must not repeat. * Hyperparameter: `lambda_ in [0.0, 1.0]`. Default is `0.5`. The query vector is a 1-D iterable of length 32 (numpy array or list of floats). ## Implementation Hints * Use `lancedb.connect("/app/db")`, `db.create_table(name, schema=..., mode="overwrite")`, and Arrow schemas. `pyarrow.list_(pa.float32(), 32)` is the fixed-size list type LanceDB expects for the vector column. * For the candidate pool, the documented vector-search API is `table.search(query_vec).distance_type("cosine").limit(30).to_list()` (see https://docs.lancedb.com/search/vector-search and https://docs.lancedb.com/quickstart). The returned dicts include the vector, `id`, `cluster_id`, and a `_distance` column where `_distance = 1 - cosine_similarity`. * Use NumPy to compute all subsequent cosine similarities for the MMR loop — do **not** issue extra LanceDB searches per candidate. * Numerical care: normalise vectors once before computing dot products, or divide by `||a|| * ||b||` each time. Use `float64` for the dot products to avoid accumulation noise. * Reading the run id: `os.environ["ZEALT_RUN_ID"]`. Construct the table name from it. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 /home/user/myproject/solution.py` * Database path: `/app/db` * Table name: `mmr_docs_${run-id}` (read `run-id` from `ZEALT_RUN_ID`) * After running the command, opening the table from `/app/db` MUST report exactly 120 rows with `id` values `{0, 1, ..., 119}` and `cluster_id` values `{0..9}` with 12 rows each. * The table vector column MUST be `fixed_size_list<float32, 32>`. * `solution.mmr_search(query_vec, k=10, lambda_=1.0)` MUST equal the top-10 pure cosine vector search ids for the same `query_vec` (no diversity term, so MMR reduces to pure relevance ranking). * `solution.mmr_search(query_vec, k=10, lambda_=0.3)` MUST return ids spanning at least 7 distinct `cluster_id` values (diversity dominates). * `solution.mmr_search(query_vec, k=10, lambda_=0.7)` MUST (a) return ids spanning at least 5 distinct `cluster_id` values and (b) include the pure-vector-search top-1 id for the same `query_vec`. * Returned lists MUST have length 10, contain no duplicate ids, and every id MUST exist in the table.   
+
+Pochi
+💭 Thinking for 1777 characters   
+💫 Executing python3 -c 'import pyarrow as pa; print(pa.list_(pa.float32(), 32))' ✔ 
+💭 Thinking for 298 characters   
+💫 Executing mkdir -p /home/user/myproject && mkdir -p /app/db && pip install lancedb numpy pyarrow ✖ "Command exited with code 1"
+💫 Executing python3 -c 'import lancedb, numpy, pyarrow' ✔ 
+💭 Thinking for 213 characters   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+💭 Thinking for 232 characters   
+💫 Executing python3 /home/user/myproject/solution.py ✔ 
+💫 Executing cat << 'EOF' > test_mmr.py
+import numpy as np
+from solution import mmr_search
+
+query = np.random.randn(32).astype(np.float32)
+print("lambda 1.0:", mmr_search(query, k=10, lambda_=1.0))
+print("lambda 0.3:", mmr_search(query, k=10, lambda_=0.3))
+print("lambda 0.7:", mmr_search(query, k=10, lambda_=0.7))
+EOF
+python3 test_mmr.py ✖ "Command exited with code 1"
+💭 Thinking for 219 characters   
+💫 Executing cd /home/user/myproject && python3 ../../../test_mmr.py ✖ "Command exited with code 1"
+💭 Thinking for 525 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/test_mmr.py
+import numpy as np
+from solution import mmr_search
+
+query = np.random.randn(32).astype(np.float32)
+print("lambda 1.0:", mmr_search(query, k=10, lambda_=1.0))
+print("lambda 0.3:", mmr_search(query, k=10, lambda_=0.3))
+print("lambda 0.7:", mmr_search(query, k=10, lambda_=0.7))
+EOF
+cd /home/user/myproject && python3 test_mmr.py ✔ 
+💭 Thinking for 255 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/test_mmr.py
+import numpy as np
+import lancedb
+from solution import mmr_search, get_db_path, get_table_name
+
+db = lancedb.connect(get_db_path())
+table = db.open_table(get_table_name())
+data = table.to_pandas()
+# Create a query that is the average of centroids from clusters 0 to 8
+centroids = []
+for c in range(10):
+    cluster_data = data[data['cluster_id'] == c]
+    centroids.append(np.mean(np.stack(cluster_data['vector']), axis=0))
+
+query = sum(centroids[:8])
+print("lambda 1.0:", mmr_search(query, k=10, lambda_=1.0))
+print("lambda 0.3:", mmr_search(query, k=10, lambda_=0.3))
+print("lambda 0.7:", mmr_search(query, k=10, lambda_=0.7))
+
+res_03 = mmr_search(query, k=10, lambda_=0.3)
+clusters_03 = set([x // 12 for x in res_03])
+print("clusters 0.3:", len(clusters_03))
+
+res_07 = mmr_search(query, k=10, lambda_=0.7)
+clusters_07 = set([x // 12 for x in res_07])
+print("clusters 0.7:", len(clusters_07))
+EOF
+cd /home/user/myproject && python3 test_mmr.py ✔ 
+💭 Thinking for 2040 characters   
+🔧 Applying diff to /home/user/myproject/solution.py ✔ 
+💫 Executing export ZEALT_RUN_ID="testrun" && cd /home/user/myproject && python3 solution.py && python3 test_mmr.py ✔ 
+💭 Thinking for 201 characters   
+💫 Executing echo $ZEALT_RUN_ID ✔ 
+💫 Executing cd /home/user/myproject && python3 solution.py ✔ 
+💭 Thinking for 1458 characters   
+🎉 Task Completed
+I have implemented the LanceDB MMR Diversity Re-ranking script according to the specifications.
+
+The solution is located at `/home/user/myproject/solution.py` and includes:
+1. `build_dataset()`: Generates the deterministic dataset using the specified random seed and standard-normal matrix transformations. It creates 10 orthogonal centroids and adds noise to generate 120 vectors across 10 clusters, storing them in LanceDB with the exact required schema (`id`, `cluster_id`, and `vector` as `fixed_size_list<float32, 32>`).
+2. `mmr_search(query_vec, k=10, lambda_=0.5)`: Connects to the LanceDB table, retrieves the top-30 candidates using cosine vector search, and then performs Maximal Marginal Relevance (MMR) re-ranking in NumPy using `float64` for numerical stability.
+
+I have also executed the script to generate the table `mmr_docs_${ZEALT_RUN_ID}` in `/app/db` so that it is ready for the verifier.   
+  

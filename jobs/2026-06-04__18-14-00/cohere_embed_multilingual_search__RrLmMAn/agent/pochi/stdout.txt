@@ -1,0 +1,70 @@
+[18:23:50.093 window] ERROR (#1): LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined } (cause: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)'))), "note": undefined, "payload": undefined }
+  LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined } (cause: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)'))), "note": undefined, "payload": undefined }
+    at <anonymous> (/$bunfs/root/pochi:66498:165)
+    at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+    at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+    at createStore (/$bunfs/root/pochi:464523:35)
+    at createStore (/$bunfs/root/pochi:464454:33) {
+  [cause]: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined }
+      at catch (/$bunfs/root/pochi:481515:39)
+      at @livestore/common:execSql (/$bunfs/root/pochi:481516:59)
+      at @livestore/common:leader-thread:boot (/$bunfs/root/pochi:482849:33)
+      at @livestore/common:leader-thread (/$bunfs/root/pochi:482849:105)
+      at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+      at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+      at createStore (/$bunfs/root/pochi:464523:35)
+      at createStore (/$bunfs/root/pochi:464454:33) {
+    [cause]: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined }
+        at prepare (/$bunfs/root/pochi:488398:30)
+        at <anonymous> (/$bunfs/root/pochi:488407:36) {
+      [cause]: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')
+          at unknown
+          at unknown
+          at unknown
+          at unknown
+          at unknown
+          at ccall (/$bunfs/root/pochi:486091:19)
+          at <anonymous> (/$bunfs/root/pochi:487368:25)
+          at prepare (/$bunfs/root/pochi:488328:41)
+          at <anonymous> (/$bunfs/root/pochi:488407:36)
+    }
+  }
+}
+  spanId: livestore-noop-span-idcmpztqi4s000t7amr56pofeu1
+  traceId: livestore-noop-trace-idcmpztqi4s000u7amr51mwgaqx
+  thread: window
+  debugInstanceId: qI28stQZsR
+  storeId: LJJsxGJ7yuy9thfzqo2q9BNUE31nXPtCkW697sQ6yniG55jJCUXxue7DtSj1juHNor9QzgaSvqhGFjP22K615htR5pw3cD8epfBZ16aWRRaDsJNd6kpYaADeNCc
+[18:23:50.123 window] ERROR (#1): LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined } (cause: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)'))), "note": undefined, "payload": undefined }
+  LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined } (cause: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)'))), "note": undefined, "payload": undefined }
+    at <anonymous> (/$bunfs/root/pochi:66498:165)
+    at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+    at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+    at createStore (/$bunfs/root/pochi:464523:35)
+    at createStore (/$bunfs/root/pochi:464454:33) {
+  [cause]: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined }
+      at catch (/$bunfs/root/pochi:481515:39)
+      at @livestore/common:execSql (/$bunfs/root/pochi:481516:59)
+      at @livestore/common:leader-thread:boot (/$bunfs/root/pochi:482849:33)
+      at @livestore/common:leader-thread (/$bunfs/root/pochi:482849:105)
+      at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+      at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+      at createStore (/$bunfs/root/pochi:464523:35)
+      at createStore (/$bunfs/root/pochi:464454:33) {
+    [cause]: LiveStore.SqliteError: { "query": {"sql":"INSERT INTO __livestore_sync_status (head)\n          SELECT 0\n          WHERE NOT EXISTS (SELECT 1 FROM __livestore_sync_status)","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined }
+        at prepare (/$bunfs/root/pochi:488398:30)
+        at <anonymous> (/$bunfs/root/pochi:488407:36) {
+      [cause]: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')
+          at unknown
+          at unknown
+          at unknown
+          at unknown
+          at unknown
+          at ccall (/$bunfs/root/pochi:486091:19)
+          at <anonymous> (/$bunfs/root/pochi:487368:25)
+          at prepare (/$bunfs/root/pochi:488328:41)
+          at <anonymous> (/$bunfs/root/pochi:488407:36)
+    }
+  }
+}
+  thread: window

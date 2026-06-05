@@ -1,0 +1,91 @@
+Skipping image OS validation for hb__binary_quantization_search_py: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-wmrhy2c > /logs/artifacts/run-id && echo binary_quantization_search_py__WMrhY2c > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "REDACTED",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# LanceDB Recall Benchmark: FP32 Brute-Force vs Aggressively Quantized IVF_PQ
+
+## Background
+LanceDB supports an IVF_PQ vector index that combines coarse Inverted-File partitioning with Product Quantization for memory-efficient ANN search. When `num_sub_vectors` is set very low relative to the embedding dimension, each PQ codeword represents many original components, producing an extremely compressed ("binary-ish") representation that trades recall for footprint and latency.
+
+Your job is to build a self-contained recall benchmark that quantifies how much recall is lost when an aggressive IVF_PQ index replaces brute-force FP32 search on a synthetic but realistically clustered embedding set.
+
+## Requirements
+- Build a Python module at `/home/user/myproject/solution.py` that, when executed as `python3 solution.py`, (re)creates the LanceDB table and index from scratch and prints a recall number.
+- Seed a LanceDB table at `/home/user/myproject/lancedb` (database directory) with at least **1024 rows** of **384-dimensional float32** vectors generated deterministically via `numpy.random.default_rng(<seed>)`.
+- The vectors must be organized into **approximately 10 well-separated clusters** (e.g. 10 random unit-norm centers plus per-row Gaussian noise) so that nearest-neighbor queries have a clear correct answer.
+- Build an **IVF_PQ** vector index on the embedding column with **`num_sub_vectors` ∈ {8, 12}** to force aggressive quantization (384 dims into 8 or 12 sub-vectors means each PQ codeword encodes 32–48 floats).
+- Expose a top-level function with this exact signature:
+  ```python
+  def evaluate_recall(num_queries: int = 50, k: int = 10) -> float:
+      ...
+  ```
+  It must (1) deterministically draw `num_queries` query vectors from the same seeded RNG family (so verification is reproducible), (2) compute brute-force top-`k` ground truth on the FP32 vectors stored in the table, (3) run the same queries through the LanceDB IVF_PQ index (`table.search(qv).limit(k)`), and (4) return the **average recall@k** across all queries as a float in `[0.0, 1.0]`.
+
+## Implementation Hints
+- Use `lancedb.connect("/home/user/myproject/lancedb")` plus an Arrow schema that stores the embedding as a fixed-size list of 384 float32 values.
+- Append `${ZEALT_RUN_ID}` (read from the `ZEALT_RUN_ID` environment variable) to the LanceDB table name so concurrent runs don't collide; the verifier will derive the same name from the same env var.
+- IVF_PQ training requires ≥ 256 rows, so seed comfortably above that minimum.
+- Use `table.create_index(metric="L2", vector_column_name="vector", index_type="IVF_PQ", num_partitions=..., num_sub_vectors=..., replace=True)` and `table.wait_for_index([...], timeout=datetime.timedelta(seconds=60))` to make sure the index is ready before measuring recall.
+- Aggressive PQ destroys fine-grained ranking inside dense clusters. Reading the LanceDB ANN tuning docs about `nprobes(...)` (how many IVF partitions to probe) and `refine_factor(...)` (re-rank the top `k * refine_factor` PQ candidates by exact distance) is the standard way to recover recall while keeping the small index footprint. Use them on the query side rather than weakening the PQ configuration.
+- Recall@k for a single query is `len(returned_ids ∩ ground_truth_ids) / k`; average across all queries.
+- Make the brute-force ground truth deterministic: read every vector back from the table, compute distances in numpy, and rank by ascending L2 distance.
+- If the index name in your `create_index` call is not the LanceDB default (`vector_idx`), make sure `table.list_indices()` still reports it.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Module file: `/home/user/myproject/solution.py`
+- Build command: `python3 /home/user/myproject/solution.py` — must be idempotent (running it twice from scratch leaves a valid table + index).
+- LanceDB directory: `/home/user/myproject/lancedb`
+- Table name: `bench_${ZEALT_RUN_ID}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- Schema: an `id` column (integer) and a `vector` column typed as a fixed-size list of **384 float32** values.
+- Row count: at least **1024**.
+- Vector index: at least one IVF_PQ index is present on the `vector` column as reported by `table.list_indices()`, built with `num_sub_vectors` in `{8, 12}`.
+- Public API: `from solution import evaluate_recall; evaluate_recall(num_queries=50, k=10)` returns a `float` between 0.0 and 1.0 representing average recall@10 against brute-force ground truth.
+- Quality bar: the returned recall must be **≥ 0.70**.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

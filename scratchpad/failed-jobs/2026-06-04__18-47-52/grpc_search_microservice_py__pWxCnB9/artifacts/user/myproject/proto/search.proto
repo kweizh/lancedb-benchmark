@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package search;
+
+service SearchService {
+  rpc Search (SearchRequest) returns (SearchResponse);
+}
+
+message SearchRequest {
+  repeated float vector = 1;
+  int32 k = 2;
+  string where_clause = 3;
+}
+
+message SearchResponse {
+  repeated Hit hits = 1;
+}
+
+message Hit {
+  int64 id = 1;
+  float score = 2;
+  string title = 3;
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "id": "prod-electronics-headphones-anc",
+    "category": "electronics",
+    "description": "Premium over-ear wireless Bluetooth headphones with industry-leading active noise cancellation, 40-hour battery life, and travel-friendly folding design ideal for long flights and daily commutes."
+  },
+  {
+    "id": "prod-kitchen-espresso-machine",
+    "category": "kitchen",
+    "description": "Semi-automatic high-pressure 15-bar espresso machine with built-in conical burr grinder, steam wand for latte art, and stainless steel boiler designed for home baristas crafting cafe-quality espresso shots."
+  },
+  {
+    "id": "prod-fitness-carbon-marathon-shoes",
+    "category": "fitness",
+    "description": "Ultra-lightweight carbon-fiber plated marathon racing shoes engineered for elite road runners, featuring a responsive PEBA midsole foam, breathable mesh upper, and energy-return geometry designed to break personal records on 26.2 mile races."
+  },
+  {
+    "id": "prod-books-dragon-wizard-fantasy",
+    "category": "books",
+    "description": "International bestselling epic fantasy novel chronicling a young apprentice wizard who befriends an ancient dragon and must master arcane magic to save the kingdom; perfect for fans of high-fantasy coming-of-age sagas."
+  },
+  {
+    "id": "prod-elec-soundbar-living-room",
+    "category": "electronics",
+    "description": "Compact 2.1 channel Dolby Atmos soundbar with wireless subwoofer and HDMI eARC, designed to upgrade movie nights in living rooms with rich cinematic surround sound."
+  },
+  {
+    "id": "prod-elec-smart-tv-65",
+    "category": "electronics",
+    "description": "65 inch 4K QLED smart television with HDR10+, 120Hz refresh rate, and integrated streaming platform for binge-watching shows in ultra-high definition."
+  },
+  {
+    "id": "prod-elec-mechanical-keyboard",
+    "category": "electronics",
+    "description": "Hot-swappable mechanical gaming keyboard with RGB per-key backlighting, tactile brown switches, and aluminum frame engineered for competitive esports players."
+  },
+  {
+    "id": "prod-elec-ergonomic-mouse",
+    "category": "electronics",
+    "description": "Vertical ergonomic wireless mouse shaped to keep the wrist neutral, with adjustable DPI, silent click switches, and rechargeable USB-C battery."
+  },
+  {
+    "id": "prod-elec-portable-ssd-2tb",
+    "category": "electronics",
+    "description": "Rugged 2 terabyte portable USB-C solid state drive with shock-resistant aluminum housing, up to 1050 MB/s read speeds, and hardware AES encryption."
+  },
+  {
+    "id": "prod-elec-wireless-router-mesh",
+    "category": "electronics",
+    "description": "Tri-band Wi-Fi 6E mesh router system that blankets large homes in fast wireless internet, with parental controls and seamless roaming across nodes."
+  },
+  {
+    "id": "prod-elec-webcam-1080p",
+    "category": "electronics",
+    "description": "Plug-and-play 1080p HD streaming webcam with stereo microphones, autofocus, and a privacy shutter for video conferencing and online meetings."
+  },
+  {
+    "id": "prod-elec-smart-doorbell-camera",
+    "category": "electronics",
+    "description": "Battery-powered smart video doorbell camera with motion detection, two-way talk, and crystal clear night vision streamed to your smartphone."
+  },
+  {
+    "id": "prod-elec-bluetooth-speaker-waterproof",
+    "category": "electronics",
+    "description": "Waterproof portable Bluetooth party speaker with 360-degree sound, deep bass radiator, and 24-hour playtime for pool, beach, and backyard gatherings."
+  },
+  {
+    "id": "prod-elec-vr-headset",
+    "category": "electronics",
+    "description": "Standalone virtual reality headset with high-resolution per-eye displays, inside-out tracking, and a library of immersive VR games and fitness apps."
+  },
+  {
+    "id": "prod-elec-dash-cam-4k",
+    "category": "electronics",
+    "description": "4K front and 1080p rear dash camera with GPS logging, parking surveillance mode, and wide dynamic range sensor for clear day and night recording."
+  },
+  {
+    "id": "prod-elec-graphics-tablet",
+    "category": "electronics",
+    "description": "Pen display graphics tablet with 8192 levels of pressure sensitivity, programmable shortcut keys, and color-accurate screen for digital illustrators and photo editors."
+  },
+  {
+    "id": "prod-elec-usb-c-hub",
+    "category": "electronics",
+    "description": "11-in-1 USB-C docking station hub with dual HDMI 4K output, gigabit Ethernet, SD card reader, and 100W passthrough charging for laptops."
+  },
+  {
+    "id": "prod-elec-air-fryer-toaster-oven",
+    "category": "electronics",
+    "description": "Smart air fryer toaster oven combo with 12 cooking modes, convection technology, and a touchscreen display that crisps food using little to no oil."
+  },
+  {
+    "id": "prod-kitchen-blender-vitamix",
+    "category": "kitchen",
+    "description": "High-performance 1200 watt countertop blender with stainless steel laser-cut blades, variable speed control, and tritan jug for smoothies, soups, and nut butters."
+  },
+  {
+    "id": "prod-kitchen-cast-iron-skillet",
+    "category": "kitchen",
+    "description": "Pre-seasoned 12 inch cast iron skillet with helper handle and pour spouts; oven, stovetop, grill, and campfire safe for decades of cooking."
+  },
+  {
+    "id": "prod-kitchen-chef-knife",
+    "category": "kitchen",
+    "description": "8 inch high-carbon stainless steel chef knife with full tang triple-riveted ergonomic handle, hand sharpened to a razor edge for everyday slicing and dicing."
+  },
+  {
+    "id": "prod-kitchen-instant-pot",
+    "category": "kitchen",
+    "description": "9-in-1 multi-cooker pressure cooker with slow cook, rice, yogurt, saute, and sterilize programs, suitable for one-pot family dinners in under an hour."
+  },
+  {
+    "id": "prod-kitchen-stand-mixer",
+    "category": "kitchen",
+    "description": "Tilt-head 5 quart stand mixer with planetary mixing action and 10 attachments for kneading sourdough, whipping meringue, and grinding meat in a single appliance."
+  },
+  {
+    "id": "prod-kitchen-dutch-oven",
+    "category": "kitchen",
+    "description": "Enameled cast iron 7 quart Dutch oven with self-basting lid, perfect for braising, baking artisan bread, and simmering hearty stews on stove or oven."
+  },
+  {
+    "id": "prod-kitchen-rice-cooker-japanese",
+    "category": "kitchen",
+    "description": "Japanese induction rice cooker with fuzzy logic, multiple grain settings, and a non-stick spherical inner pot that delivers fluffy white, brown, or sushi rice."
+  },
+  {
+    "id": "prod-kitchen-coffee-grinder-burr",
+    "category": "kitchen",
+    "description": "Conical burr coffee grinder with 40 grind settings, suitable for pour-over, French press, drip, and even espresso brewing with consistent particle size."
+  },
+  {
+    "id": "prod-kitchen-french-press",
+    "category": "kitchen",
+    "description": "8 cup double-walled stainless steel French press coffee maker with reusable mesh filter and heat-retaining vacuum insulation."
+  },
+  {
+    "id": "prod-kitchen-electric-kettle-temp",
+    "category": "kitchen",
+    "description": "Variable temperature gooseneck electric kettle with one-degree precision settings, ideal for tea brewing and pour-over coffee enthusiasts."
+  },
+  {
+    "id": "prod-kitchen-cutting-board-walnut",
+    "category": "kitchen",
+    "description": "End-grain walnut wood cutting board with juice groove and built-in handles, gentle on knife edges and gorgeous as a charcuterie serving board."
+  },
+  {
+    "id": "prod-kitchen-sous-vide-circulator",
+    "category": "kitchen",
+    "description": "Immersion sous vide precision circulator with smartphone app control, achieving restaurant-quality results for steak, eggs, and vegetables at home."
+  },
+  {
+    "id": "prod-kitchen-glass-storage-set",
+    "category": "kitchen",
+    "description": "20-piece airtight borosilicate glass meal-prep food storage container set with leak-proof bamboo lids, freezer, microwave, and dishwasher safe."
+  },
+  {
+    "id": "prod-kitchen-pizza-stone-cordierite",
+    "category": "kitchen",
+    "description": "15 inch round cordierite pizza baking stone for ovens and grills, delivering crispy artisan crusts and even browning on homemade pies."
+  },
+  {
+    "id": "prod-fit-yoga-mat-eco",
+    "category": "fitness",
+    "description": "Extra thick 6mm eco-friendly TPE yoga mat with non-slip dual-textured surface and carrying strap, ideal for vinyasa flow, Pilates, and home workouts."
+  },
+  {
+    "id": "prod-fit-adjustable-dumbbells",
+    "category": "fitness",
+    "description": "Pair of adjustable dumbbells with rapid dial system, replacing 15 weights from 5 to 52 pounds for compact strength training at home."
+  },
+  {
+    "id": "prod-fit-jump-rope-speed",
+    "category": "fitness",
+    "description": "Speed jump rope with ball-bearing handles, adjustable steel cable, and free workout app, perfect for high-intensity cardio and double-unders."
+  },
+  {
+    "id": "prod-fit-resistance-bands-set",
+    "category": "fitness",
+    "description": "11-piece resistance band set with stackable tubes up to 150 pounds, door anchor, handles, and ankle straps for total-body resistance training."
+  },
+  {
+    "id": "prod-fit-foam-roller-vibrating",
+    "category": "fitness",
+    "description": "Vibrating foam roller with five intensity settings for deep tissue myofascial release, post-workout muscle recovery, and mobility work."
+  },
+  {
+    "id": "prod-fit-treadmill-folding",
+    "category": "fitness",
+    "description": "Folding electric treadmill with cushioned running deck, 12 incline levels, and built-in heart rate sensors for cardio sessions in small apartments."
+  },
+  {
+    "id": "prod-fit-rowing-machine-magnetic",
+    "category": "fitness",
+    "description": "Magnetic resistance rowing machine with 16 levels, performance monitor, and aluminum rail for smooth full-body indoor rowing workouts."
+  },
+  {
+    "id": "prod-fit-cycling-shoes-spd",
+    "category": "fitness",
+    "description": "Indoor cycling shoes with stiff carbon-reinforced sole, breathable mesh, and dual SPD cleat compatibility for spin classes and road bikes."
+  },
+  {
+    "id": "prod-fit-trail-running-shoes",
+    "category": "fitness",
+    "description": "Aggressive lugged trail running shoes with rock plate and waterproof membrane, designed for muddy ultra-marathon courses and technical mountain terrain."
+  },
+  {
+    "id": "prod-fit-walking-shoes-comfort",
+    "category": "fitness",
+    "description": "Cushioned all-day walking shoes with memory foam insole, arch support, and slip-resistant outsole for nurses, teachers, and city walkers."
+  },
+  {
+    "id": "prod-fit-tennis-racket",
+    "category": "fitness",
+    "description": "Graphite composite tennis racket with 100 square inch head, balanced 300 gram frame, and shock-absorbing grip for intermediate club players."
+  },
+  {
+    "id": "prod-fit-bike-helmet-aero",
+    "category": "fitness",
+    "description": "Aerodynamic road cycling helmet with MIPS rotational impact protection, magnetic visor, and adjustable retention dial for triathletes and roadies."
+  },
+  {
+    "id": "prod-fit-water-bottle-insulated",
+    "category": "fitness",
+    "description": "24 oz double-walled vacuum-insulated stainless steel water bottle that keeps drinks cold for 24 hours and hot for 12, with leak-proof sport lid."
+  },
+  {
+    "id": "prod-fit-smartwatch-running",
+    "category": "fitness",
+    "description": "GPS multisport smartwatch with VO2 max estimation, training load tracking, optical heart rate, and breadcrumb navigation for runners and triathletes."
+  },
+  {
+    "id": "prod-books-mystery-detective",
+    "category": "books",
+    "description": "Gripping noir detective mystery novel set in 1940s San Francisco, where a hard-boiled private investigator unravels a deadly conspiracy through fog-soaked streets."
+  },
+  {
+    "id": "prod-books-romance-historical",
+    "category": "books",
+    "description": "Sweeping historical romance novel set in Regency-era England, following a clever spinster and a brooding duke as their forbidden love defies society."
+  },
+  {
+    "id": "prod-books-scifi-space-opera",
+    "category": "books",
+    "description": "Hugo Award-nominated science fiction space opera featuring rebel starships, alien diplomacy, and quantum teleportation across a galactic empire on the brink of civil war."
+  },
+  {
+    "id": "prod-books-biography-einstein",
+    "category": "books",
+    "description": "Critically acclaimed biography of Albert Einstein chronicling his Bohemian youth, miracle year, and lifelong quest for a unified field theory of physics."
+  },
+  {
+    "id": "prod-books-cookbook-italian",
+    "category": "books",
+    "description": "Cookbook celebrating regional Italian home cooking with 200 recipes for fresh pasta, ragu, focaccia, tiramisu, and seasonal vegetable contorni."
+  },
+  {
+    "id": "prod-books-self-help-habits",
+    "category": "books",
+    "description": "Bestselling self-help guide to building tiny daily habits that compound into life-changing results, packed with neuroscience-backed strategies and templates."
+  },
+  {
+    "id": "prod-books-childrens-picturebook",
+    "category": "books",
+    "description": "Heartwarming children's picture book about a curious little fox who learns to share, beautifully illustrated in watercolor for ages three to six."
+  },
+  {
+    "id": "prod-books-history-rome",
+    "category": "books",
+    "description": "Sweeping narrative history of the rise and fall of the Roman Empire, from the Republic through Constantine, drawing on the latest archaeological evidence."
+  },
+  {
+    "id": "prod-books-thriller-spy",
+    "category": "books",
+    "description": "Pulse-pounding espionage thriller in which a disavowed CIA operative races across European capitals to stop a rogue intelligence cell from triggering nuclear war."
+  },
+  {
+    "id": "prod-books-philosophy-stoicism",
+    "category": "books",
+    "description": "Accessible modern introduction to Stoic philosophy, applying lessons from Marcus Aurelius and Epictetus to anxiety, productivity, and meaningful living."
+  },
+  {
+    "id": "prod-books-poetry-contemporary",
+    "category": "books",
+    "description": "Award-winning contemporary poetry collection exploring grief, immigration, and rediscovered joy through lyrical free verse and prose poems."
+  },
+  {
+    "id": "prod-books-business-startup",
+    "category": "books",
+    "description": "Practical handbook for founding a tech startup, covering customer discovery, product-market fit, fundraising, and scaling teams from zero to one hundred employees."
+  },
+  {
+    "id": "prod-books-graphic-novel-superhero",
+    "category": "books",
+    "description": "Beautifully illustrated graphic novel reinventing a classic superhero mythos with morally complex villains, sweeping splash pages, and meta-textual storytelling."
+  },
+  {
+    "id": "prod-books-young-adult-dystopia",
+    "category": "books",
+    "description": "Young adult dystopian trilogy opener about a teenage rebel surviving in a flooded post-climate-collapse mega-city ruled by an authoritarian corporate council."
+  }
+]

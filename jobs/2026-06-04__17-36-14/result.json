@@ -1,0 +1,75 @@
+{
+    "id": "2e83812e-5c0c-4a64-a61b-c1e9b5c6aa0d",
+    "started_at": "2026-06-04T17:36:20.064726",
+    "updated_at": "2026-06-04T18:00:49.655439",
+    "finished_at": "2026-06-04T18:00:49.655439",
+    "n_total_trials": 30,
+    "stats": {
+        "n_completed_trials": 30,
+        "n_errored_trials": 10,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.5-flash__pending-tasks": {
+                "n_trials": 20,
+                "n_errors": 10,
+                "metrics": [
+                    {
+                        "mean": 0.43333333333333335
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "jina_embedding_api_search_py__R5Zw7kv",
+                            "ivf_hnsw_sq_index_py__DsYeVZc",
+                            "multi_vector_late_interaction_py__vgChUdY",
+                            "grpc_search_microservice_py__QuNf3Ta",
+                            "kmeans_clustering_embeddings_py__peo57o3",
+                            "polars_dataframe_ingest_py__YMNKUg9",
+                            "autocomplete_prefix_search_py__BGjgEkx",
+                            "arrow_flight_lance_proxy_py__JjTVkvS",
+                            "zstd_storage_options_py__qygCj9f",
+                            "negative_filter_not_in_py__8CSWHEG",
+                            "cohere_embed_multilingual_search__3Teud7x",
+                            "cosine_similarity_matrix_py__nfuJqxR",
+                            "parquet_partitioned_to_lance_py__V3abV8u"
+                        ],
+                        "0.0": [
+                            "binary_quantization_search_py__Ya4iGi8",
+                            "duckdb_lance_query_py__9E3Q8ti",
+                            "voyage_embedding_api_search_py__DCnwjNK",
+                            "mmr_diversity_reranking_py__Huk3vd2",
+                            "snapshot_tag_compare_py__gezGU3r",
+                            "pq_recall_quality_sweep_py__bsbkmXJ",
+                            "query_expansion_wordnet_py__y6P9WG3"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "InitialStateError": [
+                        "outlier_detection_isolation_fore__uH9BtYh",
+                        "tantivy_phrase_proximity_py__HbxGvA6",
+                        "semantic_dedup_minhash_py__k8vsYTu",
+                        "multilingual_fts_per_language_py__ruCQ6X6",
+                        "relevance_feedback_rocchio_py__jNK76sJ",
+                        "nearest_centroid_classifier_py__xexuU6e"
+                    ],
+                    "RuntimeError": [
+                        "cross_lingual_translate_search_p__aHjse7H",
+                        "hf_inference_cross_encoder_reran__6qHEDEm",
+                        "hyde_hypothetical_doc_search_py__FQecwdA",
+                        "query_decomposition_rag_py__nBTFFJ4"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 696482,
+        "cost_usd": null
+    }
+}

@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 6 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_cohere_sdk_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_corpus_file_exists PASSED
+bootstrap/test_initial_state.py::test_corpus_has_90_rows_with_required_schema PASSED
+bootstrap/test_initial_state.py::test_cohere_api_key_env_present PASSED
+
+============================== 6 passed in 5.32s ===============================

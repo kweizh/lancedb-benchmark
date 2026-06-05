@@ -1,0 +1,113 @@
+- Initializing MCP connections...
+You
+# LanceDB Negation Filters: NOT IN, !=, NOT LIKE, and Complex NOT (...) ## Background LanceDB supports DataFusion SQL syntax in its `where(...)` clause, including negation operators such as `NOT IN`, `!=`, `NOT LIKE`, and arbitrary boolean negation with `NOT (...)`. Combining vector search with negation filters is a common pattern in product search (exclude blocked brands, exclude on-sale categories, hide certain SKUs by name prefix, etc.). Your job is to build a small product-catalog search module on top of a 300-row LanceDB table and expose four search functions that each combine an L2 vector search with a specific kind of negation filter. ## Requirements * Build a Python module at `/home/user/myproject/solution.py` that, when executed as `python3 solution.py`, deterministically (re)creates a LanceDB table named `products_${ZEALT_RUN_ID}` and (re)populates it with exactly 300 rows. * The LanceDB database directory must live at `/home/user/myproject/lancedb`. * Seed every random value with `numpy.random.default_rng(2026)` so the fixture is byte-identical between candidate and verifier runs. * The Arrow schema must be exactly: * `id`: `Int64` * `name`: `Utf8` * `brand`: `Utf8` (drawn from 10 distinct brand strings) * `category`: `Utf8` (drawn from 6 distinct category strings) * `price`: `Float64` * `banned_country`: `Utf8` * `vector`: `fixed_size_list<float32, 16>` (16-dimensional float32 embedding) * The candidate code must expose a top-level `build_table()` function and the following four search functions with these exact signatures and behaviors: ```python def exclude_brands(query_vec: list[float], banned_brands: list[str], k: int = 10) -> list[dict]: ... def exclude_categories_and_price(query_vec: list[float], cat: str, max_price: float, k: int = 10) -> list[dict]: ... def not_like_search(query_vec: list[float], prefix: str, k: int = 10) -> list[dict]: ... def complex_negation(query_vec: list[float], k: int = 10) -> list[dict]: ... ``` * Each function must run an L2 vector search against the `vector` column with the supplied `query_vec`, apply the correct LanceDB SQL `where` clause, and return up to `k` rows as a list of dicts ordered by ascending L2 distance. * Each returned dict must contain exactly these keys: `id` (int), `name` (str), `brand` (str), `category` (str), `price` (float). * The `where` clause for each function must be the negation listed below (use single-quoted SQL string literals): * `exclude_brands`: `brand NOT IN ('<b1>','<b2>',...)` built from the `banned_brands` list. * `exclude_categories_and_price`: `category != '<cat>' AND price <= `. * `not_like_search`: `name NOT LIKE '<prefix>%'`. * `complex_negation`: `NOT (brand = 'BrandA' OR (category = 'Cat3' AND price > 100.0))`. Hard-code the literals `'BrandA'`, `'Cat3'`, and `100.0` in the SQL string. ## Implementation Hints * Use `lancedb.connect("/home/user/myproject/lancedb")` and create the table with `mode="overwrite"` so re-running the script is idempotent. * Construct the Arrow schema explicitly with `pyarrow` types (`pa.int64()`, `pa.utf8()`, `pa.float64()`, `pa.list_(pa.float32(), 16)`) and pass it via the `schema=` keyword when creating the table. * The 10 brands should be `BrandA`..`BrandJ`; the 6 categories should be `Cat1`..`Cat6`. The 5 `banned_country` values should be drawn from `{"", "US", "EU", "ASIA", "AFRICA"}`. Use the deterministic numpy RNG to pick brand, category, and banned\_country per row. * The `name` column should be `f"{prefix}-{i:03d}"` where `prefix` is sampled per-row from `["premium", "budget", "classic", "deluxe", "smart", "eco"]`. This makes the `NOT LIKE 'premium%'`-style filters meaningful. * Use `numpy.random.default_rng(2026).standard_normal((300, 16)).astype("float32")` for the embedding column. The first call to `default_rng(2026)` must produce the vectors; if you draw additional values from the same RNG for brand/category/price/etc. afterwards, do so in a fixed, documented order so the verifier can match it. * Inside each search function, call `tbl.search(query_vec).where(<sql>).limit(k).to_list()` (or equivalent `to_pandas()` plus iteration) and project to the required dict shape. Do **not** prefilter manually in Python — the `where` clause must be pushed down to LanceDB. * The functions are read-only; they must not mutate the table. ## Acceptance Criteria * Project path: `/home/user/myproject` * Module file: `/home/user/myproject/solution.py` * Build command: `python3 /home/user/myproject/solution.py` — must be idempotent and recreate the table from scratch each time it is invoked. * LanceDB directory: `/home/user/myproject/lancedb` * Table name: `products_${ZEALT_RUN_ID}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable. * Row count of the table is exactly 300. * Schema fields exactly: `id` Int64, `name` Utf8, `brand` Utf8, `category` Utf8, `price` Float64, `banned_country` Utf8, `vector` fixed\_size\_list\<float32, 16>. * Public API: `from solution import exclude_brands, exclude_categories_and_price, not_like_search, complex_negation` returns four callable functions matching the signatures above. * Each search function returns a list of dicts with exactly the keys `id`, `name`, `brand`, `category`, `price`, ordered by ascending L2 distance to the query, and respects its declared negation predicate (zero leakage). * Calling the same function twice with the same arguments must return the same result (deterministic).   
+
+Pochi
+💭 Thinking for 82 characters   
+💫 Executing mkdir -p /home/user/myproject && pip show lancedb pyarrow numpy 2>&1 | grep -E "^(Name|Version|not found)" ✔ 
+✏️  Writing /home/user/myproject/solution.py ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test python3 solution.py ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test python3 - <<'EOF'
+import numpy as np
+from solution import exclude_brands, exclude_categories_and_price, not_like_search, complex_negation
+
+rng = np.random.default_rng(42)
+q = rng.standard_normal(16).astype("float32").tolist()
+
+print("=== exclude_brands ===")
+results = exclude_brands(q, ["BrandA", "BrandB"], k=5)
+for r in results:
+    print(r)
+assert all(r["brand"] not in ("BrandA", "BrandB") for r in results), "FAIL: banned brand leaked"
+assert list(r.keys()) == ["id", "name", "brand", "category", "price"] for r in results
+print("PASS\n")
+
+print("=== exclude_categories_and_price ===")
+results = exclude_categories_and_price(q, "Cat1", 200.0, k=5)
+for r in results:
+    print(r)
+assert all(r["category"] != "Cat1" for r in results), "FAIL: excluded category leaked"
+assert all(r["price"] <= 200.0 for r in results), "FAIL: price exceeded max"
+print("PASS\n")
+
+print("=== not_like_search ===")
+results = not_like_search(q, "premium", k=5)
+for r in results:
+    print(r)
+assert all(not r["name"].startswith("premium") for r in results), "FAIL: 'premium' prefix leaked"
+print("PASS\n")
+
+print("=== complex_negation ===")
+results = complex_negation(q, k=5)
+for r in results:
+    print(r)
+for r in results:
+    assert not (r["brand"] == "BrandA" or (r["category"] == "Cat3" and r["price"] > 100.0)), \
+        f"FAIL: complex filter violated by {r}"
+print("PASS\n")
+
+print("All assertions passed.")
+EOF ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test python3 - <<'EOF'
+import numpy as np
+from solution import exclude_brands, exclude_categories_and_price, not_like_search, complex_negation
+
+rng = np.random.default_rng(42)
+q = rng.standard_normal(16).astype("float32").tolist()
+
+EXPECTED_KEYS = ["id", "name", "brand", "category", "price"]
+
+print("=== exclude_brands ===")
+results = exclude_brands(q, ["BrandA", "BrandB"], k=5)
+for r in results:
+    print(r)
+assert all(r["brand"] not in ("BrandA", "BrandB") for r in results), "FAIL: banned brand leaked"
+assert all(list(r.keys()) == EXPECTED_KEYS for r in results), "FAIL: wrong keys"
+print("PASS\n")
+
+print("=== exclude_categories_and_price ===")
+results = exclude_categories_and_price(q, "Cat1", 200.0, k=5)
+for r in results:
+    print(r)
+assert all(r["category"] != "Cat1" for r in results), "FAIL: excluded category leaked"
+assert all(r["price"] <= 200.0 for r in results), "FAIL: price exceeded max"
+assert all(list(r.keys()) == EXPECTED_KEYS for r in results), "FAIL: wrong keys"
+print("PASS\n")
+
+print("=== not_like_search ===")
+results = not_like_search(q, "premium", k=5)
+for r in results:
+    print(r)
+assert all(not r["name"].startswith("premium") for r in results), "FAIL: 'premium' prefix leaked"
+assert all(list(r.keys()) == EXPECTED_KEYS for r in results), "FAIL: wrong keys"
+print("PASS\n")
+
+print("=== complex_negation ===")
+results = complex_negation(q, k=5)
+for r in results:
+    print(r)
+for r in results:
+    assert not (r["brand"] == "BrandA" or (r["category"] == "Cat3" and r["price"] > 100.0)), \
+        f"FAIL: complex filter violated by {r}"
+assert all(list(r.keys()) == EXPECTED_KEYS for r in results), "FAIL: wrong keys"
+print("PASS\n")
+
+print("All assertions passed.")
+EOF ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test python3 solution.py && echo "idempotent re-run OK" ✔ 
+All tests pass. Here's a summary of what was built: --- **`/home/user/myproject/solution.py`** ### Data generation (single `default_rng(2026)`, fixed order) | Draw | Purpose | |---|---| | 1st | `vectors` — `(300, 16)` float32 normals | | 2nd | brand indices → `BrandA`–`BrandJ` | | 3rd | category indices → `Cat1`–`Cat6` | | 4th | prices — uniform `[1.0, 500.0)` | | 5th | banned-country indices → `{"", "US", "EU", "ASIA", "AFRICA"}` | | 6th | name-prefix indices → `["premium", "budget", "classic", "deluxe", "smart", "eco"]` | ### Four search functions and their SQL predicates | Function | WHERE clause | |---|---| | `exclude_brands` | `brand NOT IN ('b1','b2',...)` | | `exclude_categories_and_price` | `category != 'cat' AND price <= max_price` | | `not_like_search` | `name NOT LIKE 'prefix%'` | | `complex_negation` | `NOT (brand = 'BrandA' OR (category = 'Cat3' AND price > 100.0))` | Each function uses LanceDB's `.search().where().limit().to_list()` pipeline so filtering is pushed down to the engine. Results are projected to exactly `{id, name, brand, category, price}` dicts ordered by ascending L2 distance.   
+💭 Thinking for 220 characters   
+🎉 Task Completed
+The module `/home/user/myproject/solution.py` is complete and verified. Running `python3 /home/user/myproject/solution.py` (with `ZEALT_RUN_ID` set) deterministically creates the `products_${ZEALT_RUN_ID}` table in `/home/user/myproject/lancedb` with exactly 300 rows and the required Arrow schema.
+
+**What was built:**
+
+- `build_table()` — seeds `numpy.random.default_rng(2026)` and draws in this fixed order: vectors → brands → categories → prices → banned_countries → name_prefixes. Creates the table with `mode="overwrite"` for idempotency.
+
+- `exclude_brands(query_vec, banned_brands, k)` — WHERE `brand NOT IN ('b1','b2',...)`
+- `exclude_categories_and_price(query_vec, cat, max_price, k)` — WHERE `category != 'cat' AND price <= max_price`
+- `not_like_search(query_vec, prefix, k)` — WHERE `name NOT LIKE 'prefix%'`
+- `complex_negation(query_vec, k)` — WHERE `NOT (brand = 'BrandA' OR (category = 'Cat3' AND price > 100.0))`
+
+All four functions use LanceDB's `.search().where().limit().to_list()` pipeline (filter pushed to the engine), return dicts with exactly the keys `{id, name, brand, category, price}`, and all negation-predicate assertions pass with zero leakage.   
+  

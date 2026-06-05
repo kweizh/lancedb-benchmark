@@ -1,0 +1,82 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 5,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780595237815,
+            "stop": 1780595241557
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_table_exists_with_120_rows",
+                "status": "passed",
+                "duration": 3246,
+                "start": 1780595238086,
+                "stop": 1780595241332,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_schema_id_cluster_and_fixed_size_vector",
+                "status": "passed",
+                "duration": 4,
+                "start": 1780595241333,
+                "stop": 1780595241337,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ids_and_cluster_counts",
+                "status": "passed",
+                "duration": 30,
+                "start": 1780595241339,
+                "stop": 1780595241369,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lambda_one_matches_pure_vector_search",
+                "status": "passed",
+                "duration": 37,
+                "start": 1780595241370,
+                "stop": 1780595241407,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lambda_low_drives_high_diversity",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 126,
+                "start": 1780595241407,
+                "stop": 1780595241533,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_lambda_low_drives_high_diversity():\n        ids, cluster_ids, vectors = _load_rows()\n        query = _build_query(ids, cluster_ids, vectors)\n        result = _call_candidate(query, k=10, lambda_=0.3)\n        cluster_by_id = {int(i): int(c) for i, c in zip(ids, cluster_ids)}\n        distinct_clusters = {cluster_by_id[i] for i in result}\n>       assert len(distinct_clusters) >= 7, (\n            \"mmr_search with lambda_=0.3 must span at least 7 distinct clusters (diversity dominates). \"\n            f\"Got clusters {sorted(distinct_clusters)} from ids {result}.\"\n        )\nE       AssertionError: mmr_search with lambda_=0.3 must span at least 7 distinct clusters (diversity dominates). Got clusters [0, 1, 2, 3, 4] from ids [57, 13, 42, 0, 34, 59, 17, 48, 16, 37].\nE       assert 5 >= 7\nE        +  where 5 = len({0, 1, 2, 3, 4})\n\ntests/test_final_state.py:186: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_lambda_balanced_preserves_top1_and_some_diversity",
+                "status": "passed",
+                "duration": 22,
+                "start": 1780595241534,
+                "stop": 1780595241556,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

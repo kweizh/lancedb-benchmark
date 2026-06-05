@@ -1,0 +1,49 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 6 items
+
+tests/test_final_state.py ....F.                                         [100%]
+
+=================================== FAILURES ===================================
+________________________ test_result_json_matches_sweep ________________________
+
+sweep_result = {4: 0.4400000000000001, 8: 0.5733333333333334, 16: 0.7366666666666666}
+
+    def test_result_json_matches_sweep(sweep_result):
+        assert os.path.isfile(RESULT_PATH), f"Missing artifact {RESULT_PATH}."
+        with open(RESULT_PATH) as f:
+            on_disk = json.load(f)
+        assert isinstance(on_disk, dict), "result.json must be a JSON object."
+        disk_keys = {str(k) for k in on_disk.keys()}
+        assert disk_keys == {"4", "8", "16"}, (
+            f"result.json keys must be exactly {{'4','8','16'}}, got {disk_keys}."
+        )
+        for k, v in sweep_result.items():
+            sk = str(int(k))
+            assert sk in on_disk, f"result.json missing key '{sk}'."
+>           assert abs(float(on_disk[sk]) - float(v)) <= 1e-6, (
+                f"result.json[{sk}]={on_disk[sk]} disagrees with in-process sweep()={v}."
+            )
+E           AssertionError: result.json[4]=0.4233333333333333 disagrees with in-process sweep()=0.4400000000000001.
+E           assert 0.01666666666666683 <= 1e-06
+E            +  where 0.01666666666666683 = abs((0.4233333333333333 - 0.4400000000000001))
+E            +    where 0.4233333333333333 = float(0.4233333333333333)
+E            +    and   0.4400000000000001 = float(0.4400000000000001)
+
+tests/test_final_state.py:109: AssertionError
+==================================== PASSES ====================================
+___________________________ test_sweep_returns_dict ____________________________
+---------------------------- Captured stdout setup -----------------------------
+  m= 4  recall@10 = 0.4400
+  m= 8  recall@10 = 0.5733
+  m=16  recall@10 = 0.7367
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_sweep_returns_dict
+PASSED tests/test_final_state.py::test_sweep_keys_exactly_4_8_16
+PASSED tests/test_final_state.py::test_sweep_values_in_unit_interval
+PASSED tests/test_final_state.py::test_sweep_monotonic_in_num_sub_vectors
+PASSED tests/test_final_state.py::test_lancedb_tables_use_run_id
+FAILED tests/test_final_state.py::test_result_json_matches_sweep - AssertionE...
+========================= 1 failed, 5 passed in 10.07s =========================

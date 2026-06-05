@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 8 items
+
+tests/test_final_state.py ........                                       [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_schema_and_row_count
+PASSED tests/test_final_state.py::test_brand_and_category_cardinality
+PASSED tests/test_final_state.py::test_fixture_is_deterministic_across_reruns
+PASSED tests/test_final_state.py::test_exclude_brands_correctness
+PASSED tests/test_final_state.py::test_exclude_categories_and_price_correctness
+PASSED tests/test_final_state.py::test_not_like_search_correctness
+PASSED tests/test_final_state.py::test_complex_negation_correctness
+PASSED tests/test_final_state.py::test_exclude_brands_repeat_call_is_stable
+============================== 8 passed in 9.38s ===============================

@@ -1,0 +1,61 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py ...F                                           [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_no_hardcoded_cohere_key _________________________
+
+    def test_no_hardcoded_cohere_key():
+        """The candidate must read COHERE_API_KEY from the environment, not hardcode it."""
+        leak_pattern = re.compile(
+            r"""(?ix)
+            cohere[^\n]{0,40}=\s*['"][A-Za-z0-9_\-]{20,}['"]
+            |
+            (?<![A-Za-z0-9_])(co_)?[A-Za-z0-9]{40}(?![A-Za-z0-9_])
+            """,
+            re.VERBOSE,
+        )
+        for root, _dirs, files in os.walk(PROJECT_DIR):
+            # Skip the lancedb store directory.
+            if os.path.commonpath([root, LANCEDB_DIR]) == LANCEDB_DIR:
+                continue
+            for fname in files:
+                if not fname.endswith(".py"):
+                    continue
+                fpath = os.path.join(root, fname)
+                with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+                    content = f.read()
+                # Ensure env-var access pattern is used somewhere in the project
+                # — but at minimum solution.py is grep'd for hardcoded strings.
+                assert "COHERE_API_KEY" in content or "cohere" not in content.lower() or fname != "solution.py", (
+                    f"solution.py should reference COHERE_API_KEY env var."
+                )
+                for match in leak_pattern.finditer(content):
+                    # If the match coincides with a clear placeholder name, allow it.
+                    snippet = match.group(0)
+                    if "COHERE_API_KEY" in snippet or "os.environ" in snippet:
+                        continue
+>                   raise AssertionError(
+                        f"Possible hardcoded Cohere credential in {fpath}: {snippet!r}"
+                    )
+E                   AssertionError: Possible hardcoded Cohere credential in /home/user/myproject/.venv/lib/python3.12/site-packages/typing_extensions.py: '986a4e1b6fcae7fe7a1d0a26aea446107dd58dd2'
+
+tests/test_final_state.py:202: AssertionError
+=============================== warnings summary ===============================
+test_final_state.py::test_english_anchor_query_eiffel
+test_final_state.py::test_spanish_anchor_query_everest
+  /usr/local/lib/python3.12/dist-packages/cohere/core/pydantic_utilities.py:493: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    return cast(Mapping[str, PydanticField], model.model_fields)  # type: ignore[attr-defined]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_table_row_count_and_schema
+PASSED tests/test_final_state.py::test_english_anchor_query_eiffel
+PASSED tests/test_final_state.py::test_spanish_anchor_query_everest
+FAILED tests/test_final_state.py::test_no_hardcoded_cohere_key - AssertionErr...
+=================== 1 failed, 3 passed, 2 warnings in 9.42s ====================

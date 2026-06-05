@@ -1,0 +1,75 @@
+{
+    "id": "6dd67694-1c19-4c2c-83a8-342778e7e8b7",
+    "started_at": "2026-06-04T18:47:54.924351",
+    "updated_at": "2026-06-04T19:02:17.886953",
+    "finished_at": "2026-06-04T19:02:17.886953",
+    "n_total_trials": 30,
+    "stats": {
+        "n_completed_trials": 30,
+        "n_errored_trials": 10,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__pending-tasks": {
+                "n_trials": 20,
+                "n_errors": 10,
+                "metrics": [
+                    {
+                        "mean": 0.4666666666666667
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "jina_embedding_api_search_py__L4sLGio",
+                            "ivf_hnsw_sq_index_py__e3ti6U3",
+                            "multi_vector_late_interaction_py__DktVdos",
+                            "grpc_search_microservice_py__pWxCnB9",
+                            "kmeans_clustering_embeddings_py__vvCdtdE",
+                            "polars_dataframe_ingest_py__mbzZcB7",
+                            "autocomplete_prefix_search_py__mGT5Nur",
+                            "arrow_flight_lance_proxy_py__A4UVfNB",
+                            "zstd_storage_options_py__DDPEB97",
+                            "negative_filter_not_in_py__surKHD2",
+                            "query_expansion_wordnet_py__6bT4EaX",
+                            "cohere_embed_multilingual_search__8AZhxCh",
+                            "cosine_similarity_matrix_py__JrVJyUi",
+                            "parquet_partitioned_to_lance_py__yKU6RKZ"
+                        ],
+                        "0.0": [
+                            "binary_quantization_search_py__WMrhY2c",
+                            "duckdb_lance_query_py__Xv7UwAy",
+                            "voyage_embedding_api_search_py__ragacoQ",
+                            "mmr_diversity_reranking_py__w5Hpzut",
+                            "snapshot_tag_compare_py__uYosvNm",
+                            "pq_recall_quality_sweep_py__zikVb6G"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "InitialStateError": [
+                        "outlier_detection_isolation_fore__mJVDiky",
+                        "tantivy_phrase_proximity_py__C5Lp9YZ",
+                        "semantic_dedup_minhash_py__7QHPWWN",
+                        "multilingual_fts_per_language_py__aiQ8WSm",
+                        "relevance_feedback_rocchio_py__cYPAjjS",
+                        "nearest_centroid_classifier_py__Evr5foP"
+                    ],
+                    "RuntimeError": [
+                        "cross_lingual_translate_search_p__hE66p93",
+                        "hf_inference_cross_encoder_reran__u4fMrAu",
+                        "hyde_hypothetical_doc_search_py__Y5h3qQR",
+                        "query_decomposition_rag_py__pAbjdk4"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 402402,
+        "cost_usd": null
+    }
+}

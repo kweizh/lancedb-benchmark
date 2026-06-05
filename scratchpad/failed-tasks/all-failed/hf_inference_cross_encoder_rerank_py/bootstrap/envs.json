@@ -1,0 +1,4 @@
+{
+  "task": ["OPENAI_API_KEY", "HF_TOKEN"],
+  "verifier": ["OPENAI_API_KEY", "HF_TOKEN"]
+}

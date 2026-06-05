@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780598144273,
+            "stop": 1780598151225
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_stdout_is_single_json_line",
+                "status": "passed",
+                "duration": 2924,
+                "start": 1780598144572,
+                "stop": 1780598147496,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_contains_demo_json",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780598147496,
+                "stop": 1780598147498,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_row_count",
+                "status": "passed",
+                "duration": 3491,
+                "start": 1780598147499,
+                "stop": 1780598150990,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_schema_preserved",
+                "status": "passed",
+                "duration": 30,
+                "start": 1780598150991,
+                "stop": 1780598151021,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_values_match_polars_source",
+                "status": "passed",
+                "duration": 38,
+                "start": 1780598151021,
+                "stop": 1780598151059,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_alpha_min_score_05",
+                "status": "passed",
+                "duration": 150,
+                "start": 1780598151059,
+                "stop": 1780598151209,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_search_beta_min_score_09",
+                "status": "passed",
+                "duration": 15,
+                "start": 1780598151209,
+                "stop": 1780598151224,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

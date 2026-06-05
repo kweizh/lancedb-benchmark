@@ -1,0 +1,5 @@
+lancedb==0.25.3
+pylance==0.21.0
+pyarrow==17.0.0
+numpy==1.26.4
+duckdb>=1.0,<2.0

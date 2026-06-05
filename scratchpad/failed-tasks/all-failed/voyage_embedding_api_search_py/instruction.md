@@ -1,0 +1,31 @@
+# Voyage AI Embeddings + LanceDB Semantic Product Search
+
+## Background
+Build a semantic product-search backend that uses the **Voyage AI** embedding API (model `voyage-3`) to embed a small product catalogue and stores the embeddings in a LanceDB table. The verifier hits the real Voyage AI API (using the `VOYAGE_API_KEY` already exported in the container) and compares your search results to a pre-rigged ground truth.
+
+## Requirements
+- Read `VOYAGE_API_KEY` and `ZEALT_RUN_ID` from environment variables. Do **NOT** hard-code or guess them.
+- Read the catalogue from `/home/user/myproject/products.json` (60 product entries, fields `id` and `description`). The file is seeded by the environment at build time.
+- Embed every product `description` with the official `voyageai` Python SDK using model `voyage-3` and `input_type="document"`.
+- Store the products in a LanceDB table named `products_${ZEALT_RUN_ID}` under `/home/user/myproject/lancedb_data/` with at least the columns `id` (string), `description` (string), and a fixed-size-list float32 vector column of dimension **1024** matching the `voyage-3` output dimension.
+- Expose a Python module `solution.py` in `/home/user/myproject/` that defines `search(query: str, k: int) -> list[dict]`. Each result dict must contain at least the keys `id` and `description`, and the list must be ordered from most-relevant (rank 1) to least-relevant. The query MUST be embedded via the Voyage API with `input_type="query"` and the result MUST come from a real LanceDB vector search (no re-ranking shortcuts allowed).
+- Also expose a CLI entrypoint `run_search.py` so the verifier can spawn it: `python3 run_search.py --query "<text>" --k 5` must print a single JSON array (the same shape returned by `search`) to stdout.
+
+## Implementation Hints
+- Install/use the `voyageai` Python SDK and instantiate `voyageai.Client(api_key=...)`. The `client.embed(texts, model="voyage-3", input_type=...)` call returns an object whose `.embeddings` attribute is a list of float lists.
+- Pass `input_type="document"` when embedding the catalogue and `input_type="query"` when embedding the user query — this is how Voyage tunes the embedding for retrieval.
+- Connect to LanceDB with `lancedb.connect("/home/user/myproject/lancedb_data")`.
+- Use a pyarrow schema with a `pa.list_(pa.float32(), 1024)` (or `fixed_size_list`) vector column so LanceDB knows the dimension up-front.
+- Use `table.search(query_vec).limit(k).to_list()` (or `to_pandas()`) to obtain ranked results.
+- Build the catalogue table once (idempotently); subsequent runs of `run_search.py` should reuse the existing table instead of re-embedding the entire catalogue every call.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Required files (created by the candidate): `/home/user/myproject/solution.py`, `/home/user/myproject/run_search.py`.
+- Required LanceDB artifacts: a LanceDB database under `/home/user/myproject/lancedb_data/` containing a table named `products_${ZEALT_RUN_ID}` whose vector column has dimension exactly 1024.
+- Command: `python3 run_search.py --query "<text>" --k <int>`
+- The command MUST print a JSON array to stdout where each element is an object with at least the keys `id` (string) and `description` (string), ordered by relevance (rank 1 first).
+- `solution.search(query, k)` from `solution.py` MUST return the same ranking as the CLI for the same inputs.
+- The implementation MUST call the Voyage AI HTTPS endpoint at query time (no precomputed query embeddings, no local model inference).
+- `VOYAGE_API_KEY` is read from the environment; the same key is available to the verifier.
+

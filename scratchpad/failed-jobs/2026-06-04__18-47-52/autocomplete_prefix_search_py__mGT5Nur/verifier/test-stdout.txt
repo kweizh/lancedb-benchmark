@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py .....                                          [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_prefix_only_path_many_matches
+PASSED tests/test_final_state.py::test_fallback_path_partial_matches
+PASSED tests/test_final_state.py::test_pure_semantic_path_zero_prefix_matches
+PASSED tests/test_final_state.py::test_case_insensitive_prefix
+PASSED tests/test_final_state.py::test_prefix_table_schema_and_count
+============================== 5 passed in 3.93s ===============================

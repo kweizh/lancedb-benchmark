@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: anyio-4.13.0, json-ctrf-0.5.0
+collected 9 items
+
+tests/test_final_state.py .........                                      [100%]
+
+==================================== PASSES ====================================
+______________________ test_lancedb_data_directory_exists ______________________
+---------------------------- Captured stderr setup -----------------------------
+[2026-06-04T18:50:52Z WARN  lance::dataset::write::insert] No existing dataset at /home/user/myproject/lancedb_data/headlines_zr-l4slgio.lance, it will be created
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_lancedb_data_directory_exists
+PASSED tests/test_final_state.py::test_lancedb_table_exists_and_row_count
+PASSED tests/test_final_state.py::test_lancedb_embedding_dim_matches_jina
+PASSED tests/test_final_state.py::test_anchor_query_rank1[finance]
+PASSED tests/test_final_state.py::test_anchor_query_rank1[sports]
+PASSED tests/test_final_state.py::test_anchor_query_rank1[space]
+PASSED tests/test_final_state.py::test_search_k_truncation
+PASSED tests/test_final_state.py::test_cli_run_py
+PASSED tests/test_final_state.py::test_asymmetric_task_parameter_agrees
+============================== 9 passed in 10.90s ==============================

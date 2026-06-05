@@ -1,0 +1,268 @@
+- Initializing MCP connections...
+You
+# LanceDB Recall Benchmark: FP32 Brute-Force vs Aggressively Quantized IVF_PQ ## Background LanceDB supports an IVF_PQ vector index that combines coarse Inverted-File partitioning with Product Quantization for memory-efficient ANN search. When `num_sub_vectors` is set very low relative to the embedding dimension, each PQ codeword represents many original components, producing an extremely compressed ("binary-ish") representation that trades recall for footprint and latency. Your job is to build a self-contained recall benchmark that quantifies how much recall is lost when an aggressive IVF_PQ index replaces brute-force FP32 search on a synthetic but realistically clustered embedding set. ## Requirements - Build a Python module at `/home/user/myproject/solution.py` that, when executed as `python3 solution.py`, (re)creates the LanceDB table and index from scratch and prints a recall number. - Seed a LanceDB table at `/home/user/myproject/lancedb` (database directory) with at least **1024 rows** of **384-dimensional float32** vectors generated deterministically via `numpy.random.default_rng(<seed>)`. - The vectors must be organized into **approximately 10 well-separated clusters** (e.g. 10 random unit-norm centers plus per-row Gaussian noise) so that nearest-neighbor queries have a clear correct answer. - Build an **IVF_PQ** vector index on the embedding column with **`num_sub_vectors` ∈ {8, 12}** to force aggressive quantization (384 dims into 8 or 12 sub-vectors means each PQ codeword encodes 32–48 floats). - Expose a top-level function with this exact signature: ```python def evaluate_recall(num_queries: int = 50, k: int = 10) -> float: ... ``` It must (1) deterministically draw `num_queries` query vectors from the same seeded RNG family (so verification is reproducible), (2) compute brute-force top-`k` ground truth on the FP32 vectors stored in the table, (3) run the same queries through the LanceDB IVF_PQ index (`table.search(qv).limit(k)`), and (4) return the **average recall@k** across all queries as a float in `[0.0, 1.0]`. ## Implementation Hints - Use `lancedb.connect("/home/user/myproject/lancedb")` plus an Arrow schema that stores the embedding as a fixed-size list of 384 float32 values. - Append `${ZEALT_RUN_ID}` (read from the `ZEALT_RUN_ID` environment variable) to the LanceDB table name so concurrent runs don't collide; the verifier will derive the same name from the same env var. - IVF_PQ training requires ≥ 256 rows, so seed comfortably above that minimum. - Use `table.create_index(metric="L2", vector_column_name="vector", index_type="IVF_PQ", num_partitions=..., num_sub_vectors=..., replace=True)` and `table.wait_for_index([...], timeout=datetime.timedelta(seconds=60))` to make sure the index is ready before measuring recall. - Aggressive PQ destroys fine-grained ranking inside dense clusters. Reading the LanceDB ANN tuning docs about `nprobes(...)` (how many IVF partitions to probe) and `refine_factor(...)` (re-rank the top `k * refine_factor` PQ candidates by exact distance) is the standard way to recover recall while keeping the small index footprint. Use them on the query side rather than weakening the PQ configuration. - Recall@k for a single query is `len(returned_ids ∩ ground_truth_ids) / k`; average across all queries. - Make the brute-force ground truth deterministic: read every vector back from the table, compute distances in numpy, and rank by ascending L2 distance. - If the index name in your `create_index` call is not the LanceDB default (`vector_idx`), make sure `table.list_indices()` still reports it. ## Acceptance Criteria - Project path: `/home/user/myproject` - Module file: `/home/user/myproject/solution.py` - Build command: `python3 /home/user/myproject/solution.py` — must be idempotent (running it twice from scratch leaves a valid table + index). - LanceDB directory: `/home/user/myproject/lancedb` - Table name: `bench_${ZEALT_RUN_ID}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable. - Schema: an `id` column (integer) and a `vector` column typed as a fixed-size list of **384 float32** values. - Row count: at least **1024**. - Vector index: at least one IVF_PQ index is present on the `vector` column as reported by `table.list_indices()`, built with `num_sub_vectors` in `{8, 12}`. - Public API: `from solution import evaluate_recall; evaluate_recall(num_queries=50, k=10)` returns a `float` between 0.0 and 1.0 representing average recall@10 against brute-force ground truth. - Quality bar: the returned recall must be **≥ 0.70**.   
+
+Pochi
+💭 Thinking for 429 characters   
+💫 Executing mkdir -p /home/user/myproject/lancedb && pip show lancedb pyarrow numpy 2>&1 | grep -E "^(Name|Version|---)" ✔ 
+💫 Executing python3 -c "import lancedb; help(lancedb.table.Table.create_index)" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "import lancedb; t = lancedb.connect('/tmp/test_lb'); print(dir(t))" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb, pyarrow as pa, inspect
+db = lancedb.connect('/tmp/test_lb2')
+# check wait_for_index signature
+try:
+    import lancedb.table
+    print(inspect.signature(lancedb.table.Table.wait_for_index))
+except Exception as e:
+    print('wait_for_index sig error:', e)
+
+# check search/query API
+schema = pa.schema([
+    pa.field('id', pa.int64()),
+    pa.field('vector', pa.list_(pa.float32(), 4))
+])
+import numpy as np
+rng = np.random.default_rng(42)
+vecs = rng.standard_normal((10, 4)).astype('float32')
+ids = list(range(10))
+tbl = db.create_table('test_tbl', data=[{'id': i, 'vector': vecs[i].tolist()} for i in ids], mode='overwrite')
+q = tbl.search(vecs[0]).limit(3)
+print(type(q))
+print(dir(q))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/tmp/test_lb2')
+tbl = db.open_table('test_tbl')
+print(tbl.list_indices())
+" 2>&1 ✔ 
+Now I have a clear picture of the API. Let me write the solution:   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=test-run python3 solution.py 2>&1 ✔ 
+Recall is only 0.35 — need to increase `nprobes` and `refine_factor`, and also tune the index parameters. Let me investigate more aggressive recovery settings:   
+💫 Executing cd /home/user/myproject && python3 - <<'EOF'
+import os, datetime, numpy as np, pyarrow as pa, lancedb
+
+os.environ["ZEALT_RUN_ID"] = "test-run"
+DB_PATH = "/home/user/myproject/lancedb"
+DIM = 384
+NUM_ROWS = 2048
+NUM_CLUSTERS = 10
+SEED_DATA = 42
+SEED_QUERY = 99
+
+db = lancedb.connect(DB_PATH)
+table = db.open_table("bench_test-run")
+
+# Load all FP32 vectors
+arrow_tbl = table.to_arrow()
+all_ids = arrow_tbl["id"].to_pylist()
+all_vecs = np.array(arrow_tbl["vector"].to_pylist(), dtype=np.float32)
+
+# Reproduce query vectors
+data_rng = np.random.default_rng(SEED_DATA)
+data_centres = data_rng.standard_normal((NUM_CLUSTERS, DIM)).astype(np.float32)
+data_centres /= np.linalg.norm(data_centres, axis=1, keepdims=True)
+
+q_rng = np.random.default_rng(SEED_QUERY)
+q_assignments = q_rng.integers(0, NUM_CLUSTERS, size=50)
+q_noise = q_rng.standard_normal((50, DIM)).astype(np.float32) * 0.35
+query_vecs = data_centres[q_assignments] + q_noise
+
+def bf_topk(qv, k=10):
+    diffs = all_vecs - qv[np.newaxis, :]
+    dists = (diffs * diffs).sum(axis=1)
+    topk_idx = np.argpartition(dists, k)[:k]
+    topk_idx = topk_idx[np.argsort(dists[topk_idx])]
+    return {int(all_ids[i]) for i in topk_idx}
+
+# Try various nprobes/refine_factor combos
+for nprobes in [4, 8, 16]:
+    for rf in [5, 10, 20, 50]:
+        total = 0.0
+        for qv in query_vecs:
+            gt = bf_topk(qv)
+            res = (table.search(qv.tolist()).limit(10)
+                   .nprobes(nprobes).refine_factor(rf).to_arrow())
+            ann_ids = {int(r) for r in res["id"].to_pylist()}
+            total += len(ann_ids & gt) / 10
+        print(f"nprobes={nprobes:2d}, refine_factor={rf:3d} -> recall={total/50:.4f}")
+EOF
+ ✔ 
+With `nprobes=16, refine_factor=50` we get 0.78. But let me try even higher and also see if using `num_sub_vectors=12` (slightly less aggressive) and more partitions helps push closer to the 0.70+ target more reliably:   
+💫 Executing cd /home/user/myproject && python3 - <<'EOF'
+import os, datetime, numpy as np, pyarrow as pa, lancedb
+
+DB_PATH = "/home/user/myproject/lancedb"
+DIM = 384
+NUM_ROWS = 2048
+NUM_CLUSTERS = 10
+SEED_DATA = 42
+SEED_QUERY = 99
+
+db = lancedb.connect(DB_PATH)
+
+# Rebuild with num_sub_vectors=12, more partitions
+name = "bench_test-run2"
+if name in db.table_names():
+    db.drop_table(name)
+
+data_rng = np.random.default_rng(SEED_DATA)
+data_centres = data_rng.standard_normal((NUM_CLUSTERS, DIM)).astype(np.float32)
+data_centres /= np.linalg.norm(data_centres, axis=1, keepdims=True)
+assignments = np.arange(NUM_ROWS) % NUM_CLUSTERS
+noise = data_rng.standard_normal((NUM_ROWS, DIM)).astype(np.float32) * 0.35
+vectors = data_centres[assignments] + noise
+
+schema = pa.schema([
+    pa.field('id', pa.int64()),
+    pa.field('vector', pa.list_(pa.float32(), DIM)),
+])
+batch = pa.table({
+    'id': pa.array(list(range(NUM_ROWS)), type=pa.int64()),
+    'vector': pa.array([v.tolist() for v in vectors], type=pa.list_(pa.float32(), DIM)),
+}, schema=schema)
+
+table = db.create_table(name, data=batch, mode='overwrite')
+table.create_index(metric='L2', vector_column_name='vector', index_type='IVF_PQ',
+                   num_partitions=16, num_sub_vectors=12, replace=True)
+indices = table.list_indices()
+if indices:
+    table.wait_for_index([indices[0]["name"]], timeout=datetime.timedelta(seconds=60))
+
+# load all vecs
+arrow_tbl = table.to_arrow()
+all_ids = arrow_tbl["id"].to_pylist()
+all_vecs = np.array(arrow_tbl["vector"].to_pylist(), dtype=np.float32)
+
+q_rng = np.random.default_rng(SEED_QUERY)
+q_assignments = q_rng.integers(0, NUM_CLUSTERS, size=50)
+q_noise = q_rng.standard_normal((50, DIM)).astype(np.float32) * 0.35
+query_vecs = data_centres[q_assignments] + q_noise
+
+def bf_topk(qv, k=10):
+    diffs = all_vecs - qv[np.newaxis, :]
+    dists = (diffs * diffs).sum(axis=1)
+    topk_idx = np.argpartition(dists, k)[:k]
+    return {int(all_ids[i]) for i in topk_idx[np.argsort(dists[topk_idx])]}
+
+for nprobes in [8, 16]:
+    for rf in [20, 50, 100]:
+        total = 0.0
+        for qv in query_vecs:
+            gt = bf_topk(qv)
+            res = (table.search(qv.tolist()).limit(10)
+                   .nprobes(nprobes).refine_factor(rf).to_arrow())
+            ann_ids = {int(r) for r in res["id"].to_pylist()}
+            total += len(ann_ids & gt) / 10
+        print(f"nsv=12 nprobes={nprobes:2d}, rf={rf:3d} -> recall={total/50:.4f}")
+EOF
+ ✔ 
+`num_sub_vectors=12, nprobes=16, refine_factor=100` gives 0.97. Now let me also check the noise scale — the noise was only re-using `data_rng` which had already been used for centres. Let me verify correctness and also check that the data generation in `solution.py` uses a fresh `rng` state correctly:   
+💫 Executing cd /home/user/myproject && python3 - <<'EOF'
+import numpy as np
+# Verify that solution.py _generate_data uses rng consistently
+# The rng is used for: centres (NUM_CLUSTERS*DIM draws), then assignments (unused - arange),
+# then noise (NUM_ROWS*DIM draws)
+# Check that the rng state after centres matches what we used above
+
+SEED_DATA = 42
+DIM = 384
+NUM_CLUSTERS = 10
+NUM_ROWS = 2048
+
+rng = np.random.default_rng(SEED_DATA)
+centres = rng.standard_normal((NUM_CLUSTERS, DIM)).astype(np.float32)
+centres /= np.linalg.norm(centres, axis=1, keepdims=True)
+assignments = np.arange(NUM_ROWS) % NUM_CLUSTERS
+noise = rng.standard_normal((NUM_ROWS, DIM)).astype(np.float32) * 0.35
+vectors = centres[assignments] + noise
+print("vectors[0,:5]:", vectors[0,:5])
+print("vectors shape:", vectors.shape)
+
+# Now check what happens in the evaluate_recall query generation
+data_rng2 = np.random.default_rng(SEED_DATA)
+data_centres2 = data_rng2.standard_normal((NUM_CLUSTERS, DIM)).astype(np.float32)
+data_centres2 /= np.linalg.norm(data_centres2, axis=1, keepdims=True)
+print("centres match:", np.allclose(centres, data_centres2))
+EOF
+ ✔ 
+The data generation is correct. Now I'll update the solution with the better parameters (`num_sub_vectors=12, nprobes=16, refine_factor=100`):   
+🔧 Applying diff to /home/user/myproject/solution.py ✔ 
+Now run the full solution end-to-end twice (idempotency check):   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=verify python3 solution.py 2>&1 ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=verify python3 solution.py 2>&1 ✔ 
+Recall is consistently ~0.97–0.98. Let me also verify the `evaluate_recall` public API import works correctly:   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=verify python3 - <<'EOF'
+import sys
+sys.path.insert(0, '/home/user/myproject')
+from solution import evaluate_recall
+r = evaluate_recall(num_queries=50, k=10)
+print(f"recall={r:.4f}, type={type(r).__name__}, in_range={0.0 <= r <= 1.0}, passes_bar={r >= 0.70}")
+EOF
+ ✔ 
+Let me do a final review of the complete solution file:   
+📖 Reading /home/user/myproject/solution.py ✔ 
+I notice there's a dead `rng` variable in `evaluate_recall` (the first `rng = np.random.default_rng(SEED_QUERY)` that generates `centres` but is then overridden). Let me clean that up:   
+🔧 Applying diff to /home/user/myproject/solution.py ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=final-check python3 solution.py 2>&1 && echo "---idempotent run---" && ZEALT_RUN_ID=final-check python3 solution.py 2>&1 ✔ 
+Both runs produce exactly 0.9660 — fully deterministic and idempotent. Let me do one final API conformance check:   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=final-check python3 - <<'EOF'
+import sys
+sys.path.insert(0, '/home/user/myproject')
+
+# 1. Import check
+from solution import evaluate_recall
+import inspect
+sig = inspect.signature(evaluate_recall)
+print("signature:", sig)
+
+# 2. Call with spec defaults
+r = evaluate_recall(num_queries=50, k=10)
+print(f"recall={r:.4f}  type={type(r).__name__}  in_range={0.0<=r<=1.0}  >= 0.70: {r>=0.70}")
+
+# 3. Verify table schema / index via lancedb directly
+import os, lancedb
+db = lancedb.connect('/home/user/myproject/lancedb')
+name = f"bench_{os.environ.get('ZEALT_RUN_ID','default')}"
+tbl = db.open_table(name)
+schema = tbl.schema
+print("schema:", schema)
+print("row_count:", tbl.count_rows())
+print("indices:", tbl.list_indices())
+EOF
+ ✔ 
+All checks pass. Here's a summary of what was built:   
+🎉 Task Completed
+`/home/user/myproject/solution.py` is complete and passes all acceptance criteria.
+
+## What was built
+
+| Criterion | Value |
+|---|---|
+| Table name | `bench_${ZEALT_RUN_ID}` (reads `ZEALT_RUN_ID` from env) |
+| Schema | `id: int64`, `vector: fixed_size_list<float32>[384]` |
+| Row count | **2 048** (well above the 256-row IVF minimum) |
+| Clusters | 10 unit-norm centres + Gaussian noise (σ=0.35), round-robin assignment |
+| Index type | **IVF_PQ**, `num_partitions=16`, **`num_sub_vectors=12`** (32 floats per codeword) |
+| Query-side tuning | `nprobes=16` (all partitions), `refine_factor=100` (re-ranks 100·k candidates by exact L2) |
+| Recall@10 (50 queries) | **≥ 0.96** — deterministic across runs |
+
+## Key design decisions
+
+- **`num_sub_vectors=12`** satisfies the `{8, 12}` requirement while being slightly less destructive than 8 sub-vectors, giving the refine step more correct candidates to work with.
+- **`refine_factor=100`** asks LanceDB to retrieve the top `k × 100 = 1000` PQ candidates and re-score them by exact FP32 L2 before returning the final `k`. This is the standard way to recover recall without loosening the compressed index.
+- **Brute-force ground truth** reloads all FP32 vectors from the table via `table.to_arrow()` and computes L2 in NumPy — fully independent of the ANN path.
+- **Idempotent**: `_build_table` drops the table before recreating it, so two consecutive runs produce an identical, freshly-indexed table.
+
+## Verification
+
+```
+ZEALT_RUN_ID=<run-id> python3 /home/user/myproject/solution.py
+# → Recall@10 : ~0.966
+
+from solution import evaluate_recall
+evaluate_recall(num_queries=50, k=10)   # → float ≥ 0.70  ✓
+```   
+  

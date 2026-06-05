@@ -1,0 +1,63 @@
+Traceback (most recent call last):
+  File "/home/kweizh/zealt/zealt-agent/agents/pochi.py", line 208, in run
+    await self.exec_as_agent(
+    ...<9 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py", line 354, in exec_as_agent
+    return await self._exec(
+           ^^^^^^^^^^^^^^^^^
+        environment, command, env=env, cwd=cwd, timeout_sec=timeout_sec
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py", line 317, in _exec
+    raise NonZeroAgentExitCodeError(
+    ...<3 lines>...
+    )
+harbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 1): if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+stdout: ============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 9 items
+
+bootstrap/test_initial_state.py::test_lancedb_importable 
+-------------------------------- live log call ---------------------------------
+DEBUG    asyncio:selector_events.py:64 Using selector: EpollSelector
+PASSED
+bootstrap/test_initial_state.py::test_sklearn_importable PASSED
+bootstrap/test_initial_state.py::test_pyarrow_importable PASSED
+bootstrap/test_initial_state.py::test_numpy_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_zealt_run_id_env_set PASSED
+bootstrap/test_initial_state.py::test_lancedb_data_dir_exists FAILED
+bootstrap/test_initial_state.py::test_events_table_exists_with_expected_schema FAILED
+bootstrap/test_initial_state.py::test_ground_truth_outliers_file_present FAILED
+
+======================== ... [truncated]
+stderr: None
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 161, in run
+    await self._run()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 33, in _run
+    await self._run_agent()
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/single_step.py", line 63, in _run_agent
+    await self._run_agent_phase(
+    ...<4 lines>...
+    )
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/trial.py", line 238, in _run_agent_phase
+    await asyncio.wait_for(
+    ...<6 lines>...
+    )
+  File "/usr/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kweizh/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/agents/installed/base.py", line 39, in wrapper
+    return await fn(self, instruction, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kweizh/zealt/zealt-agent/agents/pochi.py", line 220, in run
+    raise InitialStateError("Initial state test failed") from e
+agents.pochi.InitialStateError: Initial state test failed

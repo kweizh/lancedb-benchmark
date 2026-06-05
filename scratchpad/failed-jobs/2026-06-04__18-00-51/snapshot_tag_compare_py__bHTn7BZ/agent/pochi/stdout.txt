@@ -1,0 +1,156 @@
+- Initializing MCP connections...
+You
+# LanceDB Snapshot Tags & Diff Tool ## Background LanceDB uses immutable manifests so every write (insert, update, delete) creates a new numeric version. The `table.tags` API lets you attach human-readable labels (similar to git tags) to specific versions, and the tagged versions are protected from `cleanup_old_versions()` pruning. In this task you will build a small tool that captures three named snapshots of an evolving `documents` table and provides a diff utility that compares two snapshots by their tag names using time-travel (`table.checkout(...)`). ## Requirements * Build a Python module at `/home/user/myproject/solution.py` that uses the **real** LanceDB Python API (no mocking) and exposes two callables: * `build_snapshots(db_path: str, table_name: str) -> None` — creates the table, performs the three mutations, and writes three named tags. * `diff(db_path: str, table_name: str, tag_a: str, tag_b: str) -> dict` — returns the difference between two snapshots. * Connect to a local LanceDB database at `/app/db`. The table name MUST be `documents_${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable so concurrent trials do not collide. * The table schema is `id: int64`, `text: string`, `vector: fixed_size_list<float32, 16>`. * Seed phase (write version v1): * Insert 50 rows with `id` in `[0, 50)`. Use `numpy.random.default_rng(seed=2026)` to generate the 16-d float32 vectors deterministically; set `text = f"doc-{id}"`. * Attach the tag `v1_baseline` to the resulting version. * Extend phase (write version v2): * Append 20 more rows with `id` in `[50, 70)`, vectors drawn from the same RNG sequence (so the seed is reproducible), and `text = f"doc-{id}"`. * Attach the tag `v2_extended` to the resulting version. * Prune phase (write version v3): * Delete the rows whose `id < 5` via a SQL predicate (this removes exactly 5 rows). * Attach the tag `v3_pruned` to the resulting version. * The `diff(tag_a, tag_b)` function MUST use `table.checkout(...)` (or equivalent tag-based time-travel) to read the `id` column from each snapshot and return a dict shaped exactly as: ```python { "added_ids": sorted list of ints present in B but not in A, "removed_ids": sorted list of ints present in A but not in B, "common_count": int (number of ids in both snapshots) } ``` After running, the function MUST call `table.checkout_latest()` so subsequent callers see the live version. * Provide a CLI entry point so running `python3 /home/user/myproject/solution.py` executes `build_snapshots(...)` end-to-end against `/app/db` and the `documents_${run-id}` table. ## Implementation Hints * The tags API lives on the table object: `table.tags.create(name, version)`, `table.tags.list()`, `table.checkout(tag_name)`. Verify by browsing https://docs.lancedb.com/tables/versioning. * `table.version` returns the current numeric version after each write; use it when calling `table.tags.create`. * LanceDB pins the schema's `vector` column with `pyarrow.list_(pa.float32(), 16)` (fixed-size list of length 16) — use this to avoid Arrow type-mismatch errors. * `table.delete("id < 5")` accepts a SQL predicate string. * The candidate is responsible for executing `python3 /home/user/myproject/solution.py` once before the verifier runs so that the three tags and the persisted data exist at `/app/db`. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 /home/user/myproject/solution.py` * Database path: `/app/db` * Table name: `documents_${run-id}` (read `run-id` from `ZEALT_RUN_ID`) * After running the command, opening the table from `/app/db` MUST report the three tags `v1_baseline`, `v2_extended`, and `v3_pruned` via `table.tags.list()`. * The live (latest) table version MUST contain exactly 65 rows. * `solution.diff("/app/db", "documents_${run-id}", "v1_baseline", "v2_extended")` MUST return `{"added_ids": [50, 51, ..., 69], "removed_ids": [], "common_count": 50}`. * `solution.diff("/app/db", "documents_${run-id}", "v2_extended", "v3_pruned")` MUST return `{"added_ids": [], "removed_ids": [0, 1, 2, 3, 4], "common_count": 65}`.   
+
+Pochi
+💭 Thinking for 128 characters   
+📂 Listing files in /home/user/myproject ✔ 
+💫 Executing pip show lancedb 2>/dev/null | head -5; python3 -c "import lancedb; print(lancedb.__version__)" 2>/dev/null; python3 -c "import pyarrow; print(pyarrow.__version__)" 2>/dev/null ✔ 
+💫 Executing python3 -c "import lancedb; help(lancedb.table.Table.tags)" 2>/dev/null | head -30; python3 -c "import lancedb; t = dir(lancedb); print(t)" 2>/dev/null ✔ 
+💫 Executing mkdir -p /home/user/myproject /app/db ✔ 
+💫 Executing python3 -c "
+import lancedb
+import inspect
+# Check Tags class methods
+db = lancedb.connect('/tmp/testdb')
+import pyarrow as pa
+import numpy as np
+rng = np.random.default_rng(seed=2026)
+schema = pa.schema([
+    pa.field('id', pa.int64()),
+    pa.field('text', pa.string()),
+    pa.field('vector', pa.list_(pa.float32(), 16))
+])
+data = [{'id': i, 'text': f'doc-{i}', 'vector': rng.random(16, dtype=np.float32).tolist()} for i in range(5)]
+tbl = db.create_table('test_tags', data=data, schema=schema)
+print('version after create:', tbl.version)
+tags_obj = tbl.tags
+print('tags type:', type(tags_obj))
+print('tags dir:', [m for m in dir(tags_obj) if not m.startswith('_')])
+"
+ ✔ 
+💫 Executing python3 -c "
+import lancedb
+import inspect
+print(inspect.getsource(lancedb.table.Tags.create))
+print('---')
+print(inspect.getsource(lancedb.table.Tags.list))
+print('---checkout---')
+# Check if table has checkout method
+db = lancedb.connect('/tmp/testdb2')
+import pyarrow as pa
+import numpy as np
+rng = np.random.default_rng(seed=2026)
+data = [{'id': i, 'text': f'doc-{i}', 'vector': rng.random(16, dtype=np.float32).tolist()} for i in range(5)]
+schema = pa.schema([pa.field('id', pa.int64()), pa.field('text', pa.string()), pa.field('vector', pa.list_(pa.float32(), 16))])
+tbl = db.create_table('test_checkout', data=data, schema=schema)
+print('checkout methods:', [m for m in dir(tbl) if 'checkout' in m.lower() or 'version' in m.lower()])
+"
+ ✔ 
+💫 Executing python3 -c "
+import lancedb
+import inspect
+# Check checkout signature
+db = lancedb.connect('/tmp/testdb3')
+import pyarrow as pa
+import numpy as np
+rng = np.random.default_rng(seed=2026)
+data = [{'id': i, 'text': f'doc-{i}', 'vector': rng.random(16, dtype=np.float32).tolist()} for i in range(5)]
+schema = pa.schema([pa.field('id', pa.int64()), pa.field('text', pa.string()), pa.field('vector', pa.list_(pa.float32(), 16))])
+tbl = db.create_table('test_co', data=data, schema=schema)
+print(inspect.signature(tbl.checkout))
+print('---')
+# Try checkout by version number
+tbl.tags.create('v1', tbl.version)
+print('tags list:', tbl.tags.list())
+# add more rows
+more_data = [{'id': i+5, 'text': f'doc-{i+5}', 'vector': rng.random(16, dtype=np.float32).tolist()} for i in range(5)]
+tbl.add(more_data)
+print('version after add:', tbl.version)
+tbl.tags.create('v2', tbl.version)
+print('tags list:', tbl.tags.list())
+# checkout by tag name
+tbl.checkout('v1')
+print('rows after checkout v1:', tbl.count_rows())
+tbl.checkout_latest()
+print('rows after checkout_latest:', tbl.count_rows())
+"
+ ✔ 
+The API is working as expected. Now let me write the solution:   
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/solution.py ✔ 
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 solution.py ✔ 
+All outputs match the acceptance criteria exactly. Let me do a final verification:   
+💫 Executing python3 - <<'EOF'
+import os, lancedb
+
+DB_PATH = "/app/db"
+run_id = os.environ.get("ZEALT_RUN_ID", "default")
+table_name = f"documents_{run_id}"
+
+db = lancedb.connect(DB_PATH)
+tbl = db.open_table(table_name)
+
+print("=== Tags ===")
+tags = tbl.tags.list()
+for name, info in tags.items():
+    print(f"  {name}: {info}")
+
+print(f"\n=== Live row count: {tbl.count_rows()} (expected 65) ===")
+
+# Run diffs via the module
+import sys
+sys.path.insert(0, "/home/user/myproject")
+from solution import diff
+
+d1 = diff(DB_PATH, table_name, "v1_baseline", "v2_extended")
+print(f"\ndiff v1_baseline → v2_extended:")
+print(f"  added_ids   : {d1['added_ids']}")
+print(f"  removed_ids : {d1['removed_ids']}")
+print(f"  common_count: {d1['common_count']}")
+assert d1["added_ids"] == list(range(50, 70)), "FAIL added_ids"
+assert d1["removed_ids"] == [], "FAIL removed_ids"
+assert d1["common_count"] == 50, "FAIL common_count"
+print("  ✓ PASS")
+
+d2 = diff(DB_PATH, table_name, "v2_extended", "v3_pruned")
+print(f"\ndiff v2_extended → v3_pruned:")
+print(f"  added_ids   : {d2['added_ids']}")
+print(f"  removed_ids : {d2['removed_ids']}")
+print(f"  common_count: {d2['common_count']}")
+assert d2["added_ids"] == [], "FAIL added_ids"
+assert d2["removed_ids"] == [0,1,2,3,4], "FAIL removed_ids"
+assert d2["common_count"] == 65, "FAIL common_count"
+print("  ✓ PASS")
+
+print("\nAll checks passed!")
+EOF
+ ✔ 
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+The solution is implemented at `/home/user/myproject/solution.py` and the database has been populated at `/app/db`.
+
+## What was built
+
+**`build_snapshots(db_path, table_name)`**
+1. Connects to the LanceDB instance and drops any pre-existing table (idempotent).
+2. Creates a shared `numpy.random.default_rng(seed=2026)` RNG.
+3. **Phase 1 (v1_baseline)** — inserts 50 rows (`id` 0–49, `text="doc-{id}"`, 16-d float32 vectors) and tags the resulting version 1.
+4. **Phase 2 (v2_extended)** — appends 20 rows (`id` 50–69) from the same RNG sequence and tags version 2.
+5. **Phase 3 (v3_pruned)** — calls `table.delete("id < 5")` (removes 5 rows) and tags version 3.
+
+**`diff(db_path, table_name, tag_a, tag_b)`**
+- Opens the table, calls `table.checkout(tag_a)` / `table.checkout(tag_b)` to time-travel to each snapshot.
+- Reads the `id` column from each, computes set differences, then calls `table.checkout_latest()` to restore the live view.
+- Returns `{"added_ids": [...], "removed_ids": [...], "common_count": N}`.
+
+## Verification results
+
+| Check | Result |
+|---|---|
+| Tags present (`v1_baseline`, `v2_extended`, `v3_pruned`) | ✓ |
+| Live row count | 65 ✓ |
+| `diff("v1_baseline", "v2_extended")` | `added_ids=[50..69]`, `removed_ids=[]`, `common_count=50` ✓ |
+| `diff("v2_extended", "v3_pruned")` | `added_ids=[]`, `removed_ids=[0,1,2,3,4]`, `common_count=65` ✓ |   
+  

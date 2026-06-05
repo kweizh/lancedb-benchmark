@@ -1,0 +1,112 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 7,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780595201891,
+            "stop": 1780595301407
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_candidate_files_exist",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780595201935,
+                "stop": 1780595201937,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lancedb_table_exists_with_correct_shape",
+                "status": "passed",
+                "duration": 7051,
+                "start": 1780595201938,
+                "stop": 1780595208989,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cli_top1_matches_anchor",
+                "status": "passed",
+                "duration": 28638,
+                "start": 1780595208990,
+                "stop": 1780595237628,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_id,k::[('noise cancelling over-ear bluetooth headphones for travel', 'prod-electronics-headphones-anc', 5), ('high pressure espresso machine for home baristas', 'prod-kitchen-espresso-machine', 5), ('lightweight running shoes with carbon plate for marathon racing', 'prod-fitness-carbon-marathon-shoes', 3), ('bestselling fantasy novel about a young wizard and dragons', 'prod-books-dragon-wizard-fantasy', 3)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_cli_top1_matches_anchor",
+                "status": "passed",
+                "duration": 3838,
+                "start": 1780595237629,
+                "stop": 1780595241467,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_id,k::[('noise cancelling over-ear bluetooth headphones for travel', 'prod-electronics-headphones-anc', 5), ('high pressure espresso machine for home baristas', 'prod-kitchen-espresso-machine', 5), ('lightweight running shoes with carbon plate for marathon racing', 'prod-fitness-carbon-marathon-shoes', 3), ('bestselling fantasy novel about a young wizard and dragons', 'prod-books-dragon-wizard-fantasy', 3)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_cli_top1_matches_anchor",
+                "status": "passed",
+                "duration": 4611,
+                "start": 1780595241468,
+                "stop": 1780595246079,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_id,k::[('noise cancelling over-ear bluetooth headphones for travel', 'prod-electronics-headphones-anc', 5), ('high pressure espresso machine for home baristas', 'prod-kitchen-espresso-machine', 5), ('lightweight running shoes with carbon plate for marathon racing', 'prod-fitness-carbon-marathon-shoes', 3), ('bestselling fantasy novel about a young wizard and dragons', 'prod-books-dragon-wizard-fantasy', 3)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_cli_top1_matches_anchor",
+                "status": "passed",
+                "duration": 54448,
+                "start": 1780595246079,
+                "stop": 1780595300527,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::query,expected_id,k::[('noise cancelling over-ear bluetooth headphones for travel', 'prod-electronics-headphones-anc', 5), ('high pressure espresso machine for home baristas', 'prod-kitchen-espresso-machine', 5), ('lightweight running shoes with carbon plate for marathon racing', 'prod-fitness-carbon-marathon-shoes', 3), ('bestselling fantasy novel about a young wizard and dragons', 'prod-books-dragon-wizard-fantasy', 3)]"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_solution_search_matches_cli_top1",
+                "status": "passed",
+                "duration": 654,
+                "start": 1780595300527,
+                "stop": 1780595301181,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_verifier_direct_voyage_search_matches_anchor",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 225,
+                "start": 1780595301181,
+                "stop": 1780595301406,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_verifier_direct_voyage_search_matches_anchor():\n        \"\"\"Independent end-to-end check: the verifier embeds the query with voyageai\n        using `input_type='query'`, runs a direct LanceDB vector search against the\n        candidate's table, and confirms the rigged anchor wins. This proves the\n        table holds genuine Voyage embeddings rather than random or precomputed data.\n        \"\"\"\n        import lancedb\n        import voyageai\n    \n        api_key = os.environ.get(\"VOYAGE_API_KEY\")\n        assert api_key, \"VOYAGE_API_KEY must be set in the verifier env.\"\n    \n        client = voyageai.Client(api_key=api_key)\n        query = \"noise cancelling over-ear bluetooth headphones for travel\"\n>       resp = client.embed([query], model=\"voyage-3\", input_type=\"query\")\n\ntests/test_final_state.py:164: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nusr/local/lib/python3.12/dist-packages/voyageai/client.py:76: in embed\n    for attempt in self._make_retry_controller():\nusr/local/lib/python3.12/dist-packages/tenacity/__init__.py:438: in __iter__\n    do = self.iter(retry_state=retry_state)\nusr/local/lib/python3.12/dist-packages/tenacity/__init__.py:371: in iter\n    result = action(retry_state)\nusr/local/lib/python3.12/dist-packages/tenacity/__init__.py:413: in exc_check\n    raise retry_exc.reraise()\nusr/local/lib/python3.12/dist-packages/tenacity/__init__.py:184: in reraise\n    raise self.last_attempt.result()\nusr/lib/python3.12/concurrent/futures/_base.py:449: in result\n    return self.__get_result()\nusr/lib/python3.12/concurrent/futures/_base.py:401: in __get_result\n    raise self._exception\nusr/local/lib/python3.12/dist-packages/voyageai/client.py:78: in embed\n    response = voyageai.Embedding.create(\nusr/local/lib/python3.12/dist-packages/voyageai/api_resources/embedding.py:19: in create\n    response = super().create(*args, **kwargs)\nusr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_resource.py:45: in create\n    response = requestor.request(\nusr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:146: in request\n    resp = self._interpret_response(result)\nusr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:394: in _interpret_response\n    return self._interpret_response_line(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <voyageai.api_resources.api_requestor.APIRequestor object at 0x7f20e845a570>\nrbody = '{\"detail\":\"You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM ...r several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.\"}'\nrcode = 429\nrheaders = {'date': 'Thu, 04 Jun 2026 17:48:20 GMT', 'server': 'uvicorn', 'Content-Length': '601', 'content-type': 'application/j...: '1b362ba2ea94279276ff9864e0fa7070', 'Via': '1.1 google', 'Alt-Svc': 'h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000'}\n\n    def _interpret_response_line(self, rbody: str, rcode: int, rheaders) -> VoyageHttpResponse:\n        # HTTP 204 response code does not have any content in the body.\n        if rcode == 204:\n            return VoyageHttpResponse(None, rheaders)\n    \n        if rcode == 500:\n            raise error.ServerError(\n                \"The server failed to process the request.\",\n                rbody,\n                rcode,\n                headers=rheaders,\n            )\n        elif rcode in [502, 503, 504]:\n            raise error.ServiceUnavailableError(\n                \"The server is overloaded or not ready yet.\",\n                rbody,\n                rcode,\n                headers=rheaders,\n            )\n        try:\n            if \"text/plain\" in rheaders.get(\"Content-Type\", \"\"):\n                data = rbody\n            else:\n                data = json.loads(rbody)\n        except (JSONDecodeError, UnicodeDecodeError) as e:\n            raise error.APIError(\n                f\"HTTP code {rcode} from API ({rbody})\", rbody, rcode, headers=rheaders\n            ) from e\n    \n        resp = VoyageHttpResponse(data, rheaders)\n        if 400 <= rcode < 500:\n>           raise self.handle_error_response(rbody, rcode, resp.data, rheaders)\nE           voyageai.error.RateLimitError: You have not yet added your payment method in the billing page and will have reduced rate limits of 3 RPM and 10K TPM. To unlock our standard rate limits, please add a payment method in the billing page for the appropriate organization in the user dashboard (https://dashboard.voyageai.com/). Even with payment methods entered, the free tokens (200M tokens for Voyage series 3) will still apply. After adding a payment method, you should see your rate limits increase after several minutes. See our pricing docs (https://docs.voyageai.com/docs/pricing) for the free tokens for your model.\n\nusr/local/lib/python3.12/dist-packages/voyageai/api_resources/api_requestor.py:445: RateLimitError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

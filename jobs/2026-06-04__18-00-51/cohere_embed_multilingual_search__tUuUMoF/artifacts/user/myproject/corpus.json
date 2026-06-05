@@ -1,0 +1,452 @@
+[
+  {
+    "concept_id": 0,
+    "language": "en",
+    "text": "The Eiffel Tower is a wrought-iron lattice tower located in Paris, France."
+  },
+  {
+    "concept_id": 0,
+    "language": "es",
+    "text": "La Torre Eiffel es una torre de celosía de hierro forjado situada en París, Francia."
+  },
+  {
+    "concept_id": 0,
+    "language": "fr",
+    "text": "La Tour Eiffel est une tour en treillis de fer forgé située à Paris, en France."
+  },
+  {
+    "concept_id": 1,
+    "language": "en",
+    "text": "Mount Everest is the highest mountain on Earth, located in the Himalayas."
+  },
+  {
+    "concept_id": 1,
+    "language": "es",
+    "text": "El Monte Everest es la montaña más alta de la Tierra, situada en el Himalaya."
+  },
+  {
+    "concept_id": 1,
+    "language": "fr",
+    "text": "Le mont Everest est la plus haute montagne de la Terre, située dans l'Himalaya."
+  },
+  {
+    "concept_id": 2,
+    "language": "en",
+    "text": "The Amazon River is the largest river in South America by water volume."
+  },
+  {
+    "concept_id": 2,
+    "language": "es",
+    "text": "El río Amazonas es el río más caudaloso de América del Sur por su volumen de agua."
+  },
+  {
+    "concept_id": 2,
+    "language": "fr",
+    "text": "L'Amazone est le plus grand fleuve d'Amérique du Sud par son volume d'eau."
+  },
+  {
+    "concept_id": 3,
+    "language": "en",
+    "text": "The Great Wall of China is an ancient fortification stretching thousands of kilometers."
+  },
+  {
+    "concept_id": 3,
+    "language": "es",
+    "text": "La Gran Muralla China es una fortificación antigua que se extiende miles de kilómetros."
+  },
+  {
+    "concept_id": 3,
+    "language": "fr",
+    "text": "La Grande Muraille de Chine est une fortification antique s'étendant sur des milliers de kilomètres."
+  },
+  {
+    "concept_id": 4,
+    "language": "en",
+    "text": "The Pacific Ocean is the largest and deepest ocean on the planet."
+  },
+  {
+    "concept_id": 4,
+    "language": "es",
+    "text": "El océano Pacífico es el océano más grande y profundo del planeta."
+  },
+  {
+    "concept_id": 4,
+    "language": "fr",
+    "text": "L'océan Pacifique est l'océan le plus grand et le plus profond de la planète."
+  },
+  {
+    "concept_id": 5,
+    "language": "en",
+    "text": "The Sahara Desert in northern Africa is the largest hot desert in the world."
+  },
+  {
+    "concept_id": 5,
+    "language": "es",
+    "text": "El desierto del Sahara en el norte de África es el desierto cálido más grande del mundo."
+  },
+  {
+    "concept_id": 5,
+    "language": "fr",
+    "text": "Le Sahara, en Afrique du Nord, est le plus grand désert chaud du monde."
+  },
+  {
+    "concept_id": 6,
+    "language": "en",
+    "text": "The polar bear is a large white bear native to the Arctic Circle."
+  },
+  {
+    "concept_id": 6,
+    "language": "es",
+    "text": "El oso polar es un gran oso blanco originario del Círculo Polar Ártico."
+  },
+  {
+    "concept_id": 6,
+    "language": "fr",
+    "text": "L'ours polaire est un grand ours blanc originaire du cercle arctique."
+  },
+  {
+    "concept_id": 7,
+    "language": "en",
+    "text": "Coffee beans are roasted seeds used to brew the popular drink coffee."
+  },
+  {
+    "concept_id": 7,
+    "language": "es",
+    "text": "Los granos de café son semillas tostadas que se utilizan para preparar la popular bebida del café."
+  },
+  {
+    "concept_id": 7,
+    "language": "fr",
+    "text": "Les grains de café sont des graines torréfiées utilisées pour préparer la boisson populaire qu'est le café."
+  },
+  {
+    "concept_id": 8,
+    "language": "en",
+    "text": "Photosynthesis is the process by which green plants convert sunlight into chemical energy."
+  },
+  {
+    "concept_id": 8,
+    "language": "es",
+    "text": "La fotosíntesis es el proceso mediante el cual las plantas verdes convierten la luz solar en energía química."
+  },
+  {
+    "concept_id": 8,
+    "language": "fr",
+    "text": "La photosynthèse est le processus par lequel les plantes vertes convertissent la lumière du soleil en énergie chimique."
+  },
+  {
+    "concept_id": 9,
+    "language": "en",
+    "text": "DNA is a double-helix molecule that carries genetic information in living organisms."
+  },
+  {
+    "concept_id": 9,
+    "language": "es",
+    "text": "El ADN es una molécula en doble hélice que contiene la información genética de los organismos vivos."
+  },
+  {
+    "concept_id": 9,
+    "language": "fr",
+    "text": "L'ADN est une molécule en double hélice qui porte l'information génétique des organismes vivants."
+  },
+  {
+    "concept_id": 10,
+    "language": "en",
+    "text": "The Mona Lisa is a famous portrait painted by Leonardo da Vinci."
+  },
+  {
+    "concept_id": 10,
+    "language": "es",
+    "text": "La Mona Lisa es un famoso retrato pintado por Leonardo da Vinci."
+  },
+  {
+    "concept_id": 10,
+    "language": "fr",
+    "text": "La Joconde est un célèbre portrait peint par Léonard de Vinci."
+  },
+  {
+    "concept_id": 11,
+    "language": "en",
+    "text": "A bicycle is a human-powered vehicle with two wheels and pedals."
+  },
+  {
+    "concept_id": 11,
+    "language": "es",
+    "text": "Una bicicleta es un vehículo de propulsión humana con dos ruedas y pedales."
+  },
+  {
+    "concept_id": 11,
+    "language": "fr",
+    "text": "Une bicyclette est un véhicule à propulsion humaine doté de deux roues et de pédales."
+  },
+  {
+    "concept_id": 12,
+    "language": "en",
+    "text": "Albert Einstein was a theoretical physicist who developed the theory of relativity."
+  },
+  {
+    "concept_id": 12,
+    "language": "es",
+    "text": "Albert Einstein fue un físico teórico que desarrolló la teoría de la relatividad."
+  },
+  {
+    "concept_id": 12,
+    "language": "fr",
+    "text": "Albert Einstein était un physicien théoricien qui a élaboré la théorie de la relativité."
+  },
+  {
+    "concept_id": 13,
+    "language": "en",
+    "text": "The Pythagorean theorem relates the sides of a right triangle through a squared equation."
+  },
+  {
+    "concept_id": 13,
+    "language": "es",
+    "text": "El teorema de Pitágoras relaciona los lados de un triángulo rectángulo mediante una ecuación cuadrática."
+  },
+  {
+    "concept_id": 13,
+    "language": "fr",
+    "text": "Le théorème de Pythagore relie les côtés d'un triangle rectangle par une équation au carré."
+  },
+  {
+    "concept_id": 14,
+    "language": "en",
+    "text": "World War II was a global conflict that lasted from 1939 to 1945."
+  },
+  {
+    "concept_id": 14,
+    "language": "es",
+    "text": "La Segunda Guerra Mundial fue un conflicto global que duró de 1939 a 1945."
+  },
+  {
+    "concept_id": 14,
+    "language": "fr",
+    "text": "La Seconde Guerre mondiale a été un conflit mondial qui a duré de 1939 à 1945."
+  },
+  {
+    "concept_id": 15,
+    "language": "en",
+    "text": "Penicillin is an antibiotic discovered by Alexander Fleming in 1928."
+  },
+  {
+    "concept_id": 15,
+    "language": "es",
+    "text": "La penicilina es un antibiótico descubierto por Alexander Fleming en 1928."
+  },
+  {
+    "concept_id": 15,
+    "language": "fr",
+    "text": "La pénicilline est un antibiotique découvert par Alexander Fleming en 1928."
+  },
+  {
+    "concept_id": 16,
+    "language": "en",
+    "text": "The Pyramids of Giza are ancient monumental tombs built in Egypt."
+  },
+  {
+    "concept_id": 16,
+    "language": "es",
+    "text": "Las pirámides de Guiza son antiguas tumbas monumentales construidas en Egipto."
+  },
+  {
+    "concept_id": 16,
+    "language": "fr",
+    "text": "Les pyramides de Gizeh sont d'anciennes tombes monumentales construites en Égypte."
+  },
+  {
+    "concept_id": 17,
+    "language": "en",
+    "text": "The Internet is a global network of computers communicating through TCP/IP protocols."
+  },
+  {
+    "concept_id": 17,
+    "language": "es",
+    "text": "Internet es una red mundial de computadoras que se comunican mediante los protocolos TCP/IP."
+  },
+  {
+    "concept_id": 17,
+    "language": "fr",
+    "text": "Internet est un réseau mondial d'ordinateurs qui communiquent via les protocoles TCP/IP."
+  },
+  {
+    "concept_id": 18,
+    "language": "en",
+    "text": "The Statue of Liberty is a colossal copper statue standing in New York Harbor."
+  },
+  {
+    "concept_id": 18,
+    "language": "es",
+    "text": "La Estatua de la Libertad es una colosal estatua de cobre situada en el puerto de Nueva York."
+  },
+  {
+    "concept_id": 18,
+    "language": "fr",
+    "text": "La Statue de la Liberté est une colossale statue en cuivre située dans le port de New York."
+  },
+  {
+    "concept_id": 19,
+    "language": "en",
+    "text": "Antarctica is the southernmost continent, almost entirely covered by ice."
+  },
+  {
+    "concept_id": 19,
+    "language": "es",
+    "text": "La Antártida es el continente más austral, casi totalmente cubierto de hielo."
+  },
+  {
+    "concept_id": 19,
+    "language": "fr",
+    "text": "L'Antarctique est le continent le plus austral, presque entièrement recouvert de glace."
+  },
+  {
+    "concept_id": 20,
+    "language": "en",
+    "text": "The lion is a large carnivorous feline often called the king of the jungle."
+  },
+  {
+    "concept_id": 20,
+    "language": "es",
+    "text": "El león es un gran felino carnívoro a menudo llamado el rey de la selva."
+  },
+  {
+    "concept_id": 20,
+    "language": "fr",
+    "text": "Le lion est un grand félin carnivore souvent surnommé le roi de la jungle."
+  },
+  {
+    "concept_id": 21,
+    "language": "en",
+    "text": "Sushi is a traditional Japanese dish made of vinegared rice and seafood."
+  },
+  {
+    "concept_id": 21,
+    "language": "es",
+    "text": "El sushi es un plato tradicional japonés hecho con arroz avinagrado y mariscos."
+  },
+  {
+    "concept_id": 21,
+    "language": "fr",
+    "text": "Le sushi est un plat traditionnel japonais à base de riz vinaigré et de fruits de mer."
+  },
+  {
+    "concept_id": 22,
+    "language": "en",
+    "text": "Yoga is a group of physical and mental practices originating in ancient India."
+  },
+  {
+    "concept_id": 22,
+    "language": "es",
+    "text": "El yoga es un conjunto de prácticas físicas y mentales originarias de la antigua India."
+  },
+  {
+    "concept_id": 22,
+    "language": "fr",
+    "text": "Le yoga est un ensemble de pratiques physiques et mentales originaires de l'Inde ancienne."
+  },
+  {
+    "concept_id": 23,
+    "language": "en",
+    "text": "The Solar System consists of the Sun and the eight planets that orbit it."
+  },
+  {
+    "concept_id": 23,
+    "language": "es",
+    "text": "El sistema solar está compuesto por el Sol y los ocho planetas que lo orbitan."
+  },
+  {
+    "concept_id": 23,
+    "language": "fr",
+    "text": "Le système solaire est composé du Soleil et des huit planètes qui gravitent autour de lui."
+  },
+  {
+    "concept_id": 24,
+    "language": "en",
+    "text": "Wolfgang Amadeus Mozart was a prolific classical composer of the eighteenth century."
+  },
+  {
+    "concept_id": 24,
+    "language": "es",
+    "text": "Wolfgang Amadeus Mozart fue un prolífico compositor clásico del siglo XVIII."
+  },
+  {
+    "concept_id": 24,
+    "language": "fr",
+    "text": "Wolfgang Amadeus Mozart était un compositeur classique prolifique du dix-huitième siècle."
+  },
+  {
+    "concept_id": 25,
+    "language": "en",
+    "text": "A volcano is a rupture in Earth's crust that allows molten lava to escape."
+  },
+  {
+    "concept_id": 25,
+    "language": "es",
+    "text": "Un volcán es una ruptura en la corteza terrestre que permite la salida de lava fundida."
+  },
+  {
+    "concept_id": 25,
+    "language": "fr",
+    "text": "Un volcan est une rupture dans la croûte terrestre qui laisse s'échapper de la lave en fusion."
+  },
+  {
+    "concept_id": 26,
+    "language": "en",
+    "text": "Chess is a strategy board game played on a board of sixty-four squares."
+  },
+  {
+    "concept_id": 26,
+    "language": "es",
+    "text": "El ajedrez es un juego de estrategia de mesa que se juega en un tablero de sesenta y cuatro casillas."
+  },
+  {
+    "concept_id": 26,
+    "language": "fr",
+    "text": "Les échecs sont un jeu de stratégie de plateau joué sur un damier de soixante-quatre cases."
+  },
+  {
+    "concept_id": 27,
+    "language": "en",
+    "text": "The FIFA World Cup is the most prestigious tournament in international football."
+  },
+  {
+    "concept_id": 27,
+    "language": "es",
+    "text": "La Copa Mundial de la FIFA es el torneo más prestigioso del fútbol internacional."
+  },
+  {
+    "concept_id": 27,
+    "language": "fr",
+    "text": "La Coupe du monde de la FIFA est le tournoi le plus prestigieux du football international."
+  },
+  {
+    "concept_id": 28,
+    "language": "en",
+    "text": "The Hubble Space Telescope is a NASA observatory orbiting Earth above the atmosphere."
+  },
+  {
+    "concept_id": 28,
+    "language": "es",
+    "text": "El telescopio espacial Hubble es un observatorio de la NASA que orbita la Tierra por encima de la atmósfera."
+  },
+  {
+    "concept_id": 28,
+    "language": "fr",
+    "text": "Le télescope spatial Hubble est un observatoire de la NASA en orbite autour de la Terre au-dessus de l'atmosphère."
+  },
+  {
+    "concept_id": 29,
+    "language": "en",
+    "text": "Tea is a popular aromatic beverage made by infusing leaves of the Camellia sinensis plant."
+  },
+  {
+    "concept_id": 29,
+    "language": "es",
+    "text": "El té es una popular bebida aromática preparada infusionando hojas de la planta Camellia sinensis."
+  },
+  {
+    "concept_id": 29,
+    "language": "fr",
+    "text": "Le thé est une boisson aromatique populaire préparée par infusion des feuilles de la plante Camellia sinensis."
+  }
+]
