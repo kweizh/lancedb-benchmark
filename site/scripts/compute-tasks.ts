@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 type TaskTrial = {
+  task_name: string;
   job_name: string;
   trial_name: string;
   agent: string;
@@ -99,9 +100,10 @@ async function readArtifactTree(absDir: string, relPath: string): Promise<Artifa
 async function getResultFiles(dir: string): Promise<string[]> {
   const files: string[] = [];
   try {
-    const jobs = await fs.readdir(dir, { withFileTypes: true });
+    const jobs = (await fs.readdir(dir, { withFileTypes: true }))
+      .filter((j) => j.isDirectory())
+      .sort((a, b) => a.name.localeCompare(b.name));
     for (const job of jobs) {
-      if (!job.isDirectory()) continue;
       const jobDir = path.join(dir, job.name);
       const trials = await fs.readdir(jobDir, { withFileTypes: true });
       for (const trial of trials) {
@@ -212,6 +214,7 @@ async function main() {
     const artifacts = await readArtifactTree(artifactsDir, 'artifacts');
 
     tasks[taskName].trials.push({
+      task_name: taskName,
       job_name: jobName,
       trial_name: trialName,
       agent: agentName,

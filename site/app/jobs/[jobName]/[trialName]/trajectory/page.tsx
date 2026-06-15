@@ -8,13 +8,14 @@ import { Suspense } from "react";
 
 
 type RouteParams = {
-  name: string;
-  jobId: string;
+  jobName: string;
+  trialName: string;
 };
 
 type TrialEntry = {
-  trial_name: string;
+  task_name: string;
   job_name: string;
+  trial_name: string;
   agent: string;
   passed?: boolean;
   error?: boolean;
@@ -125,18 +126,6 @@ function buildTaskDirUrl(taskName: string) {
   return `${zealtConfig.github_repo}/tree/${branch}/tasks/${encodeURIComponent(taskName)}`;
 }
 
-function splitTrialName(trialName: string): { taskName: string; jobId: string } | null {
-  const separatorIndex = trialName.lastIndexOf("__");
-  if (separatorIndex <= 0 || separatorIndex >= trialName.length - 2) {
-    return null;
-  }
-
-  return {
-    taskName: trialName.slice(0, separatorIndex),
-    jobId: trialName.slice(separatorIndex + 2),
-  };
-}
-
 function getServerBaseUrl() {
   return process.env.CLIPS_BASE_URL || 'https://fletch.getpochi.com';
 }
@@ -201,6 +190,7 @@ function isTrialEntry(value: unknown): value is TrialEntry {
 
   const trial = value as Record<string, unknown>;
   if (
+    typeof trial.task_name !== "string" ||
     typeof trial.trial_name !== "string" ||
     typeof trial.job_name !== "string" ||
     typeof trial.agent !== "string"
@@ -211,7 +201,7 @@ function isTrialEntry(value: unknown): value is TrialEntry {
   return true;
 }
 
-function findTrialEntry(taskName: string, jobId: string): TrialEntry | null {
+function findTrialEntry(jobName: string, trialName: string): TrialEntry | null {
   for (const task of Object.values(tasksData as Record<string, unknown>)) {
     if (typeof task !== "object" || task === null) {
       continue;
@@ -227,12 +217,7 @@ function findTrialEntry(taskName: string, jobId: string): TrialEntry | null {
         continue;
       }
 
-      const splitName = splitTrialName(trial.trial_name);
-      if (!splitName) {
-        continue;
-      }
-
-      if (splitName.taskName === taskName && splitName.jobId === jobId) {
+      if (trial.job_name === jobName && trial.trial_name === trialName) {
         return trial;
       }
     }
@@ -261,21 +246,16 @@ export function generateStaticParams(): RouteParams[] {
         continue;
       }
 
-      const splitName = splitTrialName(trial.trial_name);
-      if (!splitName) {
-        continue;
-      }
-
       params.push({
-        name: splitName.taskName,
-        jobId: splitName.jobId,
+        jobName: trial.job_name,
+        trialName: trial.trial_name,
       });
     }
   }
 
   // If no params found, add a dummy one to satisfy next.js output: export requirement if it exists
   if (params.length === 0) {
-    return [{ name: "dummy", jobId: "dummy" }];
+    return [{ jobName: "dummy", trialName: "dummy" }];
   }
 
   return params;
@@ -288,20 +268,19 @@ export default async function TrajectoryRoutePage({
 }) {
   const resolvedParams = await params;
 
-  const trialEntry = findTrialEntry(resolvedParams.name, resolvedParams.jobId);
+  const trialEntry = findTrialEntry(resolvedParams.jobName, resolvedParams.trialName);
   const fallbackUrl = trialEntry
     ? buildFallbackUrl(trialEntry.job_name, trialEntry.trial_name)
     : null;
-  const headerTitle = `${resolvedParams.name}__${resolvedParams.jobId}`;
+  const headerTitle = resolvedParams.trialName;
   const startedAt = trialEntry ? formatStartTime(trialEntry.job_name) : "Unknown";
   const executionDurationLabel = formatDuration(trialEntry?.latency_breakdown?.agent_exec ?? null);
   const trialStatus = getTrialStatus(trialEntry);
   const statusMeta = getStatusMeta(trialStatus);
   const StatusIcon = statusMeta.Icon;
-  const taskDirUrl = buildTaskDirUrl(resolvedParams.name);
 
   const trajectoryUrl = trialEntry
-    ? buildClipUrl(trialEntry.job_name, trialEntry.trial_name, resolvedParams.name)
+    ? buildClipUrl(trialEntry.job_name, trialEntry.trial_name, trialEntry.task_name)
     : null;
   const browserVerificationUrls = trialEntry?.browser_verification_cases
     ? trialEntry.browser_verification_cases.map((testCase) => ({
@@ -332,6 +311,7 @@ export default async function TrajectoryRoutePage({
     redirect(fallbackUrl ?? "/tasks");
   }
 
+  const taskDirUrl = buildTaskDirUrl(trialEntry.task_name);
   const stderrLogUrl = trialEntry
     ? buildRawGithubContentUrl(trialEntry.job_name, trialEntry.trial_name, `agent/${trialEntry.agent}/stderr.txt`)
     : null;

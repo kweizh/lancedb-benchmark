@@ -5,6 +5,7 @@ import PendingReviewCard from "@/components/pending-review-card";
 import { TasksPageClient, type CompactTask, type CompactTrial } from "./components/tasks-page-client";
 
 type RawTaskTrial = {
+  task_name?: string;
   job_name?: string;
   trial_name?: string;
   trajectory_id?: string;
@@ -31,26 +32,12 @@ type PendingTasksValue = {
   'pending-tasks'?: number;
 };
 
-function splitTrialName(trialName: string): { taskName: string; jobId: string } | null {
-  const separatorIndex = trialName.lastIndexOf("__");
-  if (separatorIndex <= 0 || separatorIndex >= trialName.length - 2) {
-    return null;
-  }
-
-  return {
-    taskName: trialName.slice(0, separatorIndex),
-    jobId: trialName.slice(separatorIndex + 2),
-  };
-}
-
 function toCompactTrial(taskName: string, trial: RawTaskTrial): CompactTrial | null {
   if (!trial.job_name || !trial.trial_name || !trial.model || !trial.agent) {
     return null;
   }
 
-  const splitName = splitTrialName(trial.trial_name);
-  const derivedTaskName = splitName?.taskName || taskName;
-  const jobId = splitName?.jobId || trial.job_name;
+  const canonicalTaskName = trial.task_name || taskName;
   const model = trial.model.split("/").pop() || trial.model;
   const agent = trial.agent ? trial.agent.charAt(0).toUpperCase() + trial.agent.slice(1) : "Unknown";
   const latencyBreakdown = {
@@ -72,8 +59,7 @@ function toCompactTrial(taskName: string, trial: RawTaskTrial): CompactTrial | n
     error: Boolean(trial.error),
     latency_sec: trial.latency_sec ?? null,
     latency_breakdown: latencyBreakdown,
-    taskName: derivedTaskName,
-    jobId,
+    taskName: canonicalTaskName,
     exec_duration: latencyBreakdown.agent_exec ?? trial.latency_sec ?? 0,
   };
 }
