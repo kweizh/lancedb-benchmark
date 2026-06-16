@@ -615,7 +615,7 @@ export function TasksPageClient({ tasksData }: TasksPageClientProps) {
                             <HoverCard openDelay={200} closeDelay={0}>
                               <HoverCardTrigger asChild>
                                 <Link
-                                  href={`/jobs/${encodeURIComponent(trial.job_name)}/${encodeURIComponent(trial.trial_name)}/trajectory`}
+                                  href={`/jobs/${encodeURIComponent(trial.job_name)}/${encodeURIComponent(trial.trial_name)}/run`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="absolute inset-0 flex items-center justify-start gap-1.5 md:gap-2 px-3 sm:px-6 w-full h-full cursor-pointer hover:bg-secondary/50 transition-colors group/cell focus:outline-none text-left bg-transparent border-none m-0 p-0"
