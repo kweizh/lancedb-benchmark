@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002Fjobs\u002F[jobName]\u002F[trialName]\u002Ftrajectory"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
