@@ -1,4 +1,0 @@
-{
-    "task": ["OPENAI_API_KEY"],
-    "verifier": ["OPENAI_API_KEY"]
-}
