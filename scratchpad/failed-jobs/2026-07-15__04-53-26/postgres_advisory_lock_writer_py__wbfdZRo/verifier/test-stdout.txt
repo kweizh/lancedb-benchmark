@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 0 items / 1 error
+
+==================================== ERRORS ====================================
+_____________________ ERROR collecting test_final_state.py _____________________
+/tests/test_final_state.py:13: in <module>
+    RUN_ID = os.environ["ZEALT_RUN_ID"]
+<frozen os>:685: in __getitem__
+    ???
+E   KeyError: 'ZEALT_RUN_ID'
+=========================== short test summary info ============================
+ERROR ../tests/test_final_state.py - KeyError: 'ZEALT_RUN_ID'
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 0.30s ===============================

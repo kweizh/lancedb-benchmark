@@ -1,0 +1,44 @@
+{
+    "schema_version": 1,
+    "task": {
+        "name": "mysql_binlog_cdc_indexer_py",
+        "type": "local",
+        "digest": "sha256:f0725caca333ec92a8ded01249ba971bf6c739279f14cb850421206e7a1960b0",
+        "source": "pending-tasks",
+        "path": "/home/kw/code/zealt/lancedb-benchmark/scratchpad/pending-tasks/mysql_binlog_cdc_indexer_py"
+    },
+    "install_only": false,
+    "timeout_multiplier": 1.0,
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "anthropic/claude-4-6-sonnet",
+        "skills": [],
+        "extra_allowed_hosts": [],
+        "kwargs": {},
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}"
+        },
+        "mcp_servers": []
+    },
+    "skills": [],
+    "environment": {
+        "type": "daytona",
+        "force_build": false,
+        "delete": true,
+        "cpu_enforcement_policy": "auto",
+        "memory_enforcement_policy": "auto",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ],
+        "extra_docker_compose": [],
+        "kwargs": {},
+        "extra_allowed_hosts": []
+    },
+    "verifier": {
+        "disable": false
+    }
+}

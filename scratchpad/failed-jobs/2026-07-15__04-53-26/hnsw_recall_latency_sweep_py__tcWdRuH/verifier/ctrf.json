@@ -1,0 +1,99 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T20:58:04.275896+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784062682987,
+            "stop": 1784062684275
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_return_shape_and_schema",
+                "status": "failed",
+                "duration": 1044,
+                "start": 1784062683197,
+                "stop": 1784062684241,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n        import solution  # type: ignore\n    \n        assert hasattr(solution, \"build_index\"), \"solution.build_index is missing.\"\n        assert hasattr(solution, \"sweep\"), \"solution.sweep is missing.\"\n        # Build the ANN index (idempotent per the contract).\n>       solution.build_index()\n\n/tests/test_final_state.py:50: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/home/user/myproject/solution.py:69: in build_index\n    table = _open_table()\n/home/user/myproject/solution.py:53: in _open_table\n    return _db().open_table(_table_name())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _table_name() -> str:\n        \"\"\"Return the benchmark table name derived from ``ZEALT_RUN_ID``.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        if not run_id:\n>           raise RuntimeError(\"ZEALT_RUN_ID environment variable is not set\")\nE           RuntimeError: ZEALT_RUN_ID environment variable is not set\n\n/home/user/myproject/solution.py:42: RuntimeError"
+            },
+            {
+                "name": "test_final_state.py::test_ground_truth_recall_correctness",
+                "status": "failed",
+                "duration": 6,
+                "start": 1784062684241,
+                "stop": 1784062684247,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n        import solution  # type: ignore\n    \n        assert hasattr(solution, \"build_index\"), \"solution.build_index is missing.\"\n        assert hasattr(solution, \"sweep\"), \"solution.sweep is missing.\"\n        # Build the ANN index (idempotent per the contract).\n>       solution.build_index()\n\n/tests/test_final_state.py:50: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/home/user/myproject/solution.py:69: in build_index\n    table = _open_table()\n/home/user/myproject/solution.py:53: in _open_table\n    return _db().open_table(_table_name())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _table_name() -> str:\n        \"\"\"Return the benchmark table name derived from ``ZEALT_RUN_ID``.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        if not run_id:\n>           raise RuntimeError(\"ZEALT_RUN_ID environment variable is not set\")\nE           RuntimeError: ZEALT_RUN_ID environment variable is not set\n\n/home/user/myproject/solution.py:42: RuntimeError"
+            },
+            {
+                "name": "test_final_state.py::test_monotonic_in_nprobes",
+                "status": "failed",
+                "duration": 5,
+                "start": 1784062684247,
+                "stop": 1784062684252,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n        import solution  # type: ignore\n    \n        assert hasattr(solution, \"build_index\"), \"solution.build_index is missing.\"\n        assert hasattr(solution, \"sweep\"), \"solution.sweep is missing.\"\n        # Build the ANN index (idempotent per the contract).\n>       solution.build_index()\n\n/tests/test_final_state.py:50: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/home/user/myproject/solution.py:69: in build_index\n    table = _open_table()\n/home/user/myproject/solution.py:53: in _open_table\n    return _db().open_table(_table_name())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _table_name() -> str:\n        \"\"\"Return the benchmark table name derived from ``ZEALT_RUN_ID``.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        if not run_id:\n>           raise RuntimeError(\"ZEALT_RUN_ID environment variable is not set\")\nE           RuntimeError: ZEALT_RUN_ID environment variable is not set\n\n/home/user/myproject/solution.py:42: RuntimeError"
+            },
+            {
+                "name": "test_final_state.py::test_monotonic_in_refine_factor",
+                "status": "failed",
+                "duration": 6,
+                "start": 1784062684252,
+                "stop": 1784062684258,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n        import solution  # type: ignore\n    \n        assert hasattr(solution, \"build_index\"), \"solution.build_index is missing.\"\n        assert hasattr(solution, \"sweep\"), \"solution.sweep is missing.\"\n        # Build the ANN index (idempotent per the contract).\n>       solution.build_index()\n\n/tests/test_final_state.py:50: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/home/user/myproject/solution.py:69: in build_index\n    table = _open_table()\n/home/user/myproject/solution.py:53: in _open_table\n    return _db().open_table(_table_name())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _table_name() -> str:\n        \"\"\"Return the benchmark table name derived from ``ZEALT_RUN_ID``.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        if not run_id:\n>           raise RuntimeError(\"ZEALT_RUN_ID environment variable is not set\")\nE           RuntimeError: ZEALT_RUN_ID environment variable is not set\n\n/home/user/myproject/solution.py:42: RuntimeError"
+            },
+            {
+                "name": "test_final_state.py::test_high_effort_recall_threshold",
+                "status": "failed",
+                "duration": 6,
+                "start": 1784062684258,
+                "stop": 1784062684264,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n        import solution  # type: ignore\n    \n        assert hasattr(solution, \"build_index\"), \"solution.build_index is missing.\"\n        assert hasattr(solution, \"sweep\"), \"solution.sweep is missing.\"\n        # Build the ANN index (idempotent per the contract).\n>       solution.build_index()\n\n/tests/test_final_state.py:50: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/home/user/myproject/solution.py:69: in build_index\n    table = _open_table()\n/home/user/myproject/solution.py:53: in _open_table\n    return _db().open_table(_table_name())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _table_name() -> str:\n        \"\"\"Return the benchmark table name derived from ``ZEALT_RUN_ID``.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        if not run_id:\n>           raise RuntimeError(\"ZEALT_RUN_ID environment variable is not set\")\nE           RuntimeError: ZEALT_RUN_ID environment variable is not set\n\n/home/user/myproject/solution.py:42: RuntimeError"
+            },
+            {
+                "name": "test_final_state.py::test_low_effort_strictly_worse",
+                "status": "failed",
+                "duration": 5,
+                "start": 1784062684264,
+                "stop": 1784062684269,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n        import solution  # type: ignore\n    \n        assert hasattr(solution, \"build_index\"), \"solution.build_index is missing.\"\n        assert hasattr(solution, \"sweep\"), \"solution.sweep is missing.\"\n        # Build the ANN index (idempotent per the contract).\n>       solution.build_index()\n\n/tests/test_final_state.py:50: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/home/user/myproject/solution.py:69: in build_index\n    table = _open_table()\n/home/user/myproject/solution.py:53: in _open_table\n    return _db().open_table(_table_name())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _table_name() -> str:\n        \"\"\"Return the benchmark table name derived from ``ZEALT_RUN_ID``.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        if not run_id:\n>           raise RuntimeError(\"ZEALT_RUN_ID environment variable is not set\")\nE           RuntimeError: ZEALT_RUN_ID environment variable is not set\n\n/home/user/myproject/solution.py:42: RuntimeError"
+            },
+            {
+                "name": "test_final_state.py::test_determinism",
+                "status": "failed",
+                "duration": 5,
+                "start": 1784062684270,
+                "stop": 1784062684275,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n        import solution  # type: ignore\n    \n        assert hasattr(solution, \"build_index\"), \"solution.build_index is missing.\"\n        assert hasattr(solution, \"sweep\"), \"solution.sweep is missing.\"\n        # Build the ANN index (idempotent per the contract).\n>       solution.build_index()\n\n/tests/test_final_state.py:50: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/home/user/myproject/solution.py:69: in build_index\n    table = _open_table()\n/home/user/myproject/solution.py:53: in _open_table\n    return _db().open_table(_table_name())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _table_name() -> str:\n        \"\"\"Return the benchmark table name derived from ``ZEALT_RUN_ID``.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        if not run_id:\n>           raise RuntimeError(\"ZEALT_RUN_ID environment variable is not set\")\nE           RuntimeError: ZEALT_RUN_ID environment variable is not set\n\n/home/user/myproject/solution.py:42: RuntimeError"
+            }
+        ]
+    }
+}

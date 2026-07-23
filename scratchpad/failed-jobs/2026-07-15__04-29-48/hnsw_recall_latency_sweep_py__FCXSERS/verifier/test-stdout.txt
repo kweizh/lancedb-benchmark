@@ -1,0 +1,88 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 7 items
+
+../tests/test_final_state.py EEEEEEE                                     [100%]
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_return_shape_and_schema ________________
+
+    @pytest.fixture(scope="session")
+    def solution_module():
+        if PROJECT_DIR not in sys.path:
+            sys.path.insert(0, PROJECT_DIR)
+>       import solution  # type: ignore
+E       ModuleNotFoundError: No module named 'solution'
+
+/tests/test_final_state.py:45: ModuleNotFoundError
+____________ ERROR at setup of test_ground_truth_recall_correctness ____________
+
+    @pytest.fixture(scope="session")
+    def solution_module():
+        if PROJECT_DIR not in sys.path:
+            sys.path.insert(0, PROJECT_DIR)
+>       import solution  # type: ignore
+E       ModuleNotFoundError: No module named 'solution'
+
+/tests/test_final_state.py:45: ModuleNotFoundError
+_________________ ERROR at setup of test_monotonic_in_nprobes __________________
+
+    @pytest.fixture(scope="session")
+    def solution_module():
+        if PROJECT_DIR not in sys.path:
+            sys.path.insert(0, PROJECT_DIR)
+>       import solution  # type: ignore
+E       ModuleNotFoundError: No module named 'solution'
+
+/tests/test_final_state.py:45: ModuleNotFoundError
+______________ ERROR at setup of test_monotonic_in_refine_factor _______________
+
+    @pytest.fixture(scope="session")
+    def solution_module():
+        if PROJECT_DIR not in sys.path:
+            sys.path.insert(0, PROJECT_DIR)
+>       import solution  # type: ignore
+E       ModuleNotFoundError: No module named 'solution'
+
+/tests/test_final_state.py:45: ModuleNotFoundError
+_____________ ERROR at setup of test_high_effort_recall_threshold ______________
+
+    @pytest.fixture(scope="session")
+    def solution_module():
+        if PROJECT_DIR not in sys.path:
+            sys.path.insert(0, PROJECT_DIR)
+>       import solution  # type: ignore
+E       ModuleNotFoundError: No module named 'solution'
+
+/tests/test_final_state.py:45: ModuleNotFoundError
+_______________ ERROR at setup of test_low_effort_strictly_worse _______________
+
+    @pytest.fixture(scope="session")
+    def solution_module():
+        if PROJECT_DIR not in sys.path:
+            sys.path.insert(0, PROJECT_DIR)
+>       import solution  # type: ignore
+E       ModuleNotFoundError: No module named 'solution'
+
+/tests/test_final_state.py:45: ModuleNotFoundError
+______________________ ERROR at setup of test_determinism ______________________
+
+    @pytest.fixture(scope="session")
+    def solution_module():
+        if PROJECT_DIR not in sys.path:
+            sys.path.insert(0, PROJECT_DIR)
+>       import solution  # type: ignore
+E       ModuleNotFoundError: No module named 'solution'
+
+/tests/test_final_state.py:45: ModuleNotFoundError
+=========================== short test summary info ============================
+ERROR ../tests/test_final_state.py::test_return_shape_and_schema - ModuleNotF...
+ERROR ../tests/test_final_state.py::test_ground_truth_recall_correctness - Mo...
+ERROR ../tests/test_final_state.py::test_monotonic_in_nprobes - ModuleNotFoun...
+ERROR ../tests/test_final_state.py::test_monotonic_in_refine_factor - ModuleN...
+ERROR ../tests/test_final_state.py::test_high_effort_recall_threshold - Modul...
+ERROR ../tests/test_final_state.py::test_low_effort_strictly_worse - ModuleNo...
+ERROR ../tests/test_final_state.py::test_determinism - ModuleNotFoundError: N...
+============================== 7 errors in 0.38s ===============================

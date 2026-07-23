@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/home/kw/code/zealt/lancedb-benchmark/scratchpad/pending-tasks/mariadb_fulltext_hybrid_fusion_py",
+        "source": "pending-tasks"
+    },
+    "trial_name": "mariadb_fulltext_hybrid_fusion_p__6Txnwss",
+    "trials_dir": "jobs/2026-07-15__04-42-29",
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "anthropic/claude-4-6-sonnet",
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ]
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "job_id": "782e42f0-ec64-4175-b138-b79cbb8d91e5"
+}

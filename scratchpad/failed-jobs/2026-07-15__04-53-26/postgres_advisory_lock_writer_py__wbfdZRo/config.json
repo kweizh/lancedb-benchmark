@@ -1,0 +1,30 @@
+{
+    "task": {
+        "path": "/home/kw/code/zealt/lancedb-benchmark/scratchpad/pending-tasks/postgres_advisory_lock_writer_py",
+        "source": "pending-tasks"
+    },
+    "trial_name": "postgres_advisory_lock_writer_py__wbfdZRo",
+    "trials_dir": "jobs/2026-07-15__04-53-26",
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "minimax/MiniMax-M3",
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}",
+            "MINIMAX_API_KEY": "${MINIMAX_API_KEY}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ]
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "job_id": "4d431b94-a7ee-4b6e-aa47-d52b945a2d2f"
+}

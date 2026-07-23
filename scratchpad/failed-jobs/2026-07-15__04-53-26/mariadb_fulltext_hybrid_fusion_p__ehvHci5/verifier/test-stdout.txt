@@ -1,0 +1,65 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 6 items
+
+../tests/test_final_state.py EEEEEE                                      [100%]
+
+==================================== ERRORS ====================================
+____________________ ERROR at setup of test_return_contract ____________________
+
+    @pytest.fixture(scope="session")
+    def expected():
+>       with open(EXPECTED_JSON) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'
+
+/tests/test_final_state.py:15: FileNotFoundError
+________________ ERROR at setup of test_both_list_document_wins ________________
+
+    @pytest.fixture(scope="session")
+    def expected():
+>       with open(EXPECTED_JSON) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'
+
+/tests/test_final_state.py:15: FileNotFoundError
+____________ ERROR at setup of test_single_list_documents_included _____________
+
+    @pytest.fixture(scope="session")
+    def expected():
+>       with open(EXPECTED_JSON) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'
+
+/tests/test_final_state.py:15: FileNotFoundError
+_____________ ERROR at setup of test_fusion_combines_both_engines ______________
+
+    @pytest.fixture(scope="session")
+    def expected():
+>       with open(EXPECTED_JSON) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'
+
+/tests/test_final_state.py:15: FileNotFoundError
+_______________ ERROR at setup of test_rrf_score_matches_formula _______________
+
+    @pytest.fixture(scope="session")
+    def expected():
+>       with open(EXPECTED_JSON) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'
+
+/tests/test_final_state.py:15: FileNotFoundError
+______________________ ERROR at setup of test_determinism ______________________
+
+    @pytest.fixture(scope="session")
+    def expected():
+>       with open(EXPECTED_JSON) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'
+
+/tests/test_final_state.py:15: FileNotFoundError
+=========================== short test summary info ============================
+ERROR ../tests/test_final_state.py::test_return_contract - FileNotFoundError:...
+ERROR ../tests/test_final_state.py::test_both_list_document_wins - FileNotFou...
+ERROR ../tests/test_final_state.py::test_single_list_documents_included - Fil...
+ERROR ../tests/test_final_state.py::test_fusion_combines_both_engines - FileN...
+ERROR ../tests/test_final_state.py::test_rrf_score_matches_formula - FileNotF...
+ERROR ../tests/test_final_state.py::test_determinism - FileNotFoundError: [Er...
+============================== 6 errors in 1.41s ===============================

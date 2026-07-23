@@ -1,0 +1,86 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T20:58:38.834551+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 1,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784062711145,
+            "stop": 1784062718834
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_round1_initial_replication",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1796,
+                "start": 1784062711509,
+                "stop": 1784062713305,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_round1_initial_replication():\n        conn = connect_mysql()\n        try:\n            for rid in range(1, 11):\n                _insert(\n                    conn,\n                    rid,\n                    f\"Document title number {rid}\",\n                    f\"body text for record {rid} lorem ipsum keyword{rid}\",\n                    CATEGORIES[rid % len(CATEGORIES)],\n                    round(10.5 * rid, 4),\n                )\n            exec_sql(\n                conn,\n                \"UPDATE appdb.documents SET body=%s, price=%s WHERE id=%s\",\n                (\"updated body for record 3 alpha beta gamma\", 999.25, 3),\n            )\n            exec_sql(conn, \"DELETE FROM appdb.documents WHERE id=%s\", (7,))\n        finally:\n            conn.close()\n    \n        stats = parse_stats(run_sync())\n>       assert int(stats[\"inserts\"]) == 10, f\"Expected 10 inserts, got {stats['inserts']}\"\nE       AssertionError: Expected 10 inserts, got 16\nE       assert 16 == 10\nE        +  where 16 = int(16)\n\n/tests/test_final_state.py:229: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_round1_convergence_and_schema",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2142,
+                "start": 1784062713306,
+                "stop": 1784062715448,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_round1_convergence_and_schema():\n        import pyarrow as pa\n    \n        conn = connect_mysql()\n        try:\n            source = fetch_source_rows(conn)\n            assert set(source.keys()) == {1, 2, 3, 4, 5, 6, 8, 9, 10}, (\n                f\"Unexpected MySQL state before convergence check: {sorted(source.keys())}\"\n            )\n>           tbl = assert_converged(conn)\n\n/tests/test_final_state.py:244: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nconn = <pymysql.connections.Connection object at 0x7522f5253c20>\n\n    def assert_converged(conn):\n        source = fetch_source_rows(conn)\n        lance, tbl = read_lance_rows()\n>       assert set(lance.keys()) == set(source.keys()), (\n            f\"LanceDB ids {sorted(lance.keys())} != MySQL ids {sorted(source.keys())}\"\n        )\nE       AssertionError: LanceDB ids [1, 2, 3, 5, 6, 8, 9, 10] != MySQL ids [1, 2, 3, 4, 5, 6, 8, 9, 10]\nE       assert {1, 2, 3, 5, 6, 8, ...} == {1, 2, 3, 4, 5, 6, ...}\nE         Extra items in the right set:\nE         4\nE         Use -v to get more diff\n\n/tests/test_final_state.py:148: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_round2_incremental_resume",
+                "status": "passed",
+                "duration": 1723,
+                "start": 1784062715448,
+                "stop": 1784062717171,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_round2_convergence",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 17,
+                "start": 1784062717172,
+                "stop": 1784062717189,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_round2_convergence():\n        conn = connect_mysql()\n        try:\n            source = fetch_source_rows(conn)\n            assert set(source.keys()) == {1, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13}, (\n                f\"Unexpected MySQL state before round-2 convergence: {sorted(source.keys())}\"\n            )\n>           assert_converged(conn)\n\n/tests/test_final_state.py:309: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nconn = <pymysql.connections.Connection object at 0x75229c3ede20>\n\n    def assert_converged(conn):\n        source = fetch_source_rows(conn)\n        lance, tbl = read_lance_rows()\n>       assert set(lance.keys()) == set(source.keys()), (\n            f\"LanceDB ids {sorted(lance.keys())} != MySQL ids {sorted(source.keys())}\"\n        )\nE       AssertionError: LanceDB ids [1, 3, 5, 6, 8, 9, 10, 11, 12, 13] != MySQL ids [1, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13]\nE       assert {1, 3, 5, 6, 8, 9, ...} == {1, 3, 4, 5, 6, 8, ...}\nE         Extra items in the right set:\nE         4\nE         Use -v to get more diff\n\n/tests/test_final_state.py:148: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_round3_idempotent_noop",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1645,
+                "start": 1784062717189,
+                "stop": 1784062718834,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_round3_idempotent_noop():\n        before = read_checkpoint()\n        before_file, before_pos = checkpoint_coord(before)\n    \n        stats = parse_stats(run_sync())\n        assert int(stats[\"inserts\"]) == 0, f\"Expected 0 inserts on no-op run, got {stats['inserts']}\"\n        assert int(stats[\"updates\"]) == 0, f\"Expected 0 updates on no-op run, got {stats['updates']}\"\n        assert int(stats[\"deletes\"]) == 0, f\"Expected 0 deletes on no-op run, got {stats['deletes']}\"\n    \n        after_file, after_pos = checkpoint_coord(read_checkpoint())\n        assert (after_file, after_pos) == (before_file, before_pos), (\n            f\"Checkpoint changed on a no-op run: ({before_file},{before_pos}) -> ({after_file},{after_pos})\"\n        )\n    \n        conn = connect_mysql()\n        try:\n>           assert_converged(conn)\n\n/tests/test_final_state.py:330: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nconn = <pymysql.connections.Connection object at 0x7522999309b0>\n\n    def assert_converged(conn):\n        source = fetch_source_rows(conn)\n        lance, tbl = read_lance_rows()\n>       assert set(lance.keys()) == set(source.keys()), (\n            f\"LanceDB ids {sorted(lance.keys())} != MySQL ids {sorted(source.keys())}\"\n        )\nE       AssertionError: LanceDB ids [1, 3, 5, 6, 8, 9, 10, 11, 12, 13] != MySQL ids [1, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13]\nE       assert {1, 3, 5, 6, 8, 9, ...} == {1, 3, 4, 5, 6, 8, ...}\nE         Extra items in the right set:\nE         4\nE         Use -v to get more diff\n\n/tests/test_final_state.py:148: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

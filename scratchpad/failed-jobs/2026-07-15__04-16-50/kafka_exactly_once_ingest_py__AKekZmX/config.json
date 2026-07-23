@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/home/kw/code/zealt/lancedb-benchmark/scratchpad/pending-tasks/kafka_exactly_once_ingest_py",
+        "source": "pending-tasks"
+    },
+    "trial_name": "kafka_exactly_once_ingest_py__AKekZmX",
+    "trials_dir": "jobs/2026-07-15__04-16-50",
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "google/gemini-3.5-flash",
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ]
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "job_id": "236ac814-0f36-4794-bc01-a0aeeb3ce053"
+}

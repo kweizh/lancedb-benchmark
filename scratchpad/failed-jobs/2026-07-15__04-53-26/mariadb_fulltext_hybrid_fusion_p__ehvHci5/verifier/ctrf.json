@@ -1,0 +1,89 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T20:59:32.729087+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784062771316,
+            "stop": 1784062772728
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_return_contract",
+                "status": "failed",
+                "duration": 1384,
+                "start": 1784062771331,
+                "stop": 1784062772715,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def expected():\n>       with open(EXPECTED_JSON) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'\n\n/tests/test_final_state.py:15: FileNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_both_list_document_wins",
+                "status": "failed",
+                "duration": 3,
+                "start": 1784062772715,
+                "stop": 1784062772718,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def expected():\n>       with open(EXPECTED_JSON) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'\n\n/tests/test_final_state.py:15: FileNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_single_list_documents_included",
+                "status": "failed",
+                "duration": 2,
+                "start": 1784062772718,
+                "stop": 1784062772720,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def expected():\n>       with open(EXPECTED_JSON) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'\n\n/tests/test_final_state.py:15: FileNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_fusion_combines_both_engines",
+                "status": "failed",
+                "duration": 2,
+                "start": 1784062772721,
+                "stop": 1784062772723,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def expected():\n>       with open(EXPECTED_JSON) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'\n\n/tests/test_final_state.py:15: FileNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_rrf_score_matches_formula",
+                "status": "failed",
+                "duration": 3,
+                "start": 1784062772723,
+                "stop": 1784062772726,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def expected():\n>       with open(EXPECTED_JSON) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'\n\n/tests/test_final_state.py:15: FileNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_determinism",
+                "status": "failed",
+                "duration": 2,
+                "start": 1784062772726,
+                "stop": 1784062772728,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def expected():\n>       with open(EXPECTED_JSON) as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/app/expected.json'\n\n/tests/test_final_state.py:15: FileNotFoundError"
+            }
+        ]
+    }
+}

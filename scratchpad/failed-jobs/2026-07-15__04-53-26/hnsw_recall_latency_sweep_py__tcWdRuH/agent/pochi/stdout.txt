@@ -1,0 +1,750 @@
+
+Pochi 0.6.17 (update available 0.6.18-beta.1)
+────────────────────────────────────────────────────────────────────────────────
+- Initializing MCP connections...
+You
+# LanceDB ANN Recall / Latency Parameter Sweep ## Background Approximate-nearest-neighbor (ANN) indexes trade recall for latency. To pick good production settings you must measure, on a fixed benchmark, how recall and query latency change as you turn the search-time knobs of the index. In this task you build a LanceDB ANN vector index over a pre-seeded table of a few thousand deterministic vectors and implement a reusable sweep that evaluates a grid of search-time parameters, reporting recall\@k (against exact brute-force ground truth) and mean query latency for every configuration. Everything runs locally against an embedded LanceDB database on disk. There is no network access, no hosted API, and no model or dataset download. ## Requirements * Build an ANN vector index on the vector column of the pre-seeded table so that approximate search can be performed. * Implement a parameter sweep that, for each search-time configuration in a caller-supplied grid, runs vector searches for every query in a caller-supplied query set and computes: * `recall@k`: the mean fraction of the exact top-`k` nearest neighbors (by the index's distance metric) that the ANN search returns, averaged over all queries. Exact top-`k` must be computed by brute force (an exhaustive / index-bypassing scan) so it is ground truth. * the mean per-query search latency for that configuration. * The sweep must be deterministic: calling it twice with the same built index, query set, and grid must return identical recall values. * Increasing search effort (scanning more index partitions and/or reranking more candidates on full vectors) must yield non-decreasing recall, and the highest-effort configuration must reach high recall while the lowest-effort configuration must retrieve strictly fewer correct neighbors. ## Implementation Hints * Project path: /home/user/myproject * Put your code in `/home/user/myproject/solution.py`. * The database already exists on disk. Connect to the LanceDB directory given by the environment variable `LANCEDB_URI` (it is set to `/app/lancedb`). The benchmark table is named `vectors_<RUN_ID>`, where `<RUN_ID>` is the value of the environment variable `ZEALT_RUN_ID`; read it at runtime and do not hard-code a run id. The table has an integer primary key column `id` (values `0..N-1`) and a fixed-size-list float32 column `vector`. * Build the ANN index as an `IVF_PQ` index on the `vector` column with `num_partitions=64`, `num_sub_vectors=8`, and the `l2` distance metric so the sweep is well defined. Remember that LanceDB index builds run in the background — wait for the index to finish before searching. * Expose exactly these two callables in `solution.py`: * `build_index()` — (re)builds the ANN index on the table's `vector` column; must be safe to call more than once. * `sweep(query_set, param_grid, k=10)` — runs the benchmark and returns the results table. * `query_set` is passed as a 2-D NumPy float32 array of shape `(num_queries, dim)`. `param_grid` is a dict with keys `"nprobes"` and `"refine_factor"`, each mapping to an ascending list of positive integers; evaluate the full Cartesian product of the two lists (one configuration per pair). * `sweep` must return a `list` of `dict`, one entry per configuration, each dict having EXACTLY these keys: `nprobes` (int), `refine_factor` (int), `recall` (float in \[0.0, 1.0]), `mean_latency_ms` (float > 0). The list must be sorted ascending by `(nprobes, refine_factor)`. * Compute recall as `|ANN_top_k_ids ∩ exact_top_k_ids| / k` per query, then average over all queries. Ground-truth exact neighbors must come from a brute-force / index-bypassing scan on the same table so they are correct. * Determinism note: LanceDB search only orders rows by distance; break ties by ascending `id` where needed so repeated runs match exactly.   
+
+Pochi
+💭 Thinking for 3 characters   
+<think> Let   
+💭 Thinking for 26 characters   
+💭 Thinking for 57 characters   
+💫 Executing ls -la /home/user/myproject/ ✔ 
+💫 Executing ls -la /app/lancedb/ 2>&1 | head -50 ✔ 
+💫 Executing echo "ZEALT_RUN_ID=$ZEALT_RUN_ID"; echo "LANCEDB_URI=$LANCEDB_URI"; env | grep -E "ZEALT|LANCE" 2>&1 ✔ 
+💭 Thinking for 3 characters   
+<think> The   
+💭 Thinking for 62 characters   
+💭 Thinking for 56 characters   
+💫 Executing ls -la /app/ 2>&1 ✔ 
+📖 Reading /app/_seed.py ✔ 
+📖 Reading /app/entrypoint.sh ✔ 
+💫 Executing pip show lancedb 2>&1 | head -20 ✔ 
+💭 Thinking for 3 characters   
+<think> Let   
+💭 Thinking for 41 characters   
+💫 Executing export ZEALT_RUN_ID=demo; python3 /app/_seed.py 2>&1 ✔ 
+💫 Executing ls -la /app/lancedb/ ✔ 
+💫 Executing python3 -c "
+import lancedb, os
+db = lancedb.connect('/app/lancedb')
+print(db.table_names())
+tbl = db.open_table('vectors_demo')
+print(tbl.schema)
+print(tbl.to_pandas().head())
+print('rows:', tbl.count_rows())
+" 2>&1 ✔ 
+💭 Thinking for 4 characters   
+<think> Good   
+💭 Thinking for 56 characters   
+💭 Thinking for 47 characters   
+💭 Thinking for 42 characters   
+💫 Executing python3 -c "
+import lancedb
+print('lancedb version:', lancedb.__version__)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb
+help(lancedb.table.Table.create_index)
+" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "
+import lancedb
+help(lancedb.table.Table.search)
+" 2>&1 | head -80 ✔ 
+💫 Executing python3 -c "
+import lancedb
+help(lancedb.query.LanceQueryBuilder)
+" 2>&1 | head -200 ✔ 
+💫 Executing python3 -c "
+import lancedb
+import inspect
+qb = lancedb.query.LanceQueryBuilder
+print([m for m in dir(qb) if not m.startswith('_')])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb
+print([m for m in dir(lancedb.query) if not m.startswith('_')])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb
+print([m for m in dir(lancedb.query.LanceVectorQueryBuilder) if not m.startswith('_')])
+" 2>&1 ✔ 
+💭 Thinking for 1 characters   
+<think> I   
+💭 Thinking for 50 characters   
+💭 Thinking for 60 characters   
+💭 Thinking for 68 characters   
+💭 Thinking for 43 characters   
+💫 Executing python3 -c "
+import lancedb
+import inspect
+print(inspect.getsource(lancedb.query.LanceVectorQueryBuilder.nprobes))
+print(inspect.getsource(lancedb.query.LanceVectorQueryBuilder.refine_factor))
+print(inspect.getsource(lancedb.query.LanceVectorQueryBuilder.bypass_vector_index))
+" 2>&1 | head -80 ✔ 
+💭 Thinking for 3 characters   
+<think> Now   
+💭 Thinking for 50 characters   
+💭 Thinking for 25 characters   
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb')
+tbl = db.open_table('vectors_demo')
+# ensure the index column is fixed_size
+# Try a brute force search via to_arrow to see what columns come back
+import numpy as np
+q = np.random.standard_normal(64).astype('float32')
+res = tbl.search(q).bypass_vector_index().limit(15).to_arrow()
+print(res.schema)
+print(res.column_names)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb
+from datetime import timedelta
+db = lancedb.connect('/app/lancedb')
+tbl = db.open_table('vectors_demo')
+# Use create_index with replace=True
+tbl.create_index('IVF_PQ', metric='l2', num_partitions=64, num_sub_vectors=8, replace=True)
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import lancedb
+import inspect
+sig = inspect.signature(lancedb.table.Table.create_index)
+print(sig)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb')
+tbl = db.open_table('vectors_demo')
+tbl.create_index(metric='l2', num_partitions=64, num_sub_vectors=8, replace=True)
+print('done')
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import lancedb
+import numpy as np
+db = lancedb.connect('/app/lancedb')
+tbl = db.open_table('vectors_demo')
+print('indices:', tbl.list_indices())
+q = np.random.standard_normal(64).astype('float32')
+res = tbl.search(q).nprobes(4).refine_factor(1).limit(10).to_arrow()
+ids = res.column('id').to_pylist()
+dists = res.column('_distance').to_pylist()
+print(ids)
+print(dists)
+" 2>&1 ✔ 
+💭 Thinking for 3 characters   
+<think> The   
+💭 Thinking for 64 characters   
+💭 Thinking for 60 characters   
+💭 Thinking for 20 characters   
+💭 Thinking for 4 characters   
+💭 Thinking for 114 characters   
+💭 Thinking for 322 characters   
+💭 Thinking for 45 characters   
+💭 Thinking for 40 characters   
+💭 Thinking for 77 characters   
+💭 Thinking for 60 characters   
+💭 Thinking for 74 characters   
+💭 Thinking for 55 characters   
+💭 Thinking for 72 characters   
+💭 Thinking for 68 characters   
+💭 Thinking for 92 characters   
+💭 Thinking for 54 characters   
+💭 Thinking for 72 characters   
+💭 Thinking for 44 characters   
+💭 Thinking for 51 characters   
+💭 Thinking for 82 characters   
+💭 Thinking for 70 characters   
+💭 Thinking for 70 characters   
+💭 Thinking for 59 characters   
+💭 Thinking for 75 characters   
+💭 Thinking for 83 characters   
+💭 Thinking for 63 characters   
+💭 Thinking for 68 characters   
+💭 Thinking for 79 characters   
+💭 Thinking for 54 characters   
+💭 Thinking for 69 characters   
+💭 Thinking for 65 characters   
+💭 Thinking for 52 characters   
+💭 Thinking for 50 characters   
+💭 Thinking for 68 characters   
+💭 Thinking for 76 characters   
+💭 Thinking for 61 characters   
+💭 Thinking for 90 characters   
+💭 Thinking for 65 characters   
+💭 Thinking for 67 characters   
+💭 Thinking for 57 characters   
+💭 Thinking for 51 characters   
+💭 Thinking for 64 characters   
+💭 Thinking for 61 characters   
+💭 Thinking for 80 characters   
+💭 Thinking for 78 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 52 characters   
+💭 Thinking for 57 characters   
+💭 Thinking for 48 characters   
+💭 Thinking for 48 characters   
+💭 Thinking for 83 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 60 characters   
+💭 Thinking for 49 characters   
+💭 Thinking for 88 characters   
+💭 Thinking for 70 characters   
+💭 Thinking for 54 characters   
+💫 Executing python3 -c "
+import lancedb
+import inspect
+src = inspect.getsource(lancedb.table.Table.create_index)
+print(src)
+" 2>&1 | head -80 ✔ 
+💫 Executing python3 -c "
+import lancedb
+import inspect
+src = inspect.getsource(lancedb.table.Table.create_index)
+print(src)
+" 2>&1 | sed -n '60,200p' ✔ 
+💫 Executing python3 << 'PY'
+import lancedb
+import inspect
+src = inspect.getsource(lancedb.table.Table.create_index)
+print("LINES:", src.count("\n"))
+print(src[3000:6000])
+PY
+ ✔ 
+💫 Executing python3 << 'PY'
+import lancedb
+import inspect
+print(inspect.getsourcefile(lancedb.table.Table))
+PY
+ ✔ 
+🔍 Searching for def create_index in /usr/local/lib/python3.12/dist-packages/lancedb ✔ 
+📖 Reading /usr/local/lib/python3.12/dist-packages/lancedb/table.py ✔ 
+📖 Reading /usr/local/lib/python3.12/dist-packages/lancedb/table.py ✔ 
+💭 Thinking for 1 characters   
+<think> I   
+💭 Thinking for 72 characters   
+💭 Thinking for 43 characters   
+💭 Thinking for 64 characters   
+💭 Thinking for 82 characters   
+💭 Thinking for 87 characters   
+💭 Thinking for 61 characters   
+💭 Thinking for 45 characters   
+💭 Thinking for 64 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 14 characters   
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb')
+tbl = db.open_table('vectors_demo')
+print('indices:', tbl.list_indices())
+for idx in tbl.list_indices():
+    print(' name:', idx.name, 'type:', idx.type, 'columns:', idx.columns)
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/app/lancedb')
+tbl = db.open_table('vectors_demo')
+for idx in tbl.list_indices():
+    print(dir(idx))
+    break
+" 2>&1 ✔ 
+💭 Thinking for 4 characters   
+<think> Good   
+💭 Thinking for 52 characters   
+💭 Thinking for 33 characters   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+Now let me test the solution:   
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import numpy as np
+import solution
+solution.build_index()
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((20, 64)).astype('float32')
+grid = {'nprobes': [1, 2, 4, 8], 'refine_factor': [1, 2, 4]}
+res = solution.sweep(qset, grid, k=10)
+for r in res:
+    print(r)
+" 2>&1 ✔ 
+💭 Thinking for 3 characters   
+<think> The   
+💭 Thinking for 72 characters   
+💭 Thinking for 55 characters   
+💭 Thinking for 34 characters   
+💭 Thinking for 37 characters   
+💭 Thinking for 46 characters   
+💭 Thinking for 43 characters   
+💭 Thinking for 76 characters   
+💭 Thinking for 79 characters   
+💭 Thinking for 74 characters   
+💭 Thinking for 54 characters   
+💭 Thinking for 27 characters   
+💭 Thinking for 23 characters   
+💭 Thinking for 32 characters   
+💭 Thinking for 26 characters   
+💭 Thinking for 42 characters   
+💭 Thinking for 18 characters   
+💭 Thinking for 40 characters   
+💭 Thinking for 33 characters   
+💭 Thinking for 34 characters   
+💭 Thinking for 20 characters   
+💭 Thinking for 36 characters   
+💭 Thinking for 27 characters   
+💭 Thinking for 22 characters   
+💭 Thinking for 41 characters   
+💭 Thinking for 23 characters   
+💭 Thinking for 24 characters   
+💭 Thinking for 81 characters   
+💭 Thinking for 48 characters   
+💭 Thinking for 71 characters   
+💭 Thinking for 62 characters   
+💭 Thinking for 52 characters   
+💭 Thinking for 70 characters   
+💭 Thinking for 95 characters   
+💭 Thinking for 94 characters   
+💭 Thinking for 66 characters   
+💭 Thinking for 36 characters   
+💭 Thinking for 43 characters   
+💭 Thinking for 38 characters   
+💭 Thinking for 65 characters   
+💭 Thinking for 53 characters   
+💭 Thinking for 62 characters   
+💭 Thinking for 60 characters   
+💭 Thinking for 63 characters   
+💫 Executing export ZEALT_RUN_ID=demo && python3 -c "
+import numpy as np
+import solution
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((20, 64)).astype('float32')
+grid = {'nprobes': [1, 2, 4, 8], 'refine_factor': [1, 2, 4]}
+
+r1 = solution.sweep(qset, grid, k=10)
+r2 = solution.sweep(qset, grid, k=10)
+print('Determinism (recall equal):', all(a['recall'] == b['recall'] for a, b in zip(r1, r2)))
+print('Determinism (latency close):', all(abs(a['mean_latency_ms'] - b['mean_latency_ms']) < 0.5 for a, b in zip(r1, r2)))
+
+# Test monotonicity in nprobes for each refine_factor
+from collections import defaultdict
+recalls = defaultdict(list)
+latencies = defaultdict(list)
+for r in r1:
+    recalls[r['refine_factor']].append(r['recall'])
+    latencies[r['refine_factor']].append(r['mean_latency_ms'])
+
+for rf, vals in recalls.items():
+    mono = all(vals[i] <= vals[i+1] for i in range(len(vals)-1))
+    print(f'refine_factor={rf}: recalls={vals} monotonic_in_nprobes={mono}')
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((20, 64)).astype('float32')
+grid = {'nprobes': [1, 2, 4, 8], 'refine_factor': [1, 2, 4]}
+
+r1 = solution.sweep(qset, grid, k=10)
+r2 = solution.sweep(qset, grid, k=10)
+print('Determinism (recall equal):', all(a['recall'] == b['recall'] for a, b in zip(r1, r2)))
+print('Order correct:', [r['nprobes'] for r in r1] == sorted([r['nprobes'] for r in r1]))
+
+from collections import defaultdict
+recalls = defaultdict(list)
+for r in r1:
+    recalls[r['refine_factor']].append(r['recall'])
+
+for rf, vals in recalls.items():
+    mono = all(vals[i] <= vals[i+1] for i in range(len(vals)-1))
+    print(f'refine_factor={rf}: recalls={[round(v,3) for v in vals]} mono_in_nprobes={mono}')
+
+# Also test larger sweep with bigger nprobes to see how high recall can go
+print('--- Large sweep ---')
+grid2 = {'nprobes': [1, 8, 16, 32, 64], 'refine_factor': [1, 4, 16]}
+qset2 = rng.standard_normal((50, 64)).astype('float32')
+r3 = solution.sweep(qset2, grid2, k=10)
+for r in r3:
+    print(f\"nprobes={r['nprobes']:3} refine={r['refine_factor']:3} recall={r['recall']:.3f} lat_ms={r['mean_latency_ms']:.3f}\")
+" 2>&1 ✔ 
+💭 Thinking for 4 characters   
+<think> With   
+💭 Thinking for 46 characters   
+💭 Thinking for 55 characters   
+💭 Thinking for 69 characters   
+💭 Thinking for 56 characters   
+💫 Executing python3 -c "
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+rng = np.random.default_rng(0)
+
+grid2 = {'nprobes': [1, 8, 16, 32, 64], 'refine_factor': [1, 4, 16]}
+qset2 = rng.standard_normal((50, 64)).astype('float32')
+r3 = solution.sweep(qset2, grid2, k=10)
+
+from collections import defaultdict
+recalls_by_np = defaultdict(list)
+for r in r3:
+    recalls_by_np[r['nprobes']].append(r['recall'])
+for np_, vals in recalls_by_np.items():
+    mono = all(vals[i] <= vals[i+1] for i in range(len(vals)-1))
+    print(f'nprobes={np_}: recalls={[round(v,3) for v in vals]} mono_in_refine={mono}')
+
+# Verify return type and keys
+r = r3[0]
+print('Type of return:', type(r3))
+print('Keys of dict:', sorted(r.keys()))
+print('Value types:', {k: type(v).__name__ for k, v in r.items()})
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import os
+os.environ['ZEALT_RUN_ID'] = 'demo'
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+rng = np.random.default_rng(0)
+
+grid2 = {'nprobes': [1, 8, 16, 32, 64], 'refine_factor': [1, 4, 16]}
+qset2 = rng.standard_normal((50, 64)).astype('float32')
+r3 = solution.sweep(qset2, grid2, k=10)
+
+from collections import defaultdict
+recalls_by_np = defaultdict(list)
+for r in r3:
+    recalls_by_np[r['nprobes']].append(r['recall'])
+for np_, vals in recalls_by_np.items():
+    mono = all(vals[i] <= vals[i+1] for i in range(len(vals)-1))
+    print(f'nprobes={np_}: recalls={[round(v,3) for v in vals]} mono_in_refine={mono}')
+
+r = r3[0]
+print('Type of return:', type(r3))
+print('Keys of dict:', sorted(r.keys()))
+print('Value types:', {k: type(v).__name__ for k, v in r.items()})
+" 2>&1 ✔ 
+💭 Thinking for 3 characters   
+<think> All   
+💭 Thinking for 44 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 64 characters   
+💭 Thinking for 42 characters   
+💭 Thinking for 33 characters   
+💭 Thinking for 11 characters   
+💭 Thinking for 54 characters   
+💭 Thinking for 36 characters   
+💭 Thinking for 3 characters   
+💭 Thinking for 44 characters   
+💭 Thinking for 62 characters   
+💭 Thinking for 61 characters   
+💭 Thinking for 44 characters   
+💭 Thinking for 34 characters   
+💭 Thinking for 47 characters   
+💭 Thinking for 50 characters   
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import os
+os.environ['ZEALT_RUN_ID'] = 'demo'
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+rng = np.random.default_rng(0)
+
+# Test different k values
+qset = rng.standard_normal((20, 64)).astype('float32')
+for k in [5, 10, 20]:
+    r = solution.sweep(qset, {'nprobes': [1, 4, 8, 16], 'refine_factor': [1, 2, 4]}, k=k)
+    maxr = max(x['recall'] for x in r)
+    minr = min(x['recall'] for x in r)
+    print(f'k={k}: min_recall={minr:.3f}, max_recall={maxr:.3f}, all in [0,1]? {all(0 <= x[\"recall\"] <= 1 for x in r)}')
+
+# Test single-query sweep (weird edge case)
+qset1 = rng.standard_normal((1, 64)).astype('float32')
+r = solution.sweep(qset1, {'nprobes': [1, 4], 'refine_factor': [1, 2]}, k=5)
+print(f'num_queries=1: works, {len(r)} configs')
+
+# Test with int64 query_set should be coerced
+qset_int = rng.standard_normal((10, 64)).astype('float64')
+r = solution.sweep(qset_int, {'nprobes': [1, 4], 'refine_factor': [1]}, k=5)
+print(f'float64 query_set: works, recall[0]={r[0][\"recall\"]}')
+" 2>&1 ✔ 
+💭 Thinking for 4 characters   
+<think> Wait   
+💭 Thinking for 44 characters   
+💭 Thinking for 51 characters   
+💭 Thinking for 52 characters   
+💭 Thinking for 45 characters   
+💭 Thinking for 47 characters   
+💭 Thinking for 53 characters   
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import os
+os.environ['ZEALT_RUN_ID'] = 'demo'
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((20, 64)).astype('float32')
+
+# Large sweep to see recall limits
+grid = {'nprobes': [1, 4, 16, 32, 64], 'refine_factor': [1, 2, 4, 8, 16]}
+r = solution.sweep(qset, grid, k=10)
+for x in r:
+    print(f\"nprobes={x['nprobes']:3} refine={x['refine_factor']:3} recall={x['recall']:.3f} lat_ms={x['mean_latency_ms']:.3f}\")
+" 2>&1 ✔ 
+💭 Thinking for 4 characters   
+<think> With   
+💭 Thinking for 53 characters   
+💭 Thinking for 50 characters   
+💭 Thinking for 80 characters   
+💭 Thinking for 51 characters   
+💭 Thinking for 55 characters   
+💭 Thinking for 45 characters   
+💭 Thinking for 52 characters   
+💭 Thinking for 119 characters   
+💭 Thinking for 86 characters   
+💭 Thinking for 80 characters   
+💭 Thinking for 56 characters   
+💭 Thinking for 88 characters   
+💭 Thinking for 51 characters   
+💭 Thinking for 53 characters   
+💭 Thinking for 79 characters   
+💭 Thinking for 36 characters   
+💭 Thinking for 38 characters   
+💭 Thinking for 61 characters   
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import os
+os.environ['ZEALT_RUN_ID'] = 'demo'
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((20, 64)).astype('float32')
+
+# Test determinism across reconnection (table to_lance / new lancedb.connect)
+import importlib, lancedb
+db1 = lancedb.connect('/app/lancedb')
+db2 = lancedb.connect('/app/lancedb')
+print('OK: two connections to same URI:', db1 == db2 or True)
+
+# Run sweep twice in the same session
+r1 = solution.sweep(qset, {'nprobes': [4, 16], 'refine_factor': [1, 4]}, k=10)
+r2 = solution.sweep(qset, {'nprobes': [4, 16], 'refine_factor': [1, 4]}, k=10)
+print('Same-session recall equal:', all(a['recall'] == b['recall'] for a, b in zip(r1, r2)))
+
+# Rebuild index and rerun
+solution.build_index()
+r3 = solution.sweep(qset, {'nprobes': [4, 16], 'refine_factor': [1, 4]}, k=10)
+print('Recall equal after rebuild:', all(a['recall'] == b['recall'] for a, b in zip(r1, r3)))
+" 2>&1 ✔ 
+Hmm, recall differs after rebuild. Let me inspect:   
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import os
+os.environ['ZEALT_RUN_ID'] = 'demo'
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((5, 64)).astype('float32')
+
+import collections
+prev_by_id = collections.defaultdict(list)
+for trial in range(3):
+    solution.build_index()
+    r = solution.sweep(qset, {'nprobes': [4], 'refine_factor': [1]}, k=10)
+    print(f'trial {trial}: recall={r[0][\"recall\"]}, ids={r[0].get(\"_ids\", \"—\")}')"
+ ✔ 
+💭 Thinking for 3 characters   
+<think> Hmm   
+💭 Thinking for 85 characters   
+💭 Thinking for 68 characters   
+💭 Thinking for 87 characters   
+💭 Thinking for 69 characters   
+💭 Thinking for 69 characters   
+💭 Thinking for 66 characters   
+💭 Thinking for 75 characters   
+💭 Thinking for 48 characters   
+💭 Thinking for 81 characters   
+💭 Thinking for 28 characters   
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import os
+os.environ['ZEALT_RUN_ID'] = 'demo'
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+
+# Build index ONCE
+solution.build_index()
+
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((20, 64)).astype('float32')
+grid = {'nprobes': [1, 4, 8, 16], 'refine_factor': [1, 2, 4]}
+
+# Call sweep multiple times
+results = [solution.sweep(qset, grid, k=10) for _ in range(3)]
+
+# Compare recalls - should be identical
+for i in range(1, len(results)):
+    same = all(a['recall'] == b['recall'] for a, b in zip(results[0], results[i]))
+    print(f'Sweep call {i+1}: identical recall? {same}')
+" 2>&1 ✔ 
+💭 Thinking for 6 characters   
+<think> Determ   
+💭 Thinking for 52 characters   
+💭 Thinking for 82 characters   
+💭 Thinking for 20 characters   
+💭 Thinking for 23 characters   
+💭 Thinking for 319 characters   
+💭 Thinking for 76 characters   
+💭 Thinking for 52 characters   
+💭 Thinking for 60 characters   
+💭 Thinking for 62 characters   
+💭 Thinking for 59 characters   
+💭 Thinking for 81 characters   
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import os
+os.environ['ZEALT_RUN_ID'] = 'demo'
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+import lancedb
+
+db = lancedb.connect('/app/lancedb')
+tbl = db.open_table('vectors_demo')
+
+# Get all vectors as numpy for ground truth check
+arr = tbl.to_arrow()
+ids = np.asarray(arr.column('id').to_pylist(), dtype=np.int64)
+vecs = np.stack([np.asarray(v, dtype=np.float32) for v in arr.column('vector').to_pylist()])
+
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((5, 64)).astype('float32')
+
+# Compare numpy ground truth vs lancedb bypass for first 5 queries
+for i, q in enumerate(qset):
+    diff = vecs - q
+    sq = np.einsum('ij,ij->i', diff, diff)
+    top_np = ids[np.argsort(sq, kind='stable')[:10]].tolist()
+    
+    res = tbl.search(q).metric('l2').bypass_vector_index().limit(10).to_arrow()
+    top_lb = [int(x) for x in res.column('id').to_pylist()]
+    
+    print(f'q{i}: numpy={top_np[:5]}... lancedb={top_lb[:5]}... match={top_np == top_lb}')
+" 2>&1 ✔ 
+💭 Thinking for 3 characters   
+<think> The   
+💭 Thinking for 90 characters   
+💭 Thinking for 97 characters   
+💭 Thinking for 63 characters   
+💭 Thinking for 59 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 37 characters   
+💭 Thinking for 60 characters   
+💭 Thinking for 115 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 69 characters   
+💭 Thinking for 71 characters   
+💭 Thinking for 34 characters   
+💭 Thinking for 80 characters   
+💭 Thinking for 49 characters   
+💭 Thinking for 93 characters   
+💭 Thinking for 60 characters   
+💭 Thinking for 77 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 65 characters   
+💭 Thinking for 45 characters   
+💭 Thinking for 61 characters   
+💭 Thinking for 73 characters   
+💭 Thinking for 81 characters   
+💭 Thinking for 57 characters   
+💭 Thinking for 54 characters   
+💭 Thinking for 44 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 70 characters   
+💭 Thinking for 63 characters   
+💭 Thinking for 79 characters   
+💭 Thinking for 74 characters   
+💭 Thinking for 65 characters   
+💭 Thinking for 74 characters   
+💭 Thinking for 62 characters   
+💭 Thinking for 58 characters   
+💭 Thinking for 48 characters   
+💭 Thinking for 71 characters   
+💭 Thinking for 91 characters   
+💭 Thinking for 72 characters   
+💭 Thinking for 48 characters   
+💭 Thinking for 66 characters   
+💭 Thinking for 69 characters   
+💭 Thinking for 59 characters   
+💭 Thinking for 63 characters   
+💭 Thinking for 56 characters   
+💭 Thinking for 63 characters   
+💭 Thinking for 50 characters   
+💭 Thinking for 28 characters   
+💭 Thinking for 80 characters   
+💭 Thinking for 76 characters   
+💭 Thinking for 57 characters   
+💭 Thinking for 84 characters   
+💭 Thinking for 67 characters   
+💭 Thinking for 74 characters   
+💭 Thinking for 59 characters   
+💫 Executing cd /home/user/myproject && export ZEALT_RUN_ID=demo && python3 -c "
+import os
+os.environ['ZEALT_RUN_ID'] = 'demo'
+import numpy as np
+import sys; sys.path.insert(0, '/home/user/myproject')
+import solution
+
+# Test: build_index then sweep, where sweep uses a grid with descending nprobes in input
+# to verify sorting works
+solution.build_index()
+rng = np.random.default_rng(0)
+qset = rng.standard_normal((5, 64)).astype('float32')
+
+# Pass descending nprobes
+r = solution.sweep(qset, {'nprobes': [16, 4, 1], 'refine_factor': [4, 1]}, k=5)
+print('Order should be ascending:')
+for x in r:
+    print(f'  nprobes={x[\"nprobes\"]}, refine={x[\"refine_factor\"]}')
+
+# Verify all values present
+nps = [x['nprobes'] for x in r]
+rfs = [x['refine_factor'] for x in r]
+print('nprobes list:', nps)
+print('refine list:', rfs)
+
+# Check mean_latency_ms > 0 for all
+print('All latencies > 0:', all(x['mean_latency_ms'] > 0 for x in r))
+print('All recalls in [0,1]:', all(0 <= x['recall'] <= 1 for x in r))
+print('All nprobes are int:', all(isinstance(x['nprobes'], int) for x in r))
+print('All refine are int:', all(isinstance(x['refine_factor'], int) for x in r))
+print('All recall are float:', all(isinstance(x['recall'], float) for x in r))
+print('All latency are float:', all(isinstance(x['mean_latency_ms'], float) for x in r))
+" 2>&1 ✔ 
+💭 Thinking for 3 characters   
+<think> All   
+💭 Thinking for 64 characters   
+💭 Thinking for 44 characters   
+💭 Thinking for 42 characters   
+💭 Thinking for 61 characters   
+📖 Reading /home/user/myproject/solution.py ✔ 
+💫 Executing ls -la /home/user/myproject/ ✔ 
+🎉 Task Completed
+Implemented `/home/user/myproject/solution.py` exposing two callables that satisfy the spec:
+
+**`build_index()`**
+- Opens the `vectors_<ZEALT_RUN_ID>` table on the embedded LanceDB pointed to by `LANCEDB_URI`.
+- Calls `table.create_index(metric="l2", num_partitions=64, num_sub_vectors=8, vector_column_name="vector", replace=True, index_type="IVF_PQ")`.
+- `replace=True` makes the call safe to invoke more than once.
+- After submission, calls `table.wait_for_index(names, timeout=10 min)` so subsequent searches definitely hit the rebuilt index instead of running during a half-built index.
+- Calls `table.checkout_latest()` to refresh the cached dataset reference.
+
+**`sweep(query_set, param_grid, k=10)`**
+- Reads the 2-D `query_set` (coerced to `float32`/`C-contiguous`), enumerates the Cartesian product of `param_grid["nprobes"]` × `param_grid["refine_factor"]`, and sorts configurations ascending by `(nprobes, refine_factor)`.
+- Loads the table's `(id, vector)` columns once into NumPy. For each query the exact top-k neighbours are computed by brute force with `np.argsort(..., kind="stable")` over squared L2 distances; because table ids are 0..N-1 in ascending insertion order, `stable` sorting ties breaks them by ascending id deterministically (verified to match LanceDB's `bypass_vector_index()` output exactly).
+- For each configuration every query is searched via `tbl.search(q).metric("l2").nprobes(np).refine_factor(rf).limit(k).to_arrow()` with wall time measured around the call (`time.perf_counter()`).
+- Per-query recall@k is `|ANN ∩ exact| / k`; the row's `recall` is the mean over all queries, and `mean_latency_ms` is the mean per-query latency in milliseconds.
+- Returns a `list[dict]` with exactly the required keys and types: `nprobes` (int), `refine_factor` (int), `recall` (float in [0, 1]), `mean_latency_ms` (float > 0), sorted ascending by `(nprobes, refine_factor)`.
+
+**Verification performed against the seeded `vectors_demo` table (5000 × 64 float32):**
+- Calling `sweep` twice (or three times) after one `build_index` produced byte-identical recall values (determinism ✓).
+- Output type is `list`, each dict has exactly `nprobes, refine_factor, recall, mean_latency_ms`; values are `int, int, float, float` ✓.
+- For any fixed `refine_factor`, recall increased monotonically in `nprobes`; for any fixed `nprobes`, recall increased monotonically in `refine_factor` (✓ non-decreasing-with-effort).
+- Highest-effort `nprobes=64, refine_factor=16` reached recall ≈ 0.93 (high); lowest-effort `nprobes=1, refine_factor=1` sat at ≈ 0.08 (strictly fewer correct neighbours) ✓.
+- Brute-force ground truth computed in NumPy matched LanceDB's `bypass_vector_index()` for spot-checked queries.   
+  

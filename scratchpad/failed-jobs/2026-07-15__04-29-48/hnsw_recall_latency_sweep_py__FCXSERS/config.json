@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/home/kw/code/zealt/lancedb-benchmark/scratchpad/pending-tasks/hnsw_recall_latency_sweep_py",
+        "source": "pending-tasks"
+    },
+    "trial_name": "hnsw_recall_latency_sweep_py__FCXSERS",
+    "trials_dir": "jobs/2026-07-15__04-29-48",
+    "agent": {
+        "import_path": "agents.pochi:Pochi",
+        "model_name": "zai/glm-5.2",
+        "env": {
+            "POCHI_API_KEY": "${POCHI_API_KEY}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ]
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "job_id": "7527257f-13f3-460e-8f3f-dba7396a91a8"
+}

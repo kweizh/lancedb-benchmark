@@ -1,0 +1,285 @@
+
+Pochi 0.6.17 (update available 0.6.18-beta.1)
+────────────────────────────────────────────────────────────────────────────────
+- Initializing MCP connections...
+You
+# Exactly-Once Kafka -> LanceDB Ingestion Consumer ## Background You are building the durable ingestion tier of a document search system. A partitioned Kafka topic carries a stream of documents, and each document must land exactly once in a LanceDB table even if the consumer crashes and Kafka redelivers records. A local Kafka-compatible broker (Redpanda) is already running inside this environment and listening on `localhost:9092` (also exposed via `KAFKA_BOOTSTRAP_SERVERS`, default `localhost:9092`). LanceDB is the durable store. The classic pitfall is that Kafka offset commits and the downstream write are two separate operations: if you commit offsets before the data is durably written, a crash loses records; if a record is redelivered after a crash, a naive writer duplicates rows. Your job is to make the end-to-end effect exactly-once by combining manual (post-write) offset management with an idempotent writer. ## Requirements * Implement a Kafka consumer that reads every message from the input topic and writes one row per document into a LanceDB table. * Use manual offset management: disable Kafka auto-commit and commit offsets only AFTER the corresponding rows are durably written to LanceDB. * Make writes idempotent: replaying already-processed records (duplicate keys in the stream, or a full re-consume after an offset reset) must never create duplicate rows. Maintain an idempotency-key store or upsert on the document id. * Handle a multi-partition topic and consumer-group rebalances: track and commit offsets per assigned partition, and record which Kafka partition/offset each row came from. * The consumer must drain the currently-available messages and then exit cleanly with status code 0 (for example, stop once polling yields no new records for a few consecutive seconds). Re-running the command must be safe and idempotent. ## Implementation Hints * Project path: `/home/user/myproject` * Command: `python3 run.py` (run from the project directory). It connects to `KAFKA_BOOTSTRAP_SERVERS` (default `localhost:9092`), consumes the topic, writes to LanceDB, and exits 0 when the topic is drained. * Use the `confluent-kafka` Python client. Set `enable.auto.commit=false` and commit offsets yourself after each durable batch write. The consumer group is a long-lived group (subscribe, do not manually assign) so that rebalances are handled by the group protocol. * Resource names are derived from the run id. Read the run id from the file `/logs/artifacts/run-id` (strip whitespace); if that file is absent, use the literal `zrlocal`. Then use exactly these names: * Kafka topic: `ingest-docs-<run-id>` * Kafka consumer group: `ingest-group-<run-id>` * LanceDB table: `documents_<run-id>` * Open the LanceDB database at the directory `/home/user/myproject/lancedb`. * Each Kafka message has a UTF-8 string key equal to the document id, and a UTF-8 JSON value with the keys `id` (string), `text` (string), `source` (string), and `ts` (integer, unix seconds). The `id` in the value equals the message key and is the idempotency key. * Persist each document as a LanceDB row with exactly these columns: `id` (string), `text` (string), `source` (string), `ts` (int64), `partition` (int64, the Kafka partition the record came from), `offset` (int64, the Kafka offset), and `vector` (a 32-dimensional float32 fixed-size list embedding of `text`). * Compute the `vector` embedding deterministically and locally (no network, no hosted model): start from a zero vector of length 32; for every whitespace-separated token of the lowercased `text`, compute `bucket = int(hashlib.sha1(token.encode('utf-8')).hexdigest(), 16) % 32` and add `1.0` to `vector[bucket]`; finally L2-normalize the vector (leave it all zeros if the norm is 0). Store it as float32. * A duplicate is any record whose `id` already exists in the table; the table must keep a single row per `id`. `merge_insert` upsert on `id` is a convenient way to achieve idempotent writes in LanceDB.   
+
+Pochi
+💭 Thinking for 302 characters   
+📂 Listing files in /home/user/myproject recursively ✔ 
+💫 Executing cat /logs/artifacts/run-id 2>/dev/null || echo "NO_RUN_ID_FILE" ✔ 
+💫 Executing pip3 list 2>/dev/null | grep -iE "lancedb|confluent|kafka" ; echo "---" ; python3 -c "import lancedb; print('lancedb', lancedb.__version__)" 2>&1; python3 -c "import confluent_kafka; print('confluent_kafka ok')" 2>&1 ✔ 
+💭 Thinking for 334 characters   
+💫 Executing echo "KAFKA_BOOTSTRAP_SERVERS=$KAFKA_BOOTSTRAP_SERVERS"; python3 -c "import lancedb; from lancedb.table import Table; print([m for m in dir(Table) if 'merge' in m.lower()])" 2>&1; python3 -c "import lancedb; help(lancedb.connect)" 2>&1 | head -40 ✔ 
+💫 Executing python3 -c "
+import lancedb
+db = lancedb.connect('/tmp/testldb')
+import pyarrow as pa
+schema = pa.schema([
+  pa.field('id', pa.string()),
+  pa.field('text', pa.string()),
+  pa.field('source', pa.string()),
+  pa.field('ts', pa.int64()),
+  pa.field('partition', pa.int64()),
+  pa.field('offset', pa.int64()),
+  pa.field('vector', pa.list_(pa.float32(), 32)),
+])
+tbl = db.create_table('testtbl', schema=schema, mode='overwrite')
+mi = tbl.merge_insert('id').when_matched_update_all().when_not_matched_insert_all()
+print('merge_insert ok', type(mi))
+print([m for m in dir(mi) if not m.startswith('_')])
+" 2>&1 | head -40 ✔ 
+💭 Thinking for 4930 characters   
+The environment is ready. Let me verify the Kafka topic exists and check the merge_insert execute signature, then writethe implementation.   
+💫 Executing python3 -c "
+from confluent_kafka import Consumer, KafkaException, TopicPartition
+c = Consumer({'bootstrap.servers':'localhost:9092','group.id':'probe','enable.auto.commit':False,'auto.offset.reset':'earliest','session.timeout.ms':6000})
+md = c.list_topics(timeout=5)
+print('topics:', list(md.topics.keys())[:20])
+c.close()
+" 2>&1 | head -20 ✔ 
+💫 Executing python3 -c "
+import lancedb, pyarrow as pa
+db = lancedb.connect('/tmp/testldb2')
+schema = pa.schema([
+  pa.field('id', pa.string()),
+  pa.field('text', pa.string()),
+  pa.field('source', pa.string()),
+  pa.field('ts', pa.int64()),
+  pa.field('partition', pa.int64()),
+  pa.field('offset', pa.int64()),
+  pa.field('vector', pa.list_(pa.float32(), 32)),
+])
+tbl = db.create_table('t2', schema=schema, mode='overwrite')
+rows = pa.table({
+  'id':['a','b'],
+  'text':['hello world','foo'],
+  'source':['s','s'],
+  'ts':pa.array([1,2],pa.int64()),
+  'partition':pa.array([0,0],pa.int64()),
+  'offset':pa.array([0,1],pa.int64()),
+  'vector':pa.array([[0.0]*32,[0.0]*32], pa.list_(pa.float32(),32)),
+})
+tbl.merge_insert('id').when_matched_update_all().when_not_matched_insert_all().execute(rows)
+print('rows after 1st:', tbl.count_rows())
+tbl.merge_insert('id').when_matched_update_all().when_not_matched_insert_all().execute(rows)
+print('rows after dup:', tbl.count_rows())
+print(tbl.to_pandas()[['id','partition','offset']])
+" 2>&1 | tail -20 ✔ 
+💭 Thinking for 531 characters   
+💫 Executing which redpanda rpk 2>/dev/null; ps aux 2>/dev/null | grep -iE "redpanda|kafka|zookeeper" | grep -v grep; docker ps 2>/dev/null | grep -iE "redpanda|kafka"; echo "---done---" ✔ 
+💭 Thinking for 506 characters   
+Redpanda binary is present but not running. Let me start it so I can test, then buildthe implementation.   
+💫 Executing ls /etc/redpanda* 2>/dev/null; cat /etc/redpanda/redpanda.yaml 2>/dev/null | head -60; echo "---"; rpk redpanda start --help 2>&1 | head -5 ✔ 
+🛠️ Tool startBackgroundJob ✔ 
+💫 Executing sleep 6; rpk cluster health 2>&1 | head -10; echo "---"; rpk topic list 2>&1 | head ✔ 
+🛠️ Tool readBackgroundJobOutput ✔ 
+💭 Thinking for 614 characters   
+💫 Executing free -m; echo "---"; nproc; echo "---"; du -sh /var/lib/redpanda/data 2>/dev/null; ls /var/lib/redpanda/data 2>/dev/null | head ✔ 
+💭 Thinking for 258 characters   
+💫 Executing cat /var/lib/redpanda/data/pid.lock 2>/dev/null; echo "---lock"; ps aux | grep -i redpanda | grep -v grep | head; echo "---"; rm -f /var/lib/redpanda/data/pid.lock ✔ 
+💭 Thinking for 64 characters   
+🛠️ Tool startBackgroundJob ✔ 
+💫 Executing sleep 8; rpk cluster health 2>&1 | head -15 ✔ 
+💫 Executing sleep 10; rpk cluster health 2>&1 | head -15; echo "==="; curl -s http://127.0.0.1:9644/v1/cluster/health_overview 2>&1 | head ✔ 
+🛠️ Tool readBackgroundJobOutput ✔ 
+💭 Thinking for 108 characters   
+💫 Executing tail -40 /root/.pochi/tasks/7af1f99c-15f8-4a22-b24c-56cdd77e23c1/tool-results/readBackgroundJobOutput-call_11e7-output.log 2>/dev/null | grep -iE "ERROR|FATAL|exit|started|listening|kafka.*server|rpc_server|admin|exception|abort" | tail -30 ✔ 
+💭 Thinking for 411 characters   
+💫 Executing cat /sys/fs/cgroup/memory.max 2>/dev/null; cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null; echo "---"; dmesg 2>/dev/null | grep -i "killed process\|oom" | tail -5; echo "---cg"; cat /proc/self/cgroup ✔ 
+💭 Thinking for 3336 characters   
+💫 Executing /opt/redpanda/bin/redpanda --help 2>&1 | grep -iE "memory|reserve|smp|overprov" | head -20 ✔ 
+💫 Executing /opt/redpanda/bin/redpanda --help 2>&1 | head -60 ✔ 
+💫 Executing /opt/redpanda/bin/redpanda --help-seastar 2>&1 | grep -iE "memory|reserve|smp|overprov" | head -20 ✔ 
+💭 Thinking for 134 characters   
+🛠️ Tool startBackgroundJob ✔ 
+💫 Executing sleep 12; rpk cluster health 2>&1 | head -15; echo "===topics==="; rpk topic list 2>&1 | head ✔ 
+💭 Thinking for 6037 characters   
+Redpanda is running. Now let me write theimplementation.   
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/run.py ✔ 
+💭 Thinking for 378 characters   
+Now let me test end-to-end. First create the topic and produce test data (including duplicate ids) using the run-id fromthe file.   
+💫 Executing cd /home/user/myproject && python3 - <<'PY'
+import json, time
+from confluent_kafka import Producer, KafkaException
+
+run_id = open('/logs/artifacts/run-id').read().strip()
+topic = f'ingest-docs-{run_id}'
+print('topic=', topic)
+
+# create topic with 3 partitions
+from confluent_kafka import admin/AdminClient, NewTopic
+a = admin.AdminClient({'bootstrap.servers':'localhost:9092'})
+fs = a.create_topics([NewTopic(topic, num_partitions=3, replication_factor=1)], operation_timeout=10)
+for t,f in fs.items():
+    try:
+        f.result(); print('created', t)
+    except Exception as e:
+        print('create', t, '->', e)
+
+p = Producer({'bootstrap.servers':'localhost:9092'})
+docs = []
+# unique docs across partitions (use key hashing -> different partitions)
+for i in range(20):
+    docs.append((f'doc-{i}', {'id':f'doc-{i}','text':f'the quick brown fox number {i} jumps over lazy dog','source':'test','ts':1700000000+i}))
+# duplicate ids (same key) to test idempotency
+docs.append(('doc-0', {'id':'doc-0','text':'the quick brown fox number 0 jumps over lazy dog UPDATED','source':'dup','ts':1700000099}))
+docs.append(('doc-5', {'id':'doc-5','text':'DUPLICATE TEXT doc five','source':'dup','ts':1700000055}))
+
+for key, val in docs:
+    p.produce(topic, key=key.encode('utf-8'), value=json.dumps(val).encode('utf-8'))
+p.flush()
+print('produced', len(docs), 'messages')
+PY ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && python3 - <<'PY'
+import json, time
+from confluent_kafka import Producer
+from confluent_kafka.admin import AdminClient, NewTopic
+
+run_id = open('/logs/artifacts/run-id').read().strip()
+topic = f'ingest-docs-{run_id}'
+print('topic=', topic)
+
+a = AdminClient({'bootstrap.servers':'localhost:9092'})
+fs = a.create_topics([NewTopic(topic, num_partitions=3, replication_factor=1)], operation_timeout=10)
+for t,f in fs.items():
+    try:
+        f.result(); print('created', t)
+    except Exception as e:
+        print('create', t, '->', e)
+
+p = Producer({'bootstrap.servers':'localhost:9092'})
+docs = []
+for i in range(20):
+    docs.append((f'doc-{i}', {'id':f'doc-{i}','text':f'the quick brown fox number {i} jumps over lazy dog','source':'test','ts':1700000000+i}))
+docs.append(('doc-0', {'id':'doc-0','text':'the quick brown fox number 0 jumps over lazy dog UPDATED','source':'dup','ts':1700000099}))
+docs.append(('doc-5', {'id':'doc-5','text':'DUPLICATE TEXT doc five','source':'dup','ts':1700000055}))
+
+for key, val in docs:
+    p.produce(topic, key=key.encode('utf-8'), value=json.dumps(val).encode('utf-8'))
+p.flush()
+print('produced', len(docs), 'messages')
+PY ✔ 
+💫 Executing cd /home/user/myproject && time python3 run.py; echo "EXIT=$?" ✔ 
+💭 Thinking for 1303 characters   
+💫 Executing python3 - <<'PY'
+import inspect, confluent_kafka
+print(confluent_kafka.__version__)
+from confluent_kafka import Consumer
+print(inspect.signature(Consumer.__init__))
+help(Consumer.__init__)
+PY ✔ 
+💫 Executing python3 - <<'PY'
+from confluent_kafka import Consumer
+import inspect
+src = inspect.getsource(Consumer.__init__)
+print(src[:2000])
+print('=== subscribe ===')
+print(inspect.signature(Consumer.subscribe))
+print(inspect.getsource(Consumer.subscribe)[:1500])
+PY ✖ "Command exited with code 1"
+💫 Executing python3 - <<'PY'
+import confluent_kafka
+import os
+print(os.path.dirname(confluent_kafka.__file__))
+import glob
+for f in glob.glob(os.path.dirname(confluent_kafka.__file__)+'/*.py'):
+    print(f)
+PY
+echo "---"
+python3 - <<'PY'
+import confluent_kafka, inspect
+# the pure-python wrapper
+try:
+    from confluent_kafka import Consumer as C
+    print(C.__module__)
+    import confluent_kafka.consumer as m
+    print(m.__file__)
+except Exception as e:
+    print('err', e)
+PY ✔ 
+💭 Thinking for 1255 characters   
+💫 Executing grep -n "on_assign\|on_revoke\|on_lost\|def __init__\|subscribe\|rebalance" /usr/local/lib/python3.12/dist-packages/confluent_kafka/deserializing_consumer.py | head -40; echo "==="; python3 - <<'PY'
+import cimpl, inspect
+print([n for n in dir(cimpl.Consumer) if not n.startswith('__')])
+print(cimpl.Consumer.__doc__)
+PY ✖ "Command exited with code 1"
+💫 Executing grep -n "on_assign\|on_revoke\|on_lost\|subscribe\|rebalance\|_Consumer\|class " /usr/local/lib/python3.12/dist-packages/confluent_kafka/deserializing_consumer.py | head -40 ✔ 
+💫 Executing python3 - <<'PY'
+from confluent_kafka.cimpl import Consumer as C
+print([n for n in dir(C) if not n.startswith('__')])
+print('---doc---')
+print(C.__doc__)
+PY ✔ 
+💭 Thinking for 371 characters   
+💫 Executing python3 - <<'PY'
+from confluent_kafka.cimpl import Consumer as C
+print('subscribe doc:', C.subscribe.__doc__)
+print('commit doc:', C.commit.__doc__)
+PY ✔ 
+💭 Thinking for 250 characters   
+The rebalance callbacks belong in `subscribe()`, not the constructor. Let me fix that.   
+🔧 Applying diff to /home/user/myproject/run.py ✔ 
+💭 Thinking for 63 characters   
+🔧 Applying diff to /home/user/myproject/run.py ✔ 
+💭 Thinking for 380 characters   
+💫 Executing cd /home/user/myproject && time python3 run.py; echo "EXIT=$?" ✔ 
+💭 Thinking for 764 characters   
+💫 Executing cd /home/user/myproject && python3 - <<'PY'
+import lancedb
+run_id=open('/logs/artifacts/run-id').read().strip()
+db=lancedb.connect('/home/user/myproject/lancedb')
+t=db.open_table(f'documents_{run_id}')
+print('rows', t.count_rows())
+df=t.to_pandas()
+print(df[['id','source','ts','partition','offset']].sort_values('id'))
+print('unique ids', df['id'].nunique())
+print('dup ids:', df['id'].value_counts()[lambda s:s>1].to_dict())
+PY ✔ 
+💭 Thinking for 1748 characters   
+`merge_insert` dedupes against existing rows but not within the new batch. I need to dedupe the buffer by id (last wins) before upserting. Let me fix `flush_batch`.   
+🔧 Applying diff to /home/user/myproject/run.py ✔ 
+💭 Thinking for 1182 characters   
+Now let me reset the table and consumer group to test the dedup fix and idempotent re-consume fromscratch.   
+💫 Executing cd /home/user/myproject && rm -rf lancedb/documents_zrserc6hr1.lance && rpk group delete ingest-group-zrserc6hr1 2>&1 | head; echo "reset done" ✔ 
+💫 Executing cd /home/user/myproject && python3 run.py 2>&1 | tail -8; echo "EXIT=$?" ✔ 
+💭 Thinking for 163 characters   
+Dedup works (20 unique rows). Now test idempotent re-consume: reset the group and run again — should stay at 20 rows.   
+💫 Executing cd /home/user/myproject && rpk group delete ingest-group-zrserc6hr1 >/dev/null 2>&1; python3 run.py 2>&1 | tail -6; echo "EXIT=$?" ✔ 
+💭 Thinking for 215 characters   
+Idempotent re-consume keeps 20 rows. Let me verify the schema, vector correctness, and that the duplicate rows got the "last wins" update.   
+💫 Executing cd /home/user/myproject && python3 - <<'PY'
+import lancedb, hashlib, math, json
+run_id=open('/logs/artifacts/run-id').read().strip()
+db=lancedb.connect('/home/user/myproject/lancedb')
+t=db.open_table(f'documents_{run_id}')
+print('rows', t.count_rows())
+print('schema:', t.schema)
+df=t.to_pandas()
+
+# verify last-wins for duplicates
+d0=df[df.id=='doc-0'].iloc[0]
+d5=df[df.id=='doc-5'].iloc[0]
+print('doc-0 source/text:', d0['source'], repr(d0['text'][:30]))
+print('doc-5 source/text:', d5['source'], repr(d5['text'][:30]))
+
+# verify vector for doc-1
+def vec(text):
+    v=[0.0]*32
+    for tok in text.lower().split():
+        b=int(hashlib.sha1(tok.encode()).hexdigest(),16)%32
+        v[b]+=1.0
+    n=math.sqrt(sum(x*x for x in v))
+    if n>0: v=[x/n for x in v]
+    return v
+r1=df[df.id=='doc-1'].iloc[0]
+exp=vec(r1['text'])
+got=[float(x) for x in r1['vector']]
+print('vector len', len(got), 'matches expected:', all(abs(a-b)<1e-6 for a,b in zip(exp,got)), 'norm', round(math.sqrt(sum(x*x for x in got)),6))
+print('vector dtype via arrow schema field:', t.schema.field('vector').type)
+print('all columns:', list(df.columns))
+PY ✔ 
+💭 Thinking for 583 characters   
+All correct: schema, fixed-size 32 float32 vector (norm 1.0), last-wins duplicates, 20 unique rows. Now test a plain re-run (group already at committed offsets — should drain immediately and leave table unchanged).   

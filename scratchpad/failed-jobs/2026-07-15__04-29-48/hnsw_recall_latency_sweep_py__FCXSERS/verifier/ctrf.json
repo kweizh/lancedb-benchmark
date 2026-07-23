@@ -1,0 +1,99 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-07-14T20:40:29.605320+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784061629220,
+            "stop": 1784061629605
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_return_shape_and_schema",
+                "status": "failed",
+                "duration": 20,
+                "start": 1784061629562,
+                "stop": 1784061629582,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n>       import solution  # type: ignore\nE       ModuleNotFoundError: No module named 'solution'\n\n/tests/test_final_state.py:45: ModuleNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_ground_truth_recall_correctness",
+                "status": "failed",
+                "duration": 4,
+                "start": 1784061629582,
+                "stop": 1784061629586,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n>       import solution  # type: ignore\nE       ModuleNotFoundError: No module named 'solution'\n\n/tests/test_final_state.py:45: ModuleNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_monotonic_in_nprobes",
+                "status": "failed",
+                "duration": 4,
+                "start": 1784061629586,
+                "stop": 1784061629590,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n>       import solution  # type: ignore\nE       ModuleNotFoundError: No module named 'solution'\n\n/tests/test_final_state.py:45: ModuleNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_monotonic_in_refine_factor",
+                "status": "failed",
+                "duration": 3,
+                "start": 1784061629590,
+                "stop": 1784061629593,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n>       import solution  # type: ignore\nE       ModuleNotFoundError: No module named 'solution'\n\n/tests/test_final_state.py:45: ModuleNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_high_effort_recall_threshold",
+                "status": "failed",
+                "duration": 3,
+                "start": 1784061629594,
+                "stop": 1784061629597,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n>       import solution  # type: ignore\nE       ModuleNotFoundError: No module named 'solution'\n\n/tests/test_final_state.py:45: ModuleNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_low_effort_strictly_worse",
+                "status": "failed",
+                "duration": 4,
+                "start": 1784061629597,
+                "stop": 1784061629601,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n>       import solution  # type: ignore\nE       ModuleNotFoundError: No module named 'solution'\n\n/tests/test_final_state.py:45: ModuleNotFoundError"
+            },
+            {
+                "name": "test_final_state.py::test_determinism",
+                "status": "failed",
+                "duration": 4,
+                "start": 1784061629601,
+                "stop": 1784061629605,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def solution_module():\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n>       import solution  # type: ignore\nE       ModuleNotFoundError: No module named 'solution'\n\n/tests/test_final_state.py:45: ModuleNotFoundError"
+            }
+        ]
+    }
+}

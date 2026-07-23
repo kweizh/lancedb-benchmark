@@ -1,0 +1,3 @@
+$c00c3404-083a-43d8-ac57-ec298fddc012²ø"id ÿÿÿÿÿÿÿÿÿ*string8Zdefault&text ÿÿÿÿÿÿÿÿÿ*string8Zdefault(source ÿÿÿÿÿÿÿÿÿ*string8Zdefault#ts ÿÿÿÿÿÿÿÿÿ*int648Zdefault*	partition ÿÿÿÿÿÿÿÿÿ*int648Zdefault'offset ÿÿÿÿÿÿÿÿÿ*int648Zdefault:vector ÿÿÿÿÿÿÿÿÿ*fixed_size_list:float:328Zdefault"!
+lance.auto_cleanup.interval20"'
+lance.auto_cleanup.older_than14days

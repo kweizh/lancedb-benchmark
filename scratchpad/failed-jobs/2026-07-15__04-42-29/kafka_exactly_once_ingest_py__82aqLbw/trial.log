@@ -1,0 +1,97 @@
+Selected strategy: _DaytonaDirect
+Building environment from /home/kw/code/zealt/lancedb-benchmark/scratchpad/pending-tasks/kafka_exactly_once_ingest_py/environment/Dockerfile
+Running command: set -euo pipefail; mkdir -p /logs/agent/pochi && pochi --version
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/MINIMAX_API_KEY/${MINIMAX_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    },
+    "minimax": {
+      "kind": "openai",
+      "baseURL": "https://api.minimax.io/v1",
+      "apiKey": "MINIMAX_API_KEY",
+      "models": {
+        "MiniMax-M3": {
+          "name": "m3"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: cat > /tmp/pochi_cmd.sh << 'CMD_EOF'
+set -o pipefail
+pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl --experimental-stream-trajectory-strip-duplicates > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Exactly-Once Kafka -> LanceDB Ingestion Consumer
+
+## Background
+You are building the durable ingestion tier of a document search system. A partitioned Kafka topic carries a stream of documents, and each document must land exactly once in a LanceDB table even if the consumer crashes and Kafka redelivers records. A local Kafka-compatible broker (Redpanda) is already running inside this environment and listening on `localhost:9092` (also exposed via `KAFKA_BOOTSTRAP_SERVERS`, default `localhost:9092`). LanceDB is the durable store.
+
+The classic pitfall is that Kafka offset commits and the downstream write are two separate operations: if you commit offsets before the data is durably written, a crash loses records; if a record is redelivered after a crash, a naive writer duplicates rows. Your job is to make the end-to-end effect exactly-once by combining manual (post-write) offset management with an idempotent writer.
+
+## Requirements
+- Implement a Kafka consumer that reads every message from the input topic and writes one row per document into a LanceDB table.
+- Use manual offset management: disable Kafka auto-commit and commit offsets only AFTER the corresponding rows are durably written to LanceDB.
+- Make writes idempotent: replaying already-processed records (duplicate keys in the stream, or a full re-consume after an offset reset) must never create duplicate rows. Maintain an idempotency-key store or upsert on the document id.
+- Handle a multi-partition topic and consumer-group rebalances: track and commit offsets per assigned partition, and record which Kafka partition/offset each row came from.
+- The consumer must drain the currently-available messages and then exit cleanly with status code 0 (for example, stop once polling yields no new records for a few consecutive seconds). Re-running the command must be safe and idempotent.
+
+## Implementation Hints
+- Project path: `/home/user/myproject`
+- Command: `python3 run.py` (run from the project directory). It connects to `KAFKA_BOOTSTRAP_SERVERS` (default `localhost:9092`), consumes the topic, writes to LanceDB, and exits 0 when the topic is drained.
+- Use the `confluent-kafka` Python client. Set `enable.auto.commit=false` and commit offsets yourself after each durable batch write. The consumer group is a long-lived group (subscribe, do not manually assign) so that rebalances are handled by the group protocol.
+- Resource names are derived from the run id. Read the run id from the file `/logs/artifacts/run-id` (strip whitespace); if that file is absent, use the literal `zrlocal`. Then use exactly these names:
+  - Kafka topic: `ingest-docs-<run-id>`
+  - Kafka consumer group: `ingest-group-<run-id>`
+  - LanceDB table: `documents_<run-id>`
+- Open the LanceDB database at the directory `/home/user/myproject/lancedb`.
+- Each Kafka message has a UTF-8 string key equal to the document id, and a UTF-8 JSON value with the keys `id` (string), `text` (string), `source` (string), and `ts` (integer, unix seconds). The `id` in the value equals the message key and is the idempotency key.
+- Persist each document as a LanceDB row with exactly these columns: `id` (string), `text` (string), `source` (string), `ts` (int64), `partition` (int64, the Kafka partition the record came from), `offset` (int64, the Kafka offset), and `vector` (a 32-dimensional float32 fixed-size list embedding of `text`).
+- Compute the `vector` embedding deterministically and locally (no network, no hosted model): start from a zero vector of length 32; for every whitespace-separated token of the lowercased `text`, compute `bucket = int(hashlib.sha1(token.encode('utf-8')).hexdigest(), 16) % 32` and add `1.0` to `vector[bucket]`; finally L2-normalize the vector (leave it all zeros if the norm is 0). Store it as float32.
+- A duplicate is any record whose `id` already exists in the table; the table must keep a single row per `id`. `merge_insert` upsert on `id` is a convenient way to achieve idempotent writes in LanceDB.
+
+
+EOF
+CMD_EOF
+setsid --wait bash /tmp/pochi_cmd.sh &
+SETSID_PID=$!
+echo $SETSID_PID > /tmp/setsid_bash_pochi_cmd.pid
+wait $SETSID_PID 2>/dev/null
+Command outputs captured
+Running command: if [ -f /tmp/setsid_bash_pochi_cmd.pid ]; then
+SETSID_PID=$(cat /tmp/setsid_bash_pochi_cmd.pid)
+kill -TERM -- -$SETSID_PID 2>/dev/null || true
+sleep 2
+kill -9 -- -$SETSID_PID 2>/dev/null || true
+fi
+rm -f ~/.pochi/config.jsonc /tmp/pochi_cmd.sh /tmp/setsid_bash_pochi_cmd.pid
+Command outputs captured
+Collecting main service artifacts

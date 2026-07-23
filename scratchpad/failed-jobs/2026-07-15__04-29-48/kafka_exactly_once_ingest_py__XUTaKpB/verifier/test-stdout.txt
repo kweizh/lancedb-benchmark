@@ -1,0 +1,235 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 7 items
+
+../tests/test_final_state.py EEEEEEE                                     [100%]
+
+==================================== ERRORS ====================================
+__________________ ERROR at setup of test_run1_exits_cleanly ___________________
+
+    @pytest.fixture(scope="session")
+    def pipeline():
+        from confluent_kafka.admin import AdminClient
+    
+>       _wait_broker()
+
+/tests/test_final_state.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _wait_broker():
+        import socket
+    
+        for _ in range(60):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(2)
+            try:
+                s.connect(("127.0.0.1", 9092))
+                s.close()
+                return
+            except OSError:
+                try:
+                    s.close()
+                except OSError:
+                    pass
+                time.sleep(1)
+>       raise RuntimeError("Redpanda broker not reachable on 127.0.0.1:9092")
+E       RuntimeError: Redpanda broker not reachable on 127.0.0.1:9092
+
+/tests/test_final_state.py:81: RuntimeError
+__________ ERROR at setup of test_row_count_and_unique_ids_after_run1 __________
+
+    @pytest.fixture(scope="session")
+    def pipeline():
+        from confluent_kafka.admin import AdminClient
+    
+>       _wait_broker()
+
+/tests/test_final_state.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _wait_broker():
+        import socket
+    
+        for _ in range(60):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(2)
+            try:
+                s.connect(("127.0.0.1", 9092))
+                s.close()
+                return
+            except OSError:
+                try:
+                    s.close()
+                except OSError:
+                    pass
+                time.sleep(1)
+>       raise RuntimeError("Redpanda broker not reachable on 127.0.0.1:9092")
+E       RuntimeError: Redpanda broker not reachable on 127.0.0.1:9092
+
+/tests/test_final_state.py:81: RuntimeError
+____________ ERROR at setup of test_schema_and_partition_awareness _____________
+
+    @pytest.fixture(scope="session")
+    def pipeline():
+        from confluent_kafka.admin import AdminClient
+    
+>       _wait_broker()
+
+/tests/test_final_state.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _wait_broker():
+        import socket
+    
+        for _ in range(60):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(2)
+            try:
+                s.connect(("127.0.0.1", 9092))
+                s.close()
+                return
+            except OSError:
+                try:
+                    s.close()
+                except OSError:
+                    pass
+                time.sleep(1)
+>       raise RuntimeError("Redpanda broker not reachable on 127.0.0.1:9092")
+E       RuntimeError: Redpanda broker not reachable on 127.0.0.1:9092
+
+/tests/test_final_state.py:81: RuntimeError
+_____________ ERROR at setup of test_offsets_committed_after_write _____________
+
+    @pytest.fixture(scope="session")
+    def pipeline():
+        from confluent_kafka.admin import AdminClient
+    
+>       _wait_broker()
+
+/tests/test_final_state.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _wait_broker():
+        import socket
+    
+        for _ in range(60):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(2)
+            try:
+                s.connect(("127.0.0.1", 9092))
+                s.close()
+                return
+            except OSError:
+                try:
+                    s.close()
+                except OSError:
+                    pass
+                time.sleep(1)
+>       raise RuntimeError("Redpanda broker not reachable on 127.0.0.1:9092")
+E       RuntimeError: Redpanda broker not reachable on 127.0.0.1:9092
+
+/tests/test_final_state.py:81: RuntimeError
+_____________ ERROR at setup of test_idempotent_on_appended_replay _____________
+
+    @pytest.fixture(scope="session")
+    def pipeline():
+        from confluent_kafka.admin import AdminClient
+    
+>       _wait_broker()
+
+/tests/test_final_state.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _wait_broker():
+        import socket
+    
+        for _ in range(60):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(2)
+            try:
+                s.connect(("127.0.0.1", 9092))
+                s.close()
+                return
+            except OSError:
+                try:
+                    s.close()
+                except OSError:
+                    pass
+                time.sleep(1)
+>       raise RuntimeError("Redpanda broker not reachable on 127.0.0.1:9092")
+E       RuntimeError: Redpanda broker not reachable on 127.0.0.1:9092
+
+/tests/test_final_state.py:81: RuntimeError
+___________ ERROR at setup of test_no_duplication_after_crash_replay ___________
+
+    @pytest.fixture(scope="session")
+    def pipeline():
+        from confluent_kafka.admin import AdminClient
+    
+>       _wait_broker()
+
+/tests/test_final_state.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _wait_broker():
+        import socket
+    
+        for _ in range(60):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(2)
+            try:
+                s.connect(("127.0.0.1", 9092))
+                s.close()
+                return
+            except OSError:
+                try:
+                    s.close()
+                except OSError:
+                    pass
+                time.sleep(1)
+>       raise RuntimeError("Redpanda broker not reachable on 127.0.0.1:9092")
+E       RuntimeError: Redpanda broker not reachable on 127.0.0.1:9092
+
+/tests/test_final_state.py:81: RuntimeError
+_____________ ERROR at setup of test_vector_search_returns_target ______________
+
+    @pytest.fixture(scope="session")
+    def pipeline():
+        from confluent_kafka.admin import AdminClient
+    
+>       _wait_broker()
+
+/tests/test_final_state.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _wait_broker():
+        import socket
+    
+        for _ in range(60):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(2)
+            try:
+                s.connect(("127.0.0.1", 9092))
+                s.close()
+                return
+            except OSError:
+                try:
+                    s.close()
+                except OSError:
+                    pass
+                time.sleep(1)
+>       raise RuntimeError("Redpanda broker not reachable on 127.0.0.1:9092")
+E       RuntimeError: Redpanda broker not reachable on 127.0.0.1:9092
+
+/tests/test_final_state.py:81: RuntimeError
+=========================== short test summary info ============================
+ERROR ../tests/test_final_state.py::test_run1_exits_cleanly - RuntimeError: R...
+ERROR ../tests/test_final_state.py::test_row_count_and_unique_ids_after_run1
+ERROR ../tests/test_final_state.py::test_schema_and_partition_awareness - Run...
+ERROR ../tests/test_final_state.py::test_offsets_committed_after_write - Runt...
+ERROR ../tests/test_final_state.py::test_idempotent_on_appended_replay - Runt...
+ERROR ../tests/test_final_state.py::test_no_duplication_after_crash_replay - ...
+ERROR ../tests/test_final_state.py::test_vector_search_returns_target - Runti...
+========================= 7 errors in 60.10s (0:01:00) =========================
